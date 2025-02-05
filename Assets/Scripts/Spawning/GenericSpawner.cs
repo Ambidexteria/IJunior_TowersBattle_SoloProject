@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Pool;
+using Zenject;
 
 public abstract class GenericSpawner<Type> : MonoBehaviour where Type : SpawnableObject
 {
@@ -9,6 +10,7 @@ public abstract class GenericSpawner<Type> : MonoBehaviour where Type : Spawnabl
     [SerializeField] private int _poolMaxSize = 100;
 
     private ObjectPool<Type> _pool;
+    private GenericSpawnableObjectFactory<Type> _factory;
 
     private void Awake()
     {
@@ -16,42 +18,40 @@ public abstract class GenericSpawner<Type> : MonoBehaviour where Type : Spawnabl
             throw new NullReferenceException();
 
         InitializePool();
+
+        PrepareOnAwake();
     }
 
-    public abstract Type Spawn();
-
-    public abstract void Despawn(Type type);
-
-    public void ReturnToPool(Type spawnedObject)
+    [Inject]
+    private void Construct(GenericSpawnableObjectFactory<Type> factory)
     {
-        PrepareToDeactivate(spawnedObject);
-        _pool.Release(spawnedObject);
+        _factory = factory;
     }
 
-    public Type GetNextObject()
+    public Type Spawn()
     {
-        Type type = _pool.Get();
-        type.gameObject.SetActive(true);
-
-        return type;
+        return _pool.Get();
     }
 
-    public virtual void PrepareToDeactivate(Type spawnedObject) { }
-
-    private Type PrepareForSpawn(Type spawnedObject)
+    public void Despawn(Type spawnableObject)
     {
-        spawnedObject.gameObject.SetActive(true);
-
-        return spawnedObject;
+        PrepareForDespawn(ref spawnableObject);
+        _pool.Release(spawnableObject);
     }
+
+    protected virtual void PrepareOnAwake() { }
+
+    protected virtual void PrepareForSpawn(ref Type spawnableObject) { }
+
+    protected virtual void PrepareForDespawn(ref Type spawnableObject) { }
 
     private void InitializePool()
     {
         _pool = new ObjectPool<Type>(
             createFunc: () => Create(),
-            actionOnGet: (spawnedObject) => PrepareForSpawn(spawnedObject),
-            actionOnRelease: (spawnedObject) => spawnedObject.gameObject.SetActive(false),
-            actionOnDestroy: (spawnedObject) => Destroy(spawnedObject.gameObject),
+            actionOnGet: (spawnableObject) => PrepareForSpawn(ref spawnableObject),
+            actionOnRelease: (spawnableObject) => spawnableObject.gameObject.SetActive(false),
+            actionOnDestroy: (spawnableObject) => Destroy(spawnableObject.gameObject),
             defaultCapacity: _poolDefaultCapacity,
             maxSize: _poolMaxSize
             );
@@ -59,6 +59,6 @@ public abstract class GenericSpawner<Type> : MonoBehaviour where Type : Spawnabl
 
     private Type Create()
     {
-        return Instantiate(_prefab);
+        return _factory.Create();
     }
 }
