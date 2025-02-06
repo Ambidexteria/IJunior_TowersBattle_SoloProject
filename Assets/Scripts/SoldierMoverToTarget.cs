@@ -15,7 +15,7 @@ public class SoldierMoverToTarget : MonoBehaviour
     private Rigidbody _rigidbody;
     private float _minDistanceSqr;
     private Coroutine _brakingSpeedCoroutine;
-    private bool _isStopped = false;
+    private bool _isStopped = true;
 
     private void Awake()
     {
@@ -31,23 +31,9 @@ public class SoldierMoverToTarget : MonoBehaviour
         if (_target == null)
             return;
 
-        if (TargetReached())
-        {
-            Stop();
-            _target = null;
-        }
-        else
-        {
-            if (_brakingSpeedCoroutine != null)
-            {
-                StopCoroutine(_brakingSpeedCoroutine);
-                _brakingSpeedCoroutine = null;
-            }
+        Move();
 
-            Move();
-
-            _rotatorToTarget.RotateAroundYAxisTo(_target);
-        }
+        _rotatorToTarget.RotateAroundYAxisTo(_target);
     }
 
     public void MoveTo(Transform target)
@@ -64,7 +50,7 @@ public class SoldierMoverToTarget : MonoBehaviour
             _brakingSpeedCoroutine = StartCoroutine(BrakeSpeed());
     }
 
-    private bool TargetReached()
+    public bool TargetReached()
     {
         return (_target.position - transform.position).sqrMagnitude < _minDistanceSqr;
     }

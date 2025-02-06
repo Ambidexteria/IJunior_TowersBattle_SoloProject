@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public class SpawnersMonoInstaller : MonoInstaller
+public class FactoriesMonoInstaller : MonoInstaller
 {
     [SerializeField] private Soldier _soldier;
 
