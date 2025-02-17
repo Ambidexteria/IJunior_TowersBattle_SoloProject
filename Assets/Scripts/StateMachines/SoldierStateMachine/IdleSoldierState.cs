@@ -12,7 +12,6 @@ public class IdleSoldierState : ISoldierState
 
     public void OnStart(SoldierStateContext context)
     {
-        _animator.SetTrigger(SoldierAnimationTriggerNames.MoveToIdle);
     }
 
     public void OnStop()
