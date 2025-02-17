@@ -28,11 +28,7 @@ public class SoldierStateMachine : MonoBehaviour
             {SoldierStateType.Attack, attackState }
         };
 
-
-        //SetIdleState();    DONT FORGET TO TURN ON !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-
+        SetIdleState();
     }
 
     private void OnEnable()
