@@ -9,6 +9,7 @@ public class SoldierStateMachine : MonoBehaviour
 
     private Soldier _soldier;
     private ISoldierState _currentState;
+    private SoldierStateType _currentStateType;
     private Dictionary<SoldierStateType, ISoldierState> _soldierStates;
     private SoldierStateContext _context;
 
@@ -33,10 +34,14 @@ public class SoldierStateMachine : MonoBehaviour
 
     private void OnEnable()
     {
+        _soldier.MovingToTarget += SetMoveState;
+        _soldier.AttackingTarget += SetAttackState;
     }
 
     private void OnDisable()
     {
+        _soldier.MovingToTarget -= SetMoveState;
+        _soldier.AttackingTarget -= SetAttackState;
     }
 
     private void Update()
@@ -44,37 +49,56 @@ public class SoldierStateMachine : MonoBehaviour
         if (_currentState != null)
             _currentState.OnUpdate();
 
-        if (Input.GetKeyUp(KeyCode.W))
-        {
-            _context.MoveTarget = _target;
-            ChangeState(_soldierStates[SoldierStateType.Move]);
-        }
+        //if (Input.GetKeyUp(KeyCode.W))
+        //{
+        //    _context.MoveTarget = _target;
+        //    ChangeState(_soldierStates[SoldierStateType.Move]);
+        //}
 
-        if (Input.GetKeyUp(KeyCode.S))
-        {
-            ChangeState(_soldierStates[SoldierStateType.Idle]);
-        }
+        //if (Input.GetKeyUp(KeyCode.S))
+        //{
+        //    ChangeState(_soldierStates[SoldierStateType.Idle]);
+        //}
         
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            _context.AttackTarget = _attackTarget;
-            ChangeState(_soldierStates[SoldierStateType.Attack]);
-        }
+        //if (Input.GetKeyUp(KeyCode.A))
+        //{
+        //    _context.AttackTarget = _attackTarget;
+        //    ChangeState(_soldierStates[SoldierStateType.Attack]);
+        //}
     }
 
     private void SetIdleState()
     {
-        ChangeState(_soldierStates[SoldierStateType.Idle]);
+        ChangeState(SoldierStateType.Idle);
     }
 
-    private void ChangeState(ISoldierState state)
+    private void SetAttackState(IDamageable damageable)
     {
+        _context.AttackTarget = damageable;
+        ChangeState(SoldierStateType.Attack);
+    }
+
+    private void SetMoveState(Transform target)
+    {
+        _context.MoveTarget = target;
+        ChangeState(SoldierStateType.Move);
+    }
+
+    private void ChangeState(SoldierStateType stateType)
+    {
+        if (_currentStateType == stateType)
+            return;
+        else
+            _currentStateType = stateType;
+
+        ISoldierState nextState = _soldierStates[stateType];
+
         if (_currentState != null)
         {
             _currentState.OnStop();
         }
 
-        _currentState = state;
+        _currentState = nextState;
         _currentState.OnStart(_context);
     }
 }

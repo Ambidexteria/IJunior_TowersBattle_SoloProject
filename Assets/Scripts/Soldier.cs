@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
@@ -13,14 +14,18 @@ public class Soldier : SpawnableObject, IDamageable, IMovable
     public Animator Animator => _animator;
     public SoldierMoverToTarget MoverToTarget => _moverToTarget;
 
+    public event Action<Transform> MovingToTarget;
+    public event Action<IDamageable> AttackingTarget;
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
     }
 
-    public void MoveTo(Transform taget)
+    public void MoveTo(Transform target)
     {
-        _moverToTarget.MoveTo(taget);
+        MovingToTarget?.Invoke(target);
+        _moverToTarget.MoveTo(target);
     }
 
     public void Stop()
@@ -37,6 +42,7 @@ public class Soldier : SpawnableObject, IDamageable, IMovable
 
     public void Attack(IDamageable enemySoldier)
     {
+        AttackingTarget?.Invoke(enemySoldier);
         _weapon.Attack(enemySoldier);
     }
 

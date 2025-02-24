@@ -17,9 +17,6 @@ public class MovingSoldierState : ISoldierState
     public void OnStart(SoldierStateContext context)
     {
         _animator.SetTrigger(SoldierAnimationTriggerNames.IdleToMove);
-
-        if (context.MoveTarget != null)
-            _soldier.MoveTo(context.MoveTarget);
     }
 
     public void OnStop()

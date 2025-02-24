@@ -17,7 +17,6 @@ public class AttackSoldierState : ISoldierState
         _attackTarget = context.AttackTarget;
         
         _animator.SetTrigger(SoldierAnimationTriggerNames.IdleToAttack);
-        _soldier.Attack(_attackTarget);
     }
 
     public void OnStop()
