@@ -4,14 +4,13 @@ using UnityEngine;
 [RequireComponent(typeof(Soldier))]
 public class SoldierStateMachine : MonoBehaviour
 {
-    [SerializeField] private Transform _target;
-    [SerializeField] private TestAttackTarget _attackTarget;
-
     private Soldier _soldier;
     private ISoldierState _currentState;
     private SoldierStateType _currentStateType;
     private Dictionary<SoldierStateType, ISoldierState> _soldierStates;
     private SoldierStateContext _context;
+
+    private SoldierStateType _previousStateType;
 
     private void Awake()
     {
@@ -20,7 +19,9 @@ public class SoldierStateMachine : MonoBehaviour
 
         MovingSoldierState moveState = new MovingSoldierState(_soldier.Animator, _soldier);
         AttackSoldierState attackState = new AttackSoldierState(_soldier.Animator, _soldier);
+
         moveState.TargetReached += SetIdleState;
+        attackState.TargetDestroyed += ReturnToPreviousState;
 
         _soldierStates = new Dictionary<SoldierStateType, ISoldierState>
         {
@@ -48,23 +49,6 @@ public class SoldierStateMachine : MonoBehaviour
     {
         if (_currentState != null)
             _currentState.OnUpdate();
-
-        //if (Input.GetKeyUp(KeyCode.W))
-        //{
-        //    _context.MoveTarget = _target;
-        //    ChangeState(_soldierStates[SoldierStateType.Move]);
-        //}
-
-        //if (Input.GetKeyUp(KeyCode.S))
-        //{
-        //    ChangeState(_soldierStates[SoldierStateType.Idle]);
-        //}
-        
-        //if (Input.GetKeyUp(KeyCode.A))
-        //{
-        //    _context.AttackTarget = _attackTarget;
-        //    ChangeState(_soldierStates[SoldierStateType.Attack]);
-        //}
     }
 
     private void SetIdleState()
@@ -72,9 +56,11 @@ public class SoldierStateMachine : MonoBehaviour
         ChangeState(SoldierStateType.Idle);
     }
 
-    private void SetAttackState(IDamageable damageable)
+    private void SetAttackState(ITargetSoldier damageable)
     {
         _context.AttackTarget = damageable;
+        _previousStateType = _currentStateType;
+
         ChangeState(SoldierStateType.Attack);
     }
 
@@ -100,5 +86,10 @@ public class SoldierStateMachine : MonoBehaviour
 
         _currentState = nextState;
         _currentState.OnStart(_context);
+    }
+
+    private void ReturnToPreviousState()
+    {
+        ChangeState(_previousStateType);
     }
 }

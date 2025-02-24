@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
 public class AttackSoldierState : ISoldierState
 {
-    private IDamageable _attackTarget;
+    private ITargetSoldier _attackTarget;
     private Animator _animator;
     private Soldier _soldier;
 
@@ -11,6 +12,8 @@ public class AttackSoldierState : ISoldierState
         _animator = animator;
         _soldier = soldier;
     }
+
+    public event Action TargetDestroyed;
 
     public void OnStart(SoldierStateContext context)
     {
@@ -27,5 +30,7 @@ public class AttackSoldierState : ISoldierState
 
     public void OnUpdate()
     {
+        if(_attackTarget.IsDead())
+            TargetDestroyed?.Invoke();
     }
 }

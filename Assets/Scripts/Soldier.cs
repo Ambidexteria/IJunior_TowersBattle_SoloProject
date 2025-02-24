@@ -3,29 +3,38 @@ using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody))]
-public class Soldier : SpawnableObject, IDamageable, IMovable
+public class Soldier : SpawnableObject, ITargetSoldier, IMovable
 {
-    [SerializeField] private SoldierMoverToTarget _moverToTarget;
+    [SerializeField] private SoldierMoverToTarget _moverToTarget; 
+    [SerializeField] private SoldierRotatorToTarget _rotatorToTarget;
     [SerializeField] private Animator _animator;
     [SerializeField] private SoldierWeapon _weapon;
+    [SerializeField] private TargetDetector _detector;
+    [SerializeField] private Team _team = Team.Player;
 
     private Rigidbody _rigidbody;
 
     public Animator Animator => _animator;
-    public SoldierMoverToTarget MoverToTarget => _moverToTarget;
+    public Team Team => _team;
 
     public event Action<Transform> MovingToTarget;
-    public event Action<IDamageable> AttackingTarget;
+    public event Action<ITargetSoldier> AttackingTarget;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
     }
 
+    private void OnEnable()
+    {
+        _detector.Detected += OnSoldierDetected;
+    }
+
     public void MoveTo(Transform target)
     {
         MovingToTarget?.Invoke(target);
         _moverToTarget.MoveTo(target);
+        _rotatorToTarget.RotateAroundYAxisTo(target);
     }
 
     public void Stop()
@@ -40,10 +49,11 @@ public class Soldier : SpawnableObject, IDamageable, IMovable
         return _moverToTarget.TargetReached();
     }
 
-    public void Attack(IDamageable enemySoldier)
+    public void Attack(ITargetSoldier enemySoldier)
     {
         AttackingTarget?.Invoke(enemySoldier);
         _weapon.Attack(enemySoldier);
+        _rotatorToTarget.RotateAroundYAxisTo(enemySoldier.GetTransform());
     }
 
     public void StopAttack()
@@ -53,11 +63,29 @@ public class Soldier : SpawnableObject, IDamageable, IMovable
 
     public void TakeDamage(int amount)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Taking Damage");
     }
 
     public bool IsDead()
     {
         return false;
+    }
+
+    public Transform GetTransform()
+    {
+        return transform;
+    }
+
+    public Team GetTeam()
+    {
+        return _team;
+    }
+
+    private void OnSoldierDetected(ITargetSoldier soldier)
+    {
+        if (soldier.GetTeam() == Team)
+            return;
+
+        Attack(soldier);
     }
 }

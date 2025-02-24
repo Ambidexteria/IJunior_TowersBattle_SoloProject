@@ -10,7 +10,6 @@ public class SoldierMoverToTarget : MonoBehaviour
     [SerializeField] private float _brakeSpeed = 1f;
     [SerializeField] private SlopeDetector _slopeDetector;
     [SerializeField] private float _slopeSlowingSpeedModifier = 1.5f;
-    [SerializeField] private SoldierRotatorToTarget _rotatorToTarget;
 
     private Rigidbody _rigidbody;
     private float _minDistanceSqr;
@@ -32,8 +31,6 @@ public class SoldierMoverToTarget : MonoBehaviour
             return;
 
         Move();
-
-        _rotatorToTarget.RotateAroundYAxisTo(_target);
     }
 
     public void MoveTo(Transform target)

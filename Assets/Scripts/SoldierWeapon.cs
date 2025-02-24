@@ -19,7 +19,7 @@ public class SoldierWeapon : MonoBehaviour
         _waitStartDelay = new WaitForSeconds(_startDelay);
     }
 
-    public void Attack(IDamageable damageable)
+    public void Attack(ITargetSoldier damageable)
     {
         if (_coroutine != null)
             return;
@@ -36,7 +36,7 @@ public class SoldierWeapon : MonoBehaviour
         _coroutine = null;
     }
 
-    private IEnumerator Shoot(IDamageable target)
+    private IEnumerator Shoot(ITargetSoldier target)
     {
         yield return _waitStartDelay;
 
