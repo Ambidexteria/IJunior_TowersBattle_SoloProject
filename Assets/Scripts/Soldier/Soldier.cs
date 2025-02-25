@@ -3,12 +3,13 @@ using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody))]
-public class Soldier : SpawnableObject, ITargetSoldier, IMovable
+public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
 {
     [SerializeField] private SoldierMoverToTarget _moverToTarget; 
     [SerializeField] private SoldierRotatorToTarget _rotatorToTarget;
     [SerializeField] private Animator _animator;
     [SerializeField] private SoldierWeapon _weapon;
+    [SerializeField] private Health _health;
     [SerializeField] private TargetDetector _detector;
     [SerializeField] private Team _team = Team.Player;
 
@@ -19,6 +20,7 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable
 
     public event Action<Transform> MovingToTarget;
     public event Action<ITargetSoldier> AttackingTarget;
+    public event Action Dying;
 
     private void Awake()
     {
@@ -28,6 +30,13 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable
     private void OnEnable()
     {
         _detector.Detected += OnSoldierDetected;
+        _health.Dying += Die;
+    }
+
+    private void OnDisable()
+    {
+        _detector.Detected -= OnSoldierDetected;
+        _health.Dying -= Die;
     }
 
     public void MoveTo(Transform target)
@@ -63,12 +72,12 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable
 
     public void TakeDamage(int amount)
     {
-        Debug.Log("Taking Damage");
+        _health.Decrease(amount);
     }
 
     public bool IsDead()
     {
-        return false;
+         return _health.IsDead;
     }
 
     public Transform GetTransform()
@@ -87,5 +96,13 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable
             return;
 
         Attack(soldier);
+    }
+
+    private void Die()
+    {
+        Dying?.Invoke();
+        StopAttack();
+        Stop();
+        enabled = false;
     }
 }

@@ -51,13 +51,8 @@ public class SoldierCommandController : MonoBehaviour
 
     private IEnumerator TrySendSoldierToControlPoint()
     {
-        if (_soldierSelector.TrySelectSoldier(out Soldier soldier))
+        if (_soldierSelector.TrySelectSoldier(out Soldier soldier) == false)
         {
-            SoldierSelected?.Invoke(soldier);
-        }
-        else
-        {
-            Debug.Log("Soldier isn't selected");
             yield break;
         }
 

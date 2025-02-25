@@ -5,12 +5,12 @@ public class AttackSoldierState : ISoldierState
 {
     private ITargetSoldier _attackTarget;
     private Animator _animator;
-    private Soldier _soldier;
+    private IAttacker _soldier;
 
-    public AttackSoldierState(Animator animator, Soldier soldier)
+    public AttackSoldierState(Animator animator, IAttacker attacker, IMovable movable)
     {
         _animator = animator;
-        _soldier = soldier;
+        _soldier = attacker;
     }
 
     public event Action TargetDestroyed;

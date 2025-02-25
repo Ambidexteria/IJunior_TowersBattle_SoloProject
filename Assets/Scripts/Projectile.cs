@@ -2,11 +2,12 @@ using UnityEngine;
 
 [RequireComponent (typeof(Collider))]
 [RequireComponent (typeof(Rigidbody))]
-public class Projectile : MonoBehaviour
+public class Projectile : SpawnableObject
 {
     [SerializeField] private int _damage = 1;
 
     private Rigidbody _rigidbody;
+    private Team _team;
 
     public Rigidbody Rigidbody => _rigidbody;
 
@@ -17,9 +18,18 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out IDamageable damageable))
-            damageable.TakeDamage(_damage);
+        if (other.TryGetComponent(out ITargetSoldier damageable))
+        {
+            if(damageable.GetTeam() != _team)
+            {
+                damageable.TakeDamage(_damage);
+                Destroy(gameObject);
+            }
+        }
+    }
 
-        Destroy(gameObject);
+    public void Init(Team team)
+    {
+        _team = team;
     }
 }

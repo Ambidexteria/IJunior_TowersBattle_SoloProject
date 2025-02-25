@@ -4,12 +4,12 @@ using UnityEngine;
 public class MovingSoldierState : ISoldierState
 {
     private Animator _animator;
-    private IMovable _soldier;
+    private IMovable _movable;
 
     public MovingSoldierState(Animator animator, IMovable moverToTarget)
     {
         _animator = animator ?? throw new NullReferenceException(nameof(animator));
-        _soldier = moverToTarget ?? throw new NullReferenceException(nameof(moverToTarget));
+        _movable = moverToTarget ?? throw new NullReferenceException(nameof(moverToTarget));
     }
 
     public event Action TargetReached;
@@ -21,14 +21,14 @@ public class MovingSoldierState : ISoldierState
 
     public void OnStop()
     {
-        _soldier.Stop();
+        _movable.Stop();
 
         _animator.SetTrigger(SoldierAnimationTriggerNames.MoveToIdle);
     }
 
     public void OnUpdate()
     {
-        if(_soldier.TargetReached())
+        if(_movable.TargetReached())
             TargetReached?.Invoke();
     }
 }

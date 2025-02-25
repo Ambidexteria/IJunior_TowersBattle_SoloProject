@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class SoldierStateMachine : MonoBehaviour
     private SoldierStateContext _context;
 
     private SoldierStateType _previousStateType;
+    private bool _isActive = true;
 
     private void Awake()
     {
@@ -18,16 +20,19 @@ public class SoldierStateMachine : MonoBehaviour
         _context = new SoldierStateContext();
 
         MovingSoldierState moveState = new MovingSoldierState(_soldier.Animator, _soldier);
-        AttackSoldierState attackState = new AttackSoldierState(_soldier.Animator, _soldier);
+        AttackSoldierState attackState = new AttackSoldierState(_soldier.Animator, _soldier, _soldier);
+        DieSoldierState dieState = new DieSoldierState(_soldier.Animator);
 
         moveState.TargetReached += SetIdleState;
         attackState.TargetDestroyed += ReturnToPreviousState;
+        dieState.Dying += Deactivate;
 
         _soldierStates = new Dictionary<SoldierStateType, ISoldierState>
         {
             {SoldierStateType.Idle, new IdleSoldierState(_soldier.Animator) },
             {SoldierStateType.Move, moveState },
-            {SoldierStateType.Attack, attackState }
+            {SoldierStateType.Attack, attackState },
+            {SoldierStateType.Die, dieState },
         };
 
         SetIdleState();
@@ -37,18 +42,26 @@ public class SoldierStateMachine : MonoBehaviour
     {
         _soldier.MovingToTarget += SetMoveState;
         _soldier.AttackingTarget += SetAttackState;
+        _soldier.Dying += SetDieState;
     }
 
     private void OnDisable()
     {
         _soldier.MovingToTarget -= SetMoveState;
         _soldier.AttackingTarget -= SetAttackState;
+        _soldier.Dying -= SetDieState;
     }
 
     private void Update()
     {
-        if (_currentState != null)
-            _currentState.OnUpdate();
+        if (_isActive)
+            if (_currentState != null)
+                _currentState.OnUpdate();
+    }
+
+    private void Deactivate()
+    {
+        _isActive = false;
     }
 
     private void SetIdleState()
@@ -70,8 +83,16 @@ public class SoldierStateMachine : MonoBehaviour
         ChangeState(SoldierStateType.Move);
     }
 
+    private void SetDieState()
+    {
+        ChangeState(SoldierStateType.Die); 
+    }
+
     private void ChangeState(SoldierStateType stateType)
     {
+        if (_isActive == false)
+            return;
+
         if (_currentStateType == stateType)
             return;
         else
@@ -90,6 +111,10 @@ public class SoldierStateMachine : MonoBehaviour
 
     private void ReturnToPreviousState()
     {
-        ChangeState(_previousStateType);
+        if (_previousStateType == SoldierStateType.Move)
+            _soldier.MoveTo(_context.MoveTarget);
+
+        if (_previousStateType == SoldierStateType.Idle)
+            ChangeState(SoldierStateType.Idle);
     }
 }

@@ -9,6 +9,8 @@ public class SoldierWeapon : MonoBehaviour
     [SerializeField] private float _startDelay;
     [SerializeField] private Transform _barrel;
 
+    [SerializeField] private Team _team;
+
     private Coroutine _coroutine;
     private WaitForSeconds _waitCooldown;
     private WaitForSeconds _waitStartDelay;
@@ -19,9 +21,17 @@ public class SoldierWeapon : MonoBehaviour
         _waitStartDelay = new WaitForSeconds(_startDelay);
     }
 
+    public void Init(Team team)
+    {
+        _team = team;
+    }
+
     public void Attack(ITargetSoldier damageable)
     {
         if (_coroutine != null)
+            return;
+
+        if (damageable.GetTeam() == _team)
             return;
 
         _coroutine = StartCoroutine(Shoot(damageable));
@@ -43,6 +53,7 @@ public class SoldierWeapon : MonoBehaviour
         while (target.IsDead() == false)
         {
             Projectile projectile = Instantiate(_projectilePrefab, _barrel.transform.position, Quaternion.identity);
+            projectile.Init(_team);
 
             projectile.Rigidbody.velocity = _barrel.forward * _projectileSpeed;
 
