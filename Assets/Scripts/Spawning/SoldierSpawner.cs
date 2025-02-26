@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -11,10 +12,9 @@ public class SoldierSpawner : GenericSpawner<Soldier>
     private WaitForSeconds _sleep;
     private Coroutine _spawnCoroutine;
 
-    private void Start()
+    public SoldierSpawner(SpawnerSettings settings, GenericSpawnableObjectFactory<Soldier> factory) : base(settings, factory)
     {
         _sleep = new WaitForSeconds(_spawnCooldown);
-        _spawnCoroutine = StartCoroutine(SpawnCoroutine());
     }
 
     private IEnumerator SpawnCoroutine()

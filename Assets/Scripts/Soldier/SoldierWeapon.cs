@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Zenject;
 
 public class SoldierWeapon : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class SoldierWeapon : MonoBehaviour
     [SerializeField] private Transform _barrel;
 
     [SerializeField] private Team _team;
+    private ProjectileSpawner _projectileSpawner;
 
     private Coroutine _coroutine;
     private WaitForSeconds _waitCooldown;
@@ -21,9 +23,11 @@ public class SoldierWeapon : MonoBehaviour
         _waitStartDelay = new WaitForSeconds(_startDelay);
     }
 
-    public void Init(Team team)
+    [Inject]
+    private void Init(/*Team team, */ProjectileSpawner spawner)
     {
-        _team = team;
+        //_team = team;
+        _projectileSpawner = spawner;
     }
 
     public void Attack(ITargetSoldier damageable)
@@ -52,9 +56,11 @@ public class SoldierWeapon : MonoBehaviour
 
         while (target.IsDead() == false)
         {
-            Projectile projectile = Instantiate(_projectilePrefab, _barrel.transform.position, Quaternion.identity);
-            projectile.Init(_team);
+            //Projectile projectile = Instantiate(_projectilePrefab, _barrel.transform.position, Quaternion.identity);
+            Projectile projectile = _projectileSpawner.Spawn();
 
+            projectile.Init(_team);
+            projectile.transform.position = _barrel.transform.position;
             projectile.Rigidbody.velocity = _barrel.forward * _projectileSpeed;
 
             yield return _waitCooldown;

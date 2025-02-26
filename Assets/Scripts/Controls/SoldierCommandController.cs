@@ -47,6 +47,7 @@ public class SoldierCommandController : MonoBehaviour
     private void OnSelect(InputAction.CallbackContext context)
     {
         _coroutine = StartCoroutine(TrySendSoldierToControlPoint());
+        
     }
 
     private IEnumerator TrySendSoldierToControlPoint()

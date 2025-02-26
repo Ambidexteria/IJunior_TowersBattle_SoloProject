@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ControlPointSelector : MonoBehaviour
@@ -15,7 +13,7 @@ public class ControlPointSelector : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, _raycastLength, _mask))
         {
-            if (hit.collider.transform.root.TryGetComponent(out controlPoint))
+            if (hit.collider.transform.TryGetComponent(out controlPoint))
             {
                 return true;
             }

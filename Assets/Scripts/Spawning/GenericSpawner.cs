@@ -1,31 +1,24 @@
-using System;
 using UnityEngine;
 using UnityEngine.Pool;
 using Zenject;
 
-public abstract class GenericSpawner<Type> : MonoBehaviour where Type : SpawnableObject
+public abstract class GenericSpawner<Type> where Type : SpawnableObject
 {
-    [SerializeField] private Type _prefab;
-    [SerializeField] private int _poolDefaultCapacity = 20;
-    [SerializeField] private int _poolMaxSize = 100;
+    private int _poolDefaultCapacity = 20;
+    private int _poolMaxSize = 100;
 
     private ObjectPool<Type> _pool;
     private GenericSpawnableObjectFactory<Type> _factory;
 
-    private void Awake()
+    [Inject]
+    public GenericSpawner(SpawnerSettings settings, GenericSpawnableObjectFactory<Type> factory)
     {
-        if (_prefab == null)
-            throw new NullReferenceException();
+        _poolDefaultCapacity = settings.poolDefaultCapacity;
+        _poolMaxSize = settings.poolMaxSize;
+        _factory = factory;
 
         InitializePool();
-
         PrepareOnAwake();
-    }
-
-    [Inject]
-    private void Construct(GenericSpawnableObjectFactory<Type> factory)
-    {
-        _factory = factory;
     }
 
     public Type Spawn()
@@ -51,7 +44,7 @@ public abstract class GenericSpawner<Type> : MonoBehaviour where Type : Spawnabl
             createFunc: () => Create(),
             actionOnGet: (spawnableObject) => PrepareForSpawn(ref spawnableObject),
             actionOnRelease: (spawnableObject) => spawnableObject.gameObject.SetActive(false),
-            actionOnDestroy: (spawnableObject) => Destroy(spawnableObject.gameObject),
+            actionOnDestroy: (spawnableObject) => GameObject.Destroy(spawnableObject.gameObject),
             defaultCapacity: _poolDefaultCapacity,
             maxSize: _poolMaxSize
             );

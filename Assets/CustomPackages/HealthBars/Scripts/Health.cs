@@ -59,7 +59,6 @@ public class Health : MonoBehaviour
         if (IsDead)
         {
             Dying?.Invoke();
-            Debug.Log("Health --- Death");
         }
     }
 }
