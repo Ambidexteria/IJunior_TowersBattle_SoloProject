@@ -1,5 +1,6 @@
 public enum Team
 {
     Player,
-    NPC
+    NPC,
+    None
 }

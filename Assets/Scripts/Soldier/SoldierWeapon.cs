@@ -56,7 +56,6 @@ public class SoldierWeapon : MonoBehaviour
 
         while (target.IsDead() == false)
         {
-            //Projectile projectile = Instantiate(_projectilePrefab, _barrel.transform.position, Quaternion.identity);
             Projectile projectile = _projectileSpawner.Spawn();
 
             projectile.Init(_team);
