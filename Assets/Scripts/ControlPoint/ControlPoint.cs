@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Renderer))]
@@ -7,11 +8,15 @@ public class ControlPoint : MonoBehaviour
     [SerializeField] private Team _team = Team.None;
     [SerializeField] private Material _playerColor;
     [SerializeField] private Material _npcColor;
+    [SerializeField] private int _energyRate = 1;
 
     private Renderer _renderer;
     private Material _defaultMaterial;
 
+    public event Action<ControlPoint> Captured;
+
     public Team Team => _team;
+    public int EnergyRate => _energyRate;
 
     private void Awake()
     {
@@ -40,5 +45,7 @@ public class ControlPoint : MonoBehaviour
             _renderer.material = _npcColor;
         else
             _renderer.material = _defaultMaterial;
+
+        Captured?.Invoke(this);
     }
 }
