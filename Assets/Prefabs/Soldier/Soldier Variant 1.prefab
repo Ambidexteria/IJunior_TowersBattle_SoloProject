@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed6cbc448cb28d4fa0c865bd53c8a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _team: 0
+  _team: 1
 --- !u!1 &3895011136388240281
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,7 +510,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 411349118769922975, guid: 6810331dcd1ab874297599b0bb26ff31, type: 3}
       propertyPath: m_Name
-      value: Soldier Variant
+      value: Soldier Variant 1
       objectReference: {fileID: 0}
     - target: {fileID: 411349118769922975, guid: 6810331dcd1ab874297599b0bb26ff31, type: 3}
       propertyPath: m_Layer
@@ -1573,7 +1573,7 @@ MonoBehaviour:
   _weapon: {fileID: 395209947879541236}
   _health: {fileID: 540139759617189591}
   _enemiesDetector: {fileID: 1306358454734737895}
-  _team: 0
+  _team: 1
 --- !u!114 &2330332889144761597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1687,7 +1687,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9211971930523208008, guid: 5b1910d5a15b5344b8e3cd58329f45de, type: 3}
       propertyPath: _team
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2099751069140086973, guid: 5b1910d5a15b5344b8e3cd58329f45de, type: 3}

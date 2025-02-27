@@ -24,7 +24,7 @@ public class SoldierStateMachine : MonoBehaviour
         DieSoldierState dieState = new DieSoldierState(_soldier.Animator);
 
         moveState.TargetReached += SetIdleState;
-        attackState.TargetDestroyed += ReturnToPreviousState;
+        attackState.AllTargetsDestroyed += ReturnToPreviousState;
         dieState.Dying += Deactivate;
 
         _soldierStates = new Dictionary<SoldierStateType, ISoldierState>
@@ -41,14 +41,14 @@ public class SoldierStateMachine : MonoBehaviour
     private void OnEnable()
     {
         _soldier.MovingToTarget += SetMoveState;
-        _soldier.AttackingTarget += SetAttackState;
+        _soldier.EnemyTargetDetected += SetAttackState;
         _soldier.Dying += SetDieState;
     }
 
     private void OnDisable()
     {
         _soldier.MovingToTarget -= SetMoveState;
-        _soldier.AttackingTarget -= SetAttackState;
+        _soldier.EnemyTargetDetected -= SetAttackState;
         _soldier.Dying -= SetDieState;
     }
 
@@ -69,9 +69,12 @@ public class SoldierStateMachine : MonoBehaviour
         ChangeState(SoldierStateType.Idle);
     }
 
-    private void SetAttackState(ITargetSoldier damageable)
+    private void SetAttackState(ITargetSoldier target)
     {
-        _context.AttackTarget = damageable;
+        if (_currentStateType == SoldierStateType.Attack)
+            return;
+
+        _context.AttackTarget = target;
         _previousStateType = _currentStateType;
 
         ChangeState(SoldierStateType.Attack);
@@ -116,5 +119,7 @@ public class SoldierStateMachine : MonoBehaviour
 
         if (_previousStateType == SoldierStateType.Idle)
             ChangeState(SoldierStateType.Idle);
+
+        Debug.Log(nameof(ReturnToPreviousState));
     }
 }

@@ -7,18 +7,18 @@ public class AttackSoldierState : ISoldierState
     private Animator _animator;
     private IAttacker _soldier;
 
-    public AttackSoldierState(Animator animator, IAttacker attacker, IMovable movable)
+    public AttackSoldierState(Animator animator, IAttacker soldier, IMovable movable)
     {
         _animator = animator;
-        _soldier = attacker;
+        _soldier = soldier;
     }
 
-    public event Action TargetDestroyed;
+    public event Action AllTargetsDestroyed;
 
     public void OnStart(SoldierStateContext context)
     {
         _attackTarget = context.AttackTarget;
-        
+        _soldier.Attack(_attackTarget);
         _animator.SetTrigger(SoldierAnimationTriggerNames.IdleToAttack);
     }
 
@@ -30,7 +30,20 @@ public class AttackSoldierState : ISoldierState
 
     public void OnUpdate()
     {
-        if(_attackTarget.IsDead())
-            TargetDestroyed?.Invoke();
+        if (_attackTarget.IsDead())
+        {
+            if (_soldier.TryGetNextAttackTarget(out ITargetSoldier nextTarget))
+            {
+                if (nextTarget == null)
+                    Debug.Log("OnUpdate AttackState target == null");
+
+                _attackTarget = nextTarget;
+                _soldier.Attack(nextTarget);
+            }
+            else
+            {
+                AllTargetsDestroyed?.Invoke();
+            }
+        }
     }
 }

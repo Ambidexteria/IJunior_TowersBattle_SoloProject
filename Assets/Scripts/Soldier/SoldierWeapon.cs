@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using Zenject;
@@ -16,6 +17,9 @@ public class SoldierWeapon : MonoBehaviour
     private Coroutine _coroutine;
     private WaitForSeconds _waitCooldown;
     private WaitForSeconds _waitStartDelay;
+    private bool _isTargetAlive = false;
+
+    public event Action TargetDestroyed;
 
     private void Awake()
     {
@@ -32,12 +36,15 @@ public class SoldierWeapon : MonoBehaviour
 
     public void Attack(ITargetSoldier damageable)
     {
-        if (_coroutine != null)
-            return;
-
         if (damageable.GetTeam() == _team)
             return;
 
+        if (_coroutine != null)
+        {
+            StopCoroutine(_coroutine);
+        }
+
+        _isTargetAlive = true;
         _coroutine = StartCoroutine(Shoot(damageable));
     }
 
@@ -54,13 +61,19 @@ public class SoldierWeapon : MonoBehaviour
     {
         yield return _waitStartDelay;
 
-        while (target.IsDead() == false)
+        while (_isTargetAlive)
         {
             Projectile projectile = _projectileSpawner.Spawn();
 
             projectile.Init(_team);
             projectile.transform.position = _barrel.transform.position;
             projectile.Rigidbody.velocity = _barrel.forward * _projectileSpeed;
+
+            if (target.IsDead())
+            {
+                _isTargetAlive = false;
+                TargetDestroyed?.Invoke();
+            }
 
             yield return _waitCooldown;
         }

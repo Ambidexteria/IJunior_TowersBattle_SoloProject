@@ -1,16 +1,18 @@
 using System;
+using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody))]
 public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
 {
-    [SerializeField] private SoldierMoverToTarget _moverToTarget; 
+    [SerializeField] private SoldierMoverToTarget _moverToTarget;
     [SerializeField] private SoldierRotatorToTarget _rotatorToTarget;
     [SerializeField] private Animator _animator;
     [SerializeField] private SoldierWeapon _weapon;
     [SerializeField] private Health _health;
-    [SerializeField] private TargetDetector _detector;
+    [SerializeField] private TargetDetector _enemiesDetector;
     [SerializeField] private Team _team = Team.Player;
 
     private Rigidbody _rigidbody;
@@ -19,7 +21,7 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
     public Team Team => _team;
 
     public event Action<Transform> MovingToTarget;
-    public event Action<ITargetSoldier> AttackingTarget;
+    public event Action<ITargetSoldier> EnemyTargetDetected;
     public event Action Dying;
 
     private void Awake()
@@ -29,13 +31,14 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
 
     private void OnEnable()
     {
-        _detector.Detected += OnSoldierDetected;
+        _enemiesDetector.Detected += OnEnemyTargetDetected;
         _health.Dying += Die;
+
     }
 
     private void OnDisable()
     {
-        _detector.Detected -= OnSoldierDetected;
+        _enemiesDetector.Detected -= OnEnemyTargetDetected;
         _health.Dying -= Die;
     }
 
@@ -60,7 +63,6 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
 
     public void Attack(ITargetSoldier enemySoldier)
     {
-        AttackingTarget?.Invoke(enemySoldier);
         _weapon.Attack(enemySoldier);
         _rotatorToTarget.RotateAroundYAxisTo(enemySoldier.GetTransform());
     }
@@ -77,7 +79,7 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
 
     public bool IsDead()
     {
-         return _health.IsDead;
+        return _health.IsDead;
     }
 
     public Transform GetTransform()
@@ -90,12 +92,14 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
         return _team;
     }
 
-    private void OnSoldierDetected(ITargetSoldier soldier)
+    public bool TryGetNextAttackTarget(out ITargetSoldier target)
     {
-        if (soldier.GetTeam() == Team)
-            return;
+        return _enemiesDetector.TryGetNextAttackTarget(out target);
+    }
 
-        Attack(soldier);
+    private void OnEnemyTargetDetected(ITargetSoldier soldier)
+    {
+        EnemyTargetDetected?.Invoke(soldier);
     }
 
     private void Die()
