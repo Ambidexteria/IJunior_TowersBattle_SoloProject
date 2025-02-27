@@ -1,9 +1,9 @@
-using System.Collections;
 using UnityEngine;
 
 public class Cannon : MonoBehaviour, IDamageable
 {
     [SerializeField] private Cannon _enemyCannon;
+    [SerializeField] private Health _health;
     [SerializeField] private CannonEnergyBar _energyBar;
     [SerializeField] private float _damage;
     [SerializeField] private float _fireDelay;
@@ -20,7 +20,7 @@ public class Cannon : MonoBehaviour, IDamageable
 
     public bool IsDead()
     {
-        throw new System.NotImplementedException();
+        return _health.IsDead;
     }
 
     public void Shoot()
@@ -30,6 +30,6 @@ public class Cannon : MonoBehaviour, IDamageable
 
     public void TakeDamage(int amount)
     {
-        throw new System.NotImplementedException();
+        _health.Decrease(amount);
     }
 }

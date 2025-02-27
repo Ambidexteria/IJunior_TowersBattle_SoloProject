@@ -10,6 +10,8 @@ public class SliderValueChanger : MonoBehaviour
     public Action<float> ValueChanged;
 
     public float Value => _slider.value;
+    public float MinValue => _slider.minValue;
+    public float MaxValue => _slider.maxValue;
 
     private void Awake()
     {
@@ -21,12 +23,12 @@ public class SliderValueChanger : MonoBehaviour
 
     private void OnEnable()
     {
-        _slider.onValueChanged.AddListener(ChangeValue);
+        _slider.onValueChanged.AddListener(OnValueChanged);
     }
 
     private void OnDisable()
     {
-        _slider.onValueChanged.RemoveListener(ChangeValue);
+        _slider.onValueChanged.RemoveListener(OnValueChanged);
     }
 
     public void SetValue(float value)
@@ -34,7 +36,7 @@ public class SliderValueChanger : MonoBehaviour
         _slider.value = value;
     }
 
-    private void ChangeValue(float value)
+    private void OnValueChanged(float value)
     {
         ValueChanged?.Invoke(value);
     }
