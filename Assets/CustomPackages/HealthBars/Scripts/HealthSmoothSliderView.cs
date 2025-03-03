@@ -9,11 +9,12 @@ public class HealthSmoothSliderView : HealthView
 
     private Coroutine _valueChanger;
 
-    private void Awake()
+    public override void PrepareOnAwake()
     {
         if (_healthBar == null)
             throw new ArgumentNullException();
     }
+
 
     public override void Display(float value)
     {

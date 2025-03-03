@@ -338,6 +338,10 @@ PrefabInstance:
       propertyPath: _health
       value: 
       objectReference: {fileID: 540139759617189591}
+    - target: {fileID: 5627017232979535989, guid: de4f2ade57b0fb64cb1bf4ef08a12b55, type: 3}
+      propertyPath: _parentCanvas
+      value: 
+      objectReference: {fileID: 5553613566175164996}
     - target: {fileID: 6760918749487907840, guid: de4f2ade57b0fb64cb1bf4ef08a12b55, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -510,7 +514,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 411349118769922975, guid: 6810331dcd1ab874297599b0bb26ff31, type: 3}
       propertyPath: m_Name
-      value: Soldier Variant
+      value: PlayerSoldier
       objectReference: {fileID: 0}
     - target: {fileID: 411349118769922975, guid: 6810331dcd1ab874297599b0bb26ff31, type: 3}
       propertyPath: m_Layer

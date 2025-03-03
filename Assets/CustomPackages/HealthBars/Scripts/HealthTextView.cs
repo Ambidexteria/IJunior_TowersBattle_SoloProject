@@ -6,7 +6,7 @@ public class HealthTextView : HealthView
 {
     [SerializeField] private TextMeshProUGUI _text;
 
-    private void Awake()
+    public override void PrepareOnAwake()
     {
         if (_text == null)
             throw new ArgumentNullException();

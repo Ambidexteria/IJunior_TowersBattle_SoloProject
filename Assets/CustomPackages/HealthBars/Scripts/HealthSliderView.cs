@@ -5,11 +5,12 @@ public class HealthSliderView : HealthView
 {
     [SerializeField] private SliderValueChanger _healthBar;
 
-    private void Awake()
+    public override void PrepareOnAwake()
     {
         if (_healthBar == null)
             throw new ArgumentNullException();
     }
+
 
     public override void Display(float value)
     {
