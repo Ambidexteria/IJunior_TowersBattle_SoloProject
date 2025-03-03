@@ -5,8 +5,7 @@ using Zenject;
 
 public class ShootMinigame : MonoBehaviour
 {
-    [Range(0f, 1f)]
-    [SerializeField] private float _pressRange = 0.1f;
+    [SerializeField] private MinigamePressRange _minigamePressRange;
     [SerializeField] private SliderValueChanger _slider;
     [SerializeField] private ButtonClickHandler _shootButton;
     [SerializeField] private float _sliderSpeedRate;
@@ -42,6 +41,9 @@ public class ShootMinigame : MonoBehaviour
     [ContextMenu(nameof(Launch))]
     private void Launch()
     {
+        _minigamePressRange.Place();
+        _slider.SetMinMaxValues(_minigamePressRange.FullRangeMinValue, _minigamePressRange.FullRangeMaxValue);
+
         float sliderSpeed = GetSliderSpeed();
         _coroutine = StartCoroutine(MoveSliderCoroutine(sliderSpeed));
     }
@@ -49,19 +51,18 @@ public class ShootMinigame : MonoBehaviour
     private IEnumerator MoveSliderCoroutine(float speed)
     {
         float nextValue;
-        float currentSpeed = _sliderSpeedRate;
         _slider.SetValue(_slider.MinValue);
 
         while (true)
         {
-            nextValue = _slider.Value + currentSpeed * Time.deltaTime;
+            nextValue = _slider.Value + speed * Time.deltaTime;
             nextValue = Mathf.Clamp(nextValue, _slider.MinValue, _slider.MaxValue);
 
             _slider.SetValue(nextValue);
 
             if (nextValue == _slider.MaxValue || nextValue == _slider.MinValue)
             {
-                currentSpeed *= -1;
+                speed *= -1;
             }
 
             yield return null;
@@ -70,12 +71,11 @@ public class ShootMinigame : MonoBehaviour
 
     private void OnShootButtonPressed()
     {
-        CalculatePressRangeValues();
         StopCoroutine(_coroutine);
 
         float value = _slider.Value;
 
-        if (value >= _minPressValue && value <= _maxPressValue)
+        if (value >= _minigamePressRange.MinPressValue && value <= _minigamePressRange.MaxPressValue)
         {
             Winned?.Invoke();
             Debug.Log("Winned!");
@@ -83,20 +83,12 @@ public class ShootMinigame : MonoBehaviour
         else
         {
             Loosed?.Invoke();
-            Debug.Log("Loosed!");
+            Debug.LogError("Loosed!");
         }
     }
 
     private float GetSliderSpeed()
     {
         return (_slider.MaxValue - _slider.MinValue) / _sliderSpeedRate;
-    }
-
-    private void CalculatePressRangeValues()
-    {
-        float fullRange = (_slider.MaxValue - _slider.MinValue);
-
-        _minPressValue = UnityEngine.Random.Range(0, fullRange);
-        _maxPressValue = _minPressValue + fullRange * _pressRange;
     }
 }

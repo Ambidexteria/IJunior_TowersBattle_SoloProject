@@ -13,12 +13,11 @@ public class SliderValueChanger : MonoBehaviour
     public float MinValue => _slider.minValue;
     public float MaxValue => _slider.maxValue;
 
+    public RectTransform RectTransform => _slider.image.rectTransform;
+
     private void Awake()
     {
         _slider = GetComponent<Slider>();
-
-        if (_slider == null)
-            throw new ArgumentNullException();
     }
 
     private void OnEnable()
@@ -34,6 +33,12 @@ public class SliderValueChanger : MonoBehaviour
     public void SetValue(float value)
     {
         _slider.value = value;
+    }
+
+    public void SetMinMaxValues(float min, float max)
+    {
+        _slider.minValue = min;
+        _slider.maxValue = max;
     }
 
     private void OnValueChanged(float value)
