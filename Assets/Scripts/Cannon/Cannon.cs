@@ -1,17 +1,19 @@
-using SplineMesh;
 using UnityEngine;
 
 public class Cannon : MonoBehaviour, IDamageable
 {
+    [SerializeField] private Team _team;
     [SerializeField] private Cannon _enemyCannon;
     [SerializeField] private Health _health;
     [SerializeField] private CannonEnergyBar _energyBar;
-    [SerializeField] private Transform _barrel;
+    [SerializeField] private Barrel _barrel;
     [SerializeField] private CannonProjectile _projectilePrefab;
-    [SerializeField] private float _damage; 
+    [SerializeField] private int _damage; 
     [SerializeField] private float _fireDelay;
 
-    [SerializeField] private Spline _spline;
+    public Team Team => _team;
+
+    public Vector3 ShootDirection => _barrel.ShootDirection;
 
     private void OnEnable()
     {
@@ -28,10 +30,11 @@ public class Cannon : MonoBehaviour, IDamageable
         return _health.IsDead;
     }
 
+    [ContextMenu("Shoot")]
     public void Shoot()
     {
-        CannonProjectile cannonProjectile = Instantiate(_projectilePrefab, _barrel.position, Quaternion.identity);
-
+        CannonProjectile cannonProjectile = Instantiate(_projectilePrefab, _barrel.StartPoint, Quaternion.identity);
+        cannonProjectile.Init(Team, _barrel.StartPoint, _enemyCannon.transform.position, _damage);
     }
 
     public void TakeDamage(int amount)
