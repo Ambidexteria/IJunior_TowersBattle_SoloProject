@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Cannon : MonoBehaviour, IDamageable
 {
-    [SerializeField] private Team _team;
+    [SerializeField] private TeamType _team;
     [SerializeField] private Cannon _enemyCannon;
     [SerializeField] private Health _health;
     [SerializeField] private CannonEnergyBar _energyBar;
@@ -11,7 +11,7 @@ public class Cannon : MonoBehaviour, IDamageable
     [SerializeField] private int _damage; 
     [SerializeField] private float _fireDelay;
 
-    public Team Team => _team;
+    public TeamType Team => _team;
 
     public Vector3 ShootDirection => _barrel.ShootDirection;
 

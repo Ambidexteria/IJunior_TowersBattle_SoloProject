@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Team))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody))]
 public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
@@ -13,12 +14,12 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
     [SerializeField] private SoldierWeapon _weapon;
     [SerializeField] private Health _health;
     [SerializeField] private TargetDetector _enemiesDetector;
-    [SerializeField] private Team _team = Team.Player;
 
+    [SerializeField] private TeamColorChanger _colorChanger;
     private Rigidbody _rigidbody;
+    private Team _team;
 
     public Animator Animator => _animator;
-    public Team Team => _team;
 
     public event Action<Transform> MovingToTarget;
     public event Action<ITargetSoldier> EnemyTargetDetected;
@@ -27,6 +28,7 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        _team = GetComponent<Team>();
     }
 
     private void OnEnable()
@@ -40,6 +42,16 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
     {
         _enemiesDetector.Detected -= OnEnemyTargetDetected;
         _health.Dying -= Die;
+    }
+
+    public void SetTeam(Team team)
+    {
+        _team = team;
+
+        _colorChanger.Recolor(team);
+        _enemiesDetector.SetTeam(team);
+        _enemiesDetector.gameObject.SetActive(true);
+        _weapon.SetTeam(team);
     }
 
     public void MoveTo(Transform target)
@@ -87,9 +99,9 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
         return transform;
     }
 
-    public Team GetTeam()
+    public TeamType GetTeam()
     {
-        return _team;
+        return _team.Type;
     }
 
     public bool TryGetNextAttackTarget(out ITargetSoldier target)

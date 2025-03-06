@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class ControlPoint : MonoBehaviour
 {
-    [SerializeField] private Team _team = Team.None;
+    [SerializeField] private TeamType _team = TeamType.None;
     [SerializeField] private Material _playerColor;
     [SerializeField] private Material _npcColor;
     [SerializeField] private int _energyRate = 1;
@@ -15,7 +15,7 @@ public class ControlPoint : MonoBehaviour
 
     public event Action<ControlPoint> Captured;
 
-    public Team Team => _team;
+    public TeamType Team => _team;
     public int EnergyRate => _energyRate;
 
     private void Awake()
@@ -28,20 +28,20 @@ public class ControlPoint : MonoBehaviour
     {
         if (other.TryGetComponent(out ITargetSoldier soldier))
         {
-            Team team = soldier.GetTeam();
+            TeamType team = soldier.GetTeam();
 
             if (_team != team)
                 ChangeTeam(team);
         }
     }
 
-    private void ChangeTeam(Team team)
+    private void ChangeTeam(TeamType team)
     {
         _team = team;
         
-        if(_team == Team.Player)
+        if(_team == TeamType.Player)
             _renderer.material = _playerColor;
-        else if(_team == Team.NPC)
+        else if(_team == TeamType.NPC)
             _renderer.material = _npcColor;
         else
             _renderer.material = _defaultMaterial;

@@ -11,7 +11,7 @@ public class SoldierWeapon : MonoBehaviour
     [SerializeField] private float _startDelay;
     [SerializeField] private Transform _barrel;
 
-    [SerializeField] private Team _team;
+    private Team _team;
     private ProjectileSpawner _projectileSpawner;
 
     private Coroutine _coroutine;
@@ -28,15 +28,19 @@ public class SoldierWeapon : MonoBehaviour
     }
 
     [Inject]
-    private void Init(/*Team team, */ProjectileSpawner spawner)
+    private void Init(ProjectileSpawner spawner)
     {
-        //_team = team;
         _projectileSpawner = spawner;
+    }
+
+    public void SetTeam(Team team)
+    {
+        _team = team;
     }
 
     public void Attack(ITargetSoldier damageable)
     {
-        if (damageable.GetTeam() == _team)
+        if (damageable.GetTeam() == _team.Type)
             return;
 
         if (_coroutine != null)
@@ -65,7 +69,7 @@ public class SoldierWeapon : MonoBehaviour
         {
             Projectile projectile = _projectileSpawner.Spawn();
 
-            projectile.Init(_team);
+            projectile.Init(_team.Type);
             projectile.transform.position = _barrel.transform.position;
             projectile.Rigidbody.velocity = _barrel.forward * _projectileSpeed;
 

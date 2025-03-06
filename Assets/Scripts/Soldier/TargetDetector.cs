@@ -2,15 +2,16 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(Collider))]
 public class TargetDetector : MonoBehaviour
 {
     private const int NumberOfSoldiersToCallDetectedEvent = 1;
 
-    [SerializeField] private Team _team;
+    private Team _team;
+    private List<ITargetSoldier> _enemySoldiers = new List<ITargetSoldier>();
 
-    [SerializeField] private List<ITargetSoldier> _enemySoldiers = new List<ITargetSoldier>();
     public event Action<ITargetSoldier> Detected;
 
     private void OnTriggerEnter(Collider other)
@@ -33,6 +34,17 @@ public class TargetDetector : MonoBehaviour
                 _enemySoldiers.Remove(target);
     }
 
+    [Inject]
+    private void Init()
+    {
+        Debug.Log("Injected");
+    }
+
+    public void SetTeam(Team team)
+    {
+        _team = team;
+    }
+
     public bool TryGetNextAttackTarget(out ITargetSoldier target)
     {
         DeleteDeadEnemies();
@@ -51,7 +63,9 @@ public class TargetDetector : MonoBehaviour
 
     private bool IsTargetAliveEnemy(ITargetSoldier target)
     {
-        return target.GetTeam() != _team && target.IsDead() == false;
+        Debug.Log($"{nameof(target)} is null - {target is null}");
+        Debug.Log($"{_team} is null - {_team is null}");
+        return target.GetTeam() != _team.Type && target.IsDead() == false;
     }
 
     private void DeleteDeadEnemies()

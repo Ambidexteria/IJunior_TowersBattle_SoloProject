@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ControlPointDatabase : MonoBehaviour
@@ -23,6 +24,26 @@ public class ControlPointDatabase : MonoBehaviour
         UnsubscribeToControlPoints();
     }
 
+    public bool TryGetNearestVacantControlPoint(TeamType team, Vector3 position, out ControlPoint controlPoint)
+    {
+        controlPoint = null;
+
+        var vacantControlPoints = _controlPoints.Where(x => x.Team != team).OrderBy(x => GetDistanceBetween(position, x)).ToList();
+
+        if (vacantControlPoints.Count > 0)
+        {
+            controlPoint = vacantControlPoints[0];
+            return true;
+        }
+
+        return false;
+    }
+
+    private float GetDistanceBetween(Vector3 position, ControlPoint controlPoint)
+    {
+        return (position - controlPoint.transform.position).sqrMagnitude;
+    }
+
     private void OnControlPointCaptured(ControlPoint controlpoint)
     {
         ControlPointCaptured?.Invoke(controlpoint);
@@ -30,7 +51,7 @@ public class ControlPointDatabase : MonoBehaviour
 
     private void ScanLevelForControlPoints()
     {
-       var controlPoints = FindObjectsOfType<ControlPoint>();
+        var controlPoints = FindObjectsOfType<ControlPoint>();
         _controlPoints.AddRange(controlPoints);
     }
 

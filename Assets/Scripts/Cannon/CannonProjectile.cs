@@ -8,7 +8,7 @@ public class CannonProjectile : MonoBehaviour
     [SerializeField] private int _speed;
     [SerializeField] private SplineFollower _follower;
 
-    [SerializeField] private Team _team = Team.None;
+    [SerializeField] private TeamType _team = TeamType.None;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -23,7 +23,7 @@ public class CannonProjectile : MonoBehaviour
         }
     }
 
-    public void Init(Team team, Vector3 start, Vector3 fifnish, int damage)
+    public void Init(TeamType team, Vector3 start, Vector3 fifnish, int damage)
     {
         Debug.Log("Init");
         _team = team;

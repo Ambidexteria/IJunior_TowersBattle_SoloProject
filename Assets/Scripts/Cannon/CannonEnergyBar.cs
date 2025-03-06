@@ -6,7 +6,7 @@ public class CannonEnergyBar : MonoBehaviour
 {
     [SerializeField] private ControlPointDatabase _controlPointDatabase;
     [SerializeField] private List<ControlPoint> _controlPoints;
-    [SerializeField] private Team _team;
+    [SerializeField] private TeamType _team;
     [SerializeField] private int _energyIncome = 0;
     [SerializeField] private float _currentEnergy = 0;
     [SerializeField] private int _energyMax = 100;

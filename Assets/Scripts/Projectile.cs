@@ -7,7 +7,7 @@ public class Projectile : SpawnableObject
     [SerializeField] private int _damage = 1;
 
     private Rigidbody _rigidbody;
-    private Team _team;
+    private TeamType _team;
 
     public Rigidbody Rigidbody => _rigidbody;
 
@@ -28,7 +28,7 @@ public class Projectile : SpawnableObject
         }
     }
 
-    public void Init(Team team)
+    public void Init(TeamType team)
     {
         _team = team;
     }
