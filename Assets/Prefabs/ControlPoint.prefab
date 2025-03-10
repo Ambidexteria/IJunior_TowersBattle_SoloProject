@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7988343609192902342}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.961, y: -0.078, z: 1.413}
   m_LocalScale: {x: 0.8, y: 0.2, z: 0.8}
   m_ConstrainProportionsScale: 0
@@ -104,8 +104,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 3, z: 1}
+  m_Center: {x: 0, y: 0.98, z: 0}
 --- !u!114 &4349631313886884762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,5 +119,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _team: 2
-  _playerColor: {fileID: 2100000, guid: 138324ea3078166428758e18e048f408, type: 2}
-  _npcColor: {fileID: 2100000, guid: d452e4e38a31f5c4987a4c453190ad8c, type: 2}
+  _playerColor: {fileID: 2100000, guid: 6b9b1394e40e69f4f85cfd306b31a658, type: 2}
+  _npcColor: {fileID: 2100000, guid: 519dc53725234294aa7d6d5884b2229f, type: 2}
+  _energyRate: 1

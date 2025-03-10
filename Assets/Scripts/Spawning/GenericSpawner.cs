@@ -10,6 +10,8 @@ public abstract class GenericSpawner<Type> where Type : SpawnableObject
     private ObjectPool<Type> _pool;
     private GenericSpawnableObjectFactory<Type> _factory;
 
+    private int _objectNumber;
+
     [Inject]
     public GenericSpawner(SpawnerSettings settings, GenericSpawnableObjectFactory<Type> factory)
     {
@@ -30,6 +32,7 @@ public abstract class GenericSpawner<Type> where Type : SpawnableObject
     {
         PrepareForDespawn(ref spawnableObject);
         _pool.Release(spawnableObject);
+        Debug.Log($"{spawnableObject.name} is released");
     }
 
     protected virtual void PrepareOnAwake() { }
@@ -52,6 +55,10 @@ public abstract class GenericSpawner<Type> where Type : SpawnableObject
 
     private Type Create()
     {
-        return _factory.Create();
+        Type type = _factory.Create();
+        _objectNumber++;
+        type.gameObject.name += "_" + _objectNumber.ToString();
+
+        return type;
     }
 }

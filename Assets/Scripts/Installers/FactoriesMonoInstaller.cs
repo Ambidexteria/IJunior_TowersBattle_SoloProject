@@ -13,7 +13,7 @@ public class FactoriesMonoInstaller : MonoInstaller
     public override void InstallBindings()
     {
         Container.Bind<SoldierSpawner>().AsSingle().WithArguments(_soldierSpawnerSettings).NonLazy();
-        Container.BindFactory<Soldier, GenericSpawnableObjectFactory<Soldier>>().FromComponentInNewPrefab(_soldierPrefab).WithConcreteId(12).NonLazy();
+        Container.BindFactory<Soldier, GenericSpawnableObjectFactory<Soldier>>().FromComponentInNewPrefab(_soldierPrefab).NonLazy();
 
         Container.Bind<ProjectileSpawner>().AsSingle().WithArguments(_projectileSpawnerSettings).NonLazy();
         Container.BindFactory<Projectile, GenericSpawnableObjectFactory<Projectile>>().FromComponentInNewPrefab(_projectilePrefab).NonLazy();

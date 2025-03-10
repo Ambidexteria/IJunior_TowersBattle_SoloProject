@@ -4,7 +4,7 @@ using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(Team))]
-public class NPCSoldierSpawnController : MonoBehaviour
+public class SoldierSpawnController : MonoBehaviour
 {
     [SerializeField] private float _spawnDelay;
     [SerializeField] private Transform _spawnPoint;

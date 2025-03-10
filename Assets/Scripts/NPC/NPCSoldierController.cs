@@ -7,7 +7,7 @@ public class NPCSoldierController : MonoBehaviour
 {
     [SerializeField] private ControlPointDatabase _controlPointDatabase;
     [SerializeField] private List<Soldier> _soldiers = new List<Soldier>();
-    [SerializeField] private NPCSoldierSpawnController _spawnController;
+    [SerializeField] private SoldierSpawnController _spawnController;
     [SerializeField] private float _nextCommandDelay = 2f;
 
     private Team _team;
