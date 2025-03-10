@@ -8,6 +8,7 @@ public class NPCSoldierSpawnController : MonoBehaviour
 {
     [SerializeField] private float _spawnDelay;
     [SerializeField] private Transform _spawnPoint;
+    [SerializeField] private SoldierForDespawnDetector _despawnDetector;
 
     private Team _team;
     private WaitForSeconds _wait;
@@ -23,6 +24,8 @@ public class NPCSoldierSpawnController : MonoBehaviour
         _spawner = spawner;
         _wait = new WaitForSeconds(_spawnDelay);
         _team = GetComponent<Team>();
+
+        _despawnDetector.Detected += _spawner.Despawn;
     }
 
     private void OnEnable()

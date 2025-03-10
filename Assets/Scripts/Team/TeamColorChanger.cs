@@ -1,19 +1,17 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Zenject;
 
 public class TeamColorChanger : MonoBehaviour
 {
-    private Team _team;
+    [SerializeField] private List<ColorChangerMark> _marks = new();
+
     private TeamColorDatabase _database;
-    private List<ColorChangerMark> _marks = new();
 
     [Inject]
     private void Init(TeamColorDatabase teamColorDatabase)
     {
         _database = teamColorDatabase;
-        FindMarkedObjects();
     }
 
     public void Recolor(Team team)
@@ -22,10 +20,5 @@ public class TeamColorChanger : MonoBehaviour
 
         foreach (var mark in _marks)
             mark.SetMaterial(material);
-    }
-
-    private void FindMarkedObjects()
-    {
-        _marks = gameObject.GetComponentsInChildren<ColorChangerMark>().ToList();
     }
 }

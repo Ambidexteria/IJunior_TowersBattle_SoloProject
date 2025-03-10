@@ -233,7 +233,7 @@ MonoBehaviour:
   _controlPointDatabase: {fileID: 502694936}
   _soldiers: []
   _spawnController: {fileID: 254827312}
-  _nextCommandDelay: 3
+  _nextCommandDelay: 2
 --- !u!4 &254827311
 Transform:
   m_ObjectHideFlags: 0
@@ -261,8 +261,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77d9eda869aebf141b47b0ff5136868f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnDelay: 5
+  _spawnDelay: 3
   _spawnPoint: {fileID: 849735552}
+  _despawnDetector: {fileID: 1737975391}
 --- !u!114 &254827313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -882,6 +883,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 502694936}
     - target: {fileID: 7399382638602004886, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
+      propertyPath: _energyMax
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7399382638602004886, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
       propertyPath: _controlPointDatabase
       value: 
       objectReference: {fileID: 502694936}
@@ -1435,8 +1440,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.27641723, y: 0.18085755, z: -0.053011544, w: -0.9423767}
-  m_LocalPosition: {x: 7.290435, y: 11.864061, z: -28.853622}
+  m_LocalRotation: {x: -0.10499281, y: 0.23689355, z: -0.02572567, w: -0.9655031}
+  m_LocalPosition: {x: 8.075409, y: 9.261522, z: -29.1371}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2304,12 +2309,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _soldierPrefab: {fileID: 5928959982435892238, guid: ecb81821209cd674caa17eb3adaced2a, type: 3}
   _projectilePrefab: {fileID: 6178834008236417665, guid: f7cc1c658b160d241931534105534072, type: 3}
+  _cannonProjectilePrefab: {fileID: 5415821861959969359, guid: d655a32cfdf3432409fc7685b185bd48, type: 3}
   _soldierSpawnerSettings:
     poolDefaultCapacity: 10
-    poolMaxSize: 50
+    poolMaxSize: 30
   _projectileSpawnerSettings:
-    poolDefaultCapacity: 10
-    poolMaxSize: 50
+    poolDefaultCapacity: 50
+    poolMaxSize: 100
+  _cannonProjectileSpawnerSettings:
+    poolDefaultCapacity: 5
+    poolMaxSize: 10
 --- !u!114 &1524025062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2440,8 +2449,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77d9eda869aebf141b47b0ff5136868f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnDelay: 5
+  _spawnDelay: 3
   _spawnPoint: {fileID: 1254565565}
+  _despawnDetector: {fileID: 1737975391}
 --- !u!114 &1657407898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2457,7 +2467,7 @@ MonoBehaviour:
   _controlPointDatabase: {fileID: 502694936}
   _soldiers: []
   _spawnController: {fileID: 1657407897}
-  _nextCommandDelay: 3
+  _nextCommandDelay: 2
 --- !u!114 &1657407899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2471,6 +2481,72 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 0
+--- !u!1 &1737975390
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1737975393}
+  - component: {fileID: 1737975392}
+  - component: {fileID: 1737975391}
+  m_Layer: 0
+  m_Name: SoldierDespawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1737975391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737975390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e4ee2b869fbcb944843e4c7ebe0aa5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &1737975392
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737975390}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 90, y: 5, z: 90}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1737975393
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737975390}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -10, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1770850072
 GameObject:
   m_ObjectHideFlags: 0
@@ -2873,6 +2949,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 502694936}
     - target: {fileID: 7399382638602004886, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
+      propertyPath: _team
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7399382638602004886, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
+      propertyPath: _energyMax
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7399382638602004886, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
       propertyPath: _controlPointDatabase
       value: 
       objectReference: {fileID: 502694936}
@@ -2924,6 +3008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5ef790748f303844ad9d3902ef9044f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _marks: []
 --- !u!114 &2002496754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2936,6 +3021,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5ef790748f303844ad9d3902ef9044f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _marks: []
 --- !u!1 &2038776308
 GameObject:
   m_ObjectHideFlags: 0
@@ -3075,3 +3161,4 @@ SceneRoots:
   - {fileID: 1323954743}
   - {fileID: 703474315}
   - {fileID: 2002496747}
+  - {fileID: 1737975393}

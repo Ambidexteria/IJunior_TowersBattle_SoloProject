@@ -23,8 +23,6 @@ public class SplineFollower : MonoBehaviour
 
     public void StartMovement(float speed, Vector3 start, Vector3 finish)
     {
-        Debug.Log(nameof(StartMovement));
-
         _points.Add(start);
         _points.Add(finish);
 

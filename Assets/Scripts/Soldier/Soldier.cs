@@ -1,12 +1,15 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Team))]
+[RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent (typeof(SoldierStateMachine))]
+[RequireComponent(typeof(SoldierStateMachine))]
 public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
 {
+    [SerializeField] private SoldierGroundCollisionController _groundCollisionController;
     [SerializeField] private SoldierMoverToTarget _moverToTarget;
     [SerializeField] private SoldierRotatorToTarget _rotatorToTarget;
     [SerializeField] private Animator _animator;
@@ -14,10 +17,13 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
     [SerializeField] private Health _health;
     [SerializeField] private TargetDetector _enemiesDetector;
     [SerializeField] private TeamColorChanger _colorChanger;
+    [SerializeField] private float _dieDelay;
 
     private Rigidbody _rigidbody;
     private Team _team;
     private SoldierStateMachine _stateMachine;
+    private WaitForSeconds _waitToDie;
+    private Collider _collider;
 
     public Animator Animator => _animator;
     public bool IsIdle => _stateMachine.IsIdle;
@@ -31,10 +37,16 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
         _rigidbody = GetComponent<Rigidbody>();
         _team = GetComponent<Team>();
         _stateMachine = GetComponent<SoldierStateMachine>();
+        _collider = GetComponent<Collider>();
+        _collider.isTrigger = true;
+
+        _waitToDie = new WaitForSeconds(_dieDelay);
     }
 
     private void OnEnable()
     {
+        _groundCollisionController.Enable();
+
         _enemiesDetector.Detected += OnEnemyTargetDetected;
         _health.Dying += Die;
     }
@@ -120,6 +132,14 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
         Dying?.Invoke();
         StopAttack();
         Stop();
-        enabled = false;
+
+        StartCoroutine(DieCoroutine());
+    }
+
+    private IEnumerator DieCoroutine()
+    {
+        yield return _waitToDie;
+
+        _groundCollisionController.Disable();
     }
 }

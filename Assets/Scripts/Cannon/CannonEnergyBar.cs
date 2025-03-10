@@ -34,11 +34,20 @@ public class CannonEnergyBar : MonoBehaviour
     {
         _currentEnergy += _energyIncome * Time.deltaTime;
         _currentEnergy = Mathf.Clamp(_currentEnergy, 0, _energyMax);
+        CurrentEnergyChanged?.Invoke(_currentEnergy);
 
         if (_currentEnergy >= _energyMax)
         {
             Filled?.Invoke();
+            RemoveCurrentEnergy();
         }
+    }
+
+    private void RemoveCurrentEnergy()
+    {
+        _currentEnergy = 0;
+
+        CurrentEnergyChanged?.Invoke(_currentEnergy);
     }
 
     private void OnControlPointCaptured(ControlPoint controlPoint)
@@ -50,8 +59,11 @@ public class CannonEnergyBar : MonoBehaviour
         }
         else
         {
-            _controlPoints.Remove(controlPoint);
-            _energyIncome -= controlPoint.EnergyRate;
+            if (_controlPoints.Contains(controlPoint))
+            {
+                _controlPoints.Remove(controlPoint);
+                _energyIncome -= controlPoint.EnergyRate;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(Team))]
 public class Cannon : MonoBehaviour, IDamageable
@@ -8,13 +9,11 @@ public class Cannon : MonoBehaviour, IDamageable
     [SerializeField] private Health _health;
     [SerializeField] private CannonEnergyBar _energyBar;
     [SerializeField] private Barrel _barrel;
-    [SerializeField] private CannonProjectile _projectilePrefab;
     [SerializeField] private int _damage;
     [SerializeField] private float _fireDelay;
 
     private Team _team;
-
-    public TeamType Team => _team.Type;
+    private CannonProjectileSpawner _projectileSpawner;
 
     public Vector3 ShootDirection => _barrel.ShootDirection;
 
@@ -34,6 +33,14 @@ public class Cannon : MonoBehaviour, IDamageable
         _energyBar.Filled -= Shoot;
     }
 
+    [Inject]
+    private void Init(CannonProjectileSpawner projectileSpawner)
+    {
+        _projectileSpawner = projectileSpawner;
+    }
+
+    public TeamType GetTeamType() => _team.Type;
+
     public bool IsDead()
     {
         return _health.IsDead;
@@ -42,8 +49,9 @@ public class Cannon : MonoBehaviour, IDamageable
     [ContextMenu("Shoot")]
     public void Shoot()
     {
-        CannonProjectile cannonProjectile = Instantiate(_projectilePrefab, _barrel.StartPoint, Quaternion.identity);
-        cannonProjectile.Init(Team, _barrel.StartPoint, _enemyCannon.transform.position, _damage);
+        CannonProjectile cannonProjectile = _projectileSpawner.Spawn();
+        cannonProjectile.transform.position = _barrel.StartPoint;
+        cannonProjectile.Init(_team, _barrel.StartPoint, _enemyCannon.transform.position, _damage);
     }
 
     public void TakeDamage(int amount)

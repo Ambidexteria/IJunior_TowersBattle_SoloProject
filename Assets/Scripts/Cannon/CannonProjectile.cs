@@ -1,20 +1,27 @@
-using SplineMesh;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class CannonProjectile : MonoBehaviour
+public class CannonProjectile : SpawnableObject
 {
     [SerializeField] private int _damage;
     [SerializeField] private int _speed;
     [SerializeField] private SplineFollower _follower;
+    [SerializeField] private TeamColorChanger _colorChanger;
 
-    [SerializeField] private TeamType _team = TeamType.None;
+    private Collider _collider;
+    private Team _team;
+
+    private void Awake()
+    {
+        _collider = GetComponent<Collider>();
+        _collider.enabled = false;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out Cannon cannon))
         {
-            if (cannon.Team != _team)
+            if (cannon.GetTeamType() != _team.Type)
             {
                 cannon.TakeDamage(_damage);
                 Destroy(gameObject);
@@ -22,11 +29,12 @@ public class CannonProjectile : MonoBehaviour
         }
     }
 
-    public void Init(TeamType team, Vector3 start, Vector3 fifnish, int damage)
+    public void Init(Team team, Vector3 start, Vector3 fifnish, int damage)
     {
-        Debug.Log("Init");
         _team = team;
+        _colorChanger.Recolor(_team);
         _damage = damage;
         _follower.StartMovement(_speed, start, fifnish);
+        _collider.enabled = true;
     }
 }

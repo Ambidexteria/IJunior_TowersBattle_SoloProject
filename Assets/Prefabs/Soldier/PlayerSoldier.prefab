@@ -53,6 +53,74 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1.5
   m_Center: {x: 0, y: 1.12, z: 0}
+--- !u!1 &1692696140131524100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7251039851141663879}
+  - component: {fileID: 6061516387079184609}
+  - component: {fileID: 8382989340344462188}
+  m_Layer: 10
+  m_Name: GroundCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7251039851141663879
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692696140131524100}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7730270078635206469}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &6061516387079184609
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692696140131524100}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 1024
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.95, z: 0}
+--- !u!114 &8382989340344462188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692696140131524100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab3a1a306aabb21409e29f7492178eb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1892383390474750767
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,106 +187,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed6cbc448cb28d4fa0c865bd53c8a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &3895011136388240281
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4323835367020552544}
-  - component: {fileID: 6236660293427347565}
-  - component: {fileID: 7527768322688246249}
-  m_Layer: 6
-  m_Name: SlopeDetector
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4323835367020552544
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3895011136388240281}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.48, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1034634720210389808}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &6236660293427347565
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3895011136388240281}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.75, y: 0.02, z: 0.16}
-  m_Center: {x: 0, y: 0, z: 0.08}
---- !u!114 &7527768322688246249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3895011136388240281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 331b09d92f3d92543a9c1de090688a09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _slopeAngle: 60
-  _pointOfRotation: {fileID: 1034634720210389808}
---- !u!1 &6626764583377966384
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1034634720210389808}
-  m_Layer: 6
-  m_Name: PointOfSlopeDetector
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1034634720210389808
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6626764583377966384}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.31995162, y: 0, z: 0, w: 0.9474339}
-  m_LocalPosition: {x: 0, y: 0.48, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4323835367020552544}
-  m_Father: {fileID: 7730270078635206469}
-  m_LocalEulerAnglesHint: {x: -37.32, y: 0, z: 0}
 --- !u!1 &6728872621068446831
 GameObject:
   m_ObjectHideFlags: 0
@@ -1440,9 +1408,6 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 411349118769963007, guid: 6810331dcd1ab874297599b0bb26ff31, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1034634720210389808}
-    - targetCorrespondingSourceObject: {fileID: 411349118769963007, guid: 6810331dcd1ab874297599b0bb26ff31, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 4474119948436614468}
     - targetCorrespondingSourceObject: {fileID: 411349118769963007, guid: 6810331dcd1ab874297599b0bb26ff31, type: 3}
       insertIndex: -1
@@ -1450,6 +1415,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 411349118769963007, guid: 6810331dcd1ab874297599b0bb26ff31, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2859127946695619102}
+    - targetCorrespondingSourceObject: {fileID: 411349118769963007, guid: 6810331dcd1ab874297599b0bb26ff31, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7251039851141663879}
     - targetCorrespondingSourceObject: {fileID: 411349118769962953, guid: 6810331dcd1ab874297599b0bb26ff31, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4801839529624216663}
@@ -1541,9 +1509,9 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -1615,6 +1583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2756caec0cea6a14c90ee26063e0a262, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _groundCollisionController: {fileID: 8382989340344462188}
   _moverToTarget: {fileID: 2330332889144761597}
   _rotatorToTarget: {fileID: 7810652514305636890}
   _animator: {fileID: 7730270078628202635}
@@ -1622,6 +1591,7 @@ MonoBehaviour:
   _health: {fileID: 540139759617189591}
   _enemiesDetector: {fileID: 1306358454734737895}
   _colorChanger: {fileID: 6508615288609398761}
+  _dieDelay: 5
 --- !u!114 &2330332889144761597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1638,7 +1608,7 @@ MonoBehaviour:
   _minDistanceToTarget: 1
   _speed: 5
   _brakeSpeed: 3
-  _slopeDetector: {fileID: 7527768322688246249}
+  _slopeDetector: {fileID: 0}
   _slopeSlowingSpeedModifier: 1.5
 --- !u!114 &7810652514305636890
 MonoBehaviour:
@@ -1677,6 +1647,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5ef790748f303844ad9d3902ef9044f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _marks:
+  - {fileID: 6294488073345846428}
+  - {fileID: 6155338304230217492}
+  - {fileID: 1092899782326465951}
 --- !u!1 &7730270078635506477 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 411349118769922967, guid: 6810331dcd1ab874297599b0bb26ff31, type: 3}

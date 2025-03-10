@@ -36,12 +36,12 @@ public class SoldierStateMachine : MonoBehaviour
             {SoldierStateType.Attack, attackState },
             {SoldierStateType.Die, dieState },
         };
-
-        SetIdleState();
     }
 
     private void OnEnable()
     {
+        SetIdleState();
+
         _soldier.MovingToTarget += SetMoveState;
         _soldier.EnemyTargetDetected += SetAttackState;
         _soldier.Dying += SetDieState;
