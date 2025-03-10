@@ -45,16 +45,22 @@ public class NPCSoldierController : MonoBehaviour
         if (_soldiers.Count == 0)
             return;
 
-        Soldier soldier = _soldiers[Random.Range(0, _soldiers.Count)];
+        if (TryGetIdleSoldier(out Soldier soldier))
+            if (_controlPointDatabase.TryGetNearestVacantControlPoint(_team.Type, soldier.transform.position, out var controlPoint))
+                soldier.MoveTo(controlPoint.transform);
+    }
 
-        if (_controlPointDatabase. TryGetNearestVacantControlPoint(_team.Type, soldier.transform.position, out var controlPoint))
+    private bool TryGetIdleSoldier(out Soldier soldier)
+    {
+        soldier = null;
+        var idleSoldiers = _soldiers.Where(x => x.IsDead() == false).Where(x => x.IsIdle).ToList();
+
+        if (idleSoldiers.Count > 0)
         {
-            soldier.MoveTo(controlPoint.transform);
-            Debug.Log("Soldier has been sended");
+            soldier = idleSoldiers[Random.Range(0, idleSoldiers.Count)];
+            return true;
         }
-        else
-        {
-            Debug.LogError("Cannot Send Soldier");
-        }
+
+        return false;
     }
 }

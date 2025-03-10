@@ -14,6 +14,8 @@ public class SoldierStateMachine : MonoBehaviour
     private SoldierStateType _previousStateType;
     private bool _isActive = true;
 
+    public bool IsIdle => _currentStateType == SoldierStateType.Idle;
+
     private void Awake()
     {
         _soldier = GetComponent<Soldier>();
@@ -119,7 +121,5 @@ public class SoldierStateMachine : MonoBehaviour
 
         if (_previousStateType == SoldierStateType.Idle)
             ChangeState(SoldierStateType.Idle);
-
-        Debug.Log(nameof(ReturnToPreviousState));
     }
 }

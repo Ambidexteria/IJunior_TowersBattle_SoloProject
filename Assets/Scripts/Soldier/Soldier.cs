@@ -1,11 +1,10 @@
 using System;
-using System.Linq;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Team))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent (typeof(SoldierStateMachine))]
 public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
 {
     [SerializeField] private SoldierMoverToTarget _moverToTarget;
@@ -14,12 +13,14 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
     [SerializeField] private SoldierWeapon _weapon;
     [SerializeField] private Health _health;
     [SerializeField] private TargetDetector _enemiesDetector;
-
     [SerializeField] private TeamColorChanger _colorChanger;
+
     private Rigidbody _rigidbody;
     private Team _team;
+    private SoldierStateMachine _stateMachine;
 
     public Animator Animator => _animator;
+    public bool IsIdle => _stateMachine.IsIdle;
 
     public event Action<Transform> MovingToTarget;
     public event Action<ITargetSoldier> EnemyTargetDetected;
@@ -29,13 +30,13 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
     {
         _rigidbody = GetComponent<Rigidbody>();
         _team = GetComponent<Team>();
+        _stateMachine = GetComponent<SoldierStateMachine>();
     }
 
     private void OnEnable()
     {
         _enemiesDetector.Detected += OnEnemyTargetDetected;
         _health.Dying += Die;
-
     }
 
     private void OnDisable()

@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
 
 [RequireComponent(typeof(Collider))]
 public class TargetDetector : MonoBehaviour
@@ -34,12 +33,6 @@ public class TargetDetector : MonoBehaviour
                 _enemySoldiers.Remove(target);
     }
 
-    [Inject]
-    private void Init()
-    {
-        Debug.Log("Injected");
-    }
-
     public void SetTeam(Team team)
     {
         _team = team;
@@ -63,8 +56,6 @@ public class TargetDetector : MonoBehaviour
 
     private bool IsTargetAliveEnemy(ITargetSoldier target)
     {
-        Debug.Log($"{nameof(target)} is null - {target is null}");
-        Debug.Log($"{_team} is null - {_team is null}");
         return target.GetTeam() != _team.Type && target.IsDead() == false;
     }
 

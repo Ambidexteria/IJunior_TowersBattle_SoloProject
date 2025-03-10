@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 1829808253593053500}
   - component: {fileID: 3724881705597959939}
   - component: {fileID: 3681936761970357932}
-  - component: {fileID: 3851326759500052890}
+  - component: {fileID: 3917517458481217560}
   m_Layer: 0
   m_Name: MiddleLevel
   m_TagString: Untagged
@@ -148,7 +148,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3851326759500052890
+--- !u!114 &3917517458481217560
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4062029455761136475}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5ef790748f303844ad9d3902ef9044f, type: 3}
+  m_Script: {fileID: 11500000, guid: 252a39ed6355c3e4094f6e7af111f20e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4096627717508905450
@@ -367,7 +367,7 @@ GameObject:
   - component: {fileID: 5684738207937503766}
   - component: {fileID: 9200506588157031765}
   - component: {fileID: 3732559963977455615}
-  - component: {fileID: 2854634180451655494}
+  - component: {fileID: 6633036347184623950}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -440,7 +440,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2854634180451655494
+--- !u!114 &6633036347184623950
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -449,7 +449,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7326766851239207175}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5ef790748f303844ad9d3902ef9044f, type: 3}
+  m_Script: {fileID: 11500000, guid: 252a39ed6355c3e4094f6e7af111f20e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7674143958534327901
@@ -634,6 +634,7 @@ GameObject:
   - component: {fileID: 7399382638602004886}
   - component: {fileID: 976690466316975285}
   - component: {fileID: 6754041207753624226}
+  - component: {fileID: 8509713970193542243}
   m_Layer: 0
   m_Name: Cannon
   m_TagString: Untagged
@@ -704,7 +705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 141e0a35dbc8a594289436397fafd281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _team: 0
+  _colorChanger: {fileID: 8509713970193542243}
   _enemyCannon: {fileID: 0}
   _health: {fileID: 976690466316975285}
   _energyBar: {fileID: 7399382638602004886}
@@ -770,3 +771,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8509713970193542243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8757339143659090541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5ef790748f303844ad9d3902ef9044f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

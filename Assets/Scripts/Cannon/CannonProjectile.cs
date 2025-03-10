@@ -16,7 +16,6 @@ public class CannonProjectile : MonoBehaviour
         {
             if (cannon.Team != _team)
             {
-                Debug.Log("Triggered");
                 cannon.TakeDamage(_damage);
                 Destroy(gameObject);
             }
