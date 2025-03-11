@@ -1,7 +1,10 @@
+using Zenject;
+
 public class SoldierSpawner : GenericSpawner<Soldier>
 {
-    public SoldierSpawner(SpawnerSettings settings, GenericSpawnableObjectFactory<Soldier> factory) : base(settings, factory) 
-    { 
-        
+    [Inject]
+    public SoldierSpawner(SoldierForDespawnDetector despawner, SpawnerSettings settings, GenericSpawnableObjectFactory<Soldier> factory) : base(settings, factory) 
+    {
+        despawner.Detected += Despawn;
     }
 }

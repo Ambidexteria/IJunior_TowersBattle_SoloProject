@@ -10,8 +10,10 @@ public class FactoriesMonoInstaller : MonoInstaller
     [SerializeField] private SpawnerSettings _projectileSpawnerSettings;
     [SerializeField] private SpawnerSettings _cannonProjectileSpawnerSettings;
 
+
     public override void InstallBindings()
     {
+        Container.Bind<SoldierForDespawnDetector>().FromComponentInHierarchy().AsSingle().NonLazy();
         Container.Bind<SoldierSpawner>().AsSingle().WithArguments(_soldierSpawnerSettings).NonLazy();
         Container.BindFactory<Soldier, GenericSpawnableObjectFactory<Soldier>>().FromComponentInNewPrefab(_soldierPrefab).NonLazy();
 

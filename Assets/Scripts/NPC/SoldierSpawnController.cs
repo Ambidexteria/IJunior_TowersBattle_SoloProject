@@ -24,8 +24,6 @@ public class SoldierSpawnController : MonoBehaviour
         _spawner = spawner;
         _wait = new WaitForSeconds(_spawnDelay);
         _team = GetComponent<Team>();
-
-        _despawnDetector.Detected += _spawner.Despawn;
     }
 
     private void OnEnable()
@@ -43,13 +41,13 @@ public class SoldierSpawnController : MonoBehaviour
     {
         while (enabled)
         {
-            yield return _wait;
-
             _soldier = _spawner.Spawn();
             _soldier.transform.position = _spawnPoint.position;
             _soldier.SetTeam(_team);
 
             Spawned?.Invoke(_soldier);
+
+            yield return _wait;
         }
     }
 }

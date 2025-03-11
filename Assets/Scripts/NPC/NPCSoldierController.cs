@@ -8,6 +8,7 @@ public class NPCSoldierController : MonoBehaviour
     [SerializeField] private ControlPointDatabase _controlPointDatabase;
     [SerializeField] private List<Soldier> _soldiers = new List<Soldier>();
     [SerializeField] private SoldierSpawnController _spawnController;
+    [SerializeField] private float _startDelay = 1f;
     [SerializeField] private float _nextCommandDelay = 2f;
 
     private Team _team;
@@ -19,7 +20,7 @@ public class NPCSoldierController : MonoBehaviour
 
     private void Start()
     {
-        InvokeRepeating(nameof(SendSoldierToControlPoint), 0f, _nextCommandDelay);
+        InvokeRepeating(nameof(SendSoldierToControlPoint), _startDelay, _nextCommandDelay);
     }
 
     private void OnEnable()

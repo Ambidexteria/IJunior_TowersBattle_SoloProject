@@ -9,9 +9,6 @@ public class SoldierForDespawnDetector : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out Soldier soldier))
-        {
-            Debug.Log($"{soldier.name} is detected");
             Detected?.Invoke(soldier);
-        }
     }
 }
