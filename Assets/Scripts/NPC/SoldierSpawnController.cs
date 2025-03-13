@@ -17,6 +17,7 @@ public class SoldierSpawnController : MonoBehaviour
     private Coroutine _coroutine;
 
     public event Action<Soldier> Spawned;
+    public event Action<Soldier> Despawned;
 
     [Inject]
     private void Init(SoldierSpawner spawner)
@@ -26,9 +27,13 @@ public class SoldierSpawnController : MonoBehaviour
         _team = GetComponent<Team>();
     }
 
-    private void OnEnable()
+    private void Start()
     {
         _coroutine = StartCoroutine(SpawnCoroutine());
+    }
+
+    private void OnEnable()
+    {
     }
 
     private void OnDisable()
@@ -44,10 +49,19 @@ public class SoldierSpawnController : MonoBehaviour
             _soldier = _spawner.Spawn();
             _soldier.transform.position = _spawnPoint.position;
             _soldier.SetTeam(_team);
+            _soldier.gameObject.SetActive(true);
+            _soldier.DespawnerDetected += OnSoldierDespawning;
 
             Spawned?.Invoke(_soldier);
 
             yield return _wait;
         }
+    }
+
+    private void OnSoldierDespawning(Soldier soldier)
+    {
+        soldier.DespawnerDetected -= OnSoldierDespawning;
+        Despawned?.Invoke(soldier);
+        _spawner.Despawn(soldier);
     }
 }

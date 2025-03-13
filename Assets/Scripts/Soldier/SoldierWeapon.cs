@@ -70,6 +70,7 @@ public class SoldierWeapon : MonoBehaviour
             Projectile projectile = _projectileSpawner.Spawn();
 
             projectile.Init(_team.Type);
+            projectile.gameObject.SetActive(true);
             projectile.transform.position = _barrel.transform.position;
             projectile.Rigidbody.velocity = _barrel.forward * _projectileSpeed;
 

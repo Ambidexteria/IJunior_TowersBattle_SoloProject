@@ -26,11 +26,13 @@ public class NPCSoldierController : MonoBehaviour
     private void OnEnable()
     {
         _spawnController.Spawned += AddNewSoldier;
+        _spawnController.Despawned += RemoveSoldier;
     }
 
     private void OnDisable()
     {
         _spawnController.Spawned -= AddNewSoldier;
+        _spawnController.Despawned -= RemoveSoldier;
     }
 
     private void AddNewSoldier(Soldier soldier)
@@ -39,6 +41,15 @@ public class NPCSoldierController : MonoBehaviour
             Debug.LogError("Trying add soldier from different team");
 
         _soldiers.Add(soldier);
+    }
+
+    private void RemoveSoldier(Soldier soldier)
+    {
+        if (soldier.GetTeam() != _team.Type)
+            Debug.LogError("Trying add soldier from different team");
+
+        if (_soldiers.Remove(soldier) == false)
+            Debug.LogError($"Cannot remove {soldier.gameObject.name} from List");
     }
 
     private void SendSoldierToControlPoint()

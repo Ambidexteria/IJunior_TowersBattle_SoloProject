@@ -41,6 +41,8 @@ public abstract class GenericSpawner<Type> where Type : SpawnableObject
 
     protected virtual void PrepareForDespawn(ref Type spawnableObject) { }
 
+    protected virtual void PrepareOnCreateObject(ref Type spawnableObject) { }
+
     private void InitializePool()
     {
         _pool = new ObjectPool<Type>(
@@ -58,6 +60,7 @@ public abstract class GenericSpawner<Type> where Type : SpawnableObject
         Type type = _factory.Create();
         _objectNumber++;
         type.gameObject.name += "_" + _objectNumber.ToString();
+        PrepareOnCreateObject(ref type);
 
         return type;
     }
