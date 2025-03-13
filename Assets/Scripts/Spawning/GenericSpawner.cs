@@ -32,7 +32,6 @@ public abstract class GenericSpawner<Type> where Type : SpawnableObject
     {
         PrepareForDespawn(ref spawnableObject);
         _pool.Release(spawnableObject);
-        Debug.Log($"{spawnableObject.name} is released");
     }
 
     protected virtual void PrepareOnAwake() { }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
@@ -5,15 +6,22 @@ public class CannonProjectile : SpawnableObject
 {
     [SerializeField] private int _damage;
     [SerializeField] private int _speed;
-    [SerializeField] private SplineFollower _follower;
+    [SerializeField] private PathFollower _follower;
     [SerializeField] private TeamColorChanger _colorChanger;
 
     private Collider _collider;
     private Team _team;
 
+    public event Action<CannonProjectile> Despawning;
+
     private void Awake()
     {
         _collider = GetComponent<Collider>();
+        _collider.enabled = false;
+    }
+
+    private void OnDisable()
+    {
         _collider.enabled = false;
     }
 
@@ -24,7 +32,7 @@ public class CannonProjectile : SpawnableObject
             if (cannon.GetTeamType() != _team.Type)
             {
                 cannon.TakeDamage(_damage);
-                Destroy(gameObject);
+                Despawning?.Invoke(this);
             }
         }
     }

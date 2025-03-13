@@ -129,6 +129,9 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
 
     private void OnEnemyTargetDetected(ITargetSoldier soldier)
     {
+        if(soldier == null)
+            return;
+
         EnemyTargetDetected?.Invoke(soldier);
     }
 
@@ -143,7 +146,6 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
 
     private void OnDespawnerDetected()
     {
-        Debug.Log($"{gameObject.name} despawner detected");
         DespawnerDetected?.Invoke(this);
     }
 

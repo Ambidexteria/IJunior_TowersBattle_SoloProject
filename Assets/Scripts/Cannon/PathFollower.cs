@@ -1,12 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SplineFollower : MonoBehaviour
+public class PathFollower : MonoBehaviour
 {
     [SerializeField] private float _speed;
-    [SerializeField] private float _splineRate;
     [SerializeField] private bool _enabled = false;
-    [SerializeField] private LineRenderer _lineRenderer;
     [SerializeField] private List<Vector3> _points;
     [SerializeField] private int _maxPoints = 10;
     [SerializeField] private float _yOffsetCoefficient = 1.5f;
@@ -23,6 +21,9 @@ public class SplineFollower : MonoBehaviour
 
     public void StartMovement(float speed, Vector3 start, Vector3 finish)
     {
+        _points.Clear();
+        _currentPointIndex = 0;
+
         _points.Add(start);
         _points.Add(finish);
 

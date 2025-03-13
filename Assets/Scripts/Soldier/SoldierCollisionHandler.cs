@@ -11,7 +11,6 @@ public class SoldierCollisionHandler : MonoBehaviour
         if (other.TryGetComponent(out SoldierForDespawnDetector _))
         {
             DespawnerDetected?.Invoke();
-            Debug.Log("Soldier despawning");
         }
     }
 }

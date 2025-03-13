@@ -40,6 +40,7 @@ public class SoldierStateMachine : MonoBehaviour
 
     private void OnEnable()
     {
+        _isActive = true;
         SetIdleState();
 
         _soldier.MovingToTarget += SetMoveState;
@@ -121,5 +122,22 @@ public class SoldierStateMachine : MonoBehaviour
 
         if (_previousStateType == SoldierStateType.Idle)
             ChangeState(SoldierStateType.Idle);
+    }
+
+    [ContextMenu(nameof(ShowCurrentState))]
+    private void ShowCurrentState()
+    {
+        string currentStateName = "null";
+
+        if (_currentStateType == SoldierStateType.Move)
+            currentStateName = nameof(SoldierStateType.Move);
+        else if (_currentStateType == SoldierStateType.Idle)
+            currentStateName = nameof(SoldierStateType.Idle);
+        else if (_currentStateType == SoldierStateType.Attack)
+            currentStateName = nameof(SoldierStateType.Attack);
+        else if (_currentStateType == SoldierStateType.Die)
+            currentStateName = nameof(SoldierStateType.Die);
+
+        Debug.Log($"{transform.root.name} --- current state: {currentStateName}");
     }
 }

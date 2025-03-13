@@ -6,12 +6,24 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class TargetDetector : MonoBehaviour
 {
+    [SerializeField] private List<Soldier> _soldierList;
+
     private const int NumberOfSoldiersToCallDetectedEvent = 1;
 
     private Team _team;
     private List<ITargetSoldier> _enemySoldiers = new List<ITargetSoldier>();
 
     public event Action<ITargetSoldier> Detected;
+
+    private void Update()
+    {
+        _soldierList.Clear();
+
+        foreach(var soldier in _enemySoldiers)
+        {
+            _soldierList.Add((Soldier)soldier);
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -23,7 +35,12 @@ public class TargetDetector : MonoBehaviour
         DeleteDeadEnemies();
 
         if (_enemySoldiers.Count == NumberOfSoldiersToCallDetectedEvent)
+        {
+            //if (target is null)
+            //    Debug.LogError($"{transform.root.gameObject.name} --- {this.name}: target is null [collided with {other.transform.root.name}]");
+
             Detected?.Invoke(target);
+        }
     }
 
     private void OnTriggerExit(Collider other)

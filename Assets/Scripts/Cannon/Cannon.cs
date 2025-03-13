@@ -50,8 +50,10 @@ public class Cannon : MonoBehaviour, IDamageable
     public void Shoot()
     {
         CannonProjectile cannonProjectile = _projectileSpawner.Spawn();
+
         cannonProjectile.transform.position = _barrel.StartPoint;
         cannonProjectile.Init(_team, _barrel.StartPoint, _enemyCannon.transform.position, _damage);
+        cannonProjectile.gameObject.SetActive(true);
     }
 
     public void TakeDamage(int amount)
