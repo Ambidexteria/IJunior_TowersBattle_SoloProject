@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -15,7 +16,9 @@ public class Cannon : MonoBehaviour, IDamageable
     private Team _team;
     private CannonProjectileSpawner _projectileSpawner;
 
-    public Vector3 ShootDirection => _barrel.ShootDirection;
+    public int Damage => _damage;
+
+    public event Action EnergyBarFilled;
 
     private void Awake()
     {
@@ -25,12 +28,12 @@ public class Cannon : MonoBehaviour, IDamageable
 
     private void OnEnable()
     {
-        _energyBar.Filled += Shoot;
+        _energyBar.Filled += EnergyBarFilled;
     }
 
     private void OnDisable()
     {
-        _energyBar.Filled -= Shoot;
+        _energyBar.Filled -= EnergyBarFilled;
     }
 
     [Inject]

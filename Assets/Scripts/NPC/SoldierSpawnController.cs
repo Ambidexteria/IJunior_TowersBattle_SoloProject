@@ -34,6 +34,7 @@ public class SoldierSpawnController : MonoBehaviour
 
     private void OnEnable()
     {
+
     }
 
     private void OnDisable()

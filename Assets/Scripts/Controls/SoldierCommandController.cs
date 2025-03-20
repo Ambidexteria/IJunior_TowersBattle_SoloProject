@@ -4,12 +4,14 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
+[RequireComponent(typeof(Team))]
 public class SoldierCommandController : MonoBehaviour
 {
     [SerializeField] private float _secondClickDelay = 0.1f;
     [SerializeField] private SoldierSelector _soldierSelector;
     [SerializeField] private ControlPointSelector _controlPointSelector;
 
+    private Team _team;
     private PlayerInput _playerInput;
     private Coroutine _coroutine;
 
@@ -21,6 +23,8 @@ public class SoldierCommandController : MonoBehaviour
 
     private void Awake()
     {
+        _team = GetComponent<Team>();
+
         _waitForSeconds = new(_secondClickDelay);
         _waitUntilNextClick = new(() => _playerClickLeftMouseButton == true);
     }
@@ -52,7 +56,7 @@ public class SoldierCommandController : MonoBehaviour
 
     private IEnumerator TrySendSoldierToControlPoint()
     {
-        if (_soldierSelector.TrySelectSoldier(out Soldier soldier) == false)
+        if (_soldierSelector.TrySelectSoldier(out Soldier soldier, _team.Type) == false)
         {
             yield break;
         }

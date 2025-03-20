@@ -22,9 +22,6 @@ public class MinigamePressRange : MonoBehaviour
     private void Awake()
     {
         _rectTransform = GetComponent<RectTransform>();
-
-        Debug.Log(FullRangeMaxValue);
-        Debug.Log(FullRangeMinValue);
     }
 
     public void Place()
@@ -46,7 +43,7 @@ public class MinigamePressRange : MonoBehaviour
     {
         _pressRangeWidth = _rectTransform.rect.width * _pressRange;
 
-        _minPressValue = Random.Range(0, _rectTransform.rect.width);
+        _minPressValue = Random.Range(0, _rectTransform.rect.width - _pressRangeWidth);
         _maxPressValue = _minPressValue + _pressRangeWidth;
     }
 }

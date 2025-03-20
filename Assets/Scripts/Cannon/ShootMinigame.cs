@@ -38,8 +38,7 @@ public class ShootMinigame : MonoBehaviour
         _playerInput = playerInput;
     }
 
-    [ContextMenu(nameof(Launch))]
-    private void Launch()
+    public void Launch()
     {
         _minigamePressRange.Place();
         _slider.SetMinMaxValues(_minigamePressRange.FullRangeMinValue, _minigamePressRange.FullRangeMaxValue);
@@ -78,12 +77,10 @@ public class ShootMinigame : MonoBehaviour
         if (value >= _minigamePressRange.MinPressValue && value <= _minigamePressRange.MaxPressValue)
         {
             Winned?.Invoke();
-            Debug.Log("Winned!");
         }
         else
         {
             Loosed?.Invoke();
-            Debug.LogError("Loosed!");
         }
     }
 

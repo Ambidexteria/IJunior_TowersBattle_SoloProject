@@ -134,7 +134,11 @@ public class SoldierStateMachine : MonoBehaviour
         else if (_currentStateType == SoldierStateType.Idle)
             currentStateName = nameof(SoldierStateType.Idle);
         else if (_currentStateType == SoldierStateType.Attack)
+        {
             currentStateName = nameof(SoldierStateType.Attack);
+            Debug.Log($"{_context.AttackTarget} - Attack target");
+            Debug.Log($"{nameof(_isActive)} = {_isActive == true}");
+        }
         else if (_currentStateType == SoldierStateType.Die)
             currentStateName = nameof(SoldierStateType.Die);
 

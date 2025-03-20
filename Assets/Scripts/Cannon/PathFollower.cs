@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class PathFollower : MonoBehaviour
 {
-    [SerializeField] private float _speed;
-    [SerializeField] private bool _enabled = false;
-    [SerializeField] private List<Vector3> _points;
     [SerializeField] private int _maxPoints = 10;
     [SerializeField] private float _yOffsetCoefficient = 1.5f;
 
+    private float _speed;
+    private bool _enabled = false;
+    private List<Vector3> _points = new();
     private int _currentPointIndex;
 
     private void Update()

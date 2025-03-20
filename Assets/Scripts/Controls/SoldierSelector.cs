@@ -5,7 +5,7 @@ public class SoldierSelector : MonoBehaviour
     [SerializeField] private LayerMask _mask;
     [SerializeField] private float _raycastLength = 200f;
 
-    public bool TrySelectSoldier(out Soldier soldier)
+    public bool TrySelectSoldier(out Soldier soldier, TeamType team)
     {
         soldier = null;
 
@@ -15,7 +15,10 @@ public class SoldierSelector : MonoBehaviour
         {
             if (hit.collider.transform.root.TryGetComponent(out soldier))
             {
-                return true;
+                if (soldier.GetTeam() == team)
+                {
+                    return true;
+                }
             }
         }
 

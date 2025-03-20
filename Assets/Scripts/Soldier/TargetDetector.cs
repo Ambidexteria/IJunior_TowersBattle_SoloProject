@@ -6,9 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class TargetDetector : MonoBehaviour
 {
-    [SerializeField] private List<Soldier> _soldierList;
-
     private const int NumberOfSoldiersToCallDetectedEvent = 1;
+
+    [SerializeField] private List<Soldier> _soldierList;
 
     private Team _team;
     private List<ITargetSoldier> _enemySoldiers = new List<ITargetSoldier>();
@@ -25,6 +25,11 @@ public class TargetDetector : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        _enemySoldiers.Clear();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out ITargetSoldier target))
@@ -36,9 +41,6 @@ public class TargetDetector : MonoBehaviour
 
         if (_enemySoldiers.Count == NumberOfSoldiersToCallDetectedEvent)
         {
-            //if (target is null)
-            //    Debug.LogError($"{transform.root.gameObject.name} --- {this.name}: target is null [collided with {other.transform.root.name}]");
-
             Detected?.Invoke(target);
         }
     }

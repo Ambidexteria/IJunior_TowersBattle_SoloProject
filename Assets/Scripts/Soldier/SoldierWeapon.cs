@@ -40,9 +40,6 @@ public class SoldierWeapon : MonoBehaviour
 
     public void Attack(ITargetSoldier damageable)
     {
-        Debug.Log($"{gameObject.name}: {nameof(damageable)} is null --- {damageable is null}");
-        Debug.Log($"{gameObject.name}: {nameof(_team)} is null --- {_team is null}");
-
         if (damageable.GetTeam() == _team.Type)
             return;
 
