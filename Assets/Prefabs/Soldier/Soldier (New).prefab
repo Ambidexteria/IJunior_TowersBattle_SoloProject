@@ -228,7 +228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _projectilePrefab: {fileID: 6178834008236417665, guid: f7cc1c658b160d241931534105534072, type: 3}
   _projectileSpeed: 20
-  _shootCooldown: 0.2
+  _shootCooldown: 0.1
   _startDelay: 0.2
   _barrel: {fileID: 8991374078407710757}
 --- !u!1 &4635754050174888392

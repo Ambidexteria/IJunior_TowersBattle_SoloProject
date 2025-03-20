@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5541748844473988241}
+  - component: {fileID: 2340961420092407450}
   m_Layer: 0
   m_Name: CannonModel
   m_TagString: Untagged
@@ -32,6 +33,27 @@ Transform:
   - {fileID: 7872830601314087163}
   m_Father: {fileID: 1080271645684594950}
   m_LocalEulerAnglesHint: {x: -30, y: 0, z: 0}
+--- !u!95 &2340961420092407450
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601552277966607084}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d11c3cc54032c9442b27e4b2e85fc3a3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3414482211786480984
 GameObject:
   m_ObjectHideFlags: 0
@@ -801,6 +823,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 141e0a35dbc8a594289436397fafd281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 2340961420092407450}
   _colorChanger: {fileID: 8509713970193542243}
   _enemyCannon: {fileID: 0}
   _health: {fileID: 976690466316975285}

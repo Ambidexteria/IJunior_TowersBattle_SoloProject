@@ -5,6 +5,9 @@ using Zenject;
 [RequireComponent(typeof(Team))]
 public class Cannon : MonoBehaviour, IDamageable
 {
+    private const string BarrelDrawback = nameof(BarrelDrawback);
+
+    [SerializeField] private Animator _animator;
     [SerializeField] private TeamColorChanger _colorChanger;
     [SerializeField] private Cannon _enemyCannon;
     [SerializeField] private Health _health;
@@ -59,7 +62,9 @@ public class Cannon : MonoBehaviour, IDamageable
         cannonProjectile.transform.position = _barrel.StartPoint;
         cannonProjectile.Init(_team, _barrel.StartPoint, _enemyCannon.transform.position, _damage);
         cannonProjectile.gameObject.SetActive(true);
+
         _shootEffect.Play();
+        _animator.Play(BarrelDrawback);
     }
 
     public void TakeDamage(int amount)
