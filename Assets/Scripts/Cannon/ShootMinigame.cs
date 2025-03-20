@@ -5,6 +5,8 @@ using Zenject;
 
 public class ShootMinigame : MonoBehaviour
 {
+    [Range(0.1f, 1f)]
+    [SerializeField] private float _slowTimeModifier = 1.0f;
     [SerializeField] private MinigamePressRange _minigamePressRange;
     [SerializeField] private SliderValueChanger _slider;
     [SerializeField] private ButtonClickHandler _shootButton;
@@ -12,6 +14,7 @@ public class ShootMinigame : MonoBehaviour
 
     private PlayerInput _playerInput;
     private Coroutine _coroutine;
+    private float _defaultTimeScale;
 
     private float _minPressValue;
     private float _maxPressValue;
@@ -36,6 +39,8 @@ public class ShootMinigame : MonoBehaviour
     private void Init(PlayerInput playerInput)
     {
         _playerInput = playerInput;
+
+        _defaultTimeScale = Time.timeScale;
     }
 
     public void Launch()
@@ -49,6 +54,9 @@ public class ShootMinigame : MonoBehaviour
 
     private IEnumerator MoveSliderCoroutine(float speed)
     {
+        Time.timeScale *= _slowTimeModifier;
+        speed /= _slowTimeModifier;
+
         float nextValue;
         _slider.SetValue(_slider.MinValue);
 
@@ -70,6 +78,8 @@ public class ShootMinigame : MonoBehaviour
 
     private void OnShootButtonPressed()
     {
+        Time.timeScale = _defaultTimeScale;
+
         StopCoroutine(_coroutine);
 
         float value = _slider.Value;
