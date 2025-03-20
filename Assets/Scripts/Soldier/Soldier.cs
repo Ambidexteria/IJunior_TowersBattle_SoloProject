@@ -4,7 +4,6 @@ using UnityEngine;
 
 [RequireComponent(typeof(Team))]
 [RequireComponent(typeof(Collider))]
-[RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(SoldierStateMachine))]
 public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker

@@ -5,7 +5,7 @@ using Zenject;
 
 public class ShootMinigame : MonoBehaviour
 {
-    [Range(0.1f, 1f)]
+    [Range(0.001f, 0.1f)]
     [SerializeField] private float _slowTimeModifier = 1.0f;
     [SerializeField] private MinigamePressRange _minigamePressRange;
     [SerializeField] private SliderValueChanger _slider;

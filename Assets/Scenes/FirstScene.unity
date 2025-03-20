@@ -1718,6 +1718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204b624dbed2fab4c979c3a35fd46215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _slowTimeModifier: 0.001
   _minigamePressRange: {fileID: 417790666}
   _slider: {fileID: 417790664}
   _shootButton: {fileID: 706675390}
@@ -2016,7 +2017,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectilesParent: {fileID: 549895256}
-  _soldierPrefab: {fileID: 5928959982435892238, guid: ecb81821209cd674caa17eb3adaced2a, type: 3}
+  _soldierPrefab: {fileID: 2016997480567837586, guid: 6c54a8d06d04f15409aedeea0aae3269, type: 3}
   _projectilePrefab: {fileID: 6178834008236417665, guid: f7cc1c658b160d241931534105534072, type: 3}
   _cannonProjectilePrefab: {fileID: 5415821861959969359, guid: d655a32cfdf3432409fc7685b185bd48, type: 3}
   _soldierSpawnerSettings:
