@@ -9,6 +9,8 @@ public class Cannon : MonoBehaviour, IDamageable
     [SerializeField] private Cannon _enemyCannon;
     [SerializeField] private Health _health;
     [SerializeField] private CannonEnergyBar _energyBar;
+    [SerializeField] private ParticleSystemController _shootEffect;
+    [SerializeField] private ParticleSystemController _takeDamageEffect;
     [SerializeField] private Barrel _barrel;
     [SerializeField] private int _damage;
     [SerializeField] private float _fireDelay;
@@ -57,10 +59,12 @@ public class Cannon : MonoBehaviour, IDamageable
         cannonProjectile.transform.position = _barrel.StartPoint;
         cannonProjectile.Init(_team, _barrel.StartPoint, _enemyCannon.transform.position, _damage);
         cannonProjectile.gameObject.SetActive(true);
+        _shootEffect.Play();
     }
 
     public void TakeDamage(int amount)
     {
         _health.Decrease(amount);
+        _takeDamageEffect.Play();
     }
 }

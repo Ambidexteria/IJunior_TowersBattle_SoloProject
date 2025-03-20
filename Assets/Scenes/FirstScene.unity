@@ -1097,30 +1097,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3888570020881805364, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
-      propertyPath: _spline
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3888570020881805364, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
-      propertyPath: _enemyCannon
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4136631317930239833, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
       propertyPath: _enemyCannon
       value: 
       objectReference: {fileID: 2002496748}
-    - target: {fileID: 5642008918899621835, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
-      propertyPath: _type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6302846851738626707, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
-      propertyPath: _controlPointDatabase
-      value: 
-      objectReference: {fileID: 502694936}
-    - target: {fileID: 7399382638602004886, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
-      propertyPath: _energyMax
-      value: 30
-      objectReference: {fileID: 0}
     - target: {fileID: 7399382638602004886, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
       propertyPath: _controlPointDatabase
       value: 
