@@ -122,10 +122,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 3
-  _speed: 20
+  _speed: 30
   _follower: {fileID: 5127958764204927715}
   _colorChanger: {fileID: 8390383397536783689}
-  _team: {fileID: 0}
 --- !u!114 &5127958764204927715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,11 +137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bc343bcdf7feb4479d1c46a9c83b841, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0
-  _splineRate: 0
-  _enabled: 0
-  _lineRenderer: {fileID: 0}
-  _points: []
   _maxPoints: 30
   _yOffsetCoefficient: 10
 --- !u!114 &8390383397536783689

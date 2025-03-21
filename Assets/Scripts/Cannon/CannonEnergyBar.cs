@@ -9,7 +9,9 @@ public class CannonEnergyBar : MonoBehaviour
     [SerializeField] private TeamType _team;
     [SerializeField] private int _energyIncome = 0;
     [SerializeField] private float _currentEnergy = 0;
-    [SerializeField] private int _energyMax = 100;
+    [SerializeField] private float _energyMax = 100f;
+
+    public float MaxEnergy => _energyMax;
 
     public event Action Filled;
     public event Action<float> CurrentEnergyChanged;

@@ -3,7 +3,6 @@ using UnityEngine;
 
 public abstract class HealthView : MonoBehaviour
 {
-    [SerializeField] private Canvas _parentCanvas;
     [SerializeField] private Health _health;
 
     private void Awake()
@@ -17,11 +16,6 @@ public abstract class HealthView : MonoBehaviour
     private void Start()
     {
         Display(_health.Current);        
-    }
-
-    private void Update()
-    {
-        _parentCanvas.transform.LookAt(Camera.main.transform.position);
     }
 
     private void OnEnable()
