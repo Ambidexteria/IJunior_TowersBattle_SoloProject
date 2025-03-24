@@ -8,8 +8,6 @@ public class SoldierMoverToTarget : MonoBehaviour
     [SerializeField] private float _minDistanceToTarget = 2f;
     [SerializeField] private float _speed = 1f;
     [SerializeField] private float _brakeSpeed = 1f;
-    [SerializeField] private SlopeDetector _slopeDetector;
-    [SerializeField] private float _slopeSlowingSpeedModifier = 1.5f;
 
     private Rigidbody _rigidbody;
     private float _minDistanceSqr;
