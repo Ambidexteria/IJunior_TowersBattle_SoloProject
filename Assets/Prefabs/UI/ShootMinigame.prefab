@@ -252,7 +252,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2911942889432927513}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
@@ -282,7 +282,7 @@ MonoBehaviour:
   _minigamePressRange: {fileID: 4888394922521936724}
   _slider: {fileID: 1117861135605396637}
   _shootButton: {fileID: 8292502139523346713}
-  _sliderSpeedRate: 1.25
+  _sliderSpeedRate: 1.5
 --- !u!1 &3075687019113794904
 GameObject:
   m_ObjectHideFlags: 0

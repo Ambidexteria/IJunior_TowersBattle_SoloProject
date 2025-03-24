@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using System.Linq;
 
@@ -12,15 +13,22 @@ public class NPCSoldierController : MonoBehaviour
     [SerializeField] private float _nextCommandDelay = 2f;
 
     private Team _team;
+    private Coroutine _coroutine;
+    private WaitForSeconds _startWait;
+    private WaitForSeconds _waitNextCommand;
 
     private void Awake()
     {
         _team = GetComponent<Team>();
+        _startWait = new WaitForSeconds(_startDelay);
+        _waitNextCommand = new WaitForSeconds(_nextCommandDelay);
     }
 
     private void Start()
     {
-        InvokeRepeating(nameof(SendSoldierToControlPoint), _startDelay, _nextCommandDelay);
+        //InvokeRepeating(nameof(SendSoldierToControlPoint), _startDelay, _nextCommandDelay);
+
+        LaunchSendingSoldiers();
     }
 
     private void OnEnable()
@@ -33,6 +41,35 @@ public class NPCSoldierController : MonoBehaviour
     {
         _spawnController.Spawned -= AddNewSoldier;
         _spawnController.Despawned -= RemoveSoldier;
+    }
+
+    public void LaunchSendingSoldiers()
+    {
+        if (_coroutine != null)
+            return;
+
+        _coroutine = StartCoroutine(SendSoldierToControlPointCoroutine());
+    }
+
+    public void StopSendingSoldiers()
+    {
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
+    }
+
+    private IEnumerator SendSoldierToControlPointCoroutine()
+    {
+        yield return _startWait;
+
+        while (enabled)
+        {
+            if (_soldiers.Count > 0)
+                if (TryGetIdleSoldier(out Soldier soldier))
+                    if (_controlPointDatabase.TryGetNearestVacantControlPoint(_team.Type, soldier.transform.position, out var controlPoint))
+                        soldier.MoveTo(controlPoint.transform);
+
+            yield return _waitNextCommand;
+        }
     }
 
     private void AddNewSoldier(Soldier soldier)

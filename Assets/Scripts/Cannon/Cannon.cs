@@ -24,6 +24,7 @@ public class Cannon : MonoBehaviour, IDamageable
     public int Damage => _damage;
 
     public event Action EnergyBarFilled;
+    public event Action Destroyed;
 
     private void Awake()
     {
@@ -34,11 +35,13 @@ public class Cannon : MonoBehaviour, IDamageable
     private void OnEnable()
     {
         _energyBar.Filled += EnergyBarFilled;
+        _health.Dying += OnDying;
     }
 
     private void OnDisable()
     {
         _energyBar.Filled -= EnergyBarFilled;
+        _health.Dying -= OnDying;
     }
 
     [Inject]
@@ -54,7 +57,6 @@ public class Cannon : MonoBehaviour, IDamageable
         return _health.IsDead;
     }
 
-    [ContextMenu("Shoot")]
     public void Shoot()
     {
         CannonProjectile cannonProjectile = _projectileSpawner.Spawn();
@@ -71,5 +73,10 @@ public class Cannon : MonoBehaviour, IDamageable
     {
         _health.Decrease(amount);
         _takeDamageEffect.Play();
+    }
+
+    private void OnDying()
+    {
+        Destroyed?.Invoke();
     }
 }

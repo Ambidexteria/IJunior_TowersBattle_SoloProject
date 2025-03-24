@@ -29,7 +29,7 @@ public class SoldierSpawnController : MonoBehaviour
 
     private void Start()
     {
-        _coroutine = StartCoroutine(SpawnCoroutine());
+        StartSpawn();
     }
 
     private void OnEnable()
@@ -41,6 +41,20 @@ public class SoldierSpawnController : MonoBehaviour
     {
         StopCoroutine(_coroutine);
         _coroutine = null;
+    }
+
+    public void StartSpawn()
+    {
+        if (_coroutine != null)
+            return;
+
+        _coroutine = StartCoroutine(SpawnCoroutine());
+    }
+
+    public void StopSpawn()
+    {
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
     }
 
     private IEnumerator SpawnCoroutine()

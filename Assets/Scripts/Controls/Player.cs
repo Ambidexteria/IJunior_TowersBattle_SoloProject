@@ -23,18 +23,15 @@ public class Player : MonoBehaviour
 
     private void OnEnergyBarFilled()
     {
-        if (_shootMinigame.gameObject.activeSelf)
+        if (_shootMinigame.gameObject.activeInHierarchy)
             return;
 
         _shootMinigame.gameObject.SetActive(true);
         _shootMinigame.Launch();
-
-        //Time.timeScale = 0.1f;
     }
 
     private void OnWinMinigame()
     {
-        Time.timeScale = 1.0f;
         _cannon.Shoot();
 
         Debug.Log("Win!!!");
@@ -43,7 +40,6 @@ public class Player : MonoBehaviour
 
     private void OnLooseMinigame()
     {
-        //Time.timeScale = 1.0f;
         _cannon.TakeDamage(_cannon.Damage);
         Debug.LogError($"Looose!!! {_cannon.Damage} damage taken");
         _shootMinigame.gameObject.SetActive(false);
