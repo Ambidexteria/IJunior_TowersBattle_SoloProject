@@ -19,11 +19,15 @@ public class NPC : MonoBehaviour
         _cannonController.CannonDestroyed -= OnDefeated;
     }
 
+    public void Stop()
+    {
+        _soldierController.StopSendingSoldiers();
+        _soldierSpawnController.StopSpawn();
+    }
+
     private void OnDefeated()
     {
         Defeated?.Invoke();
-        _soldierController.StopSendingSoldiers();
-        _soldierSpawnController.StopSpawn();
 
         Debug.Log("NPC defeated");
     }

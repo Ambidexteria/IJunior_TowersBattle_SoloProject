@@ -11,7 +11,6 @@ public class Cannon : MonoBehaviour, IDamageable
     [SerializeField] private TeamColorChanger _colorChanger;
     [SerializeField] private Cannon _enemyCannon;
     [SerializeField] private Health _health;
-    [SerializeField] private CannonEnergyBar _energyBar;
     [SerializeField] private ParticleSystemController _shootEffect;
     [SerializeField] private ParticleSystemController _takeDamageEffect;
     [SerializeField] private Barrel _barrel;
@@ -23,7 +22,6 @@ public class Cannon : MonoBehaviour, IDamageable
 
     public int Damage => _damage;
 
-    public event Action EnergyBarFilled;
     public event Action Destroyed;
 
     private void Awake()
@@ -34,13 +32,11 @@ public class Cannon : MonoBehaviour, IDamageable
 
     private void OnEnable()
     {
-        _energyBar.Filled += EnergyBarFilled;
         _health.Dying += OnDying;
     }
 
     private void OnDisable()
     {
-        _energyBar.Filled -= EnergyBarFilled;
         _health.Dying -= OnDying;
     }
 

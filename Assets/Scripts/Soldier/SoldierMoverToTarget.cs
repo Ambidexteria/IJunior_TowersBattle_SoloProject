@@ -57,16 +57,6 @@ public class SoldierMoverToTarget : MonoBehaviour
         playerMoveDirection.y += Physics.gravity.y * Time.deltaTime;
         playerMoveDirection *= _speed;
 
-        //if (_slopeDetector.Detected)
-        //{
-        //    playerMoveDirection += Vector3.down * _speed * _slopeSlowingSpeedModifier;
-        //}
-        //else
-        //{
-        //    playerMoveDirection.y = _rigidbody.velocity.y;
-        //}
-
-
         _rigidbody.velocity = playerMoveDirection;
     }
 

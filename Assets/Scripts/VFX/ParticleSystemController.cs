@@ -9,6 +9,13 @@ public class ParticleSystemController : MonoBehaviour
     public void Play()
     {
         _particleSystem.Play();
-        _soundEffect.Play();
+
+        if (_soundEffect != null)
+            _soundEffect.Play();
+    }
+
+    public void SetPosition(Vector3 position)
+    {
+        gameObject.transform.position = position;
     }
 }
