@@ -23,12 +23,11 @@ public class NPC : MonoBehaviour
     {
         _soldierController.StopSendingSoldiers();
         _soldierSpawnController.StopSpawn();
+        _cannonController.Stop();
     }
 
     private void OnDefeated()
     {
         Defeated?.Invoke();
-
-        Debug.Log("NPC defeated");
     }
 }

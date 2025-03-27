@@ -6,7 +6,7 @@ public class NPCCannonController : MonoBehaviour
     [SerializeField] private Cannon _cannon;
     [SerializeField] private CannonEnergyBar _energyBar;
 
-    private bool _isCannonAlive = true;
+    private bool _active = true;
 
     public event Action CannonDestroyed;
 
@@ -22,15 +22,21 @@ public class NPCCannonController : MonoBehaviour
         _cannon.Destroyed -= OnCannonDestroyed;
     }
 
+    public void Stop()
+    {
+        _active = false;
+        _energyBar.Stop();
+    }
+
     private void OnEnergyBarFilled()
     {
-        if (_isCannonAlive)
+        if (_active)
             _cannon.Shoot();
     }
 
     private void OnCannonDestroyed()
     {
-        _isCannonAlive = false;
+        _active = false;
         CannonDestroyed?.Invoke();
     }
 }

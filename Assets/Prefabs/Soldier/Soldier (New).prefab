@@ -159,8 +159,6 @@ MonoBehaviour:
   _minDistanceToTarget: 1
   _speed: 5
   _brakeSpeed: 3
-  _slopeDetector: {fileID: 0}
-  _slopeSlowingSpeedModifier: 1.5
 --- !u!114 &2802369065724707484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,8 +198,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _marks:
   - {fileID: 7518812143915293009}
-  - {fileID: 1122420175869263889}
-  - {fileID: 2411024305344162433}
 --- !u!114 &657838871507724971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,6 +423,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4284018228288681555}
     m_Modifications:
+    - target: {fileID: 411349118756261617, guid: 6810331dcd1ab874297599b0bb26ff31, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0ba4e0603a4561647bc0cdd697119af8, type: 2}
+    - target: {fileID: 411349118756261619, guid: 6810331dcd1ab874297599b0bb26ff31, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0ba4e0603a4561647bc0cdd697119af8, type: 2}
+    - target: {fileID: 411349118756261621, guid: 6810331dcd1ab874297599b0bb26ff31, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0ba4e0603a4561647bc0cdd697119af8, type: 2}
+    - target: {fileID: 411349118756261623, guid: 6810331dcd1ab874297599b0bb26ff31, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0ba4e0603a4561647bc0cdd697119af8, type: 2}
     - target: {fileID: 411349118760448049, guid: 6810331dcd1ab874297599b0bb26ff31, type: 3}
       propertyPath: m_Controller
       value: 

@@ -2,11 +2,10 @@ using UnityEngine;
 
 public class StageController : MonoBehaviour
 {
-    [SerializeField] private StageSceneController _sceneController;
+    [SerializeField] private SceneChangeController _sceneController;
     [SerializeField] private Player _player;
     [SerializeField] private NPC _npc;
-    [SerializeField] private UIWindowController _winMessage;
-    [SerializeField] private UIWindowController _defeatMessage;
+    [SerializeField] private GameSceneUIController _gameSceneUIController;
 
     private void OnEnable()
     {
@@ -22,15 +21,14 @@ public class StageController : MonoBehaviour
 
     private void OnPlayerDefeated()
     {
-        Debug.Log("Player defeated");
-        _defeatMessage.Show();
+        _gameSceneUIController.ShowDefeatMessage();
         _player.Stop();
         _npc.Stop();
     }
 
     private void OnNPCDefeated()
     {
-        _winMessage.Show();
+        _gameSceneUIController.ShowWinMessage();
         _player.Stop();
         _npc.Stop();
     }

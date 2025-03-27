@@ -10,6 +10,7 @@ public class ShootMinigame : MonoBehaviour
     [SerializeField] private MinigamePressRange _minigamePressRange;
     [SerializeField] private SliderValueChanger _slider;
     [SerializeField] private ButtonClickHandler _shootButton;
+    [SerializeField] private TimeController _timeController;
     [SerializeField] private float _sliderSpeedRate;
 
     private PlayerInput _playerInput;
@@ -39,8 +40,6 @@ public class ShootMinigame : MonoBehaviour
     private void Init(PlayerInput playerInput)
     {
         _playerInput = playerInput;
-
-        _defaultTimeScale = Time.timeScale;
     }
 
     public void Launch()
@@ -54,7 +53,7 @@ public class ShootMinigame : MonoBehaviour
 
     private IEnumerator MoveSliderCoroutine(float speed)
     {
-        Time.timeScale *= _slowTimeModifier;
+        _timeController.SetSlowMotionTimeScale();
         speed /= _slowTimeModifier;
 
         float nextValue;
@@ -78,7 +77,7 @@ public class ShootMinigame : MonoBehaviour
 
     private void OnShootButtonPressed()
     {
-        Time.timeScale = _defaultTimeScale;
+        _timeController.SetDefaultTimeScale();
 
         StopCoroutine(_coroutine);
 

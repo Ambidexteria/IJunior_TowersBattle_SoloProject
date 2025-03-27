@@ -238,6 +238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8645549500846610627}
   - component: {fileID: 7271854235151072871}
+  - component: {fileID: 4941545335633397740}
   m_Layer: 5
   m_Name: ShootMinigame
   m_TagString: Untagged
@@ -278,11 +279,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204b624dbed2fab4c979c3a35fd46215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slowTimeModifier: 0.001
+  _slowTimeModifier: 0.1
   _minigamePressRange: {fileID: 4888394922521936724}
   _slider: {fileID: 1117861135605396637}
   _shootButton: {fileID: 8292502139523346713}
+  _timeController: {fileID: 0}
   _sliderSpeedRate: 1.5
+--- !u!114 &4941545335633397740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2911942889432927513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c204c65ec19b64948bab41baac0f13cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3075687019113794904
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,8 +405,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4806950031362000117}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.31, y: 0}
-  m_AnchorMax: {x: 0.31, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

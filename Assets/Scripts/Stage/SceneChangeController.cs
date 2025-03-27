@@ -1,15 +1,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class StageSceneController : MonoBehaviour
+public class SceneChangeController : MonoBehaviour
 {
-    [SerializeField] private ButtonClickHandler _mainMenuButton;
-    [SerializeField] private ButtonClickHandler _startNewBattleButton;
-
     private const string MainMenuScene = nameof(MainMenuScene);
     private const string GameScene = nameof(GameScene);
 
-    private Scene _activeScene;
+    [SerializeField] private ButtonClickHandler _mainMenuButton;
+    [SerializeField] private ButtonClickHandler _startNewBattleButton;
 
     private void OnEnable()
     {

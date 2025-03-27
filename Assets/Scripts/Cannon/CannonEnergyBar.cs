@@ -11,6 +11,8 @@ public class CannonEnergyBar : MonoBehaviour
     [SerializeField] private float _currentEnergy = 0;
     [SerializeField] private float _energyMax = 100f;
 
+    private bool _active = true;
+
     public float MaxEnergy => _energyMax;
 
     public event Action Filled;
@@ -28,8 +30,14 @@ public class CannonEnergyBar : MonoBehaviour
 
     private void Update()
     {
-        if (_energyIncome > 0 && _currentEnergy < _energyMax)
-            AddEnergy();
+        if (_active)
+            if (_energyIncome > 0 && _currentEnergy < _energyMax)
+                AddEnergy();
+    }
+
+    public void Stop()
+    {
+        _active = false;
     }
 
     private void AddEnergy()
