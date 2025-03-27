@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class StageController : MonoBehaviour
 {
+    [SerializeField] private StageSceneController _sceneController;
     [SerializeField] private Player _player;
     [SerializeField] private NPC _npc;
     [SerializeField] private UIWindowController _winMessage;

@@ -16,6 +16,11 @@ public class SoldierSpawnController : MonoBehaviour
     private Soldier _soldier;
     private Coroutine _coroutine;
 
+    private float _nextSpawnTime = 0;
+
+    public float TimeBeforeNextSpawn => Mathf.Clamp(_nextSpawnTime - Time.time, 0, _spawnDelay);
+
+
     public event Action<Soldier> Spawned;
     public event Action<Soldier> Despawned;
 
@@ -68,6 +73,8 @@ public class SoldierSpawnController : MonoBehaviour
             _soldier.DespawnerDetected += OnSoldierDespawning;
 
             Spawned?.Invoke(_soldier);
+
+            _nextSpawnTime = Time.time + _spawnDelay;
 
             yield return _wait;
         }

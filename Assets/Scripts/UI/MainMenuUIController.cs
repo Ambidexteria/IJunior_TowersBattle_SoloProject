@@ -3,13 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuUIController : MonoBehaviour
 {
-    private const string FirstScene = nameof(FirstScene);
+    private const string GameScene = nameof(GameScene);
 
     [SerializeField] private ButtonClickHandler _startBattleButton;
 
     [SerializeField] private UIWindowController _settingsWindow;
-    [SerializeField] private ButtonClickHandler _showSettingsButton;
-    [SerializeField] private ButtonClickHandler _hideSettingsButton;
+    [SerializeField] private ToggleValueChanger _settingsWindowToggle;
 
     [SerializeField] private UIWindowController _stagesWindow;
     [SerializeField] private ButtonClickHandler _showStagesButton;
@@ -23,8 +22,7 @@ public class MainMenuUIController : MonoBehaviour
     {
         _startBattleButton.Clicked += LaunchBattle;
 
-        _showSettingsButton.Clicked += ShowSettingsMenu;
-        _hideSettingsButton.Clicked += HideSettingsMenu;
+        _settingsWindowToggle.ValueChanged += OnSettingsTogglePressed;
 
         _showStagesButton.Clicked += ShowStagesMenu;
         _hideStagesButton.Clicked += HideStagesMenu;
@@ -37,8 +35,7 @@ public class MainMenuUIController : MonoBehaviour
     {
         _startBattleButton.Clicked -= LaunchBattle;
 
-        _showSettingsButton.Clicked -= ShowSettingsMenu;
-        _hideSettingsButton.Clicked -= HideSettingsMenu;
+        _settingsWindowToggle.ValueChanged -= OnSettingsTogglePressed;
 
         _showStagesButton.Clicked -= ShowStagesMenu;
         _hideStagesButton.Clicked -= HideStagesMenu;
@@ -49,17 +46,12 @@ public class MainMenuUIController : MonoBehaviour
 
     private void LaunchBattle()
     {
-        SceneManager.LoadScene(FirstScene);
+        SceneManager.LoadScene(GameScene);
     }
 
-    private void ShowSettingsMenu()
+    private void OnSettingsTogglePressed(bool enable)
     {
-        _settingsWindow.Show();
-    }
-
-    private void HideSettingsMenu()
-    {
-        _settingsWindow.Hide();
+        _settingsWindow.gameObject.SetActive(enable);
     }
 
     private void ShowStagesMenu()
