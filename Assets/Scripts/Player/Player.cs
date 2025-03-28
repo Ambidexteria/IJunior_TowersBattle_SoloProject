@@ -31,7 +31,6 @@ public class Player : MonoBehaviour
 
     public void Stop()
     {
-        Debug.Log("Stop");
         _soldierSpawnerController.StopSpawn();
         _soldierSelector.enabled = false;
         _energyBar.enabled = false;
@@ -39,23 +38,27 @@ public class Player : MonoBehaviour
 
     private void OnEnergyBarFilled()
     {
-        if (_shootMinigame.gameObject.activeInHierarchy)
+        if (_shootMinigame.Activated)
             return;
 
-        _shootMinigame.gameObject.SetActive(true);
-        _shootMinigame.Launch();
+        _shootMinigame.Activate();
     }
 
     private void OnWinMinigame()
     {
         _cannon.Shoot();
-        _shootMinigame.gameObject.SetActive(false);
+        EndMinigame();
     }
 
     private void OnLooseMinigame()
     {
         _cannon.TakeDamage(_cannon.Damage);
-        _shootMinigame.gameObject.SetActive(false);
+        EndMinigame();
+    }
+
+    private void EndMinigame()
+    {
+        _energyBar.RemoveCurrentEnergy();
     }
 
     private void OnCannonDestroyed()

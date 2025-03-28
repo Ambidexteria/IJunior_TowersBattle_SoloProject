@@ -10,6 +10,7 @@ public class SoldierCommandController : MonoBehaviour
     [SerializeField] private float _secondClickDelay = 0.1f;
     [SerializeField] private SoldierSelector _soldierSelector;
     [SerializeField] private ControlPointSelector _controlPointSelector;
+    [SerializeField] private FloatingPointer _floatingPointer;
 
     private Team _team;
     private PlayerInput _playerInput;
@@ -61,6 +62,8 @@ public class SoldierCommandController : MonoBehaviour
             yield break;
         }
 
+        _floatingPointer.PlaceAbove(soldier.transform);
+
         yield return _waitForSeconds;
 
         _playerClickLeftMouseButton = false;
@@ -77,6 +80,7 @@ public class SoldierCommandController : MonoBehaviour
             yield break;
         }
 
+        _floatingPointer.Hide();
         _playerClickLeftMouseButton = false;
         _coroutine = null;
     }

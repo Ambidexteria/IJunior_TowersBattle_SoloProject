@@ -5,8 +5,8 @@ using Zenject;
 
 public class ShootMinigame : MonoBehaviour
 {
-    [Range(0.001f, 0.1f)]
-    [SerializeField] private float _slowTimeModifier = 1.0f;
+    [SerializeField] private MinigameLaunchButtonController _launchButtonController;
+    [SerializeField] private UIWindowController _minigameUI;
     [SerializeField] private MinigamePressRange _minigamePressRange;
     [SerializeField] private SliderValueChanger _slider;
     [SerializeField] private ButtonClickHandler _shootButton;
@@ -15,10 +15,14 @@ public class ShootMinigame : MonoBehaviour
 
     private PlayerInput _playerInput;
     private Coroutine _coroutine;
-    private float _defaultTimeScale;
+    private bool _activated = false;
 
+    private float _defaultTimeScale;
     private float _minPressValue;
     private float _maxPressValue;
+    private float _sliderSpeed;
+
+    public bool Activated => _activated;
 
     public event Action Winned;
     public event Action Loosed;
@@ -26,6 +30,7 @@ public class ShootMinigame : MonoBehaviour
     private void OnEnable()
     {
         _shootButton.Clicked += OnShootButtonPressed;
+        _launchButtonController.Clicked += OnLaunchButtonPressed;
     }
 
     private void OnDisable()
@@ -34,6 +39,7 @@ public class ShootMinigame : MonoBehaviour
             StopCoroutine(_coroutine);
 
         _shootButton.Clicked -= OnShootButtonPressed;
+        _launchButtonController.Clicked -= OnLaunchButtonPressed;
     }
 
     [Inject]
@@ -42,19 +48,28 @@ public class ShootMinigame : MonoBehaviour
         _playerInput = playerInput;
     }
 
-    public void Launch()
+    public void Activate()
     {
+        _launchButtonController.Enable();
+        _activated = true;
+    }
+
+    private void OnLaunchButtonPressed()
+    {
+        _minigameUI.Show();
+
         _minigamePressRange.Place();
         _slider.SetMinMaxValues(_minigamePressRange.FullRangeMinValue, _minigamePressRange.FullRangeMaxValue);
+        _sliderSpeed = GetSliderSpeed();
+        _coroutine = StartCoroutine(MoveSliderCoroutine(_sliderSpeed));
 
-        float sliderSpeed = GetSliderSpeed();
-        _coroutine = StartCoroutine(MoveSliderCoroutine(sliderSpeed));
+        _launchButtonController.Disable();
     }
 
     private IEnumerator MoveSliderCoroutine(float speed)
     {
         _timeController.SetSlowMotionTimeScale();
-        speed /= _slowTimeModifier;
+        speed /= _timeController.SlowMotionTimeScale;
 
         float nextValue;
         _slider.SetValue(_slider.MinValue);
@@ -91,6 +106,9 @@ public class ShootMinigame : MonoBehaviour
         {
             Loosed?.Invoke();
         }
+
+        _minigameUI.Hide();
+        _activated = false;
     }
 
     private float GetSliderSpeed()

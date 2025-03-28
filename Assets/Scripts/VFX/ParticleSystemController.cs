@@ -14,6 +14,14 @@ public class ParticleSystemController : MonoBehaviour
             _soundEffect.Play();
     }
 
+    public void Stop()
+    {
+        _particleSystem.Stop();
+
+        if (_soundEffect != null)
+            _soundEffect.Stop();
+    }
+
     public void SetPosition(Vector3 position)
     {
         gameObject.transform.position = position;

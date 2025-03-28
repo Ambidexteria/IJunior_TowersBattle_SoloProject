@@ -16,6 +16,7 @@ public class CannonEnergyBar : MonoBehaviour
     public float MaxEnergy => _energyMax;
 
     public event Action Filled;
+    public event Action Emptied;
     public event Action<float> CurrentEnergyChanged;
 
     private void OnEnable()
@@ -40,6 +41,13 @@ public class CannonEnergyBar : MonoBehaviour
         _active = false;
     }
 
+    public void RemoveCurrentEnergy()
+    {
+        _currentEnergy = 0;
+
+        CurrentEnergyChanged?.Invoke(_currentEnergy);
+    }
+
     private void AddEnergy()
     {
         _currentEnergy += _energyIncome * Time.deltaTime;
@@ -49,15 +57,7 @@ public class CannonEnergyBar : MonoBehaviour
         if (_currentEnergy >= _energyMax)
         {
             Filled?.Invoke();
-            RemoveCurrentEnergy();
         }
-    }
-
-    private void RemoveCurrentEnergy()
-    {
-        _currentEnergy = 0;
-
-        CurrentEnergyChanged?.Invoke(_currentEnergy);
     }
 
     private void OnControlPointCaptured(ControlPoint controlPoint)

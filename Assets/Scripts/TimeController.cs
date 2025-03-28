@@ -11,6 +11,8 @@ public class TimeController : MonoBehaviour
     private float _timeScaleBeforePause;
     private bool _paused;
 
+    public float SlowMotionTimeScale => _slowMotionTimeScale;
+
     public void SetDefaultTimeScale()
     {
         Time.timeScale = _defaultTimeScale;

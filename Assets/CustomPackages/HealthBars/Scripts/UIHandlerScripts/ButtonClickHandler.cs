@@ -24,6 +24,16 @@ public class ButtonClickHandler : MonoBehaviour
         _button.onClick.RemoveListener(LaunchAction);
     }
 
+    public void Enable()
+    {
+        _button.interactable = true;
+    }
+
+    public void Disable()
+    {
+        _button.interactable = false;
+    }
+
     private void LaunchAction()
     {
         Clicked?.Invoke();
