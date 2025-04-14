@@ -18,7 +18,7 @@ public class SoldierSelector : MonoBehaviour
         {
             if (hit.collider.transform.root.TryGetComponent(out soldier))
             {
-                if (soldier.GetTeam() == team)
+                if (soldier.GetTeam() == team && soldier.IsDead() == false)
                 {
                     return true;
                 }

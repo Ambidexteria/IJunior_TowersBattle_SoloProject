@@ -5,7 +5,7 @@ using Zenject;
 
 public class ShootMinigame : MonoBehaviour
 {
-    [SerializeField] private MinigameLaunchButtonController _launchButtonController;
+    [SerializeField] private LaunchMinigameButtonController _launchButtonController;
     [SerializeField] private UIWindowController _minigameUI;
     [SerializeField] private MinigamePressRange _minigamePressRange;
     [SerializeField] private SliderValueChanger _slider;

@@ -3,8 +3,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
-public class MinigameLaunchButtonController : MonoBehaviour
+public class LaunchMinigameButtonController : MonoBehaviour
 {
+    private const string Scale = nameof(Scale);
+
+    [SerializeField] private Animator _animator;
     [SerializeField] private ButtonClickHandler _launchButton;
     [SerializeField] private Sprite _disabledSprite;
     [SerializeField] private Sprite _enabledSprite;
@@ -35,6 +38,8 @@ public class MinigameLaunchButtonController : MonoBehaviour
         _launchButton.Enable();
         _image.sprite = _enabledSprite;
         _particleSystemController.Play();
+        _animator.Play(Scale);
+        Debug.Log("Play Scale anim");
     }
 
     public void Disable()

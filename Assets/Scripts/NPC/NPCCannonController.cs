@@ -31,7 +31,10 @@ public class NPCCannonController : MonoBehaviour
     private void OnEnergyBarFilled()
     {
         if (_active)
+        {
             _cannon.Shoot();
+            _energyBar.RemoveCurrentEnergy();
+        }
     }
 
     private void OnCannonDestroyed()

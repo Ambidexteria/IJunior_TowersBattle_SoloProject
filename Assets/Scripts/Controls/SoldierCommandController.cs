@@ -46,7 +46,6 @@ public class SoldierCommandController : MonoBehaviour
     private void Construct(PlayerInput playerInput/*, SoldierSelector soldierSelector*/)
     {
         _playerInput = playerInput;
-        //_soldierSelector = soldierSelector;
     }
 
     private void OnSelect(InputAction.CallbackContext context)
@@ -62,17 +61,24 @@ public class SoldierCommandController : MonoBehaviour
             yield break;
         }
 
+        Debug.Log("soldier selected");
+
         _floatingPointer.PlaceAbove(soldier.transform);
 
         yield return _waitForSeconds;
+
+        Debug.Log("Delay ended");
 
         _playerClickLeftMouseButton = false;
 
         yield return _waitUntilNextClick;
 
-        if(_controlPointSelector.TrySelectControlPoint(out ControlPoint controlPoint))
+        Debug.Log("Next click registered");
+
+        if (_controlPointSelector.TrySelectControlPoint(out ControlPoint controlPoint))
         {
             soldier.MoveTo(controlPoint.transform);
+            Debug.Log("Soldier sended to point");
         }
         else
         {
@@ -83,6 +89,8 @@ public class SoldierCommandController : MonoBehaviour
         _floatingPointer.Hide();
         _playerClickLeftMouseButton = false;
         _coroutine = null;
+
+        Debug.Log("Method ended");
     }
 
     private void ClickLeftMouseButton(InputAction.CallbackContext context)

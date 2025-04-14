@@ -20,7 +20,6 @@ public class SoldierSpawnController : MonoBehaviour
 
     public float TimeBeforeNextSpawn => Mathf.Clamp(_nextSpawnTime - Time.time, 0, _spawnDelay);
 
-
     public event Action<Soldier> Spawned;
     public event Action<Soldier> Despawned;
 
