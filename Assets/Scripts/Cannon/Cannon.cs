@@ -2,83 +2,86 @@ using System;
 using UnityEngine;
 using Zenject;
 
-[RequireComponent(typeof(Team))]
-public class Cannon : MonoBehaviour, IDamageable
+namespace Base.Cannon
 {
-    private const string BarrelDrawback = nameof(BarrelDrawback);
-
-    [SerializeField] private Animator _animator;
-    [SerializeField] private TeamColorChanger _colorChanger;
-    [SerializeField] private Cannon _enemyCannon;
-    [SerializeField] private Health _health;
-    [SerializeField] private ParticleSystemController _shootEffect;
-    [SerializeField] private ParticleSystemController _takeDamageEffect;
-    [SerializeField] private Barrel _barrel;
-    [SerializeField] private int _damage;
-    [SerializeField] private float _fireDelay;
-
-    private Team _team;
-    private CannonProjectileSpawner _projectileSpawner;
-
-    public float MaxHealth => _health.MaxValue;
-    public float CurrentHealth => _health.Current;
-    public int Damage => _damage;
-
-    public event Action Destroyed;
-    public event Action<float> HealthChanged;
-
-    private void Awake()
+    [RequireComponent(typeof(Team))]
+    public class Cannon : MonoBehaviour, IDamageable
     {
-        _health = new Health(50);
+        private const string BarrelDrawback = nameof(BarrelDrawback);
 
-        _team = GetComponent<Team>();
-        _colorChanger.Recolor(_team);
-    }
+        [SerializeField] private Animator _animator;
+        [SerializeField] private TeamColorChanger _colorChanger;
+        [SerializeField] private Cannon _enemyCannon;
+        [SerializeField] private Health _health;
+        [SerializeField] private ParticleSystemController _shootEffect;
+        [SerializeField] private ParticleSystemController _takeDamageEffect;
+        [SerializeField] private Barrel _barrel;
+        [SerializeField] private int _damage;
+        [SerializeField] private float _fireDelay;
 
-    private void OnEnable()
-    {
-        _health.Dying += OnDying;
-    }
+        private Team _team;
+        private CannonProjectileSpawner _projectileSpawner;
 
-    private void OnDisable()
-    {
-        _health.Dying -= OnDying;
-    }
+        public float MaxHealth => _health.MaxValue;
+        public float CurrentHealth => _health.Current;
+        public int Damage => _damage;
 
-    [Inject]
-    private void Init(CannonProjectileSpawner projectileSpawner)
-    {
-        _projectileSpawner = projectileSpawner;
-    }
+        public event Action Destroyed;
+        public event Action<float> HealthChanged;
 
-    public TeamType GetTeamType() => _team.Type;
+        private void Awake()
+        {
+            _health = new Health(50);
 
-    public bool IsDead()
-    {
-        return _health.IsDead;
-    }
+            _team = GetComponent<Team>();
+            _colorChanger.Recolor(_team);
+        }
 
-    public void Shoot()
-    {
-        CannonProjectile cannonProjectile = _projectileSpawner.Spawn();
+        private void OnEnable()
+        {
+            _health.Dying += OnDying;
+        }
 
-        cannonProjectile.transform.position = _barrel.StartPoint;
-        cannonProjectile.Init(_team, _barrel.StartPoint, _enemyCannon.transform.position, _damage);
-        cannonProjectile.gameObject.SetActive(true);
+        private void OnDisable()
+        {
+            _health.Dying -= OnDying;
+        }
 
-        _shootEffect.Play();
-        _animator.Play(BarrelDrawback);
-    }
+        [Inject]
+        private void Init(CannonProjectileSpawner projectileSpawner)
+        {
+            _projectileSpawner = projectileSpawner;
+        }
 
-    public void TakeDamage(int amount)
-    {
-        _health.Decrease(amount);
-        _takeDamageEffect.Play();
-        HealthChanged?.Invoke(_health.Current);
-    }
+        public TeamType GetTeamType() => _team.Type;
 
-    private void OnDying()
-    {
-        Destroyed?.Invoke();
+        public bool IsDead()
+        {
+            return _health.IsDead;
+        }
+
+        public void Shoot()
+        {
+            CannonProjectile cannonProjectile = _projectileSpawner.Spawn();
+
+            cannonProjectile.transform.position = _barrel.StartPoint;
+            cannonProjectile.Init(_team, _barrel.StartPoint, _enemyCannon.transform.position, _damage);
+            cannonProjectile.gameObject.SetActive(true);
+
+            _shootEffect.Play();
+            _animator.Play(BarrelDrawback);
+        }
+
+        public void TakeDamage(int amount)
+        {
+            _health.Decrease(amount);
+            _takeDamageEffect.Play();
+            HealthChanged?.Invoke(_health.Current);
+        }
+
+        private void OnDying()
+        {
+            Destroyed?.Invoke();
+        }
     }
 }
