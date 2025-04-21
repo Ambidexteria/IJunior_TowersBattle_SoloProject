@@ -1,11 +1,17 @@
 using System;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public class Health
 {
-    [SerializeField] private float _maxValue;
-
+    private float _maxValue;
     private float _currentHealth;
+
+    public Health(float maxValue)
+    {
+        _maxValue = maxValue;
+
+        Current = _maxValue;
+    }
 
     public event Action Dying;
     public event Action<float> Changed;
@@ -27,11 +33,6 @@ public class Health : MonoBehaviour
 
     public float MaxValue => _maxValue;
     public bool IsDead => Current <= 0;
-
-    private void Awake()
-    {
-        Current = _maxValue;
-    }
 
     public void Increase(float amount)
     {

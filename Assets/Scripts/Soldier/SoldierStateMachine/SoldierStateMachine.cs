@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Soldier))]
-public class SoldierStateMachine : MonoBehaviour
+public class SoldierStateMachine
 {
     private Soldier _soldier;
     private ISoldierState _currentState;
@@ -16,10 +14,9 @@ public class SoldierStateMachine : MonoBehaviour
 
     public bool IsIdle => _currentStateType == SoldierStateType.Idle;
 
-    private void Awake()
+    public SoldierStateMachine(Soldier soldier)
     {
-        _soldier = GetComponent<Soldier>();
-        _context = new SoldierStateContext();
+        _soldier = soldier;
 
         MovingSoldierState moveState = new MovingSoldierState(_soldier.Animator, _soldier);
         AttackSoldierState attackState = new AttackSoldierState(_soldier.Animator, _soldier, _soldier);
@@ -38,7 +35,7 @@ public class SoldierStateMachine : MonoBehaviour
         };
     }
 
-    private void OnEnable()
+    public void Enable()
     {
         _isActive = true;
         SetIdleState();
@@ -48,14 +45,14 @@ public class SoldierStateMachine : MonoBehaviour
         _soldier.Dying += SetDieState;
     }
 
-    private void OnDisable()
+    public void Disable()
     {
         _soldier.MovingToTarget -= SetMoveState;
         _soldier.EnemyTargetDetected -= SetAttackState;
         _soldier.Dying -= SetDieState;
     }
 
-    private void Update()
+    public void Update()
     {
         if (_isActive)
             if (_currentState != null)
@@ -121,7 +118,7 @@ public class SoldierStateMachine : MonoBehaviour
             _soldier.MoveTo(_context.MoveTarget);
 
         if (_previousStateType == SoldierStateType.Idle)
-            ChangeState(SoldierStateType.Idle);
+            SetIdleState();
     }
 
     [ContextMenu(nameof(ShowCurrentState))]
@@ -142,6 +139,6 @@ public class SoldierStateMachine : MonoBehaviour
         else if (_currentStateType == SoldierStateType.Die)
             currentStateName = nameof(SoldierStateType.Die);
 
-        Debug.Log($"{transform.root.name} --- current state: {currentStateName}");
+        Debug.Log($"{_soldier.transform.root.name} --- current state: {currentStateName}");
     }
 }

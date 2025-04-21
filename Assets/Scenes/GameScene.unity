@@ -123,17 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &5847262 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 976690466316975285, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
-  m_PrefabInstance: {fileID: 2002496747}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bf00c98d48372f49a85d2865f4c39c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &31358071
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,9 +232,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 842591779922909743, guid: ede64e756cf1db34893063fd80180607, type: 3}
+      propertyPath: _cannon
+      value: 
+      objectReference: {fileID: 2002496748}
+    - target: {fileID: 842591779922909743, guid: ede64e756cf1db34893063fd80180607, type: 3}
       propertyPath: _health
       value: 
-      objectReference: {fileID: 5847262}
+      objectReference: {fileID: 0}
     - target: {fileID: 1436648797010798288, guid: ede64e756cf1db34893063fd80180607, type: 3}
       propertyPath: m_Value
       value: 1
@@ -391,9 +384,13 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4817528984602016623, guid: ede64e756cf1db34893063fd80180607, type: 3}
+      propertyPath: _cannon
+      value: 
+      objectReference: {fileID: 2002496748}
+    - target: {fileID: 4817528984602016623, guid: ede64e756cf1db34893063fd80180607, type: 3}
       propertyPath: _health
       value: 
-      objectReference: {fileID: 5847262}
+      objectReference: {fileID: 0}
     - target: {fileID: 4912819281957350384, guid: ede64e756cf1db34893063fd80180607, type: 3}
       propertyPath: m_Name
       value: NPCCannonHealthView
@@ -2198,9 +2195,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 842591779922909743, guid: ede64e756cf1db34893063fd80180607, type: 3}
+      propertyPath: _cannon
+      value: 
+      objectReference: {fileID: 1943726315}
+    - target: {fileID: 842591779922909743, guid: ede64e756cf1db34893063fd80180607, type: 3}
       propertyPath: _health
       value: 
-      objectReference: {fileID: 1943726318}
+      objectReference: {fileID: 0}
     - target: {fileID: 1436648797010798288, guid: ede64e756cf1db34893063fd80180607, type: 3}
       propertyPath: m_Value
       value: 1
@@ -2346,9 +2347,13 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4817528984602016623, guid: ede64e756cf1db34893063fd80180607, type: 3}
+      propertyPath: _cannon
+      value: 
+      objectReference: {fileID: 1943726315}
+    - target: {fileID: 4817528984602016623, guid: ede64e756cf1db34893063fd80180607, type: 3}
       propertyPath: _health
       value: 
-      objectReference: {fileID: 1943726318}
+      objectReference: {fileID: 0}
     - target: {fileID: 4912819281957350384, guid: ede64e756cf1db34893063fd80180607, type: 3}
       propertyPath: m_Name
       value: PlayerCannonHealthView
@@ -5163,6 +5168,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f92f56452b131794ab9ec62ef0d13e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _soldierStats:
+    _maxHealth: 20
+    _minDistanceToTarget: 1
+    _speed: 5
+    _brakeSpeed: 10
+    _weaponDamage: 1
   _projectilesParent: {fileID: 549895256}
   _soldierPrefab: {fileID: 2016997480567837586, guid: 6c54a8d06d04f15409aedeea0aae3269, type: 3}
   _projectilePrefab: {fileID: 6178834008236417665, guid: f7cc1c658b160d241931534105534072, type: 3}
@@ -6608,17 +6619,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef89bb3ccb015a04f965a54bd413d769, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1943726318 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 976690466316975285, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
-  m_PrefabInstance: {fileID: 703474315}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bf00c98d48372f49a85d2865f4c39c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1943726319 stripped

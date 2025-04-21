@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class HealthSliderView : HealthView
+public class HealthSliderView : CannonHealthView
 {
     [SerializeField] private SliderValueChanger _healthBar;
 

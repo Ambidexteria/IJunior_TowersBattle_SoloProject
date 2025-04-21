@@ -1,29 +1,28 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(Team))]
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(SoldierStateMachine))]
 public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
 {
     [SerializeField] private SoldierGroundCollisionController _groundCollisionController;
-    [SerializeField] private SoldierMoverToTarget _moverToTarget;
     [SerializeField] private SoldierRotatorToTarget _rotatorToTarget;
     [SerializeField] private Animator _animator;
     [SerializeField] private SoldierWeapon _weapon;
-    [SerializeField] private Health _health;
     [SerializeField] private SoldierCollisionHandler _collisionHandler;
     [SerializeField] private TargetDetector _enemiesDetector;
     [SerializeField] private TeamColorChanger _colorChanger;
     [SerializeField] private float _dieDelay;
 
+    private Health _health;
+    private SoldierStateMachine _stateMachine;
+    private SoldierMoverToTarget _moverToTarget;
     private Rigidbody _rigidbody;
     private Team _team;
-    private SoldierStateMachine _stateMachine;
     private WaitForSeconds _waitToDie;
-    private Collider _collider;
 
     public Animator Animator => _animator;
     public bool IsIdle => _stateMachine.IsIdle;
@@ -35,17 +34,16 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
 
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody>();
         _team = GetComponent<Team>();
-        _stateMachine = GetComponent<SoldierStateMachine>();
-        _collider = GetComponent<Collider>();
-        _collider.isTrigger = true;
 
         _waitToDie = new WaitForSeconds(_dieDelay);
     }
 
     private void OnEnable()
     {
+        _stateMachine.Enable();
+
+        Debug.Log($"Soldier ienabled wibt {_health.MaxValue} of health");
         _health.Increase(_health.MaxValue);
         _groundCollisionController.Enable();
 
@@ -56,9 +54,27 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
 
     private void OnDisable()
     {
+        _stateMachine.Disable();
+
         _collisionHandler.DespawnerDetected -= OnDespawnerDetected;
         _enemiesDetector.Detected -= OnEnemyTargetDetected;
         _health.Dying -= Die;
+    }
+
+    private void Update()
+    {
+        _stateMachine.Update();
+        _moverToTarget.Update();
+    }
+
+    [Inject]
+    private void Init(SoldierStats soldierStats)
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+
+        _stateMachine = new SoldierStateMachine(this);
+        _moverToTarget = new SoldierMoverToTarget(_rigidbody, soldierStats);
+        _health = new Health(soldierStats.MaxHealth);
     }
 
     public void SetTeam(Team team)
@@ -81,8 +97,6 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
     public void Stop()
     {
         _moverToTarget.Stop();
-        _rigidbody.velocity = Vector3.zero;
-        _rigidbody.Sleep();
     }
 
     public bool TargetReached()

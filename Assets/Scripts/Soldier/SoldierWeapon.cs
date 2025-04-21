@@ -5,7 +5,6 @@ using Zenject;
 
 public class SoldierWeapon : MonoBehaviour
 {
-    [SerializeField] private Projectile _projectilePrefab;
     [SerializeField] private float _projectileSpeed;
     [SerializeField] private float _shootCooldown;
     [SerializeField] private float _startDelay;

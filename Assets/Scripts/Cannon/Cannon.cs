@@ -20,12 +20,17 @@ public class Cannon : MonoBehaviour, IDamageable
     private Team _team;
     private CannonProjectileSpawner _projectileSpawner;
 
+    public float MaxHealth => _health.MaxValue;
+    public float CurrentHealth => _health.Current;
     public int Damage => _damage;
 
     public event Action Destroyed;
+    public event Action<float> HealthChanged;
 
     private void Awake()
     {
+        _health = new Health(50);
+
         _team = GetComponent<Team>();
         _colorChanger.Recolor(_team);
     }
@@ -69,6 +74,7 @@ public class Cannon : MonoBehaviour, IDamageable
     {
         _health.Decrease(amount);
         _takeDamageEffect.Play();
+        HealthChanged?.Invoke(_health.Current);
     }
 
     private void OnDying()

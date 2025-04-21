@@ -749,7 +749,6 @@ GameObject:
   - component: {fileID: 5642008918899621835}
   - component: {fileID: 4136631317930239833}
   - component: {fileID: 7399382638602004886}
-  - component: {fileID: 976690466316975285}
   - component: {fileID: 6754041207753624226}
   - component: {fileID: 8509713970193542243}
   m_Layer: 0
@@ -826,8 +825,6 @@ MonoBehaviour:
   _animator: {fileID: 2340961420092407450}
   _colorChanger: {fileID: 8509713970193542243}
   _enemyCannon: {fileID: 0}
-  _health: {fileID: 976690466316975285}
-  _energyBar: {fileID: 7399382638602004886}
   _shootEffect: {fileID: 3189086467886362526}
   _takeDamageEffect: {fileID: 6580666802939038532}
   _barrel: {fileID: 3984716694381274033}
@@ -851,19 +848,6 @@ MonoBehaviour:
   _energyIncome: 0
   _currentEnergy: 0
   _energyMax: 30
---- !u!114 &976690466316975285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8757339143659090541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bf00c98d48372f49a85d2865f4c39c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxValue: 100
 --- !u!54 &6754041207753624226
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -1,29 +1,39 @@
 using System.Collections;
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(Rigidbody))]
-public class SoldierMoverToTarget : MonoBehaviour
+public class SoldierMoverToTarget
 {
-    [SerializeField] private Transform _target;
-    [SerializeField] private float _minDistanceToTarget = 2f;
-    [SerializeField] private float _speed = 1f;
-    [SerializeField] private float _brakeSpeed = 1f;
+    private float _minDistanceToTarget = 2f;
+    private float _speed = 1f;
+    private float _brakeSpeed = 1f;
 
+    private Transform _target;
     private Rigidbody _rigidbody;
     private float _minDistanceSqr;
     private Coroutine _brakingSpeedCoroutine;
     private bool _isStopped = true;
 
-    private void Awake()
+    [Inject]
+    public SoldierMoverToTarget(Rigidbody rigidbody, SoldierStats stats)
     {
-        _rigidbody = GetComponent<Rigidbody>();
+        _rigidbody = rigidbody;
+
+        _minDistanceToTarget = stats.MinDistanceToTarget;
+        _speed = stats.Speed;
+        _brakeSpeed = stats.BrakeSpeed;
+
         _minDistanceSqr = _minDistanceToTarget * _minDistanceToTarget;
     }
 
-    private void Update()
+    public void Update()
     {
         if (_isStopped)
+        {
+            BrakeSpeed();
             return;
+        }
 
         if (_target == null)
             return;
@@ -40,19 +50,16 @@ public class SoldierMoverToTarget : MonoBehaviour
     public void Stop()
     {
         _isStopped = true;
-
-        if (_brakingSpeedCoroutine == null)
-            _brakingSpeedCoroutine = StartCoroutine(BrakeSpeed());
     }
 
     public bool TargetReached()
     {
-        return (_target.position - transform.position).sqrMagnitude < _minDistanceSqr;
+        return (_target.position - _rigidbody.transform.position).sqrMagnitude < _minDistanceSqr;
     }
 
     private void Move()
     {
-        Vector3 playerMoveDirection = (_target.position - transform.position).normalized;
+        Vector3 playerMoveDirection = (_target.position - _rigidbody.transform.position).normalized;
 
         playerMoveDirection.y += Physics.gravity.y * Time.deltaTime;
         playerMoveDirection *= _speed;
@@ -60,15 +67,16 @@ public class SoldierMoverToTarget : MonoBehaviour
         _rigidbody.velocity = playerMoveDirection;
     }
 
-    private IEnumerator BrakeSpeed()
+    private void BrakeSpeed()
     {
-        while (_rigidbody.velocity.magnitude > 0.1f)
+        if (_rigidbody.velocity.magnitude > 0.1f)
         {
             _rigidbody.velocity = Vector3.MoveTowards(_rigidbody.velocity, Vector3.zero, _brakeSpeed * Time.deltaTime);
-            yield return null;
         }
-
-        _rigidbody.velocity = Vector3.zero;
-        _rigidbody.Sleep();
+        else
+        {
+            _rigidbody.velocity = Vector3.zero;
+            _rigidbody.Sleep();
+        }
     }
 }

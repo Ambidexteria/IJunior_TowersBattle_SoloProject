@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using TMPro;
 
-public class HealthTextView : HealthView
+public class HealthTextView : CannonHealthView
 {
     [SerializeField] private TextMeshProUGUI _text;
 

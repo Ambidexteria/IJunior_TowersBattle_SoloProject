@@ -1,13 +1,17 @@
 using TMPro;
 using UnityEngine;
 
-public class SpawnTimeView : MonoBehaviour
+namespace Base
 {
-    [SerializeField] private SoldierSpawnController _spawnController;
-    [SerializeField] private TextMeshProUGUI _text;
-
-    private void Update()
+    public class SpawnTimeView : MonoBehaviour
     {
-        _text.text = string.Format("{0:f2}", _spawnController.TimeBeforeNextSpawn);
+        [SerializeField] private SoldierSpawnController _spawnController;
+        [SerializeField] private TextMeshProUGUI _text;
+
+        private void Update()
+        {
+            _text.text = string.Format("{0:f2}", _spawnController.TimeBeforeNextSpawn);
+        }
     }
+
 }

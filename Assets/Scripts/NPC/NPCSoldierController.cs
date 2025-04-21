@@ -26,8 +26,6 @@ public class NPCSoldierController : MonoBehaviour
 
     private void Start()
     {
-        //InvokeRepeating(nameof(SendSoldierToControlPoint), _startDelay, _nextCommandDelay);
-
         LaunchSendingSoldiers();
     }
 

@@ -1,13 +1,13 @@
 using System;
 using UnityEngine;
 
-public abstract class HealthView : MonoBehaviour
+public abstract class CannonHealthView : MonoBehaviour
 {
-    [SerializeField] private Health _health;
+    [SerializeField] private Cannon _cannon;
 
     private void Awake()
     {
-        if (_health == null)
+        if (_cannon == null)
             throw new ArgumentNullException();
 
         PrepareOnAwake();
@@ -15,22 +15,22 @@ public abstract class HealthView : MonoBehaviour
 
     private void Start()
     {
-        Display(_health.Current);        
+        Display(_cannon.CurrentHealth);        
     }
 
     private void OnEnable()
     {
-        _health.Changed += Display;
+        _cannon.HealthChanged += Display;
     }
 
     private void OnDisable()
     {
-        _health.Changed -= Display;
+        _cannon.HealthChanged -= Display;
     }
 
     public float GetMaxHealth()
     {
-        return _health.MaxValue;
+        return _cannon.MaxHealth;
     }
 
     public abstract void Display(float value);

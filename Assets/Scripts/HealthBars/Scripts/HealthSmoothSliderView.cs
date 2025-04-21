@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class HealthSmoothSliderView : HealthView
+public class HealthSmoothSliderView : CannonHealthView
 {
     [SerializeField] private SliderValueChanger _healthBar;
     [SerializeField] private float _changeSpeed = 0.2f;
