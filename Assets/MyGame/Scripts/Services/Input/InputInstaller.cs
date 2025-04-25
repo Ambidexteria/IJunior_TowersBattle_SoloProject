@@ -1,13 +1,13 @@
 using Zenject;
 using UnityEngine;
 
-public class InputInstaller : Installer<InputInstaller>
+namespace Base.Services.Input
 {
-    public override void InstallBindings()
+    public class InputInstaller : Installer<InputInstaller>
     {
-        Debug.Log("Input installed");
-        DiContainer temp = Container;
-        Debug.Log($"is container null ? -- {Container is null}");
-        Container.Bind<PlayerInput>().FromNew().AsSingle();
+        public override void InstallBindings()
+        {
+            Container.Bind<InputService>().FromNew().AsSingle();
+        }
     }
 }

@@ -1,10 +1,9 @@
+using Base.Data;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenuUIController : MonoBehaviour
 {
-    private const string GameScene = nameof(GameScene);
-
     [SerializeField] private ButtonClickHandler _startBattleButton;
 
     [SerializeField] private UIWindowController _settingsWindow;
@@ -46,7 +45,7 @@ public class MainMenuUIController : MonoBehaviour
 
     private void LaunchBattle()
     {
-        SceneManager.LoadScene(GameScene);
+        SceneManager.LoadScene(SceneNames.Game);
     }
 
     private void OnSettingsTogglePressed(bool enable)

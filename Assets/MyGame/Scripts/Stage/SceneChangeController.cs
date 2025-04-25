@@ -1,11 +1,9 @@
+using Base.Data;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneChangeController : MonoBehaviour
 {
-    private const string MainMenuScene = nameof(MainMenuScene);
-    private const string GameScene = nameof(GameScene);
-
     [SerializeField] private ButtonClickHandler _mainMenuButton;
     [SerializeField] private ButtonClickHandler _startNewBattleButton;
 
@@ -23,12 +21,12 @@ public class SceneChangeController : MonoBehaviour
 
     public void LoadMainMenu()
     {
-        SceneManager.LoadScene(MainMenuScene);
+        SceneManager.LoadScene(SceneNames.MainMenu);
     }
 
     public void LoadGameScene()
     {
-        SceneManager.LoadScene(GameScene);
+        SceneManager.LoadScene(SceneNames.Game);
     }
 
     public void ReloadActiveScene()

@@ -20,21 +20,21 @@ public class AudioVolumeController : MonoBehaviour
     private float _currentMasterVolume;
     private bool _IsMuted = false;
 
-    private void OnEnable()
-    {
-        _masterVolumeSlider.ValueChanged += SetMasterVolume;
-        _soundsVolumeSlider.ValueChanged += SetSoundsVolume;
-        _musicVolumeSlider.ValueChanged += SetMusicVolume;
-        _muteToggle.ValueChanged += ToggleMute;
-    }
+    //private void OnEnable()
+    //{
+    //    _masterVolumeSlider.ValueChanged += SetMasterVolume;
+    //    _soundsVolumeSlider.ValueChanged += SetSoundsVolume;
+    //    _musicVolumeSlider.ValueChanged += SetMusicVolume;
+    //    _muteToggle.ValueChanged += ToggleMute;
+    //}
 
-    private void OnDisable()
-    {
-        _masterVolumeSlider.ValueChanged -= SetMasterVolume;
-        _soundsVolumeSlider.ValueChanged -= SetSoundsVolume;
-        _musicVolumeSlider.ValueChanged -= SetMusicVolume;
-        _muteToggle.ValueChanged -= ToggleMute;
-    }
+    //private void OnDisable()
+    //{
+    //    _masterVolumeSlider.ValueChanged -= SetMasterVolume;
+    //    _soundsVolumeSlider.ValueChanged -= SetSoundsVolume;
+    //    _musicVolumeSlider.ValueChanged -= SetMusicVolume;
+    //    _muteToggle.ValueChanged -= ToggleMute;
+    //}
 
     private void ToggleMute(bool value)
     {

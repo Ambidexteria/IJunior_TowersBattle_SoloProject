@@ -1,9 +1,10 @@
+using Base.Services.Input;
 using UnityEngine;
 using Zenject;
 
 public class PlayerInputController : MonoBehaviour
 {
-    private PlayerInput _input;
+    private InputService _input;
 
     private void OnEnable()
     {
@@ -16,7 +17,7 @@ public class PlayerInputController : MonoBehaviour
     }
 
     [Inject]
-    private void Construct(PlayerInput input)
+    private void Construct(InputService input)
     {
         _input = input;
     }

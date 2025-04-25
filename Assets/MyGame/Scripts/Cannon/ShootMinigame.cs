@@ -1,3 +1,4 @@
+using Base.Services.Input;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -13,7 +14,7 @@ public class ShootMinigame : MonoBehaviour
     [SerializeField] private TimeController _timeController;
     [SerializeField] private float _sliderSpeedRate;
 
-    private PlayerInput _playerInput;
+    private InputService _playerInput;
     private Coroutine _coroutine;
     private bool _activated = false;
 
@@ -43,7 +44,7 @@ public class ShootMinigame : MonoBehaviour
     }
 
     [Inject]
-    private void Init(PlayerInput playerInput)
+    private void Init(InputService playerInput)
     {
         _playerInput = playerInput;
     }

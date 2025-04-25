@@ -1,3 +1,4 @@
+using Base.Services.Input;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -13,7 +14,7 @@ public class SoldierCommandController : MonoBehaviour
     [SerializeField] private FloatingPointer _floatingPointer;
 
     private Team _team;
-    private PlayerInput _playerInput;
+    private InputService _input;
     private Coroutine _coroutine;
 
     private WaitForSeconds _waitForSeconds;
@@ -32,20 +33,20 @@ public class SoldierCommandController : MonoBehaviour
 
     private void OnEnable()
     {
-        _playerInput.Game.Select.performed += OnSelect;
-        _playerInput.Game.Select.performed += ClickLeftMouseButton;
+        _input.Game.Select.performed += OnSelect;
+        _input.Game.Select.performed += ClickLeftMouseButton;
     }
 
     private void OnDisable()
     {
-        _playerInput.Game.Select.performed -= OnSelect;
-        _playerInput.Game.Select.performed -= ClickLeftMouseButton;
+        _input.Game.Select.performed -= OnSelect;
+        _input.Game.Select.performed -= ClickLeftMouseButton;
     }
 
     [Inject]
-    private void Construct(PlayerInput playerInput/*, SoldierSelector soldierSelector*/)
+    private void Construct(InputService input/*, SoldierSelector soldierSelector*/)
     {
-        _playerInput = playerInput;
+        _input = input;
     }
 
     private void OnSelect(InputAction.CallbackContext context)
