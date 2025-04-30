@@ -11,7 +11,7 @@ public class DieSoldierState : ISoldierState
     }
 
     public event Action Dying;
-    public event Action Dead;
+    //public event Action Dead;
 
     public void OnStart(SoldierStateContext context)
     {

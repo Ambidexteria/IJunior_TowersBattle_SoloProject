@@ -5,6 +5,6 @@ public class GameFactoryInstaller : Installer<GameFactoryInstaller>
 {
     public override void InstallBindings()
     {
-        Container.Bind<GameFactory>().FromNew().AsSingle();
+        Container.Bind<IGameFactory>().To<GameFactory>().AsSingle();
     }
 }

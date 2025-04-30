@@ -6,24 +6,26 @@ using Zenject;
 
 namespace Base.Services.Factories
 {
-    public class GameFactory : IService
+    public class GameFactory : IGameFactory, IService
     {
         private const string HUDPath = "UI/MainMenuUI";
 
-        private AssetLoader _assetLoader;
+        private readonly AssetLoader _assetLoader;
+        private readonly DiContainer _container;
 
         private List<ISavedProgressReader> _progressReaders = new List<ISavedProgressReader>();
         private List<ISavedProgress> _progressWriters = new List<ISavedProgress>();
 
-        public GameFactory(AssetLoader assetLoader)
+        public GameFactory(AssetLoader assetLoader, DiContainer container)
         {
             _assetLoader = assetLoader;
-
+            _container = container;
         }
 
         public void CreateHUD()
         {
             GameObject hud = _assetLoader.Instantiate(HUDPath);
+            _container.InjectGameObject(hud);
 
             foreach (ISavedProgressReader reader in hud.GetComponentsInChildren<ISavedProgressReader>())
             {

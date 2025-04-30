@@ -1,8 +1,4 @@
-﻿using Base.Infrastructure;
-using UnityEngine;
-using Zenject;
-
-namespace Base.Infrastructure
+﻿namespace Base.Infrastructure
 {
     public class Game
     {
@@ -10,15 +6,8 @@ namespace Base.Infrastructure
 
         public GameStateMachine GameStateMachine => _gameStateMachine;
 
-        public Game()
+        public Game(GameStateMachine gameStateMachine)
         {
-            Debug.Log("Game constructed");
-        }
-
-        [Inject]
-        private void Init(GameStateMachine gameStateMachine)
-        {
-            Debug.Log("Game initiated");
             _gameStateMachine = gameStateMachine;
         }
     }

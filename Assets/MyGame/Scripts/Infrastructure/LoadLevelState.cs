@@ -3,6 +3,9 @@ using Base.Logic;
 using Base.Services.Factories;
 using Zenject;
 using Base.Services.SceneManagment;
+using System;
+using Base.Data;
+using Base.Services.PersistentProgress;
 
 namespace Base.Infrastructure
 {
@@ -11,12 +14,14 @@ namespace Base.Infrastructure
         private readonly LoadingCurtain _loadingCurtain;
         private readonly GameStateMachine _gameStateMachine;
         private readonly SceneLoader _sceneLoader;
-        private readonly GameFactory _gameFactory;
+        private readonly IGameFactory _gameFactory;
+        private readonly IPersisentProgressService _progressService;
 
         [Inject]
-        public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain, GameFactory gameFactory)
+        public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory, IPersisentProgressService progressService)
         {
             _gameFactory = gameFactory;
+            _progressService = progressService;
             _loadingCurtain = loadingCurtain;
             _gameStateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
@@ -35,9 +40,21 @@ namespace Base.Infrastructure
 
         private void OnLoaded()
         {
-            Debug.Log("");
             _gameFactory.CreateHUD();
+
+            InformProgressReaders();
+
             _gameStateMachine.Enter<GameLoopState>();
+
+
+        }
+
+        private void InformProgressReaders()
+        {
+            foreach(ISavedProgressReader progressReader in _gameFactory.GetProgressReaders())
+            {
+                progressReader.LoadProgress(_progressService.PlayerProgress);
+            }
         }
     }
 }

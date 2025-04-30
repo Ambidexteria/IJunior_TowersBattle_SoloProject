@@ -16,7 +16,7 @@ public class CannonEnergyBar : MonoBehaviour
     public float MaxEnergy => _energyMax;
 
     public event Action Filled;
-    public event Action Emptied;
+    //public event Action Emptied;
     public event Action<float> CurrentEnergyChanged;
 
     private void OnEnable()

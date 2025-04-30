@@ -14,7 +14,6 @@ public class BaseServicesInstaller : MonoInstaller
         _projectContext.EnsureIsInitialized();
         _container = _projectContext.Container;
 
-        TestInstaller.Install(_container);
         SceneLoaderInstaller.Install(_container);
         InputInstaller.Install(_container);
         AssetLoaderInstaller.Install(_container);

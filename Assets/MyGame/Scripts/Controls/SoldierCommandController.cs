@@ -21,7 +21,7 @@ public class SoldierCommandController : MonoBehaviour
     private WaitUntil _waitUntilNextClick;
     private bool _playerClickLeftMouseButton = false;
 
-    public event Action<Soldier> SoldierSelected;
+    //public event Action<Soldier> SoldierSelected;
 
     private void Awake()
     {

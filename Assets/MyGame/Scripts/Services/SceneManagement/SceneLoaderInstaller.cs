@@ -1,4 +1,3 @@
-using Base.Infrastructure;
 using Zenject;
 
 namespace Base.Services.SceneManagment

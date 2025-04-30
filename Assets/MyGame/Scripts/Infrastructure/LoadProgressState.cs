@@ -30,7 +30,7 @@ namespace Base.Infrastructure
 
         private void LoadProgressOrInitNew()
         {
-            _progressService.PlayerProgress = /*_saveLoadService.LoadProgress() ??*/ CreateProgress();
+            _progressService.PlayerProgress = _saveLoadService.LoadProgress() ?? CreateProgress();
         }
 
         private PlayerProgress CreateProgress()

@@ -18,5 +18,10 @@ namespace Base.Data
         {
             return JsonUtility.FromJson<T>(json);
         }
+
+        public static string ToJson(this object obj)
+        {
+            return JsonUtility.ToJson(obj);
+        }
     }
 }

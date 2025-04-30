@@ -1055,7 +1055,6 @@ GameObject:
   - component: {fileID: 1778575667698249308}
   - component: {fileID: 5454657468043010793}
   - component: {fileID: 6650636211528247294}
-  - component: {fileID: 5293959199376123248}
   m_Layer: 5
   m_Name: MainMenuUI
   m_TagString: Untagged
@@ -1173,18 +1172,6 @@ MonoBehaviour:
   _shopWindow: {fileID: 7705372219505612749}
   _showShopButton: {fileID: 8172047631054987269}
   _hideShopButton: {fileID: 814006604086426596}
---- !u!114 &5293959199376123248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6016672678792802423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60d5c587139c1ed4393df709c5268acd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6119719247925759004
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ public class SoldierSelector : MonoBehaviour
     [SerializeField] private LayerMask _mask;
     [SerializeField] private float _raycastLength = 200f;
 
-    public event Action<Soldier> Selected;
+    //public event Action<Soldier> Selected;
 
     public bool TrySelectSoldier(out Soldier soldier, TeamType team)
     {

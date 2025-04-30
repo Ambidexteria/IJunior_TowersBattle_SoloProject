@@ -3,20 +3,15 @@ using Zenject;
 
 namespace Base.Infrastructure
 {
-    public class EntryPoint : MonoBehaviour, ICoroutineRunner
+    public class EntryPoint : MonoBehaviour
     {
-        private ProjectContext _projectContext;
-        private DiContainer _container;
         private Game _game;
 
         private void Awake()
         {
-            DontDestroyOnLoad(gameObject);
-        }
-
-        private void Start()
-        {
             _game.GameStateMachine.Enter<BootstrapState>();
+
+            DontDestroyOnLoad(gameObject);
         }
 
         [Inject]
