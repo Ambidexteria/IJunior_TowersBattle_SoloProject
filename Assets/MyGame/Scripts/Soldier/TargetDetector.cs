@@ -2,37 +2,60 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using Base.Logic;
 
-[RequireComponent(typeof(Collider))]
-public class TargetDetector : MonoBehaviour
+public class TargetDetector
 {
     private const int NumberOfSoldiersToCallDetectedEvent = 1;
 
-    [SerializeField] private List<Soldier> _soldierList;
-
+    private TriggerObserver _triggerObserver;
     private Team _team;
-    private List<ITargetSoldier> _enemySoldiers = new List<ITargetSoldier>();
+    private List<ISoldier> _enemySoldiers = new List<ISoldier>();
 
-    public event Action<ITargetSoldier> Detected;
-
-    private void Update()
+    public TargetDetector(TriggerObserver triggerObserver)
     {
-        _soldierList.Clear();
-
-        foreach(var soldier in _enemySoldiers)
-        {
-            _soldierList.Add((Soldier)soldier);
-        }
+        _triggerObserver = triggerObserver;
     }
 
-    private void OnEnable()
+    public event Action<ISoldier> Detected;
+
+    public void Enable()
     {
         _enemySoldiers.Clear();
+        _triggerObserver.Entered += OnTriggerEntered;
+        _triggerObserver.Exited += OnTriggerExited;
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void Disable()
     {
-        if (other.TryGetComponent(out ITargetSoldier target))
+        _triggerObserver.Entered -= OnTriggerEntered;
+        _triggerObserver.Exited -= OnTriggerExited;
+    }
+
+    public void SetTeam(Team team)
+    {
+        _team = team;
+    }
+
+    public bool TryGetNextAttackTarget(out ISoldier target)
+    {
+        DeleteDeadEnemies();
+
+        target = null;
+        List<ISoldier> targets = _enemySoldiers.Where(x => x.IsDead() == false).ToList();
+
+        if (targets.Count > 0)
+        {
+            target = targets[0];
+            return true;
+        }
+
+        return false;
+    }
+
+    private void OnTriggerEntered(Collider other)
+    {
+        if (other.TryGetComponent(out ISoldier target))
             if (IsTargetAliveEnemy(target))
                 if (_enemySoldiers.Contains(target) == false)
                     _enemySoldiers.Add(target);
@@ -45,35 +68,14 @@ public class TargetDetector : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExited(Collider other)
     {
-        if (other.TryGetComponent(out ITargetSoldier target))
+        if (other.TryGetComponent(out ISoldier target))
             if (_enemySoldiers.Contains(target))
                 _enemySoldiers.Remove(target);
     }
 
-    public void SetTeam(Team team)
-    {
-        _team = team;
-    }
-
-    public bool TryGetNextAttackTarget(out ITargetSoldier target)
-    {
-        DeleteDeadEnemies();
-
-        target = null;
-        List<ITargetSoldier> targets = _enemySoldiers.Where(x => x.IsDead() == false).ToList();
-
-        if (targets.Count > 0)
-        {
-            target = targets[0];
-            return true;
-        }
-
-        return false;
-    }
-
-    private bool IsTargetAliveEnemy(ITargetSoldier target)
+    private bool IsTargetAliveEnemy(ISoldier target)
     {
         return target.GetTeam() != _team.Type && target.IsDead() == false;
     }

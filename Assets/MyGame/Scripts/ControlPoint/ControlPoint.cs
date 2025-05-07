@@ -26,7 +26,7 @@ public class ControlPoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out ITargetSoldier soldier))
+        if (other.TryGetComponent(out ISoldier soldier))
         {
             TeamType team = soldier.GetTeam();
 

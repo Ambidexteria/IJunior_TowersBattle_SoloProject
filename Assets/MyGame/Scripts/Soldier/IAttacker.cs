@@ -1,8 +1,8 @@
 public interface IAttacker
 {
-    void Attack(ITargetSoldier soldier);
+    void Attack(ISoldier soldier);
 
     void StopAttack();
 
-    bool TryGetNextAttackTarget(out ITargetSoldier target);
+    bool TryGetNextAttackTarget(out ISoldier target);
 }

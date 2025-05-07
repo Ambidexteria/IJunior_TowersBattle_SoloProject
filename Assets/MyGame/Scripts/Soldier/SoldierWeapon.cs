@@ -37,9 +37,9 @@ public class SoldierWeapon : MonoBehaviour
         _team = team;
     }
 
-    public void Attack(ITargetSoldier damageable)
+    public void Attack(ISoldier soldier)
     {
-        if (damageable.GetTeam() == _team.Type)
+        if (soldier.GetTeam() == _team.Type)
             return;
 
         if (_coroutine != null)
@@ -48,7 +48,7 @@ public class SoldierWeapon : MonoBehaviour
         }
 
         _isTargetAlive = true;
-        _coroutine = StartCoroutine(Shoot(damageable));
+        _coroutine = StartCoroutine(Shoot(soldier));
     }
 
     public void StopAttack()
@@ -60,7 +60,7 @@ public class SoldierWeapon : MonoBehaviour
         _coroutine = null;
     }
 
-    private IEnumerator Shoot(ITargetSoldier target)
+    private IEnumerator Shoot(ISoldier target)
     {
         yield return _waitStartDelay;
 

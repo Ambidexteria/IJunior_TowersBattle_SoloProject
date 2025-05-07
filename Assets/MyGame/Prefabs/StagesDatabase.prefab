@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4130721989226435345}
   - component: {fileID: 988208266163376143}
   m_Layer: 0
-  m_Name: StageListLoader
+  m_Name: StagesDatabase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e44ddfbe693b2e43aec16f4bad27744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 1551604821611289834, guid: cc701cf33c7e97f4ca8b486ac802268c, type: 3}
+  _prefab: {fileID: 1341240833390449838, guid: cc701cf33c7e97f4ca8b486ac802268c, type: 3}
   _loadedStages: []
-  _path: 
+  _path: Stages
   _stageIconControllersList: []

@@ -5,17 +5,27 @@ public class StagesWindowController : UIWindowController
 {
     private const string StageId = nameof(StageId);
 
-    [SerializeField] private StagesDatabase _stageListLoader;
+    [SerializeField] private StagesDatabase _stageDatabasePrefab;
     [SerializeField] private UIWindowController _stagesCntainerWindow;
 
     private List<StageIconController> _stageIconList;
+    private StagesDatabase _database;
 
     private void Awake()
     {
-        _stageIconList = _stageListLoader.GetStageIconControllersList();
+        if(FindObjectOfType<StagesDatabase>() == null)
+            _database = Instantiate(_stageDatabasePrefab);
 
+        _stageIconList = _database.GetStageIconControllersList();
+    }
+
+    private void Start()
+    {
         foreach (var stageIcon in _stageIconList)
+        {
             stageIcon.transform.SetParent(_stagesCntainerWindow.transform);
+            Debug.Log("parent set");
+        }
     }
 
     private void OnEnable()

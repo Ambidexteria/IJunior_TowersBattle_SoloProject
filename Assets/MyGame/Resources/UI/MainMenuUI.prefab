@@ -1867,7 +1867,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 891afb59fdc989b4d92c5313793507b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stageListLoader: {fileID: 0}
+  _stageDatabasePrefab: {fileID: 988208266163376143, guid: 2464c16491f06a24a9bbb9eab28477b5, type: 3}
   _stagesCntainerWindow: {fileID: 4711749813387880455}
 --- !u!1001 &154574968638547525
 PrefabInstance:

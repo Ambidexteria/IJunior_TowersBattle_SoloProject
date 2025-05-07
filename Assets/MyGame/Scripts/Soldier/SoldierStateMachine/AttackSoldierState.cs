@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AttackSoldierState : ISoldierState
 {
-    private ITargetSoldier _attackTarget;
+    private ISoldier _attackTarget;
     private Animator _animator;
     private IAttacker _soldier;
 
@@ -32,7 +32,7 @@ public class AttackSoldierState : ISoldierState
     {
         if (_attackTarget.IsDead())
         {
-            if (_soldier.TryGetNextAttackTarget(out ITargetSoldier nextTarget))
+            if (_soldier.TryGetNextAttackTarget(out ISoldier nextTarget))
             {
                 if (nextTarget == null)
                     Debug.Log("OnUpdate AttackState target == null");

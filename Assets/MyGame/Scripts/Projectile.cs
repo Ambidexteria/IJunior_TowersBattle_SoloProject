@@ -41,7 +41,7 @@ public class Projectile : SpawnableObject
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out ITargetSoldier damageable))
+        if (other.TryGetComponent(out ISoldier damageable))
         {
             if(damageable.GetTeam() != _team)
             {

@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace Base
+namespace Base.Test.Zenject
 {
     public class ZenjectProjectContextBindingsWatcher : MonoBehaviour
     {

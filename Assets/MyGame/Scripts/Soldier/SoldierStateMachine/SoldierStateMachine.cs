@@ -3,36 +3,23 @@ using UnityEngine;
 
 public class SoldierStateMachine
 {
-    private Soldier _soldier;
+    private ISoldier _soldier;
+    private Animator _animator;
     private ISoldierState _currentState;
     private SoldierStateType _currentStateType;
     private Dictionary<SoldierStateType, ISoldierState> _soldierStates;
     private SoldierStateContext _context;
-
     private SoldierStateType _previousStateType;
     private bool _isActive = true;
 
     public bool IsIdle => _currentStateType == SoldierStateType.Idle;
 
-    public SoldierStateMachine(Soldier soldier)
+    public SoldierStateMachine(Animator animator, ISoldier solder)
     {
-        _soldier = soldier;
+        _animator = animator;
+        _soldier = solder;
 
-        MovingSoldierState moveState = new MovingSoldierState(_soldier.Animator, _soldier);
-        AttackSoldierState attackState = new AttackSoldierState(_soldier.Animator, _soldier, _soldier);
-        DieSoldierState dieState = new DieSoldierState(_soldier.Animator);
-
-        moveState.TargetReached += SetIdleState;
-        attackState.AllTargetsDestroyed += ReturnToPreviousState;
-        dieState.Dying += Deactivate;
-
-        _soldierStates = new Dictionary<SoldierStateType, ISoldierState>
-        {
-            {SoldierStateType.Idle, new IdleSoldierState(_soldier.Animator) },
-            {SoldierStateType.Move, moveState },
-            {SoldierStateType.Attack, attackState },
-            {SoldierStateType.Die, dieState },
-        };
+        InitializeStatesDictionary();
     }
 
     public void Enable()
@@ -69,7 +56,7 @@ public class SoldierStateMachine
         ChangeState(SoldierStateType.Idle);
     }
 
-    private void SetAttackState(ITargetSoldier target)
+    private void SetAttackState(ISoldier target)
     {
         if (_currentStateType == SoldierStateType.Attack)
             return;
@@ -121,6 +108,27 @@ public class SoldierStateMachine
             SetIdleState();
     }
 
+    private void InitializeStatesDictionary()
+    {
+        MovingSoldierState moveState = new MovingSoldierState(_animator, _soldier);
+        AttackSoldierState attackState = new AttackSoldierState(_animator, _soldier, _soldier);
+        DieSoldierState dieState = new DieSoldierState(_animator);
+        IdleSoldierState idleState = new IdleSoldierState(_animator);
+
+        moveState.TargetReached += SetIdleState;
+        attackState.AllTargetsDestroyed += ReturnToPreviousState;
+        dieState.Dying += Deactivate;
+
+        _soldierStates = new Dictionary<SoldierStateType, ISoldierState>
+        {
+            {SoldierStateType.Idle, idleState },
+            {SoldierStateType.Move, moveState },
+            {SoldierStateType.Attack, attackState },
+            {SoldierStateType.Die, dieState },
+        };
+    }
+
+
     [ContextMenu(nameof(ShowCurrentState))]
     private void ShowCurrentState()
     {
@@ -139,6 +147,6 @@ public class SoldierStateMachine
         else if (_currentStateType == SoldierStateType.Die)
             currentStateName = nameof(SoldierStateType.Die);
 
-        Debug.Log($"{_soldier.transform.root.name} --- current state: {currentStateName}");
+        Debug.Log($"{_animator.transform.root.name} --- current state: {currentStateName}");
     }
 }

@@ -1,3 +1,4 @@
+using Base.Logic;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -6,29 +7,30 @@ using Zenject;
 [RequireComponent(typeof(Team))]
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
-public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
+public class Soldier : SpawnableObject, ISoldier, IMovable, IAttacker
 {
     [SerializeField] private SoldierGroundCollisionController _groundCollisionController;
-    [SerializeField] private SoldierRotatorToTarget _rotatorToTarget;
     [SerializeField] private Animator _animator;
     [SerializeField] private SoldierWeapon _weapon;
-    [SerializeField] private SoldierCollisionHandler _collisionHandler;
-    [SerializeField] private TargetDetector _enemiesDetector;
+    [SerializeField] private TriggerObserver _enemyTrigger;
+    [SerializeField] private TriggerObserver _despawnerTrigger;
     [SerializeField] private TeamColorChanger _colorChanger;
     [SerializeField] private float _dieDelay;
 
     private Health _health;
+    private RotatorToTarget _rotatorToTarget;
+    private DespawnerDetector _despawnerDetector;
     private SoldierStateMachine _stateMachine;
     private SoldierMoverToTarget _moverToTarget;
+    private TargetDetector _enemiesDetector;
     private Rigidbody _rigidbody;
     private Team _team;
     private WaitForSeconds _waitToDie;
 
-    public Animator Animator => _animator;
     public bool IsIdle => _stateMachine.IsIdle;
 
     public event Action<Transform> MovingToTarget;
-    public event Action<ITargetSoldier> EnemyTargetDetected;
+    public event Action<ISoldier> EnemyTargetDetected;
     public event Action Dying;
     public event Action<Soldier> DespawnerDetected;
 
@@ -43,11 +45,10 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
     {
         _stateMachine.Enable();
 
-        Debug.Log($"Soldier ienabled wibt {_health.MaxValue} of health");
         _health.Increase(_health.MaxValue);
         _groundCollisionController.Enable();
 
-        _collisionHandler.DespawnerDetected += OnDespawnerDetected;
+        _despawnerDetector.Detected += OnDespawnerDetected;
         _enemiesDetector.Detected += OnEnemyTargetDetected;
         _health.Dying += Die;
     }
@@ -56,7 +57,7 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
     {
         _stateMachine.Disable();
 
-        _collisionHandler.DespawnerDetected -= OnDespawnerDetected;
+        _despawnerDetector.Detected -= OnDespawnerDetected;
         _enemiesDetector.Detected -= OnEnemyTargetDetected;
         _health.Dying -= Die;
     }
@@ -72,7 +73,10 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
     {
         _rigidbody = GetComponent<Rigidbody>();
 
-        _stateMachine = new SoldierStateMachine(this);
+        _despawnerDetector = new DespawnerDetector(_despawnerTrigger);
+        _rotatorToTarget = new RotatorToTarget(transform);
+        _enemiesDetector = new TargetDetector(_enemyTrigger);
+        _stateMachine = new SoldierStateMachine(_animator, this);
         _moverToTarget = new SoldierMoverToTarget(_rigidbody, soldierStats);
         _health = new Health(soldierStats.MaxHealth);
     }
@@ -83,7 +87,7 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
 
         _colorChanger.Recolor(team);
         _enemiesDetector.SetTeam(team);
-        _enemiesDetector.gameObject.SetActive(true);
+        _enemiesDetector.Enable();
         _weapon.SetTeam(team);
     }
 
@@ -104,7 +108,7 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
         return _moverToTarget.TargetReached();
     }
 
-    public void Attack(ITargetSoldier enemySoldier)
+    public void Attack(ISoldier enemySoldier)
     {
         _weapon.Attack(enemySoldier);
         _rotatorToTarget.RotateAroundYAxisTo(enemySoldier.GetTransform());
@@ -135,14 +139,14 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
         return _team.Type;
     }
 
-    public bool TryGetNextAttackTarget(out ITargetSoldier target)
+    public bool TryGetNextAttackTarget(out ISoldier target)
     {
         return _enemiesDetector.TryGetNextAttackTarget(out target);
     }
 
-    private void OnEnemyTargetDetected(ITargetSoldier soldier)
+    private void OnEnemyTargetDetected(ISoldier soldier)
     {
-        if(soldier == null)
+        if (soldier == null)
             return;
 
         EnemyTargetDetected?.Invoke(soldier);
@@ -166,6 +170,8 @@ public class Soldier : SpawnableObject, ITargetSoldier, IMovable, IAttacker
     {
         yield return _waitToDie;
 
+        _rigidbody.WakeUp();
+        _rigidbody.velocity += Physics.gravity * Time.deltaTime;
         _groundCollisionController.Disable();
     }
 }

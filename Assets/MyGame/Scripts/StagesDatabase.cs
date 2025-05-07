@@ -13,7 +13,7 @@ public class StagesDatabase : MonoBehaviour
     private void Awake()
     {
         _loadedStages = Resources.LoadAll<Stage>(_path).ToList();
-
+        Debug.Log("Stages loaded");
         CreateStageIconControllers();
     }
 
