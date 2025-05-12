@@ -1,5 +1,5 @@
 ﻿using Base.Data;
-using Base.Services.Factories;
+using Base.Services.Factories.Game;
 using Base.Services.PersistentProgress;
 using UnityEngine;
 

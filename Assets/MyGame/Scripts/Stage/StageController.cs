@@ -5,7 +5,7 @@ public class StageController : MonoBehaviour
     [SerializeField] private SceneChangeController _sceneController;
     [SerializeField] private Player _player;
     [SerializeField] private NPC _npc;
-    [SerializeField] private GameSceneUIController _gameSceneUIController;
+    [SerializeField] private PlayerHUDModel _gameSceneUIController;
 
     private void OnEnable()
     {

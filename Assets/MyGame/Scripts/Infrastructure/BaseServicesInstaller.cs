@@ -1,3 +1,4 @@
+using Base.Services.Factories.Game;
 using Base.Services.Input;
 using Base.Services.PersistentProgress;
 using Base.Services.SceneManagment;
@@ -20,7 +21,9 @@ public class BaseServicesInstaller : MonoInstaller
         GameFactoryInstaller.Install(_container);
         PersisentProgressServiceInstaller.Install(_container);
         SaveLoadServiceInstaller.Install(_container); 
+        UIFactoryInstaller.Install(_container);
 
+        UIControllerModelInstaller.Install(_container);
         GameInstaller.Install(_container);
     }
 }

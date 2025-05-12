@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GameSceneUIController : MonoBehaviour
+public class PlayerHUDModel : MonoBehaviour
 {
     [SerializeField] private UIWindowController _background;
 
@@ -10,13 +10,6 @@ public class GameSceneUIController : MonoBehaviour
 
     [SerializeField] private UIWindowController _winMessage;
     [SerializeField] private UIWindowController _defeatMessage;
-
-    private float _defaultTimeScale;
-
-    private void Awake()
-    {
-        _defaultTimeScale = Time.timeScale;
-    }
 
     private void OnEnable()
     {
