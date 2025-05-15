@@ -1,12 +1,15 @@
 ﻿using Base.Data;
+using Base.Data.Scenes;
 using Base.Services.SceneManagment;
 
 namespace Base.Infrastructure
 {
-    internal class BootstrapState : IState
+    internal class BootstrapState : IPayloadedState<SceneData>
     {
         private readonly SceneLoader _sceneLoader;
         private readonly GameStateMachine _gameStateMachine;
+
+        private SceneData _currentSceneData;
 
         public BootstrapState(GameStateMachine gameStateMachine, SceneLoader sceneLoader) 
         {
@@ -14,8 +17,9 @@ namespace Base.Infrastructure
             _sceneLoader = sceneLoader;
         }
 
-        public void Enter()
+        public void Enter(SceneData sceneData)
         {
+            _currentSceneData = sceneData;
             _sceneLoader.LoadScene(SceneNames.Initial, EnterLoadLevelState);
         }
 
@@ -26,7 +30,7 @@ namespace Base.Infrastructure
 
         private void EnterLoadLevelState()
         {
-            _gameStateMachine.Enter<LoadProgressState>();
+            _gameStateMachine.Enter<LoadProgressState, SceneData>(_currentSceneData);
         }
     }
 }

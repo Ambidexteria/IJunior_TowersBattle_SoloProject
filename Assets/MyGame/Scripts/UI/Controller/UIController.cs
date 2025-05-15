@@ -1,5 +1,4 @@
 ﻿using Base.Logic;
-using Base.Services.Factories;
 using Base.Services.Factories.UI;
 using Base.UI.Controller.StateMachine;
 using Base.UI.MainMenu;
@@ -10,9 +9,9 @@ namespace Base.UI.Controller
 {
     public class UIController
     {
+        private readonly IUIFactory _uIFactory;
         private UIStateMachine _stateMachine;
         private MainMenuUIModel _mainMenuModel;
-        private readonly IUIFactory _uIFactory;
 
         public event Action StartingBattle;
 

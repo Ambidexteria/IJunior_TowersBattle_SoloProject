@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 748884430877587916}
   - component: {fileID: 273694546029550306}
   - component: {fileID: 2016997480567837586}
-  - component: {fileID: 6173549917931873978}
   - component: {fileID: 7809621075388296893}
   - component: {fileID: 647360888823600507}
   m_Layer: 6
@@ -135,20 +134,7 @@ MonoBehaviour:
   _weapon: {fileID: 7809621075388296893}
   _enemyTrigger: {fileID: 7408443137085535039}
   _despawnerTrigger: {fileID: 748884430877587916}
-  _colorChanger: {fileID: 6173549917931873978}
   _dieDelay: 5
---- !u!114 &6173549917931873978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1082765422041272275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5ef790748f303844ad9d3902ef9044f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   _marks:
   - {fileID: 7518812143915293009}
 --- !u!114 &7809621075388296893

@@ -1,10 +1,10 @@
-using Base.Cannon;
+using Base.GameLogic.Cannon;
 using System;
 using UnityEngine;
 
 public class NPCCannonController : MonoBehaviour
 {
-    [SerializeField] private Cannon _cannon;
+    [SerializeField] private CannonModel _cannon;
     [SerializeField] private CannonEnergyBar _energyBar;
 
     private bool _active = true;

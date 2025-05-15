@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-namespace Base
+namespace Base.GameLogic.Cannon
 {
     public class CannonEnergyBarView : MonoBehaviour
     {

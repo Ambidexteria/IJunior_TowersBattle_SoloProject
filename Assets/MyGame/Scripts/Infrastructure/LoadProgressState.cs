@@ -1,10 +1,11 @@
 ﻿using Base.Data;
+using Base.Data.Scenes;
 using Base.Services.PersistentProgress;
 using Base.Services.SaveLoad;
 
 namespace Base.Infrastructure
 {
-    internal class LoadProgressState : IState
+    internal class LoadProgressState : IPayloadedState<SceneData>
     {
         private GameStateMachine _gameStateMachine;
         private IPersisentProgressService _progressService;
@@ -17,11 +18,11 @@ namespace Base.Infrastructure
             _saveLoadService = saveLoadService;
         }
 
-        public void Enter()
+        public void Enter(SceneData scene)
         {
             LoadProgressOrInitNew();
 
-            _gameStateMachine.Enter<LoadMainMenuState>();
+            _gameStateMachine.Enter<LoadLevelState, SceneData>(scene);
         }
 
         public void Exit()

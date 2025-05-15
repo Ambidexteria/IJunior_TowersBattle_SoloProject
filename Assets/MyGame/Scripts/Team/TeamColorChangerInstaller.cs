@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public class TeamColorsDatabaseInstaller : MonoInstaller
+public class TeamColorChangerInstaller : MonoInstaller
 {
     [SerializeField] private Material _playerMaterial;
     [SerializeField] private Material _npcMaterial;
@@ -9,6 +9,6 @@ public class TeamColorsDatabaseInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
-        Container.Bind<TeamColorDatabase>().AsSingle().WithArguments(_playerMaterial, _npcMaterial, _defaultMaterial).NonLazy();
+        Container.Bind<TeamColorChanger>().AsSingle().WithArguments(_playerMaterial, _npcMaterial, _defaultMaterial).NonLazy();
     }
 }

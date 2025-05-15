@@ -6,10 +6,8 @@ namespace Base.Services.Factories.Game
 {
     public interface IGameFactory
     {
-        void CreateHUD();
         void Cleanup();
         List<ISavedProgressReader> GetProgressReaders();
         List<ISavedProgress> GetProgressWriters();
-        MainMenuUIModel CreateMainMenuUIModel();
     }
 }

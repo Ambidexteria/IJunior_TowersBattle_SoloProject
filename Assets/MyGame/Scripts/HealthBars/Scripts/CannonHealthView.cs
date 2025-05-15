@@ -1,40 +1,42 @@
-using Base.Cannon;
 using System;
 using UnityEngine;
 
-public abstract class CannonHealthView : MonoBehaviour
+namespace Base.GameLogic.Cannon
 {
-    [SerializeField] private Cannon _cannon;
-
-    private void Awake()
+    public abstract class CannonHealthView : MonoBehaviour
     {
-        if (_cannon == null)
-            throw new ArgumentNullException();
+        [SerializeField] private CannonModel _cannon;
 
-        PrepareOnAwake();
+        private void Awake()
+        {
+            if (_cannon == null)
+                throw new ArgumentNullException();
+
+            PrepareOnAwake();
+        }
+
+        private void Start()
+        {
+            Display(_cannon.CurrentHealth);
+        }
+
+        private void OnEnable()
+        {
+            _cannon.HealthChanged += Display;
+        }
+
+        private void OnDisable()
+        {
+            _cannon.HealthChanged -= Display;
+        }
+
+        public float GetMaxHealth()
+        {
+            return _cannon.MaxHealth;
+        }
+
+        public abstract void Display(float value);
+
+        public abstract void PrepareOnAwake();
     }
-
-    private void Start()
-    {
-        Display(_cannon.CurrentHealth);        
-    }
-
-    private void OnEnable()
-    {
-        _cannon.HealthChanged += Display;
-    }
-
-    private void OnDisable()
-    {
-        _cannon.HealthChanged -= Display;
-    }
-
-    public float GetMaxHealth()
-    {
-        return _cannon.MaxHealth;
-    }
-
-    public abstract void Display(float value);
-
-    public abstract void PrepareOnAwake();
 }

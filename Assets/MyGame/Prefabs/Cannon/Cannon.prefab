@@ -745,12 +745,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1080271645684594950}
+  - component: {fileID: 4925998123324465694}
   - component: {fileID: 3372024094367426210}
-  - component: {fileID: 5642008918899621835}
-  - component: {fileID: 4136631317930239833}
+  - component: {fileID: 7747615854487399294}
   - component: {fileID: 7399382638602004886}
   - component: {fileID: 6754041207753624226}
-  - component: {fileID: 8509713970193542243}
   m_Layer: 0
   m_Name: Cannon
   m_TagString: Untagged
@@ -776,6 +775,18 @@ Transform:
   - {fileID: 6632258547816651742}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4925998123324465694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8757339143659090541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19d047ab0d7879348810203b111d4b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &3372024094367426210
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -797,7 +808,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.35, y: 2.86, z: 1.24}
   m_Center: {x: 0, y: 0.68, z: 0}
---- !u!114 &5642008918899621835
+--- !u!114 &7747615854487399294
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -806,30 +817,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 8757339143659090541}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca2e136025fc71248b5fa49520af483f, type: 3}
+  m_Script: {fileID: 11500000, guid: d7f264def731063438b1389fd10ecd4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 0
---- !u!114 &4136631317930239833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8757339143659090541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 141e0a35dbc8a594289436397fafd281, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _energyViewPrefab: {fileID: 0}
+  _healthViewPrefab: {fileID: 0}
+  _projectileCollider: {fileID: 4925998123324465694}
   _animator: {fileID: 2340961420092407450}
-  _colorChanger: {fileID: 8509713970193542243}
-  _enemyCannon: {fileID: 0}
   _shootEffect: {fileID: 3189086467886362526}
   _takeDamageEffect: {fileID: 6580666802939038532}
   _barrel: {fileID: 3984716694381274033}
-  _damage: 5
-  _fireDelay: 1
+  _colorChangerMarks:
+  - {fileID: 3917517458481217560}
+  - {fileID: 6633036347184623950}
 --- !u!114 &7399382638602004886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -875,21 +875,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8509713970193542243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8757339143659090541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5ef790748f303844ad9d3902ef9044f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _marks:
-  - {fileID: 3917517458481217560}
-  - {fileID: 6633036347184623950}
 --- !u!1001 &484582627017468617
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ namespace Base.Infrastructure
 
         private void Awake()
         {
-            _game.GameStateMachine.Enter<BootstrapState>();
+            _game.EnterBootstrapState();
 
             DontDestroyOnLoad(gameObject);
         }

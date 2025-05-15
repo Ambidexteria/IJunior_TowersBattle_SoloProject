@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography;
-using UnityEngine;
-using Zenject;
+﻿using UnityEngine;
 
 namespace Base.Services.AssetManagment
 {
@@ -19,19 +17,9 @@ namespace Base.Services.AssetManagment
             Type resource = Resources.Load<Type>(path);
 
             if (resource == null)
-                Debug.LogError($"{nameof(InstantiateMainMenuUI)} - {ErrorMessage}");
+                Debug.LogError($"{nameof(AssetLoader)} - {ErrorMessage}");
 
             return Object.Instantiate(resource);
-        }
-
-        public MainMenuUISetup InstantiateMainMenuUI(string path)
-        {
-            MainMenuUISetup mainmenu = Resources.Load<MainMenuUISetup>(path);
-
-            if (mainmenu == null)
-                Debug.LogError($"{nameof(InstantiateMainMenuUI)} - {ErrorMessage}");
-
-            return Object.Instantiate(mainmenu);
         }
 
         public GameObject InstantiateAt(string path, GameObject initialPoint)

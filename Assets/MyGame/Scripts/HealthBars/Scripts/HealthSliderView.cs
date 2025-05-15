@@ -1,20 +1,23 @@
 using System;
 using UnityEngine;
 
-public class HealthSliderView : CannonHealthView
+namespace Base.GameLogic.Cannon
 {
-    [SerializeField] private SliderValueChanger _healthBar;
-
-    public override void PrepareOnAwake()
+    public class HealthSliderView : CannonHealthView
     {
-        if (_healthBar == null)
-            throw new ArgumentNullException();
-    }
+        [SerializeField] private SliderValueChanger _healthBar;
+
+        public override void PrepareOnAwake()
+        {
+            if (_healthBar == null)
+                throw new ArgumentNullException();
+        }
 
 
-    public override void Display(float value)
-    {
-        float valuePart = value / GetMaxHealth();
-        _healthBar.SetValue(valuePart);
+        public override void Display(float value)
+        {
+            float valuePart = value / GetMaxHealth();
+            _healthBar.SetValue(valuePart);
+        }
     }
 }

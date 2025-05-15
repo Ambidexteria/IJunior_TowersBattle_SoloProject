@@ -16,8 +16,6 @@ namespace Base
 
             _presenter = new MainMenuUIPresenter(_view, _model);
             _presenter.Enable();
-
-            DontDestroyOnLoad(gameObject);
         }
 
         public MainMenuUIModel GetModel()

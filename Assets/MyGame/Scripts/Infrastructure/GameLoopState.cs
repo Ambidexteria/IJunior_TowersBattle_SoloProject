@@ -7,12 +7,10 @@ namespace Base.Infrastructure
     internal class GameLoopState : IState
     {
         private readonly GameStateMachine _stateMachine;
-        private readonly UIController _uiController;
 
-        public GameLoopState(GameStateMachine stateMachine, UIController uiController) 
+        public GameLoopState(GameStateMachine stateMachine) 
         {
             _stateMachine = stateMachine;
-            _uiController = uiController;
         }
 
         public void Enter()

@@ -2,41 +2,44 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class HealthSmoothSliderView : CannonHealthView
+namespace Base.GameLogic.Cannon
 {
-    [SerializeField] private SliderValueChanger _healthBar;
-    [SerializeField] private float _changeSpeed = 0.2f;
-
-    private Coroutine _valueChanger;
-
-    public override void PrepareOnAwake()
+    public class HealthSmoothSliderView : CannonHealthView
     {
-        if (_healthBar == null)
-            throw new ArgumentNullException();
-    }
+        [SerializeField] private SliderValueChanger _healthBar;
+        [SerializeField] private float _changeSpeed = 0.2f;
 
+        private Coroutine _valueChanger;
 
-    public override void Display(float value)
-    {
-        if (_valueChanger != null)
+        public override void PrepareOnAwake()
         {
-            StopCoroutine(_valueChanger);
+            if (_healthBar == null)
+                throw new ArgumentNullException();
         }
 
-        float valuePart = value / GetMaxHealth();
-        _valueChanger = StartCoroutine(ChangeValueCoroutine(valuePart));
-    }
 
-    private IEnumerator ChangeValueCoroutine(float targetValuePart)
-    {
-        float value = _healthBar.Value;
-
-        while (value != targetValuePart)
+        public override void Display(float value)
         {
-            value = Mathf.MoveTowards(value, targetValuePart, _changeSpeed * Time.deltaTime);
-            _healthBar.SetValue(value);
+            if (_valueChanger != null)
+            {
+                StopCoroutine(_valueChanger);
+            }
 
-            yield return null;
+            float valuePart = value / GetMaxHealth();
+            _valueChanger = StartCoroutine(ChangeValueCoroutine(valuePart));
+        }
+
+        private IEnumerator ChangeValueCoroutine(float targetValuePart)
+        {
+            float value = _healthBar.Value;
+
+            while (value != targetValuePart)
+            {
+                value = Mathf.MoveTowards(value, targetValuePart, _changeSpeed * Time.deltaTime);
+                _healthBar.SetValue(value);
+
+                yield return null;
+            }
         }
     }
 }

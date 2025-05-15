@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-[RequireComponent(typeof(Team))]
 public class SoldierCommandController : MonoBehaviour
 {
     [SerializeField] private float _secondClickDelay = 0.1f;

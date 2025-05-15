@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System.Linq;
+using Zenject;
 
 [RequireComponent(typeof(Team))]
 public class NPCSoldierController : MonoBehaviour
@@ -16,6 +17,13 @@ public class NPCSoldierController : MonoBehaviour
     private Coroutine _coroutine;
     private WaitForSeconds _startWait;
     private WaitForSeconds _waitNextCommand;
+
+    [Inject]
+    private void Init(ControlPointDatabase controlPointDatabase)
+    {
+        Debug.LogWarning($"{controlPointDatabase} INITIATED = {controlPointDatabase != null}");
+        _controlPointDatabase = controlPointDatabase;
+    }
 
     private void Awake()
     {

@@ -1,13 +1,10 @@
-﻿using Base.Data;
-using Base.Logic;
+﻿using Base.Logic;
+using Base.Services.AssetManagment;
 using Base.Services.Factories.Game;
+using Base.Services.Factories.UI;
 using Base.Services.PersistentProgress;
 using Base.Services.SaveLoad;
 using Base.Services.SceneManagment;
-using Base.UI;
-using Base.UI.Controller;
-using Base.UI.Controller.StateMachine;
-using Base.UI.MainMenu;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,16 +18,15 @@ namespace Base.Infrastructure
         private IExitableState _activeState;
 
         [Inject]
-        public GameStateMachine(SceneLoader sceneLoader, UIController uiController, IGameFactory gameFactory, 
-            IPersisentProgressService persisentProgress, ISaveLoadService saveLoadService)
+        public GameStateMachine(LoadingCurtain loadingCurtain, SceneLoader sceneLoader, IUIFactory uIFactory, IGameFactory gameFactory, 
+            IPersisentProgressService persisentProgress, ISaveLoadService saveLoadService, AssetLoader assetLoader)
         {
             _states = new Dictionary<Type, IExitableState>
             {
                 { typeof(BootstrapState), new BootstrapState(this, sceneLoader) },
-                { typeof(LoadMainMenuState), new LoadMainMenuState(this, sceneLoader, uiController) },
-                { typeof(LoadLevelState), new LoadLevelState(this, sceneLoader, uiController, gameFactory, persisentProgress) },
+                { typeof(LoadLevelState), new LoadLevelState(loadingCurtain, this, sceneLoader, uIFactory, gameFactory, persisentProgress, assetLoader) },
                 { typeof(LoadProgressState), new LoadProgressState(this, persisentProgress, saveLoadService)},
-                { typeof(GameLoopState), new GameLoopState(this, uiController) }
+                { typeof(GameLoopState), new GameLoopState(this) }
             };
         }
 
@@ -57,38 +53,6 @@ namespace Base.Infrastructure
         private TState ConvertState<TState>() where TState : class, IExitableState
         {
             return _states[typeof(TState)] as TState;
-        }
-    }
-
-    public class LoadMainMenuState : IState
-    {
-        private const string MainMenuScene = SceneNames.MainMenu;
-        private readonly GameStateMachine _gameStateMachine;
-        private readonly SceneLoader _sceneLoader;
-        private readonly UIController _uIController;
-
-        public LoadMainMenuState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, UIController uIController)
-        {
-            _gameStateMachine = gameStateMachine;
-            _sceneLoader = sceneLoader;
-            _uIController = uIController;
-        }
-
-        public void Enter()
-        {
-            _sceneLoader.LoadScene(MainMenuScene, OnMainMenuLoaded);
-            _uIController.ShowLoadingCurtain();
-        }
-
-        public void Exit()
-        {
-
-        }
-
-        private void OnMainMenuLoaded()
-        {
-            _gameStateMachine.Enter<GameLoopState>();
-            _uIController.ShowMainMenu();
         }
     }
 }

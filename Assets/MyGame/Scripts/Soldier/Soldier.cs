@@ -1,6 +1,7 @@
 using Base.Logic;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -16,6 +17,7 @@ public class Soldier : SpawnableObject, ISoldier, IMovable, IAttacker
     [SerializeField] private TriggerObserver _despawnerTrigger;
     [SerializeField] private TeamColorChanger _colorChanger;
     [SerializeField] private float _dieDelay;
+    [SerializeField] private List<ColorChangerMark> _marks;
 
     private Health _health;
     private RotatorToTarget _rotatorToTarget;
@@ -69,8 +71,9 @@ public class Soldier : SpawnableObject, ISoldier, IMovable, IAttacker
     }
 
     [Inject]
-    private void Init(SoldierStats soldierStats)
+    private void Init(SoldierStats soldierStats, TeamColorChanger teamColorChanger)
     {
+        _colorChanger = teamColorChanger;
         _rigidbody = GetComponent<Rigidbody>();
 
         _despawnerDetector = new DespawnerDetector(_despawnerTrigger);
@@ -85,7 +88,7 @@ public class Soldier : SpawnableObject, ISoldier, IMovable, IAttacker
     {
         _team = team;
 
-        _colorChanger.Recolor(team);
+        _colorChanger.Recolor(team, _marks);
         _enemiesDetector.SetTeam(team);
         _enemiesDetector.Enable();
         _weapon.SetTeam(team);

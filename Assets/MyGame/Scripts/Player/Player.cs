@@ -1,10 +1,10 @@
-using Base.Cannon;
+using Base.GameLogic.Cannon;
 using System;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private Cannon _cannon;
+    [SerializeField] private CannonModel _cannon;
     [SerializeField] private CannonEnergyBar _energyBar;
     [SerializeField] private ShootMinigame _shootMinigame;
     [SerializeField] private SoldierSpawnController _soldierSpawnerController;
