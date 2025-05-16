@@ -2,23 +2,21 @@ using Base.Services.Input;
 using UnityEngine;
 using Zenject;
 
-public class PlayerInputController : MonoBehaviour
+public class PlayerInputController
 {
     private InputService _input;
 
-    private void OnEnable()
+    public PlayerInputController(InputService input)
+    {
+        _input = input;
+    }
+    public void Enable()
     {
         _input.Enable();
     }
 
-    private void OnDisable()
+    public void Disable()
     {
         _input.Disable();
-    }
-
-    [Inject]
-    private void Construct(InputService input)
-    {
-        _input = input;
     }
 }

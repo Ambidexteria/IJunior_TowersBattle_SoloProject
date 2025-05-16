@@ -1,26 +1,32 @@
+using Base.Infrastructure;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
 namespace Base.GameLogic.Cannon
 {
-    public class CannonEnergyBar : MonoBehaviour
+    public class CannonEnergyBar
     {
-        [SerializeField] private ControlPointDatabase _controlPointDatabase;
-        [SerializeField] private List<ControlPoint> _controlPoints;
-        [SerializeField] private TeamType _team;
-        [SerializeField] private int _energyIncome = 0;
-        [SerializeField] private float _currentEnergy = 0;
-        [SerializeField] private float _energyMax = 100f;
+        private readonly ControlPointDatabase _controlPointDatabase;
+        private readonly ICoroutineRunner _coroutineRunner;
+        private readonly Team _team;
 
+        private List<ControlPoint> _controlPoints = new();
+        private int _energyIncome = 0;
+        private float _currentEnergy = 0;
+        private float _energyMax = 100f;
         private bool _active = true;
+        private Coroutine _coroutine;
 
-        [Inject]
-        private void Init(ControlPointDatabase controlPointDatabase)
+        public CannonEnergyBar(Team team, ControlPointDatabase controlPointDatabase, float maxEnergy, ICoroutineRunner coroutineRunner)
         {
             Debug.LogWarning($"{controlPointDatabase} INITIATED = {controlPointDatabase != null}");
+            _team = team;
             _controlPointDatabase = controlPointDatabase;
+            _energyMax = maxEnergy;
+            _coroutineRunner = coroutineRunner;
         }
 
         public float MaxEnergy => _energyMax;
@@ -28,26 +34,26 @@ namespace Base.GameLogic.Cannon
         public event Action Filled;
         public event Action<float> CurrentEnergyChanged;
 
-        private void OnEnable()
+        public void Enable()
         {
+            _active = true;
+
+            if(_coroutine != null)
+                _coroutineRunner.StopCoroutine(_coroutine);
+
+            _coroutine = _coroutineRunner.StartCoroutine(Update());
+
             _controlPointDatabase.ControlPointCaptured += OnControlPointCaptured;
         }
 
-        private void OnDisable()
-        {
-            _controlPointDatabase.ControlPointCaptured -= OnControlPointCaptured;
-        }
-
-        private void Update()
-        {
-            if (_active)
-                if (_energyIncome > 0 && _currentEnergy < _energyMax)
-                    AddEnergy();
-        }
-
-        public void Stop()
+        public void Disable()
         {
             _active = false;
+
+            if (_coroutine != null)
+                _coroutineRunner.StopCoroutine(_coroutine);
+
+            _controlPointDatabase.ControlPointCaptured -= OnControlPointCaptured;
         }
 
         public void RemoveCurrentEnergy()
@@ -55,6 +61,17 @@ namespace Base.GameLogic.Cannon
             _currentEnergy = 0;
 
             CurrentEnergyChanged?.Invoke(_currentEnergy);
+        }
+
+        private IEnumerator Update()
+        {
+            while (_active)
+            {
+                if (_energyIncome > 0 && _currentEnergy < _energyMax)
+                    AddEnergy();
+
+                yield return null;
+            }
         }
 
         private void AddEnergy()
@@ -71,7 +88,7 @@ namespace Base.GameLogic.Cannon
 
         private void OnControlPointCaptured(ControlPoint controlPoint)
         {
-            if (controlPoint.Team == _team)
+            if (controlPoint.Team == _team.Type)
             {
                 _controlPoints.Add(controlPoint);
                 _energyIncome += controlPoint.EnergyRate;

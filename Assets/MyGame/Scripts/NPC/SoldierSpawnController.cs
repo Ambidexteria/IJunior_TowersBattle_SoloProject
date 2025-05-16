@@ -1,14 +1,13 @@
+using Base.Infrastructure;
 using System;
 using System.Collections;
 using UnityEngine;
-using Zenject;
 
-[RequireComponent(typeof(Team))]
-public class SoldierSpawnController : MonoBehaviour
+public class SoldierSpawnController
 {
-    [SerializeField] private float _spawnDelay;
-    [SerializeField] private Transform _spawnPoint;
-    [SerializeField] private SoldierForDespawnDetector _despawnDetector;
+    private float _spawnDelay;
+    private Transform _spawnPoint;
+    private SoldierForDespawnDetector _despawnDetector;
 
     private Team _team;
     private WaitForSeconds _wait;
@@ -16,54 +15,56 @@ public class SoldierSpawnController : MonoBehaviour
     private Soldier _soldier;
     private Coroutine _coroutine;
 
+    private bool _enabled = true;
     private float _nextSpawnTime = 0;
+    private ICoroutineRunner _coroutineRunner;
+
+    public SoldierSpawnController(float spawnDelay, Transform spawnPoint, 
+        SoldierForDespawnDetector despawnDetector, Team team, SoldierSpawner spawner,
+        ICoroutineRunner coroutineRunner)
+    {
+        _spawnDelay = spawnDelay;
+        _spawnPoint = spawnPoint;
+        _despawnDetector = despawnDetector;
+        _team = team;
+        _spawner = spawner;
+        _coroutineRunner = coroutineRunner;
+
+        _wait = new WaitForSeconds(_spawnDelay);
+    }
 
     public float TimeBeforeNextSpawn => Mathf.Clamp(_nextSpawnTime - Time.time, 0, _spawnDelay);
 
     public event Action<Soldier> Spawned;
     public event Action<Soldier> Despawned;
 
-    [Inject]
-    private void Init(SoldierSpawner spawner)
-    {
-        _spawner = spawner;
-        _wait = new WaitForSeconds(_spawnDelay);
-        _team = GetComponent<Team>();
-    }
-
-    private void Start()
+    public void Enable()
     {
         StartSpawn();
     }
 
-    private void OnEnable()
+    public void Disable()
     {
-
+        StopSpawn();
     }
 
-    private void OnDisable()
-    {
-        StopCoroutine(_coroutine);
-        _coroutine = null;
-    }
-
-    public void StartSpawn()
+    private void StartSpawn()
     {
         if (_coroutine != null)
             return;
 
-        _coroutine = StartCoroutine(SpawnCoroutine());
+        _coroutine = _coroutineRunner.StartCoroutine(SpawnCoroutine());
     }
 
-    public void StopSpawn()
+    private void StopSpawn()
     {
         if (_coroutine != null)
-            StopCoroutine(_coroutine);
+            _coroutineRunner.StopCoroutine(_coroutine);
     }
 
     private IEnumerator SpawnCoroutine()
     {
-        while (enabled)
+        while (_enabled)
         {
             _soldier = _spawner.Spawn();
             _soldier.transform.position = _spawnPoint.position;

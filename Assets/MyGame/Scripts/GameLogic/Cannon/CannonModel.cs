@@ -27,7 +27,9 @@ namespace Base.GameLogic.Cannon
         private List<ColorChangerMark> _colorChangerMarks;
 
         public CannonModel(Transform transfrom, TriggerObserver triggerObserver, Team team, Animator animator, ParticleSystemController shootEffect, ParticleSystemController takeDamageEffect,
-            Barrel barrel, int damage, float firDelay, List<ColorChangerMark> marksForRecoloring = null)
+            Barrel barrel, int damage, float firDelay, 
+            CannonProjectileSpawner projectileSpawner, TeamColorChanger colorChanger, 
+            List<ColorChangerMark> marksForRecoloring = null)
         {
             _transfrom = transfrom;
             _triggerObserver = triggerObserver;
@@ -41,6 +43,8 @@ namespace Base.GameLogic.Cannon
             _damage = damage;
             _fireDelay = firDelay;
             _colorChangerMarks = marksForRecoloring;
+            _projectileSpawner = projectileSpawner;
+            _colorChanger = colorChanger;
             _health = new Health(50);
 
             Awake();
@@ -55,18 +59,8 @@ namespace Base.GameLogic.Cannon
         public event Action Destroyed;
         public event Action<float> HealthChanged;
 
-        [Inject]
-        private void Init(CannonProjectileSpawner projectileSpawner, TeamColorChanger teamColorChanger)
-        {
-            _projectileSpawner = projectileSpawner;
-            _colorChanger = teamColorChanger;
-        }
-
         private void Awake()
         {
-            _health = new Health(50);
-
-            //_team = GetComponent<Team>();
             if (_colorChangerMarks != null)
                 _colorChanger.Recolor(_team, _colorChangerMarks);
         }
@@ -120,6 +114,7 @@ namespace Base.GameLogic.Cannon
                 if(projectile.TeamType != _team.Type)
                 {
                     TakeDamage(projectile.Damage);
+                    projectile.Despawn();
                 }
             }
         }

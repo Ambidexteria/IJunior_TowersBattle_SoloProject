@@ -5,34 +5,22 @@ namespace Base.GameLogic.Cannon
 {
     public abstract class CannonHealthView : MonoBehaviour
     {
-        [SerializeField] private CannonModel _cannon;
+        private float _maxHealth;
 
         private void Awake()
         {
-            if (_cannon == null)
-                throw new ArgumentNullException();
-
             PrepareOnAwake();
         }
 
-        private void Start()
+        public void SetMaxHealth(float maxHealth)
         {
-            Display(_cannon.CurrentHealth);
-        }
-
-        private void OnEnable()
-        {
-            _cannon.HealthChanged += Display;
-        }
-
-        private void OnDisable()
-        {
-            _cannon.HealthChanged -= Display;
+            _maxHealth = maxHealth;
+            Display(_maxHealth);
         }
 
         public float GetMaxHealth()
         {
-            return _cannon.MaxHealth;
+            return _maxHealth;
         }
 
         public abstract void Display(float value);

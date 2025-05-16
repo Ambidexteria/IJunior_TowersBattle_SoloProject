@@ -1,9 +1,17 @@
+using Base.Services.Factories.Game;
 using UnityEngine;
 
-public class ControlPointSelector : MonoBehaviour
+public class ControlPointSelector
 {
-    [SerializeField] private LayerMask _mask;
-    [SerializeField] private float _raycastLength = 200f;
+
+    private LayerMask _mask;
+    private float _raycastLength;
+
+    public ControlPointSelector(RaycastSettings controlPointSelectorSettings)
+    {
+        _mask = controlPointSelectorSettings.LayerMask;
+        _raycastLength = controlPointSelectorSettings.RaycastLength;
+    }
 
     public bool TrySelectControlPoint(out ControlPoint controlPoint)
     {

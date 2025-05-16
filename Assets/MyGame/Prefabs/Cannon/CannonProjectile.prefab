@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1937902054429134807}
   - component: {fileID: 8881767865532895735}
   - component: {fileID: 5555777768464970143}
+  - component: {fileID: -8899736289200925569}
   m_Layer: 0
   m_Name: CannonProjectile
   m_TagString: Untagged
@@ -233,9 +234,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f6783d9864878f42aafe01e9b77218b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _markForRecoloring: {fileID: 0}
+  _markForRecoloring: {fileID: -8899736289200925569}
   _damage: 0
-  _speed: 10
+  _speed: 30
   _follower: {fileID: 5555777768464970143}
 --- !u!114 &5555777768464970143
 MonoBehaviour:
@@ -250,4 +251,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxPoints: 30
-  _yOffsetCoefficient: 1.5
+  _yOffsetCoefficient: 6
+--- !u!114 &-8899736289200925569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1193307598005301408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 252a39ed6355c3e4094f6e7af111f20e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

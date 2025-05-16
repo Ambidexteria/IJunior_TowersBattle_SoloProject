@@ -2,10 +2,9 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using System.Linq;
-using Zenject;
+using Base.Infrastructure;
 
-[RequireComponent(typeof(Team))]
-public class NPCSoldierController : MonoBehaviour
+public class NPCSoldierController
 {
     [SerializeField] private ControlPointDatabase _controlPointDatabase;
     [SerializeField] private List<Soldier> _soldiers = new List<Soldier>();
@@ -14,60 +13,60 @@ public class NPCSoldierController : MonoBehaviour
     [SerializeField] private float _nextCommandDelay = 2f;
 
     private Team _team;
+    private readonly ICoroutineRunner _coroutineRunner;
     private Coroutine _coroutine;
     private WaitForSeconds _startWait;
     private WaitForSeconds _waitNextCommand;
+    private bool _enabled = true;
 
-    [Inject]
-    private void Init(ControlPointDatabase controlPointDatabase)
+    public NPCSoldierController(ControlPointDatabase controlPointDatabase, SoldierSpawnController spawnController,
+        float startDelay, float nextCommandDelay, Team team, ICoroutineRunner coroutineRunner)
     {
-        Debug.LogWarning($"{controlPointDatabase} INITIATED = {controlPointDatabase != null}");
         _controlPointDatabase = controlPointDatabase;
-    }
+        _spawnController = spawnController;
+        _startDelay = startDelay;
+        _nextCommandDelay = nextCommandDelay;
+        _team = team;
+        _coroutineRunner = coroutineRunner;
 
-    private void Awake()
-    {
-        _team = GetComponent<Team>();
         _startWait = new WaitForSeconds(_startDelay);
         _waitNextCommand = new WaitForSeconds(_nextCommandDelay);
     }
 
-    private void Start()
+    public void Enable()
     {
         LaunchSendingSoldiers();
-    }
-
-    private void OnEnable()
-    {
         _spawnController.Spawned += AddNewSoldier;
         _spawnController.Despawned += RemoveSoldier;
     }
 
-    private void OnDisable()
+    public void Disable()
     {
+        StopSendingSoldiers();
+
         _spawnController.Spawned -= AddNewSoldier;
         _spawnController.Despawned -= RemoveSoldier;
     }
 
-    public void LaunchSendingSoldiers()
+    private void LaunchSendingSoldiers()
     {
         if (_coroutine != null)
             return;
 
-        _coroutine = StartCoroutine(SendSoldierToControlPointCoroutine());
+        _coroutine = _coroutineRunner. StartCoroutine(SendSoldierToControlPointCoroutine());
     }
 
-    public void StopSendingSoldiers()
+    private  void StopSendingSoldiers()
     {
         if (_coroutine != null)
-            StopCoroutine(_coroutine);
+            _coroutineRunner.StopCoroutine(_coroutine);
     }
 
     private IEnumerator SendSoldierToControlPointCoroutine()
     {
         yield return _startWait;
 
-        while (enabled)
+        while (_enabled)
         {
             if (_soldiers.Count > 0)
                 if (TryGetIdleSoldier(out Soldier soldier))

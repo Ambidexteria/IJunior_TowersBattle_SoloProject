@@ -1,32 +1,41 @@
 using Base.GameLogic.Cannon;
 using System;
-using UnityEngine;
 
-public class NPCCannonController : MonoBehaviour
+public class NPCCannonController
 {
-    [SerializeField] private CannonModel _cannon;
-    [SerializeField] private CannonEnergyBar _energyBar;
+    private CannonModel _cannon;
+    private CannonEnergyBar _energyBar;
 
     private bool _active = true;
 
+    public NPCCannonController(CannonModel cannon, CannonEnergyBar energyBar)
+    {
+        _cannon = cannon;
+        _energyBar = energyBar;
+    }
+
     public event Action CannonDestroyed;
 
-    private void OnEnable()
+    public void Enable()
     {
+        _energyBar.Enable();
+
         _energyBar.Filled += OnEnergyBarFilled;
         _cannon.Destroyed += OnCannonDestroyed;
     }
 
-    private void OnDisable()
+    public void Disable()
     {
+        Stop();
+
         _energyBar.Filled -= OnEnergyBarFilled;
         _cannon.Destroyed -= OnCannonDestroyed;
     }
 
-    public void Stop()
+    private void Stop()
     {
         _active = false;
-        _energyBar.Stop();
+        _energyBar.Disable();
     }
 
     private void OnEnergyBarFilled()

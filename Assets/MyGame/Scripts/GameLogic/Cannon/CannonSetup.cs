@@ -1,4 +1,5 @@
 using Base.Logic;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,9 +18,11 @@ namespace Base.GameLogic.Cannon
         [SerializeField] private List<ColorChangerMark> _colorChangerMarks;
 
         private CannonModel _model;
+
+        private CannonEnergyBarPresenter _energyBarPresenter;
         private CannonEnergyBarView _energyView;
 
-        private CannonPresenter _presenter;
+        private CannonHealthPresenter _healthPresenter;
         private CannonHealthView _healthView;
 
         public CannonModel GetModel()
@@ -27,15 +30,45 @@ namespace Base.GameLogic.Cannon
             return _model;
         }
 
-        public void Init(Team team, int damage, float fireDelay)
+        public void Init(Team team, int damage, float fireDelay, TeamColorChanger colorChanger,
+            CannonProjectileSpawner projectileSpawner, CannonEnergyBar cannonEnergyBar, CannonEnergyBarView cannonEnergyBarView,
+            CannonHealthView cannonHealthView)
         {
             _model = new CannonModel(transform, _projectileCollider, team, _animator, _shootEffect,
-                _takeDamageEffect, _barrel, damage, fireDelay, _colorChangerMarks);
+                _takeDamageEffect, _barrel, damage, fireDelay, projectileSpawner, colorChanger, _colorChangerMarks);
 
-            //_energyViewPrefab = Instantiate(_energyViewPrefab);
-            _healthView = Instantiate(_healthViewPrefab);
+            _healthPresenter = new CannonHealthPresenter(_model, cannonHealthView);
 
-            _presenter = new CannonPresenter(_model, _healthView);
+            _energyBarPresenter = new CannonEnergyBarPresenter(cannonEnergyBar, cannonEnergyBarView);
+            _energyBarPresenter.Enable();
+        }
+    }
+
+    public class CannonEnergyBarPresenter
+    {
+        private CannonEnergyBar _model;
+        private CannonEnergyBarView _view;
+
+        public CannonEnergyBarPresenter(CannonEnergyBar model, CannonEnergyBarView cannonEnergyBarView)
+        {
+            _model = model;
+            _view = cannonEnergyBarView;
+            _view.Init(_model.MaxEnergy);
+        }
+
+        public void Enable()
+        {
+            _model.CurrentEnergyChanged += OnCurrentEnergyChanged;
+        }
+
+        public void Disable()
+        {
+            _model.CurrentEnergyChanged -= OnCurrentEnergyChanged;
+        }
+
+        private void OnCurrentEnergyChanged(float amount)
+        {
+            _view.Display(amount);
         }
     }
 }

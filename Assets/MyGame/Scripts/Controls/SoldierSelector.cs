@@ -1,12 +1,16 @@
-using System;
+using Base.Services.Factories.Game;
 using UnityEngine;
 
-public class SoldierSelector : MonoBehaviour
+public class SoldierSelector
 {
-    [SerializeField] private LayerMask _mask;
-    [SerializeField] private float _raycastLength = 200f;
+    private LayerMask _mask;
+    private float _raycastLength = 200f;
 
-    //public event Action<Soldier> Selected;
+    public SoldierSelector(RaycastSettings soldierSelectorSettings)
+    {
+        _mask = soldierSelectorSettings.LayerMask;
+        _raycastLength = soldierSelectorSettings.RaycastLength;
+    }
 
     public bool TrySelectSoldier(out Soldier soldier, TeamType team)
     {

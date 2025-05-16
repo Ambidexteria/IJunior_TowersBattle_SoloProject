@@ -38,19 +38,12 @@ namespace Base.GameLogic.Cannon
             _collider.enabled = false;
         }
 
-        private void OnTriggerEnter(Collider other)
-        {
-            //if (other.TryGetComponent(out CannonModel cannon))
-            //{
-            //    if (cannon.GetTeamType() != _team.Type)
-            //    {
-            //        cannon.TakeDamage(_damage);
-            //        Despawning?.Invoke(this);
-            //    }
-            //}
-
-            Despawning?.Invoke(this);
-        }
+        //private void OnTriggerEnter(Collider other)
+        //{
+        //    if (other.TryGetComponent(out CannonModel cannon))
+        //        if (cannon.GetTeamType() != _team.Type)
+        //            Despawning?.Invoke(this);
+        //}
 
         public void Init(Team team, Vector3 start, Vector3 fifnish, int damage)
         {
@@ -59,6 +52,11 @@ namespace Base.GameLogic.Cannon
             _damage = damage;
             _follower.StartMovement(_speed, start, fifnish);
             _collider.enabled = true;
+        }
+
+        public void Despawn()
+        {
+            Despawning?.Invoke(this);
         }
     }
 }

@@ -1,13 +1,11 @@
-using UnityEngine;
-
-public class Team : MonoBehaviour
+public class Team
 {
-    [SerializeField] private TeamType _type;
+    private TeamType _type;
+
+    public Team(TeamType teamType)
+    {
+        _type = teamType;
+    }
 
     public TeamType Type => _type;
-
-    public void SetType(TeamType type)
-    {
-        _type = type;
-    }
 }

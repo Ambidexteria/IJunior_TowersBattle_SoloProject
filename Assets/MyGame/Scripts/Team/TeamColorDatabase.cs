@@ -8,7 +8,6 @@ public class TeamColorDatabase
     private Material _npcColor;
     private Material _defaultColor;
 
-    [Inject]
     public TeamColorDatabase(Material playerColor, Material NPCColor, Material defaultColor) 
     { 
         _playerColor = playerColor ?? throw new NullReferenceException(nameof(playerColor));

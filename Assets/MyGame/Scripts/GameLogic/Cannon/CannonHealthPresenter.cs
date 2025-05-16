@@ -1,19 +1,15 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace Base.GameLogic.Cannon
 {
-    public class CannonPresenter
+    public class CannonHealthPresenter
     {
         private readonly CannonModel _model;
         private readonly CannonHealthView _healthView;
 
-        public CannonPresenter(CannonModel model, CannonHealthView healthView)
+        public CannonHealthPresenter(CannonModel model, CannonHealthView healthView)
         {
             _model = model;
             _healthView = healthView;
+            _healthView.SetMaxHealth(_model.MaxHealth);
 
             _model.HealthChanged += OnHealthChanged;
         }

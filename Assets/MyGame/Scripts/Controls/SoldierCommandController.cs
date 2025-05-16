@@ -1,57 +1,63 @@
+using Base.Infrastructure;
 using Base.Services.Input;
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-public class SoldierCommandController : MonoBehaviour
+public class SoldierCommandController
 {
     [SerializeField] private float _secondClickDelay = 0.1f;
     [SerializeField] private SoldierSelector _soldierSelector;
     [SerializeField] private ControlPointSelector _controlPointSelector;
     [SerializeField] private FloatingPointer _floatingPointer;
 
+    private ICoroutineRunner _coroutineRunner;
     private Team _team;
     private InputService _input;
     private Coroutine _coroutine;
+
 
     private WaitForSeconds _waitForSeconds;
     private WaitUntil _waitUntilNextClick;
     private bool _playerClickLeftMouseButton = false;
 
-    //public event Action<Soldier> SoldierSelected;
-
-    private void Awake()
+    public SoldierCommandController(float secondClickDelay, SoldierSelector soldierSelector, 
+        ControlPointSelector controlPointSelector, FloatingPointer floatingPointer, 
+        ICoroutineRunner coroutineRunner, Team team, InputService input)
     {
-        _team = GetComponent<Team>();
+        _secondClickDelay = secondClickDelay;
+        _soldierSelector = soldierSelector;
+        _controlPointSelector = controlPointSelector;
+        _floatingPointer = floatingPointer;
+        _coroutineRunner = coroutineRunner;
+        _team = team;
+        _input = input;
 
         _waitForSeconds = new(_secondClickDelay);
         _waitUntilNextClick = new(() => _playerClickLeftMouseButton == true);
+
+        Enable();
     }
 
-    private void OnEnable()
+    public void Enable()
     {
-        _input.Game.Select.performed += OnSelect;
-        _input.Game.Select.performed += ClickLeftMouseButton;
+        if (_input != null)
+        {
+            _input.Game.Select.performed += OnSelect;
+            _input.Game.Select.performed += ClickLeftMouseButton;
+        }
     }
 
-    private void OnDisable()
+    public void Disable()
     {
         _input.Game.Select.performed -= OnSelect;
         _input.Game.Select.performed -= ClickLeftMouseButton;
     }
 
-    [Inject]
-    private void Construct(InputService input/*, SoldierSelector soldierSelector*/)
-    {
-        _input = input;
-    }
-
     private void OnSelect(InputAction.CallbackContext context)
     {
-        _coroutine = StartCoroutine(TrySendSoldierToControlPoint());
-        
+        _coroutine = _coroutineRunner.StartCoroutine(TrySendSoldierToControlPoint());
     }
 
     private IEnumerator TrySendSoldierToControlPoint()

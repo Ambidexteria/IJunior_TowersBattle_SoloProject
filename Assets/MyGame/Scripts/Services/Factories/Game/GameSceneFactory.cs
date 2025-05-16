@@ -1,25 +1,68 @@
 using UnityEngine;
-using System;
 using Base.Services.AssetManagment;
+using Base.Services.Input;
 using Base.GameLogic.Cannon;
 using Zenject;
+using Base.Infrastructure;
+using System;
 
 namespace Base.Services.Factories.Game
 {
+    [Serializable]
+    public class RaycastSettings
+    {
+        public LayerMask LayerMask;
+        public float RaycastLength;
+    }
+
     public class GameSceneFactory : MonoBehaviour
     {
-        private const string PlayerCannon = "GameLogic/Cannon/NPCCannon Variant";
-        private const string EnemyCannon = "GameLogic/Cannon/NPCCannon Variant";
+        private const string PlayerCannon = "GameLogic/Cannon/PlayerCannon Variant";
+        private const string NPCCannon = "GameLogic/Cannon/NPCCannon Variant";
+        private const string FloatingPointer = "GameLogic/Soldier/FloatingPointer";
 
+        [SerializeField] private SoldierForDespawnDetector _soldierDespawnDetector;
+        [SerializeField] private Transform _playerSpawnPoint;
+        [SerializeField] private Transform _npcSpawnPoint;
+        [SerializeField] private float _playerMaxEnergy = 20f;
+        [SerializeField] private float _playerSpawnDelay;
+        [SerializeField] private float _npcMaxEnergy = 30;
+        [SerializeField] private float _npcSpawnDelay = 3f;
+        [SerializeField] private float _npcNextCommandDelay = 5f;
+        [SerializeField] private RaycastSettings _soldierSelectorSettings;
+        [SerializeField] private RaycastSettings _controlPointSelectorSettings;
+        [SerializeField] private Canvas _playerUI;
+        [SerializeField] private Canvas _npcUI;
+
+        private PlayerHUDModel _playerHudModel;
+        private InputService _input;
+        private PlayerInputController _playerInputController;
+
+        private ICoroutineRunner _coroutineRunner;
+        private SoldierSpawner _soldierSpawner;
         private AssetLoader _assetLoader;
+        private CannonProjectileSpawner _projectileSpawner;
+        private TeamColorChanger _colorChanher;
+        private ControlPointDatabase _controlPointDatabase;
 
         private CannonModel _playerCannon;
         private CannonModel _NPCCannon;
 
         [Inject]
-        private void Init(AssetLoader assetLoader)
+        private void Init(AssetLoader assetLoader, SoldierSpawner soldierSpawner, ICoroutineRunner coroutineRunner,
+            CannonProjectileSpawner projectileSpawner, TeamColorChanger colorChanger,
+            ControlPointDatabase controlPointDatabase, InputService input)
         {
+            _coroutineRunner = coroutineRunner;
             _assetLoader = assetLoader;
+            _soldierSpawner = soldierSpawner;
+            _projectileSpawner = projectileSpawner;
+            _colorChanher = colorChanger;
+            _controlPointDatabase = controlPointDatabase;
+
+            _input = input;
+            _playerInputController = new(_input);
+            _playerInputController.Enable();
         }
 
         public GameSceneFactory(AssetLoader assetLoader)
@@ -38,26 +81,66 @@ namespace Base.Services.Factories.Game
 
         public void CreatePlayer()
         {
-            Team team = new Team();
-            team.SetType(TeamType.Player);
+            Team team = new Team(TeamType.Player);
 
-            _playerCannon = CreateCannon(PlayerCannon, team, 20, 2);
+            CannonEnergyBar cannonEnergyBar = new CannonEnergyBar(team, _controlPointDatabase, _playerMaxEnergy,
+                _coroutineRunner);
+
+            _playerCannon = CreateCannon(PlayerCannon, team, 20, 2, cannonEnergyBar, _playerUI);
+            cannonEnergyBar.Enable();
+
+            CreateSoldierCommandController(team);
+            SoldierSpawnController spawnController = CreateSoldierSpawnController(team, _playerSpawnDelay, _playerSpawnPoint);
+
+            Player player = new Player(_playerCannon, cannonEnergyBar, FindObjectOfType<ShootMinigame>(),
+                spawnController);
+            //player.Enable();
         }
 
         public void CreateNPC()
         {
-            Team team = new Team();
-            team.SetType(TeamType.NPC);
+            Team team = new Team(TeamType.NPC);
+            CannonEnergyBar energyBar = new CannonEnergyBar(team, _controlPointDatabase, _npcMaxEnergy,
+                _coroutineRunner);
 
-            _NPCCannon = CreateCannon(PlayerCannon, team, 10, 2);
+            _NPCCannon = CreateCannon(NPCCannon, team, 10, 2, energyBar, _npcUI);
+            SoldierSpawnController spawnController = CreateSoldierSpawnController(team, _npcSpawnDelay, 
+                _npcSpawnPoint);
+
+
+            NPCCannonController cannonController = new NPCCannonController(_NPCCannon, energyBar);
+
+            NPCSoldierController soldierController = new NPCSoldierController(_controlPointDatabase,
+                spawnController, _npcSpawnDelay, _npcNextCommandDelay, team, _coroutineRunner);
+
+            NPC npc = new(cannonController, soldierController, spawnController);
+            npc.Enable();
         }
 
-        private CannonModel CreateCannon(string assetPath, Team team, int damage, float fireDelay)
+        private SoldierSpawnController CreateSoldierSpawnController(Team team, float spawnDelay, Transform spawnPoint)
+        {
+            return new SoldierSpawnController(spawnDelay, spawnPoint,
+                _soldierDespawnDetector, team, _soldierSpawner, _coroutineRunner);
+        }
+
+        private void CreateSoldierCommandController(Team team)
+        {
+            FloatingPointer floatingPointer = _assetLoader.Instantiate<FloatingPointer>(FloatingPointer);
+            SoldierSelector soldierSelector = new(_soldierSelectorSettings);
+            ControlPointSelector controlPointSelector = new ControlPointSelector(_controlPointSelectorSettings);
+
+            SoldierCommandController controller = new SoldierCommandController(0.1f, soldierSelector,
+                controlPointSelector, floatingPointer, _coroutineRunner, team, _input);
+        }
+
+        private CannonModel CreateCannon(string assetPath, Team team, int damage, float fireDelay,
+            CannonEnergyBar energyBar, Canvas ui)
         {
             GameObject cannon = _assetLoader.Instantiate(assetPath);
             CannonSetup setup = cannon.GetComponent<CannonSetup>();
-            team.SetType(TeamType.Player);
-            setup.Init(team, damage, fireDelay);
+            setup.Init(team, damage, fireDelay, _colorChanher, _projectileSpawner, energyBar,
+                ui.GetComponentInChildren<CannonEnergyBarView>(),
+                ui.GetComponentInChildren<CannonSliderHealthView>());
 
             return cannon.GetComponent<CannonSetup>().GetModel();
         }

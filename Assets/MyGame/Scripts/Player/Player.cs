@@ -2,39 +2,59 @@ using Base.GameLogic.Cannon;
 using System;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player
 {
-    [SerializeField] private CannonModel _cannon;
-    [SerializeField] private CannonEnergyBar _energyBar;
-    [SerializeField] private ShootMinigame _shootMinigame;
-    [SerializeField] private SoldierSpawnController _soldierSpawnerController;
-    [SerializeField] private SoldierSelector _soldierSelector;
+    private CannonModel _cannon;
+    private CannonEnergyBar _energyBar;
+    private ShootMinigame _shootMinigame;
+    private SoldierSpawnController _soldierSpawnerController;
+
+    private bool _enabled = false;
+
+    public Player(CannonModel cannon, CannonEnergyBar energyBar, ShootMinigame shootMinigame, 
+        SoldierSpawnController soldierSpawnerController)
+    {
+        _cannon = cannon;
+        _energyBar = energyBar;
+        _shootMinigame = shootMinigame;
+        _soldierSpawnerController = soldierSpawnerController;
+    }
 
     public event Action Defeated;
 
-    private void OnEnable()
+    public void Enable()
     {
+        if(_enabled) 
+            return;
+
         _energyBar.Filled += OnEnergyBarFilled;
         _cannon.Destroyed += OnCannonDestroyed;
 
         _shootMinigame.Winned += OnWinMinigame;
         _shootMinigame.Loosed += OnLooseMinigame;
+
+        _soldierSpawnerController.Enable();
+
+        _enabled = true;
     }
 
-    private void OnDisable()
+    public void Disable()
     {
         _energyBar.Filled -= OnEnergyBarFilled;
         _cannon.Destroyed -= OnCannonDestroyed;
 
         _shootMinigame.Winned -= OnWinMinigame;
         _shootMinigame.Loosed -= OnLooseMinigame;
+
+        _soldierSpawnerController.Disable();
+
+        _enabled = false;
     }
 
     public void Stop()
     {
-        _soldierSpawnerController.StopSpawn();
-        _soldierSelector.enabled = false;
-        _energyBar.enabled = false;
+        _soldierSpawnerController.Disable();
+        _energyBar.Disable();
     }
 
     private void OnEnergyBarFilled()

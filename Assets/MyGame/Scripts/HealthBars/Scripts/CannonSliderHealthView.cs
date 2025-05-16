@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 namespace Base.GameLogic.Cannon
 {
-    public class HealthSmoothSliderView : CannonHealthView
+    public class CannonSliderHealthView : CannonHealthView
     {
+        [SerializeField] private TextMeshProUGUI _text;
         [SerializeField] private SliderValueChanger _healthBar;
         [SerializeField] private float _changeSpeed = 0.2f;
 
@@ -15,11 +17,17 @@ namespace Base.GameLogic.Cannon
         {
             if (_healthBar == null)
                 throw new ArgumentNullException();
+
+            if (_text == null)
+                throw new ArgumentNullException();
         }
 
 
         public override void Display(float value)
         {
+            string text = $"{(int)value} / {(int)GetMaxHealth()}";
+            _text.text = text;
+
             if (_valueChanger != null)
             {
                 StopCoroutine(_valueChanger);

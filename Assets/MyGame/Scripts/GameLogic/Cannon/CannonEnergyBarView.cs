@@ -8,31 +8,20 @@ namespace Base.GameLogic.Cannon
 
         [SerializeField] private SliderValueChanger _sliderValueChanger;
         [SerializeField] private TextMeshProUGUI _textMeshProUGUI;
-        [SerializeField] private CannonEnergyBar _energyBar;
 
         private float _maxEnergy;
 
-        private void Awake()
+        public void Init(float  maxEnergy)
         {
-            _maxEnergy = _energyBar.MaxEnergy;
+            _maxEnergy = maxEnergy;
             _sliderValueChanger.SetMinMaxValues(0, _maxEnergy);
             _textMeshProUGUI.text = $"{0} / {_maxEnergy}";
         }
 
-        private void OnEnable()
+        public void Display(float amount)
         {
-            _energyBar.CurrentEnergyChanged += OnEnergyChanged;
-        }
-
-        private void OnDisable()
-        {
-            _energyBar.CurrentEnergyChanged -= OnEnergyChanged;
-        }
-
-        private void OnEnergyChanged(float energy)
-        {
-            _sliderValueChanger.SetValue(energy);
-            _textMeshProUGUI.text = $"{(int)energy} / {_maxEnergy}";
+            _sliderValueChanger.SetValue(amount);
+            _textMeshProUGUI.text = $"{(int)amount} / {_maxEnergy}";
         }
     }
 }

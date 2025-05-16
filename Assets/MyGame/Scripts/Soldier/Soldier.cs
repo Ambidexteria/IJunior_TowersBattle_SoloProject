@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-[RequireComponent(typeof(Team))]
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
 public class Soldier : SpawnableObject, ISoldier, IMovable, IAttacker
@@ -38,8 +37,6 @@ public class Soldier : SpawnableObject, ISoldier, IMovable, IAttacker
 
     private void Awake()
     {
-        _team = GetComponent<Team>();
-
         _waitToDie = new WaitForSeconds(_dieDelay);
     }
 

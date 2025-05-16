@@ -1,29 +1,36 @@
 using System;
-using UnityEngine;
 
-public class NPC : MonoBehaviour
+public class NPC
 {
-    [SerializeField] private NPCCannonController _cannonController;
-    [SerializeField] private NPCSoldierController _soldierController;
-    [SerializeField] private SoldierSpawnController _soldierSpawnController;
+    private NPCCannonController _cannonController;
+    private NPCSoldierController _soldierController;
+    private SoldierSpawnController _soldierSpawnController;
 
     public event Action Defeated;
 
-    private void OnEnable()
+    public NPC(NPCCannonController cannonController, NPCSoldierController soldierController, SoldierSpawnController soldierSpawnController)
     {
-        _cannonController.CannonDestroyed += OnDefeated;
+        _cannonController = cannonController;
+        _soldierController = soldierController;
+        _soldierSpawnController = soldierSpawnController;
     }
 
-    private void OnDisable()
+    public void Enable()
     {
-        _cannonController.CannonDestroyed -= OnDefeated;
+        _cannonController.Enable();
+        _soldierSpawnController.Enable();
+        _soldierController.Enable();
+
+        _cannonController.CannonDestroyed += OnDefeated;
     }
 
     public void Stop()
     {
-        _soldierController.StopSendingSoldiers();
-        _soldierSpawnController.StopSpawn();
-        _cannonController.Stop();
+        _soldierController.Disable();
+        _soldierSpawnController.Disable();
+        _cannonController.Disable();
+
+        _cannonController.CannonDestroyed -= OnDefeated;
     }
 
     private void OnDefeated()

@@ -1,15 +1,13 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
+using UnityEngine.UI;
 
 public class TeamColorChanger
 {
     private Material _playerColor;
     private Material _npcColor;
     private Material _defaultColor;
-
-    private TeamColorDatabase _database;
 
     public TeamColorChanger(Material playerColor, Material NPCColor, Material defaultColor)
     {
@@ -30,6 +28,12 @@ public class TeamColorChanger
     {
         Material material = GetMaterialByTeamType(team.Type);
         mark.SetMaterial(material);
+    }
+
+    public Color GetColor(Team team)
+    {
+        Material material = GetMaterialByTeamType(team.Type);
+        return material.color;
     }
 
     private Material GetMaterialByTeamType(TeamType teamType)
