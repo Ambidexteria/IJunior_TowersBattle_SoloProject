@@ -1,4 +1,5 @@
 using Base.GameLogic.Cannon;
+using Base.GameLogic.ShootMinigame;
 using System;
 using UnityEngine;
 
@@ -6,12 +7,12 @@ public class Player
 {
     private CannonModel _cannon;
     private CannonEnergyBar _energyBar;
-    private ShootMinigame _shootMinigame;
+    private ShootMinigameModel _shootMinigame;
     private SoldierSpawnControllerModel _soldierSpawnerController;
 
     private bool _enabled = false;
 
-    public Player(CannonModel cannon, CannonEnergyBar energyBar, ShootMinigame shootMinigame, 
+    public Player(CannonModel cannon, CannonEnergyBar energyBar, ShootMinigameModel shootMinigame, 
         SoldierSpawnControllerModel soldierSpawnerController)
     {
         _cannon = cannon;
@@ -62,7 +63,7 @@ public class Player
         if (_shootMinigame.Activated)
             return;
 
-        _shootMinigame.Activate();
+        _shootMinigame.LaunchMinigame();
     }
 
     private void OnWinMinigame()

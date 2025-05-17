@@ -6,6 +6,7 @@ using Zenject;
 using Base.Infrastructure;
 using System;
 using Base.Soldier;
+using Base.GameLogic.ShootMinigame;
 
 namespace Base.Services.Factories.Game
 {
@@ -34,6 +35,7 @@ namespace Base.Services.Factories.Game
         [SerializeField] private RaycastSettings _controlPointSelectorSettings;
         [SerializeField] private Canvas _playerUI;
         [SerializeField] private Canvas _npcUI;
+        [SerializeField] private ShootMinigameSetup _shootMinigameSetup;
 
         private PlayerHUDModel _playerHudModel;
         private InputService _input;
@@ -94,9 +96,9 @@ namespace Base.Services.Factories.Game
             SoldierSpawnControllerModel spawnController = CreateSoldierSpawnController(team, _playerSpawnDelay, 
                 _playerSpawnPoint, _playerUI);
 
-            Player player = new Player(_playerCannon, cannonEnergyBar, FindObjectOfType<ShootMinigame>(),
+            Player player = new Player(_playerCannon, cannonEnergyBar, _shootMinigameSetup.GetModel(),
                 spawnController);
-            //player.Enable();
+            player.Enable();
         }
 
         public void CreateNPC()
