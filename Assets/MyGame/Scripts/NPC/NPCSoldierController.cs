@@ -8,7 +8,7 @@ public class NPCSoldierController
 {
     [SerializeField] private ControlPointDatabase _controlPointDatabase;
     [SerializeField] private List<Soldier> _soldiers = new List<Soldier>();
-    [SerializeField] private SoldierSpawnController _spawnController;
+    [SerializeField] private SoldierSpawnControllerModel _spawnController;
     [SerializeField] private float _startDelay = 1f;
     [SerializeField] private float _nextCommandDelay = 2f;
 
@@ -19,7 +19,7 @@ public class NPCSoldierController
     private WaitForSeconds _waitNextCommand;
     private bool _enabled = true;
 
-    public NPCSoldierController(ControlPointDatabase controlPointDatabase, SoldierSpawnController spawnController,
+    public NPCSoldierController(ControlPointDatabase controlPointDatabase, SoldierSpawnControllerModel spawnController,
         float startDelay, float nextCommandDelay, Team team, ICoroutineRunner coroutineRunner)
     {
         _controlPointDatabase = controlPointDatabase;

@@ -5,6 +5,7 @@ using Base.GameLogic.Cannon;
 using Zenject;
 using Base.Infrastructure;
 using System;
+using Base.Soldier;
 
 namespace Base.Services.Factories.Game
 {
@@ -90,7 +91,8 @@ namespace Base.Services.Factories.Game
             cannonEnergyBar.Enable();
 
             CreateSoldierCommandController(team);
-            SoldierSpawnController spawnController = CreateSoldierSpawnController(team, _playerSpawnDelay, _playerSpawnPoint);
+            SoldierSpawnControllerModel spawnController = CreateSoldierSpawnController(team, _playerSpawnDelay, 
+                _playerSpawnPoint, _playerUI);
 
             Player player = new Player(_playerCannon, cannonEnergyBar, FindObjectOfType<ShootMinigame>(),
                 spawnController);
@@ -104,8 +106,8 @@ namespace Base.Services.Factories.Game
                 _coroutineRunner);
 
             _NPCCannon = CreateCannon(NPCCannon, team, 10, 2, energyBar, _npcUI);
-            SoldierSpawnController spawnController = CreateSoldierSpawnController(team, _npcSpawnDelay, 
-                _npcSpawnPoint);
+            SoldierSpawnControllerModel spawnController = CreateSoldierSpawnController(team, _npcSpawnDelay, 
+                _npcSpawnPoint, _npcUI);
 
 
             NPCCannonController cannonController = new NPCCannonController(_NPCCannon, energyBar);
@@ -117,10 +119,16 @@ namespace Base.Services.Factories.Game
             npc.Enable();
         }
 
-        private SoldierSpawnController CreateSoldierSpawnController(Team team, float spawnDelay, Transform spawnPoint)
+        private SoldierSpawnControllerModel CreateSoldierSpawnController(Team team, float spawnDelay, Transform spawnPoint, Canvas uiWithView)
         {
-            return new SoldierSpawnController(spawnDelay, spawnPoint,
+            SoldierSpawnControllerView view = GetViewComponent<SoldierSpawnControllerView>(uiWithView);
+            var model = new SoldierSpawnControllerModel(spawnDelay, spawnPoint,
                 _soldierDespawnDetector, team, _soldierSpawner, _coroutineRunner);
+
+            var presenter = new SoldierSpawnControllerPresenter(model, view);
+            presenter.Enable();
+
+            return model;
         }
 
         private void CreateSoldierCommandController(Team team)
@@ -136,13 +144,19 @@ namespace Base.Services.Factories.Game
         private CannonModel CreateCannon(string assetPath, Team team, int damage, float fireDelay,
             CannonEnergyBar energyBar, Canvas ui)
         {
-            GameObject cannon = _assetLoader.Instantiate(assetPath);
-            CannonSetup setup = cannon.GetComponent<CannonSetup>();
+            CannonSetup setup = _assetLoader.Instantiate<CannonSetup>(assetPath);
             setup.Init(team, damage, fireDelay, _colorChanher, _projectileSpawner, energyBar,
                 ui.GetComponentInChildren<CannonEnergyBarView>(),
                 ui.GetComponentInChildren<CannonSliderHealthView>());
 
-            return cannon.GetComponent<CannonSetup>().GetModel();
+            return setup.GetModel();
+        }
+
+        private Type GetViewComponent<Type>(Canvas ui) where Type : MonoBehaviour
+        {
+            Type component = ui.GetComponentInChildren<Type>();
+
+            return component ?? throw new NullReferenceException(nameof(GetViewComponent));
         }
     }
 }

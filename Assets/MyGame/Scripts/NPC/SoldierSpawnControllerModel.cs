@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class SoldierSpawnController
+public class SoldierSpawnControllerModel
 {
     private float _spawnDelay;
     private Transform _spawnPoint;
@@ -13,13 +13,14 @@ public class SoldierSpawnController
     private WaitForSeconds _wait;
     private SoldierSpawner _spawner;
     private Soldier _soldier;
-    private Coroutine _coroutine;
+    private Coroutine _spawnCoroutine;
+    private Coroutine _countdownCoroutine;
 
     private bool _enabled = true;
     private float _nextSpawnTime = 0;
     private ICoroutineRunner _coroutineRunner;
 
-    public SoldierSpawnController(float spawnDelay, Transform spawnPoint, 
+    public SoldierSpawnControllerModel(float spawnDelay, Transform spawnPoint, 
         SoldierForDespawnDetector despawnDetector, Team team, SoldierSpawner spawner,
         ICoroutineRunner coroutineRunner)
     {
@@ -33,8 +34,9 @@ public class SoldierSpawnController
         _wait = new WaitForSeconds(_spawnDelay);
     }
 
-    public float TimeBeforeNextSpawn => Mathf.Clamp(_nextSpawnTime - Time.time, 0, _spawnDelay);
+    public float TimeBeforeNextSpawn { get; private set; }
 
+    public event Action<float> TimeBeforeNextSpawnChanged;
     public event Action<Soldier> Spawned;
     public event Action<Soldier> Despawned;
 
@@ -50,16 +52,31 @@ public class SoldierSpawnController
 
     private void StartSpawn()
     {
-        if (_coroutine != null)
+        if (_spawnCoroutine != null)
             return;
 
-        _coroutine = _coroutineRunner.StartCoroutine(SpawnCoroutine());
+        _spawnCoroutine = _coroutineRunner.StartCoroutine(SpawnCoroutine());
+        _countdownCoroutine = _coroutineRunner.StartCoroutine(SpawnCountdown());
     }
 
     private void StopSpawn()
     {
-        if (_coroutine != null)
-            _coroutineRunner.StopCoroutine(_coroutine);
+        if (_spawnCoroutine != null)
+        {
+            _coroutineRunner.StopCoroutine(_spawnCoroutine);
+            _coroutineRunner.StopCoroutine(_countdownCoroutine);
+        }
+    }
+
+    private IEnumerator SpawnCountdown()
+    {
+        while(_enabled)
+        {
+            TimeBeforeNextSpawn = Mathf.Clamp(_nextSpawnTime - Time.time, 0, _spawnDelay);
+
+            TimeBeforeNextSpawnChanged?.Invoke(TimeBeforeNextSpawn);
+            yield return null;
+        }
     }
 
     private IEnumerator SpawnCoroutine()

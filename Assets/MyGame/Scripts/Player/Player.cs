@@ -7,12 +7,12 @@ public class Player
     private CannonModel _cannon;
     private CannonEnergyBar _energyBar;
     private ShootMinigame _shootMinigame;
-    private SoldierSpawnController _soldierSpawnerController;
+    private SoldierSpawnControllerModel _soldierSpawnerController;
 
     private bool _enabled = false;
 
     public Player(CannonModel cannon, CannonEnergyBar energyBar, ShootMinigame shootMinigame, 
-        SoldierSpawnController soldierSpawnerController)
+        SoldierSpawnControllerModel soldierSpawnerController)
     {
         _cannon = cannon;
         _energyBar = energyBar;

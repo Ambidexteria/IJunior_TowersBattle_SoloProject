@@ -4,11 +4,11 @@ public class NPC
 {
     private NPCCannonController _cannonController;
     private NPCSoldierController _soldierController;
-    private SoldierSpawnController _soldierSpawnController;
+    private SoldierSpawnControllerModel _soldierSpawnController;
 
     public event Action Defeated;
 
-    public NPC(NPCCannonController cannonController, NPCSoldierController soldierController, SoldierSpawnController soldierSpawnController)
+    public NPC(NPCCannonController cannonController, NPCSoldierController soldierController, SoldierSpawnControllerModel soldierSpawnController)
     {
         _cannonController = cannonController;
         _soldierController = soldierController;
