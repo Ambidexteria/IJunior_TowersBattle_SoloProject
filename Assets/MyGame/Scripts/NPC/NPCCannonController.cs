@@ -6,7 +6,7 @@ public class NPCCannonController
     private CannonModel _cannon;
     private CannonEnergyBar _energyBar;
 
-    private bool _active = true;
+    private bool _enabled = false;
 
     public NPCCannonController(CannonModel cannon, CannonEnergyBar energyBar)
     {
@@ -18,29 +18,35 @@ public class NPCCannonController
 
     public void Enable()
     {
+        if (_enabled)
+            return;
+
+        _cannon.Enable();
         _energyBar.Enable();
 
         _energyBar.Filled += OnEnergyBarFilled;
         _cannon.Destroyed += OnCannonDestroyed;
+
+        _enabled = true;
     }
 
     public void Disable()
     {
-        Stop();
+        if(_enabled == false) 
+            return;
+
+        _cannon.Disable();
+        _energyBar.Disable();
 
         _energyBar.Filled -= OnEnergyBarFilled;
         _cannon.Destroyed -= OnCannonDestroyed;
-    }
 
-    private void Stop()
-    {
-        _active = false;
-        _energyBar.Disable();
+        _enabled = false;
     }
 
     private void OnEnergyBarFilled()
     {
-        if (_active)
+        if (_enabled)
         {
             _cannon.Shoot();
             _energyBar.RemoveCurrentEnergy();
@@ -49,7 +55,7 @@ public class NPCCannonController
 
     private void OnCannonDestroyed()
     {
-        _active = false;
+        _enabled = false;
         CannonDestroyed?.Invoke();
     }
 }

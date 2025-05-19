@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class SceneChangingButtonsController : UIWindowController
 {
-    [SerializeField] private SceneChangeController _sceneChangeController;
     [SerializeField] private ButtonClickHandler _retryButton;
     [SerializeField] private ButtonClickHandler _homeButton;
 
@@ -19,11 +18,9 @@ public class SceneChangingButtonsController : UIWindowController
     }
     private void OnRetryButtonClicked()
     {
-        _sceneChangeController.LoadGameScene();
     }
 
     private void OnHomeButtonClicked()
     {
-        _sceneChangeController.LoadMainMenu();
     }
 }

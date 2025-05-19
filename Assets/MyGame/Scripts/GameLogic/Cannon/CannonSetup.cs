@@ -30,12 +30,12 @@ namespace Base.GameLogic.Cannon
             return _model;
         }
 
-        public void Init(Team team, int damage, float fireDelay, TeamColorChanger colorChanger,
+        public void Init(Team team, int damage, float maxHealth, TeamColorChanger colorChanger,
             CannonProjectileSpawner projectileSpawner, CannonEnergyBar cannonEnergyBar, CannonEnergyBarView cannonEnergyBarView,
             CannonHealthView cannonHealthView)
         {
             _model = new CannonModel(transform, _projectileCollider, team, _animator, _shootEffect,
-                _takeDamageEffect, _barrel, damage, fireDelay, projectileSpawner, colorChanger, _colorChangerMarks);
+                _takeDamageEffect, _barrel, damage, maxHealth, projectileSpawner, colorChanger, _colorChangerMarks);
 
             _healthPresenter = new CannonHealthPresenter(_model, cannonHealthView);
 

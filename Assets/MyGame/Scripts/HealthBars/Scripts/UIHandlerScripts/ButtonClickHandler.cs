@@ -5,7 +5,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class ButtonClickHandler : MonoBehaviour
 {
-    private Button _button;
+    [SerializeField] private Button _button;
 
     public event Action Clicked;
 

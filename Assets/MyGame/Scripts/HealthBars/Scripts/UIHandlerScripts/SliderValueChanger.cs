@@ -5,7 +5,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Slider))]
 public class SliderValueChanger : MonoBehaviour
 {
-    private Slider _slider;
+    [SerializeField] private Slider _slider;
 
     public Action<float> ValueChanged;
 

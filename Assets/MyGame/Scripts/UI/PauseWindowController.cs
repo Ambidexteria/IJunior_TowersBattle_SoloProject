@@ -1,10 +1,10 @@
+using Base.Services.TimeManagment;
 using System;
 using UnityEngine;
 
 public class PauseWindowController : UIWindowController
 {
     [SerializeField] private TimeController _timeController;
-    [SerializeField] private SceneChangeController _sceneChangeController;
     [SerializeField] private ButtonClickHandler _resumeButton;
     [SerializeField] private ButtonClickHandler _settingsButton;
     [SerializeField] private UIWindowController _settingWindowController;

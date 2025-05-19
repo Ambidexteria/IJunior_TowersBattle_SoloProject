@@ -3,12 +3,12 @@ using UnityEngine.UI;
 
 namespace Base.GameLogic.ShootMinigame
 {
-    public class LaunchShootMinigamePresenter
+    public class ShootMinigameLauncherPresenter
     {
         private readonly ShootMinigameLauncherModel _model;
         private readonly Image _view;
 
-        public LaunchShootMinigamePresenter(ShootMinigameLauncherModel model, Image view)
+        public ShootMinigameLauncherPresenter(ShootMinigameLauncherModel model, Image view)
         {
             _model = model;
             _view = view;

@@ -48,6 +48,7 @@ namespace Base.GameLogic.Cannon
         public void Init(Team team, Vector3 start, Vector3 fifnish, int damage)
         {
             _team = team;
+            Debug.Log($"{nameof(CannonProjectile)} initiated with team - {_team.Type}");
             _colorChanger.Recolor(_team, _markForRecoloring);
             _damage = damage;
             _follower.StartMovement(_speed, start, fifnish);

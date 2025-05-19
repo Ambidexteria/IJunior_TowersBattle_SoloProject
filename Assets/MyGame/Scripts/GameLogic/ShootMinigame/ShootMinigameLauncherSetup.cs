@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Base.GameLogic.ShootMinigame
 {
-    public class LaunchShootMinigameSetup : MonoBehaviour
+    public class ShootMinigameLauncherSetup : MonoBehaviour
     {
         [SerializeField] private Image _view;
         [SerializeField] private Animator _animator;
@@ -12,13 +12,13 @@ namespace Base.GameLogic.ShootMinigame
         [SerializeField] private ParticleSystemController _particleSystemController;
 
         private ShootMinigameLauncherModel _model;
-        private LaunchShootMinigamePresenter _presenter;
+        private ShootMinigameLauncherPresenter _presenter;
 
         private void Awake()
         {
             _model = new ShootMinigameLauncherModel(_animator, _disabledSprite, _enabledSprite, _particleSystemController);
 
-            _presenter = new LaunchShootMinigamePresenter(_model, _view);
+            _presenter = new ShootMinigameLauncherPresenter(_model, _view);
         }
     }
 }

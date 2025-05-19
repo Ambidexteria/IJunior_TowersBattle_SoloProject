@@ -2,6 +2,7 @@ using Base.Services.Factories.Game;
 using Base.Services.Input;
 using Base.Services.PersistentProgress;
 using Base.Services.SceneManagment;
+using Base.Services.TimeManagment;
 using Base.UI.Controller;
 using Zenject;
 
@@ -23,6 +24,7 @@ public class BaseServicesInstaller : MonoInstaller
         PersisentProgressServiceInstaller.Install(_container);
         SaveLoadServiceInstaller.Install(_container); 
         UIFactoryInstaller.Install(_container);
+        TimeControllerInstaller.Install(_container);
 
         UIControllerInstaller.Install(_container);
         GameInstaller.Install(_container);

@@ -10,14 +10,14 @@ namespace Base.GameLogic.Cannon
     {
         private const string BarrelDrawback = nameof(BarrelDrawback);
 
-        [SerializeField] private Animator _animator;
-        [SerializeField] private CannonModel _enemyCannon;
-        [SerializeField] private Health _health;
-        [SerializeField] private ParticleSystemController _shootEffect;
-        [SerializeField] private ParticleSystemController _takeDamageEffect;
-        [SerializeField] private Barrel _barrel;
-        [SerializeField] private int _damage;
-        [SerializeField] private float _fireDelay;
+        private Animator _animator;
+        private CannonModel _enemyCannon;
+        private Health _health;
+        private ParticleSystemController _shootEffect;
+        private ParticleSystemController _takeDamageEffect;
+        private Barrel _barrel;
+        private int _damage;
+        private float _fireDelay;
 
         private TeamColorChanger _colorChanger;
         private Transform _transfrom;
@@ -27,28 +27,24 @@ namespace Base.GameLogic.Cannon
         private List<ColorChangerMark> _colorChangerMarks;
 
         public CannonModel(Transform transfrom, TriggerObserver triggerObserver, Team team, Animator animator, ParticleSystemController shootEffect, ParticleSystemController takeDamageEffect,
-            Barrel barrel, int damage, float firDelay, 
+            Barrel barrel, int damage, float maxHealth, 
             CannonProjectileSpawner projectileSpawner, TeamColorChanger colorChanger, 
             List<ColorChangerMark> marksForRecoloring = null)
         {
             _transfrom = transfrom;
             _triggerObserver = triggerObserver;
-            _triggerObserver.Entered += OnTriggerCollided;
-
             _team = team;
             _animator = animator;
             _shootEffect = shootEffect;
             _takeDamageEffect = takeDamageEffect;
             _barrel = barrel;
             _damage = damage;
-            _fireDelay = firDelay;
             _colorChangerMarks = marksForRecoloring;
             _projectileSpawner = projectileSpawner;
             _colorChanger = colorChanger;
-            _health = new Health(50);
+            _health = new Health(maxHealth);
 
-            Awake();
-            OnEnable();
+            Recolor();
         }
 
         public float MaxHealth => _health.MaxValue;
@@ -59,20 +55,16 @@ namespace Base.GameLogic.Cannon
         public event Action Destroyed;
         public event Action<float> HealthChanged;
 
-        private void Awake()
-        {
-            if (_colorChangerMarks != null)
-                _colorChanger.Recolor(_team, _colorChangerMarks);
-        }
-
-        private void OnEnable()
+        public void Enable()
         {
             _health.Dying += OnDying;
+            _triggerObserver.Entered += OnTriggerCollided;
         }
 
-        private void OnDisable()
+        public void Disable()
         {
             _health.Dying -= OnDying;
+            _triggerObserver.Entered -= OnTriggerCollided;
         }
 
         public void SetEnemy(CannonModel enemy)
@@ -106,13 +98,24 @@ namespace Base.GameLogic.Cannon
             _takeDamageEffect.Play();
             HealthChanged?.Invoke(_health.Current);
         }
+        private void Recolor()
+        {
+            if (_colorChangerMarks != null)
+                _colorChanger.Recolor(_team, _colorChangerMarks);
+        }
 
         private void OnTriggerCollided(Collider collider)
         {
+            Debug.Log($"{nameof(CannonModel)} - Collision detected with {collider.transform.root.name}");
+
             if(collider.TryGetComponent(out CannonProjectile projectile))
             {
-                if(projectile.TeamType != _team.Type)
+                Debug.Log($"{nameof(CannonModel)} - Projectile detected");
+
+                if (projectile.TeamType != _team.Type)
                 {
+                    Debug.Log($"{nameof(CannonModel)} - Different team detected");
+
                     TakeDamage(projectile.Damage);
                     projectile.Despawn();
                 }

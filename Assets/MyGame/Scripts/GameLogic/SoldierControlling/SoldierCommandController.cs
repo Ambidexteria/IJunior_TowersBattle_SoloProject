@@ -36,8 +36,6 @@ public class SoldierCommandController
 
         _waitForSeconds = new(_secondClickDelay);
         _waitUntilNextClick = new(() => _playerClickLeftMouseButton == true);
-
-        Enable();
     }
 
     public void Enable()

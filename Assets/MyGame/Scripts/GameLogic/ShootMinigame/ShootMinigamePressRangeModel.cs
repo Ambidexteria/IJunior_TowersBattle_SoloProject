@@ -1,4 +1,5 @@
 using Base.Infrastructure;
+using Base.Services.TimeManagment;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -12,7 +13,6 @@ namespace Base.GameLogic.ShootMinigame
         private readonly ICoroutineRunner _coroutineRunner;
         private float _pressRangeWidthCoefficient = 0.1f;
         private readonly float _sliderSpeedRate;
-        private Image _pressRangeImage;
         private RectTransform _fullRangeRectTransform;
 
         private float _sliderSpeed;
@@ -24,12 +24,11 @@ namespace Base.GameLogic.ShootMinigame
 
         private bool _enabled = false;
 
-        public ShootMinigamePressRangeModel(float pressRangeWidthCoefficienr, float sliderSpeedRate, Image pressRangeImage, RectTransform fullPressRange,
+        public ShootMinigamePressRangeModel(float pressRangeWidthCoefficienr, float sliderSpeedRate, RectTransform fullPressRange,
             TimeController timeController, ICoroutineRunner coroutineRunner)
         {
             _pressRangeWidthCoefficient = pressRangeWidthCoefficienr;
             _sliderSpeedRate = sliderSpeedRate;
-            _pressRangeImage = pressRangeImage;
             _fullRangeRectTransform = fullPressRange;
             _timeController = timeController;
             _coroutineRunner = coroutineRunner;
@@ -42,6 +41,7 @@ namespace Base.GameLogic.ShootMinigame
         public float FullRangeMaxValue => _fullRangeRectTransform.rect.width;
 
         public event Action<float> ValueChanged;
+        public event Action<float> PlacingPressRange;
 
         public void Enable()
         {
@@ -76,8 +76,7 @@ namespace Base.GameLogic.ShootMinigame
 
             _coroutine = _coroutineRunner.StartCoroutine(MoveSliderCoroutine(_sliderSpeed));
 
-            _pressRangeImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, _pressRangeWidth);
-            SetPositionX(_minPressValue);
+            PlacingPressRange?.Invoke(_minPressValue);
         }
 
         private IEnumerator MoveSliderCoroutine(float speed)
@@ -85,6 +84,7 @@ namespace Base.GameLogic.ShootMinigame
             _timeController.SetSlowMotionTimeScale();
             speed /= _timeController.SlowMotionTimeScale;
 
+            _currentValue = FullRangeMinValue;
             float nextValue;
             ValueChanged?.Invoke(FullRangeMinValue);
 
@@ -103,13 +103,6 @@ namespace Base.GameLogic.ShootMinigame
 
                 yield return null;
             }
-        }
-
-        private void SetPositionX(float x)
-        {
-            Vector2 position = _pressRangeImage.rectTransform.anchoredPosition;
-            position.x = x;
-            _pressRangeImage.rectTransform.anchoredPosition = position;
         }
 
         private void CalculateStaticValues()

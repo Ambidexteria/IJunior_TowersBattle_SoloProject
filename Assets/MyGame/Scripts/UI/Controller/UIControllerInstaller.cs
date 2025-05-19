@@ -6,7 +6,7 @@ namespace Base.UI.Controller
     {
         public override void InstallBindings()
         {
-            Container.Bind<UIController>().FromNew().AsSingle();
+            Container.Bind<GameUIController>().FromNew().AsSingle();
         }
     }
 }

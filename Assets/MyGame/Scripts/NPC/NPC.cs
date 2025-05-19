@@ -6,6 +6,8 @@ public class NPC
     private NPCSoldierController _soldierController;
     private SoldierSpawnControllerModel _soldierSpawnController;
 
+    private bool _enabled = false;
+
     public event Action Defeated;
 
     public NPC(NPCCannonController cannonController, NPCSoldierController soldierController, SoldierSpawnControllerModel soldierSpawnController)
@@ -17,20 +19,30 @@ public class NPC
 
     public void Enable()
     {
+        if(_enabled) 
+            return;
+
         _cannonController.Enable();
         _soldierSpawnController.Enable();
         _soldierController.Enable();
 
         _cannonController.CannonDestroyed += OnDefeated;
+
+        _enabled = true;
     }
 
-    public void Stop()
+    public void Disable()
     {
+        if (_enabled == false)
+            return;
+
         _soldierController.Disable();
         _soldierSpawnController.Disable();
         _cannonController.Disable();
 
         _cannonController.CannonDestroyed -= OnDefeated;
+
+        _enabled = false;
     }
 
     private void OnDefeated()

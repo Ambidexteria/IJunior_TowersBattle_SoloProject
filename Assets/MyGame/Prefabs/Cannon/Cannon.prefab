@@ -327,8 +327,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2297920980191740059}
-  - {fileID: 5684738207937503766}
-  - {fileID: 936979674328771388}
   m_Father: {fileID: 5541748844473988241}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5555456540498656921
@@ -406,12 +404,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7326766851239207175}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.283, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.9433333, z: 0}
+  m_LocalScale: {x: 0.9, y: 1, z: 0.6}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7872830601314087163}
+  m_Children:
+  - {fileID: 936979674328771388}
+  m_Father: {fileID: 2297920980191740059}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &9200506588157031765
 MeshFilter:
@@ -501,13 +500,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7674143958534327901}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.282, z: 0.427}
-  m_LocalScale: {x: 0.21, y: 0.32899997, z: 0.21}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.70710677}
+  m_LocalPosition: {x: 0, y: 0.034, z: 1.274}
+  m_LocalScale: {x: 0.70000005, y: 1.0966665, z: 0.6999999}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2301236596725331208}
-  m_Father: {fileID: 7872830601314087163}
+  m_Father: {fileID: 5684738207937503766}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4647808397066862519
 MeshFilter:
@@ -683,7 +682,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.5}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5684738207937503766}
   m_Father: {fileID: 7872830601314087163}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3539160523319071369
@@ -855,7 +855,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!1001 &484582627017468617
 PrefabInstance:
   m_ObjectHideFlags: 0

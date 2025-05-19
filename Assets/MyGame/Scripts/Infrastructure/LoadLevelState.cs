@@ -6,6 +6,7 @@ using Base.Services.Factories.UI;
 using Base.Data.Scenes;
 using Base.Services.AssetManagment;
 using Base.Logic;
+using UnityEngine;
 
 namespace Base.Infrastructure
 {
@@ -53,6 +54,8 @@ namespace Base.Infrastructure
         private void OnLoaded()
         {
             InformProgressReaders();
+
+            Debug.LogWarning($"SCENE LOADED");
 
             if (_currentSceneData != null)
                 _uiFactory.CreateUI(_currentSceneData.UIName);
