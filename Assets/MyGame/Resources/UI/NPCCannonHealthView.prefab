@@ -163,8 +163,7 @@ GameObject:
   - component: {fileID: 506081137994581339}
   - component: {fileID: 1825615453423178324}
   - component: {fileID: 2343463178203355319}
-  - component: {fileID: 5223805012052496363}
-  - component: {fileID: 77862119896952491}
+  - component: {fileID: 6129769335352904936}
   m_Layer: 5
   m_Name: NPCCannonHealthView
   m_TagString: Untagged
@@ -265,7 +264,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eec4f9ef22801b4186c518d70370db8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5223805012052496363
+  _slider: {fileID: 0}
+--- !u!114 &6129769335352904936
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -274,24 +274,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5658831165571948404}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b039863a1519f684da29f4052df5f48d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _healthBar: {fileID: 2343463178203355319}
-  _changeSpeed: 0.2
---- !u!114 &77862119896952491
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5658831165571948404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b4a9e9806429e243b94ad1c349710e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ade3d0fb4673a54b9d5a028390decd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 1502150854924647366}
+  _healthBar: {fileID: 2343463178203355319}
 --- !u!1001 &954700907326876801
 PrefabInstance:
   m_ObjectHideFlags: 0

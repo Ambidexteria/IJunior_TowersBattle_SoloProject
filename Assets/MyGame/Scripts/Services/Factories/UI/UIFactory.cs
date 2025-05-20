@@ -10,7 +10,7 @@ namespace Base.Services.Factories.UI
         private const string UIFolder = "UI/MainMenuUI";
         private readonly AssetLoader _assetloader;
 
-        public event Action<GameObject> Created;
+        public event Action<Canvas> Created;
 
         public UIFactory(AssetLoader assetloader)
         {
@@ -20,7 +20,10 @@ namespace Base.Services.Factories.UI
         public void CreateUI(string name)
         {
             GameObject uiGameobject = _assetloader.Instantiate(name);
-            Created?.Invoke(uiGameobject);
+
+            Canvas uiCanvas = uiGameobject.GetComponent<Canvas>();
+
+            Created?.Invoke(uiCanvas);
         }
 
         public MainMenuUIModel CreateMainMenuModel()

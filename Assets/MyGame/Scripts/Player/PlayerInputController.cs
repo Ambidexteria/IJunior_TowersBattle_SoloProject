@@ -10,6 +10,7 @@ public class PlayerInputController
     {
         _input = input;
     }
+
     public void Enable()
     {
         _input.Enable();

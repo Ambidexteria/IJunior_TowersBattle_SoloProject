@@ -37,13 +37,13 @@ namespace Base.GameLogic.ShootMinigame
         private void OnLaunchButtonClicked()
         {
             _model.LaunchMinigame();
-            _view.ShowPressRange();
+            //_view.ShowPressRange();
         }
 
         private void OnShootButtonClicked()
         {
             _model.EndMinigame();
-            _view.HidePressRange();
+            //_view.HidePressRange();
         }
     }
 }

@@ -1,3 +1,5 @@
+using Base.Health;
+using Base.Infrastructure;
 using Base.Logic;
 using System;
 using System.Collections.Generic;
@@ -12,7 +14,7 @@ namespace Base.GameLogic.Cannon
 
         private Animator _animator;
         private CannonModel _enemyCannon;
-        private Health _health;
+        private HealthModel _health;
         private ParticleSystemController _shootEffect;
         private ParticleSystemController _takeDamageEffect;
         private Barrel _barrel;
@@ -27,8 +29,8 @@ namespace Base.GameLogic.Cannon
         private List<ColorChangerMark> _colorChangerMarks;
 
         public CannonModel(Transform transfrom, TriggerObserver triggerObserver, Team team, Animator animator, ParticleSystemController shootEffect, ParticleSystemController takeDamageEffect,
-            Barrel barrel, int damage, float maxHealth, 
-            CannonProjectileSpawner projectileSpawner, TeamColorChanger colorChanger, 
+            Barrel barrel, int damage, HealthModel health,
+            CannonProjectileSpawner projectileSpawner, TeamColorChanger colorChanger,
             List<ColorChangerMark> marksForRecoloring = null)
         {
             _transfrom = transfrom;
@@ -42,13 +44,11 @@ namespace Base.GameLogic.Cannon
             _colorChangerMarks = marksForRecoloring;
             _projectileSpawner = projectileSpawner;
             _colorChanger = colorChanger;
-            _health = new Health(maxHealth);
+            _health = health;
 
             Recolor();
         }
 
-        public float MaxHealth => _health.MaxValue;
-        public float CurrentHealth => _health.Current;
         public int Damage => _damage;
         public Transform Transform => _transfrom;
 
@@ -59,6 +59,7 @@ namespace Base.GameLogic.Cannon
         {
             _health.Dying += OnDying;
             _triggerObserver.Entered += OnTriggerCollided;
+            _health.Changed += HealthChanged;
         }
 
         public void Disable()
@@ -93,10 +94,9 @@ namespace Base.GameLogic.Cannon
 
         public void TakeDamage(int amount)
         {
-            Debug.Log("Cannon takes damage");
-            _health.Decrease(amount);
+            _health.SmoothDecrease(amount);
             _takeDamageEffect.Play();
-            HealthChanged?.Invoke(_health.Current);
+            //HealthChanged?.Invoke(_health.Current);
         }
         private void Recolor()
         {
@@ -106,16 +106,10 @@ namespace Base.GameLogic.Cannon
 
         private void OnTriggerCollided(Collider collider)
         {
-            Debug.Log($"{nameof(CannonModel)} - Collision detected with {collider.transform.root.name}");
-
-            if(collider.TryGetComponent(out CannonProjectile projectile))
+            if (collider.TryGetComponent(out CannonProjectile projectile))
             {
-                Debug.Log($"{nameof(CannonModel)} - Projectile detected");
-
                 if (projectile.TeamType != _team.Type)
                 {
-                    Debug.Log($"{nameof(CannonModel)} - Different team detected");
-
                     TakeDamage(projectile.Damage);
                     projectile.Despawn();
                 }

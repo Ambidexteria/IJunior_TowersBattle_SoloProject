@@ -57,8 +57,8 @@ namespace Base.Infrastructure
 
             Debug.LogWarning($"SCENE LOADED");
 
-            if (_currentSceneData != null)
-                _uiFactory.CreateUI(_currentSceneData.UIName);
+            //if (_currentSceneData != null)
+            //    _uiFactory.CreateUI(_currentSceneData.UIName);
 
             _gameStateMachine.Enter<GameLoopState>();
         }

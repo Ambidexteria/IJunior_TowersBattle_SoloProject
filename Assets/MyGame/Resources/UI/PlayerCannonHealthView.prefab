@@ -12,8 +12,7 @@ GameObject:
   - component: {fileID: 7789088065482548959}
   - component: {fileID: 8234959306557206992}
   - component: {fileID: 5447164321025489715}
-  - component: {fileID: 2549950763776896111}
-  - component: {fileID: 7640655154899422511}
+  - component: {fileID: 7554246789552501119}
   m_Layer: 5
   m_Name: PlayerCannonHealthView
   m_TagString: Untagged
@@ -114,7 +113,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eec4f9ef22801b4186c518d70370db8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2549950763776896111
+  _slider: {fileID: 0}
+--- !u!114 &7554246789552501119
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,24 +123,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2708251862207855856}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b039863a1519f684da29f4052df5f48d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _healthBar: {fileID: 5447164321025489715}
-  _changeSpeed: 0.2
---- !u!114 &7640655154899422511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2708251862207855856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b4a9e9806429e243b94ad1c349710e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ade3d0fb4673a54b9d5a028390decd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 9206807278663374914}
+  _healthBar: {fileID: 5447164321025489715}
 --- !u!1 &5360060148819879058
 GameObject:
   m_ObjectHideFlags: 0

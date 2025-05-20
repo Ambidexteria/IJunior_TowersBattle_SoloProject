@@ -1,3 +1,5 @@
+using Base.Health;
+using Base.Infrastructure;
 using Base.Logic;
 using System;
 using System.Collections;
@@ -18,7 +20,7 @@ public class Soldier : SpawnableObject, ISoldier, IMovable, IAttacker
     [SerializeField] private float _dieDelay;
     [SerializeField] private List<ColorChangerMark> _marks;
 
-    private Health _health;
+    private HealthModel _health;
     private RotatorToTarget _rotatorToTarget;
     private DespawnerDetector _despawnerDetector;
     private SoldierStateMachine _stateMachine;
@@ -68,7 +70,7 @@ public class Soldier : SpawnableObject, ISoldier, IMovable, IAttacker
     }
 
     [Inject]
-    private void Init(SoldierStats soldierStats, TeamColorChanger teamColorChanger)
+    private void Init(SoldierStats soldierStats, TeamColorChanger teamColorChanger, ICoroutineRunner coroutineRunner)
     {
         _colorChanger = teamColorChanger;
         _rigidbody = GetComponent<Rigidbody>();
@@ -78,7 +80,7 @@ public class Soldier : SpawnableObject, ISoldier, IMovable, IAttacker
         _enemiesDetector = new TargetDetector(_enemyTrigger);
         _stateMachine = new SoldierStateMachine(_animator, this);
         _moverToTarget = new SoldierMoverToTarget(_rigidbody, soldierStats);
-        _health = new Health(soldierStats.MaxHealth);
+        _health = new HealthModel(soldierStats.MaxHealth, coroutineRunner);
     }
 
     public void SetTeam(Team team)

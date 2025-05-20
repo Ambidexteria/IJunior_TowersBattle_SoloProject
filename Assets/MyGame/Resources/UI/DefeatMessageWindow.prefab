@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 100}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &990610810421604739
@@ -262,6 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 862497777291800130}
   - component: {fileID: 7272204049537178264}
+  - component: {fileID: 2276317262034500302}
   m_Layer: 5
   m_Name: DefeatMessage
   m_TagString: Untagged
@@ -304,6 +305,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c204c65ec19b64948bab41baac0f13cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!225 &2276317262034500302
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4314143026175047038}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &452518822611982036
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -569,6 +582,10 @@ PrefabInstance:
     - target: {fileID: 4836319941485833752, guid: 7cba9569d7003e94ba8931dbd0fff5bc, type: 3}
       propertyPath: m_Name
       value: BackroundWindow
+      objectReference: {fileID: 0}
+    - target: {fileID: 4836319941485833752, guid: 7cba9569d7003e94ba8931dbd0fff5bc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

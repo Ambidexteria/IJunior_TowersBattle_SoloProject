@@ -9,6 +9,8 @@ using System;
 using Base.Soldier;
 using Base.GameLogic.ShootMinigame;
 using Base.UI.Game.StateMachine;
+using Base.Health;
+using UnityEditor;
 
 namespace Base.Services.Factories.Game
 {
@@ -78,8 +80,6 @@ namespace Base.Services.Factories.Game
             _timeController = timeController;
 
             _input = input;
-            _playerInputController = new(_input);
-            _playerInputController.Enable();
         }
 
         public GameSceneFactory(AssetLoader assetLoader)
@@ -107,13 +107,14 @@ namespace Base.Services.Factories.Game
             CannonEnergyBar cannonEnergyBar = new CannonEnergyBar(team, _controlPointDatabase, _playerMaxEnergy,
                 _coroutineRunner);
 
-            _playerCannon = CreateCannon(PlayerCannon, team, _playerCannonDamage, _playerMaxHealth, cannonEnergyBar, _playerCannonHUD);
+            _playerCannon = CreateCannon(PlayerCannon, team, _playerCannonDamage, _playerMaxHealth, cannonEnergyBar,
+                _playerCannonHUD);
             cannonEnergyBar.Enable();
 
-            SoldierSpawnControllerModel spawnController = CreateSoldierSpawnController(team, _playerSpawnDelay, 
+            SoldierSpawnControllerModel spawnController = CreateSoldierSpawnController(team, _playerSpawnDelay,
                 _playerSpawnPoint, _playerCannonHUD);
 
-            ShootMinigameModel shootMinigame = _shootMinigameSetup.CreateShootMinigameModel(cannonEnergyBar, 
+            ShootMinigameModel shootMinigame = _shootMinigameSetup.CreateShootMinigameModel(cannonEnergyBar,
                 _timeController, _coroutineRunner, _uiStateMachine);
             Player player = new Player(_playerCannon, cannonEnergyBar, shootMinigame,
                 spawnController, CreateSoldierCommandController(team));
@@ -128,7 +129,7 @@ namespace Base.Services.Factories.Game
                 _coroutineRunner);
 
             _NPCCannon = CreateCannon(NPCCannon, team, _npcCannonDamage, _npcMaxHealth, energyBar, _npcCannonHUD);
-            SoldierSpawnControllerModel spawnController = CreateSoldierSpawnController(team, _npcSpawnDelay, 
+            SoldierSpawnControllerModel spawnController = CreateSoldierSpawnController(team, _npcSpawnDelay,
                 _npcSpawnPoint, _npcCannonHUD);
 
 
@@ -150,7 +151,7 @@ namespace Base.Services.Factories.Game
             _uiStateMachine.Enter<CannonsHUDState>();
         }
 
-        private SoldierSpawnControllerModel CreateSoldierSpawnController(Team team, float spawnDelay, Transform spawnPoint, 
+        private SoldierSpawnControllerModel CreateSoldierSpawnController(Team team, float spawnDelay, Transform spawnPoint,
             UIWindowController uiWithView)
         {
             SoldierSpawnControllerView view = GetViewComponent<SoldierSpawnControllerView>(uiWithView);
@@ -175,22 +176,25 @@ namespace Base.Services.Factories.Game
             return controller;
         }
 
-        private CannonModel CreateCannon(string assetPath, Team team, int damage, float maxHelath,
+        private CannonModel CreateCannon(string assetPath, Team team, int damage, float maxHealth,
             CannonEnergyBar energyBar, UIWindowController ui)
         {
-            CannonSetup setup = _assetLoader.Instantiate<CannonSetup>(assetPath);
-            setup.Init(team, damage, maxHelath, _colorChanher, _projectileSpawner, energyBar,
-                GetViewComponent<CannonEnergyBarView>(ui),
-                GetViewComponent<CannonSliderHealthView>(ui));
+            HealthModel health = new HealthModel(maxHealth, _coroutineRunner);
+            HealthPresenter presenter = new HealthPresenter(health, GetViewComponent<HealthView>(ui));
+            presenter.Enable();
 
-            return setup.GetModel();
+            CannonSetup setup = _assetLoader.Instantiate<CannonSetup>(assetPath);
+            CannonModel model = setup.CreateCannonModel(team, damage, _colorChanher, _projectileSpawner, energyBar,
+                GetViewComponent<CannonEnergyBarView>(ui), health);
+
+            return model;
         }
 
         private Type GetViewComponent<Type>(UIWindowController ui) where Type : MonoBehaviour
         {
             Type component = ui.GetComponentInChildren<Type>();
 
-            return component ?? throw new NullReferenceException(nameof(GetViewComponent));
+            return component ?? throw new NullReferenceException(component.gameObject.name);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Base.GameLogic.ShootMinigame
     {
         [SerializeField] private ButtonClickHandler _launchMinigameButton;
         [SerializeField] private ButtonClickHandler _shootButton;
-        [SerializeField] private UIWindowController _windowController;
+        //[SerializeField] private UIWindowController _windowController;
 
         public event Action LaunchButtonClicked;
         public event Action ShootButtonClicked;
@@ -24,15 +24,15 @@ namespace Base.GameLogic.ShootMinigame
             _shootButton.Clicked -= OnShootButtonClicked;
         }
 
-        public void ShowPressRange()
-        {
-            _windowController.Show();
-        }
+        //public void ShowPressRange()
+        //{
+        //    _windowController.Show();
+        //}
 
-        public void HidePressRange()
-        {
-            _windowController.Hide();
-        }
+        //public void HidePressRange()
+        //{
+        //    _windowController.Hide();
+        //}
 
         public void EnableLaunchButton()
         {
