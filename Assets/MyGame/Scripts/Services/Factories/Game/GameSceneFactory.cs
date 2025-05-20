@@ -50,7 +50,6 @@ namespace Base.Services.Factories.Game
         [SerializeField] private UIWindowController _defeatMessage;
         [SerializeField] private ShootMinigameSetup _shootMinigameSetup;
 
-        private PlayerHUDModel _playerHudModel;
         private InputService _input;
         private PlayerInputController _playerInputController;
 

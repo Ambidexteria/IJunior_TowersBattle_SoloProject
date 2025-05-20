@@ -88,6 +88,13 @@ namespace Base.UI.Game.StateMachine
         }
     }
 
+    public class SettingsMenuState : UIState
+    {
+        public SettingsMenuState(UIWindowController window) : base(window)
+        {
+        }
+    }
+
     public interface IUIState
     {
         void Enter();
