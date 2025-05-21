@@ -1,43 +1,41 @@
+using Base.Services.SceneManagment;
 using Base.Services.TimeManagment;
 using Base.UI.Game.StateMachine;
 using System;
+using UnityEngine;
 
 namespace Base.UI.PauseMenu
 {
     public class PauseMenuModel
     {
         private readonly TimeController _timeController;
-        private readonly GameUIStateMachine _gameUIStateMachine;
+        private readonly SceneChanger _sceneChanger;
 
-        public PauseMenuModel(TimeController timeController, GameUIStateMachine gameUIStateMachine)
+        public PauseMenuModel(TimeController timeController, SceneChanger sceneChanger)
         {
             _timeController = timeController;
-            _gameUIStateMachine = gameUIStateMachine;
-        }
-
-        public event Action Closed;
-        public event Action RestartingLevel;
-        public event Action ReturningToMainMenu;
-
-        public void Resume()
-        {
-            _gameUIStateMachine.Enter<CannonsHUDState>();
-            _timeController.Resume();
+            _sceneChanger = sceneChanger;
         }
 
         public void RestartLevel()
         {
-            RestartingLevel?.Invoke();
+            _sceneChanger.ReloadGameScene();
         }
 
         public void ReturnToMainMenu()
         {
-            ReturningToMainMenu?.Invoke();
+            _sceneChanger.ReloadGameScene();
         }
 
-        public void ShowSettingsMenu()
+        public void Pause()
         {
-            _gameUIStateMachine.Enter<SettingsMenuState>();
+            Debug.LogWarning("Pause Model");
+            _timeController.Pause();
+        }
+
+        public void Resume()
+        {
+            _timeController.Resume();
         }
     }
 }

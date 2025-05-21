@@ -1,4 +1,4 @@
-using System;
+
 using UnityEngine;
 
 namespace Base.UI.PauseMenu
@@ -16,23 +16,18 @@ namespace Base.UI.PauseMenu
 
         public void Enable()
         {
-            _view.ResumeButtonClicked += OnResumeButtonClicked;
+            _view.PauseButtonClicked += Pause;
+            _view.ResumeButtonClicked += Resume;
             _view.RestartLevelButtonClicked += OnRestartLevelButtonClicked;
             _view.ReturnToMainMenuButtonClicked += OnReturnToMainMenuButtonClicked;
-            _view.SettingsButtonClicked += OnSettingsButtonClicked;
         }
 
         public void Disable()
         {
-            _view.ResumeButtonClicked -= OnResumeButtonClicked;
+            _view.PauseButtonClicked -= Pause;
+            _view.ResumeButtonClicked -= Resume;
             _view.RestartLevelButtonClicked -= OnRestartLevelButtonClicked;
             _view.ReturnToMainMenuButtonClicked -= OnReturnToMainMenuButtonClicked;
-            _view.SettingsButtonClicked -= OnSettingsButtonClicked;
-        }
-
-        private void OnResumeButtonClicked()
-        {
-            _model.Resume();
         }
 
         private void OnRestartLevelButtonClicked()
@@ -45,9 +40,15 @@ namespace Base.UI.PauseMenu
             _model.ReturnToMainMenu();
         }
 
-        private void OnSettingsButtonClicked()
+        private void Pause()
         {
-            _model.ShowSettingsMenu();
+            Debug.LogWarning("Pause Presenter");
+            _model.Pause();
+        }
+
+        private void Resume()
+        {
+            _model.Resume();
         }
     }
 }

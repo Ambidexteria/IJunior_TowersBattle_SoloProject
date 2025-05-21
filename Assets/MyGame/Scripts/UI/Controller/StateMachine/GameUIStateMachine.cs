@@ -9,17 +9,20 @@ namespace Base.UI.Game.StateMachine
 
         private IUIState _activeState;
 
-        public GameUIStateMachine(UIWindowController cannonsHUD, UIWindowController shootMinigame, 
-            UIWindowController pauseWindow, UIWindowController winMessage, 
-            UIWindowController defeatMessage)
+        public GameUIStateMachine(UIWindowController cannonsHUD,
+            UIWindowController shootMinigame, 
+            UIWindowController pauseWindow,  
+            UIWindowController settingsWindow,
+            UIWindowController winMessage, UIWindowController defeatMessage)
         {
             _states = new Dictionary<Type, IUIState>
             {
                 { typeof(CannonsHUDState), new CannonsHUDState(cannonsHUD) },
                 { typeof(ShootMinigameState), new ShootMinigameState(shootMinigame) },
                 { typeof(PauseState), new PauseState(pauseWindow) },
+                { typeof(SettingsMenuState), new SettingsMenuState(settingsWindow) },
                 { typeof(WinMessageState), new WinMessageState(winMessage) },
-                { typeof(DefeatMessageState), new DefeatMessageState(defeatMessage) }
+                { typeof(DefeatMessageState), new DefeatMessageState(defeatMessage, pauseWindow) }
             };
         }
 
@@ -34,21 +37,21 @@ namespace Base.UI.Game.StateMachine
 
     public abstract class UIState : IUIState
     {
-        private readonly UIWindowController _canvas;
+        private readonly UIWindowController _window;
 
-        public UIState(UIWindowController window)
+        protected UIState(UIWindowController window)
         {
-            _canvas = window;
+            _window = window;
         }
 
         public virtual void Enter()
         {
-            _canvas.gameObject.SetActive(true);
+            _window.Show();
         }
 
         public virtual void Exit()
         {
-            _canvas.gameObject.SetActive(false);
+            _window.Hide();
         }
     }
 
@@ -56,7 +59,6 @@ namespace Base.UI.Game.StateMachine
     {
         public CannonsHUDState(UIWindowController window) : base(window)
         {
-
         }
     }
 
@@ -83,8 +85,23 @@ namespace Base.UI.Game.StateMachine
 
     public class DefeatMessageState : UIState
     {
-        public DefeatMessageState(UIWindowController window) : base(window)
+        private readonly UIWindowController _pauseMenu;
+
+        public DefeatMessageState(UIWindowController defeatMessage, UIWindowController pauseMenu) : base(defeatMessage)
         {
+            _pauseMenu = pauseMenu;
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+            _pauseMenu.Show();
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            _pauseMenu.Hide();
         }
     }
 
