@@ -5,13 +5,13 @@ using System;
 public class Player
 {
     private readonly CannonModel _cannon;
-    private readonly CannonEnergyBar _energyBar;
+    private readonly CannonEnergyBarModel _energyBar;
     private readonly ShootMinigameModel _shootMinigame;
     private readonly SoldierSpawnControllerModel _soldierSpawnerController;
     private readonly SoldierCommandController _commandController;
     private bool _enabled = false;
 
-    public Player(CannonModel cannon, CannonEnergyBar energyBar, ShootMinigameModel shootMinigame, 
+    public Player(CannonModel cannon, CannonEnergyBarModel energyBar, ShootMinigameModel shootMinigame, 
         SoldierSpawnControllerModel soldierSpawnerController, SoldierCommandController commandController)
     {
         _cannon = cannon;
@@ -35,6 +35,7 @@ public class Player
         _shootMinigame.Loosed += OnLooseMinigame;
         
         _cannon.Enable();
+        _energyBar.Enable();
         _soldierSpawnerController.Enable();
         _commandController.Enable();
         _shootMinigame.Enable();
@@ -54,6 +55,7 @@ public class Player
         _shootMinigame.Loosed -= OnLooseMinigame;
 
         _cannon.Disable();
+        _energyBar.Disable();
         _soldierSpawnerController.Disable();
         _commandController.Disable();
         _shootMinigame.Disable();

@@ -18,13 +18,13 @@ namespace Base.Infrastructure
         private IExitableState _activeState;
 
         [Inject]
-        public GameStateMachine(LoadingCurtain loadingCurtain, SceneLoader sceneLoader, IUIFactory uIFactory, IGameFactory gameFactory, 
+        public GameStateMachine(LoadingCurtain loadingCurtain, SceneLoader sceneLoader, IGameFactory gameFactory, 
             IPersisentProgressService persisentProgress, ISaveLoadService saveLoadService, AssetLoader assetLoader)
         {
             _states = new Dictionary<Type, IExitableState>
             {
                 { typeof(BootstrapState), new BootstrapState(this, sceneLoader) },
-                { typeof(LoadLevelState), new LoadLevelState(loadingCurtain, this, sceneLoader, uIFactory, gameFactory, persisentProgress, assetLoader) },
+                { typeof(LoadLevelState), new LoadLevelState(loadingCurtain, this, sceneLoader, gameFactory, persisentProgress, assetLoader) },
                 { typeof(LoadProgressState), new LoadProgressState(this, persisentProgress, saveLoadService)},
                 { typeof(GameLoopState), new GameLoopState(this) }
             };

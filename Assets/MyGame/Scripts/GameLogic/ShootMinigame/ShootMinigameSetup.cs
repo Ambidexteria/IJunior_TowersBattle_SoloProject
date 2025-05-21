@@ -32,7 +32,7 @@ namespace Base.GameLogic.ShootMinigame
         private ShootMinigamePressRangeModel _pressRangeModel;
         private ShootMinigamePressRangePresenter _pressRangePresenter;
 
-        public ShootMinigameModel CreateShootMinigameModel(CannonEnergyBar energyBar, TimeController timeController, 
+        public ShootMinigameModel CreateShootMinigameModel(CannonEnergyBarModel energyBar, TimeController timeController, 
             ICoroutineRunner coroutineRunner, GameUIStateMachine uiStateMachine)
         {
             _launcherModel = new ShootMinigameLauncherModel(_luancherModelAnimator,

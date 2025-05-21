@@ -2,14 +2,14 @@
 {
     public class CannonEnergyBarPresenter
     {
-        private CannonEnergyBar _model;
+        private CannonEnergyBarModel _model;
         private CannonEnergyBarView _view;
 
-        public CannonEnergyBarPresenter(CannonEnergyBar model, CannonEnergyBarView cannonEnergyBarView)
+        public CannonEnergyBarPresenter(CannonEnergyBarModel model, CannonEnergyBarView cannonEnergyBarView)
         {
             _model = model;
             _view = cannonEnergyBarView;
-            _view.Init(_model.MaxEnergy);
+            _view.SetMaxEnergy(_model.MaxEnergy);
         }
 
         public void Enable()

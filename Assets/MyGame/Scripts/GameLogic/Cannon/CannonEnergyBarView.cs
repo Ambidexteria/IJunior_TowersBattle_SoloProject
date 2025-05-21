@@ -11,7 +11,7 @@ namespace Base.GameLogic.Cannon
 
         private float _maxEnergy;
 
-        public void Init(float  maxEnergy)
+        public void SetMaxEnergy(float  maxEnergy)
         {
             _maxEnergy = maxEnergy;
             _sliderValueChanger.SetMinMaxValues(0, _maxEnergy);

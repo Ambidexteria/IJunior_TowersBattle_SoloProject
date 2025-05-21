@@ -8,14 +8,14 @@ namespace Base.GameLogic.ShootMinigame
     public class ShootMinigameModel
     {
         private readonly ShootMinigameLauncherModel _shootMinigameLauncher;
-        private readonly CannonEnergyBar _cannonEnergyBar;
+        private readonly CannonEnergyBarModel _cannonEnergyBar;
         private readonly TimeController _timeController;
         private readonly GameUIStateMachine _uIStateMachine;
         private readonly ShootMinigamePressRangeModel _minigamePressRange;
         private bool _enabled = false;
         private bool _minigameStarted = false;
 
-        public ShootMinigameModel(CannonEnergyBar cannonEnergyBar, ShootMinigameLauncherModel launchMinigameModel, 
+        public ShootMinigameModel(CannonEnergyBarModel cannonEnergyBar, ShootMinigameLauncherModel launchMinigameModel, 
             ShootMinigamePressRangeModel shootMinigamePressRangeModel, TimeController timeController,
             GameUIStateMachine uIStateMachine)
         {

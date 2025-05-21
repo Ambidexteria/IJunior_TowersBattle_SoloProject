@@ -8,9 +8,8 @@ using Base.Infrastructure;
 using System;
 using Base.Soldier;
 using Base.GameLogic.ShootMinigame;
-using Base.UI.Game.StateMachine;
 using Base.Health;
-using UnityEditor;
+using Base.Services.Factories.UI;
 
 namespace Base.Services.Factories.Game
 {
@@ -27,27 +26,30 @@ namespace Base.Services.Factories.Game
         private const string NPCCannon = "GameLogic/Cannon/NPCCannon Variant";
         private const string FloatingPointer = "GameLogic/Soldier/FloatingPointer";
 
+        [SerializeField] private GameSceneUIFactory _uiFactory;
         [SerializeField] private SoldierForDespawnDetector _soldierDespawnDetector;
+
         [SerializeField] private Transform _playerSpawnPoint;
-        [SerializeField] private Transform _npcSpawnPoint;
+        [SerializeField] private HealthSetup _playerHealthSetup;
+        [SerializeField] private CannonEnergyBarSetup _playerCannonEnergyBarSetup;
+        [SerializeField] private SoldierSpawnControllerSetup _playerSpawnControllerSetup;
         [SerializeField] private float _playerMaxHealth = 100f;
         [SerializeField] private float _playerMaxEnergy = 20f;
         [SerializeField] private int _playerCannonDamage = 15;
         [SerializeField] private float _playerSpawnDelay;
+
+        [SerializeField] private Transform _npcSpawnPoint;
+        [SerializeField] private HealthSetup _npcHealthSetup;
+        [SerializeField] private CannonEnergyBarSetup _npcCannonEnergyBarSetup;
+        [SerializeField] private SoldierSpawnControllerSetup _npcSpawnControllerSetup;
         [SerializeField] private float _npcMaxHealth = 50f;
         [SerializeField] private float _npcMaxEnergy = 30f;
         [SerializeField] private int _npcCannonDamage = 10;
         [SerializeField] private float _npcSpawnDelay = 3f;
         [SerializeField] private float _npcNextCommandDelay = 5f;
+
         [SerializeField] private RaycastSettings _soldierSelectorSettings;
         [SerializeField] private RaycastSettings _controlPointSelectorSettings;
-        [SerializeField] private UIWindowController _cannonsHUD;
-        [SerializeField] private UIWindowController _playerCannonHUD;
-        [SerializeField] private UIWindowController _npcCannonHUD;
-        [SerializeField] private UIWindowController _shootMinigameUI;
-        [SerializeField] private UIWindowController _pauseWindowUI;
-        [SerializeField] private UIWindowController _winMessage;
-        [SerializeField] private UIWindowController _defeatMessage;
         [SerializeField] private ShootMinigameSetup _shootMinigameSetup;
 
         private InputService _input;
@@ -61,7 +63,6 @@ namespace Base.Services.Factories.Game
         private TeamColorChanger _colorChanher;
         private ControlPointDatabase _controlPointDatabase;
 
-        private GameUIStateMachine _uiStateMachine;
         private CannonModel _playerCannon;
         private CannonModel _NPCCannon;
 
@@ -88,14 +89,13 @@ namespace Base.Services.Factories.Game
 
         private void Awake()
         {
-            CreateUIStateMcahine();
             Player player = CreatePlayer();
             NPC npc = CreateNPC();
 
             _playerCannon.SetEnemy(_NPCCannon);
             _NPCCannon.SetEnemy(_playerCannon);
 
-            BattleController battleController = new BattleController(player, npc, _uiStateMachine);
+            BattleController battleController = new BattleController(player, npc, _uiFactory.GetUIStateMachine());
             battleController.Enable();
         }
 
@@ -103,18 +103,16 @@ namespace Base.Services.Factories.Game
         {
             Team team = new Team(TeamType.Player);
 
-            CannonEnergyBar cannonEnergyBar = new CannonEnergyBar(team, _controlPointDatabase, _playerMaxEnergy,
-                _coroutineRunner);
+            CannonEnergyBarModel cannonEnergyBar = _playerCannonEnergyBarSetup.CreateCannonEnergyBar(team, 
+                _controlPointDatabase, _playerMaxEnergy, _coroutineRunner);
 
-            _playerCannon = CreateCannon(PlayerCannon, team, _playerCannonDamage, _playerMaxHealth, cannonEnergyBar,
-                _playerCannonHUD);
-            cannonEnergyBar.Enable();
+            _playerCannon = CreateCannon(PlayerCannon, team, _playerCannonDamage, _playerHealthSetup.CreateHealth(_playerMaxHealth, _coroutineRunner));
 
-            SoldierSpawnControllerModel spawnController = CreateSoldierSpawnController(team, _playerSpawnDelay,
-                _playerSpawnPoint, _playerCannonHUD);
+            SoldierSpawnControllerModel spawnController = _playerSpawnControllerSetup.CreateSoldierSpawnController(_playerSpawnDelay, _playerSpawnPoint, 
+                _soldierDespawnDetector, team, _soldierSpawner, _coroutineRunner);
 
             ShootMinigameModel shootMinigame = _shootMinigameSetup.CreateShootMinigameModel(cannonEnergyBar,
-                _timeController, _coroutineRunner, _uiStateMachine);
+                _timeController, _coroutineRunner, _uiFactory.GetUIStateMachine());
             Player player = new Player(_playerCannon, cannonEnergyBar, shootMinigame,
                 spawnController, CreateSoldierCommandController(team));
 
@@ -124,13 +122,12 @@ namespace Base.Services.Factories.Game
         public NPC CreateNPC()
         {
             Team team = new Team(TeamType.NPC);
-            CannonEnergyBar energyBar = new CannonEnergyBar(team, _controlPointDatabase, _npcMaxEnergy,
-                _coroutineRunner);
+            CannonEnergyBarModel energyBar = _npcCannonEnergyBarSetup.CreateCannonEnergyBar(team,
+                _controlPointDatabase, _npcMaxEnergy, _coroutineRunner);
 
-            _NPCCannon = CreateCannon(NPCCannon, team, _npcCannonDamage, _npcMaxHealth, energyBar, _npcCannonHUD);
-            SoldierSpawnControllerModel spawnController = CreateSoldierSpawnController(team, _npcSpawnDelay,
-                _npcSpawnPoint, _npcCannonHUD);
-
+            _NPCCannon = CreateCannon(NPCCannon, team, _npcCannonDamage, _npcHealthSetup.CreateHealth(_npcMaxHealth, _coroutineRunner));
+            SoldierSpawnControllerModel spawnController = _npcSpawnControllerSetup.CreateSoldierSpawnController(_npcSpawnDelay, 
+                _npcSpawnPoint, _soldierDespawnDetector, team, _soldierSpawner, _coroutineRunner);
 
             NPCCannonController cannonController = new NPCCannonController(_NPCCannon, energyBar);
 
@@ -142,13 +139,6 @@ namespace Base.Services.Factories.Game
             return npc;
         }
 
-        private void CreateUIStateMcahine()
-        {
-            _uiStateMachine = new GameUIStateMachine(_cannonsHUD, _shootMinigameUI,
-                _pauseWindowUI, _winMessage, _defeatMessage);
-
-            _uiStateMachine.Enter<CannonsHUDState>();
-        }
 
         private SoldierSpawnControllerModel CreateSoldierSpawnController(Team team, float spawnDelay, Transform spawnPoint,
             UIWindowController uiWithView)
@@ -175,16 +165,10 @@ namespace Base.Services.Factories.Game
             return controller;
         }
 
-        private CannonModel CreateCannon(string assetPath, Team team, int damage, float maxHealth,
-            CannonEnergyBar energyBar, UIWindowController ui)
+        private CannonModel CreateCannon(string assetPath, Team team, int damage, HealthModel health)
         {
-            HealthModel health = new HealthModel(maxHealth, _coroutineRunner);
-            HealthPresenter presenter = new HealthPresenter(health, GetViewComponent<HealthView>(ui));
-            presenter.Enable();
-
             CannonSetup setup = _assetLoader.Instantiate<CannonSetup>(assetPath);
-            CannonModel model = setup.CreateCannonModel(team, damage, _colorChanher, _projectileSpawner, energyBar,
-                GetViewComponent<CannonEnergyBarView>(ui), health);
+            CannonModel model = setup.CreateCannonModel(team, damage, _colorChanher, _projectileSpawner, health);
 
             return model;
         }

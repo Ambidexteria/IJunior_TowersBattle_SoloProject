@@ -6,6 +6,6 @@ public class UIFactoryInstaller : Installer<UIFactoryInstaller>
 {
     public override void InstallBindings()
     {
-        Container.Bind<IUIFactory>().To<UIFactory>().AsSingle();
+        //Container.Bind<IUIFactory>().To<GameSceneUIFactory>().AsSingle();
     }
 }

@@ -22,7 +22,6 @@ public class BaseServicesInstaller : MonoInstaller
         GameFactoryInstaller.Install(_container);
         PersisentProgressServiceInstaller.Install(_container);
         SaveLoadServiceInstaller.Install(_container); 
-        UIFactoryInstaller.Install(_container);
         TimeControllerInstaller.Install(_container);
 
         GameInstaller.Install(_container);

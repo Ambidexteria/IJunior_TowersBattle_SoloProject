@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Base.GameLogic.Cannon
 {
-    public class CannonEnergyBar
+    public class CannonEnergyBarModel
     {
         private readonly ControlPointDatabase _controlPointDatabase;
         private readonly ICoroutineRunner _coroutineRunner;
@@ -20,7 +20,7 @@ namespace Base.GameLogic.Cannon
         private bool _active = true;
         private Coroutine _coroutine;
 
-        public CannonEnergyBar(Team team, ControlPointDatabase controlPointDatabase, float maxEnergy, ICoroutineRunner coroutineRunner)
+        public CannonEnergyBarModel(Team team, ControlPointDatabase controlPointDatabase, float maxEnergy, ICoroutineRunner coroutineRunner)
         {
             Debug.LogWarning($"{controlPointDatabase} INITIATED = {controlPointDatabase != null}");
             _team = team;

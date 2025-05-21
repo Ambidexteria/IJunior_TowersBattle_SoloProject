@@ -1,6 +1,5 @@
 ﻿using Base.Data;
 using Base.Data.Scenes;
-using Base.Services.Factories.UI;
 using UnityEngine;
 using System;
 using Base.Services.Input;
@@ -11,15 +10,12 @@ namespace Base.Infrastructure
     {
         private readonly PlayerInputController _playerInputController;
         private readonly GameStateMachine _gameStateMachine;
-        private readonly IUIFactory _uIFactory;
         private MainMenuSceneData _mainMenuSceneData;
         private GameSceneData _gameSceneData;
 
-        public Game(GameStateMachine gameStateMachine, IUIFactory uIFactory, InputService input)
+        public Game(GameStateMachine gameStateMachine, InputService input)
         {
             _gameStateMachine = gameStateMachine ?? throw new NullReferenceException(nameof(GameStateMachine));
-            _uIFactory = uIFactory ?? throw new NullReferenceException(nameof(UIFactory));
-            _uIFactory.Created += OnSceneLoaded;
 
             _mainMenuSceneData = new(SceneNames.MainMenu, "UI/MainMenuUI");
             _gameSceneData = new(SceneNames.Game, "UI/PlayerHUD");

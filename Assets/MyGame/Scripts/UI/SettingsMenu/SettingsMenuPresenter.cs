@@ -1,0 +1,50 @@
+namespace Base.UI.Settings
+{
+    public class SettingsMenuPresenter
+    {
+        private readonly SettingsMenuView _view;
+        private readonly SettingsMenuModel _model;
+
+        public SettingsMenuPresenter(SettingsMenuView view, SettingsMenuModel model)
+        {
+            _view = view;
+            _model = model;
+        }
+
+        public void Enable()
+        {
+            _view.MasterVolumeChanged += OnMasterVolumeChanged;
+            _view.MusicVolumeChanged += OnMusicVolumeChanged;
+            _view.SoundsVolumeChanged += OnSoundsVolumeChanged;
+            _view.MuteValueChanged += OnMuteValueChanged;
+        }
+
+        public void Disable()
+        {
+            _view.MasterVolumeChanged -= OnMasterVolumeChanged;
+            _view.MusicVolumeChanged -= OnMusicVolumeChanged;
+            _view.SoundsVolumeChanged -= OnSoundsVolumeChanged;
+            _view.MuteValueChanged -= OnMuteValueChanged;
+        }
+
+        private void OnMasterVolumeChanged(float value)
+        {
+            _model.SetMasterVolume(value);
+        }
+
+        private void OnMusicVolumeChanged(float value)
+        {
+            _model.SetMusicVolume(value);
+        }
+
+        private void OnSoundsVolumeChanged(float value)
+        {
+            _model.SetSoundsVolume(value);
+        }
+
+        private void OnMuteValueChanged(bool value)
+        {
+            _model.ToggleMute(value);
+        }
+    }
+}

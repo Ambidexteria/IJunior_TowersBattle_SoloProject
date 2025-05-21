@@ -16,16 +16,14 @@ namespace Base.Infrastructure
         private readonly GameStateMachine _gameStateMachine;
         private readonly SceneLoader _sceneLoader;
         private readonly IGameFactory _gameFactory;
-        private readonly IUIFactory _uiFactory;
         private readonly IPersisentProgressService _progressService;
         private readonly AssetLoader assetLoader;
 
         private SceneData _currentSceneData;
 
-        public LoadLevelState(LoadingCurtain loadingCurtain, GameStateMachine gameStateMachine, SceneLoader sceneLoader, IUIFactory uIFactory,
+        public LoadLevelState(LoadingCurtain loadingCurtain, GameStateMachine gameStateMachine, SceneLoader sceneLoader,
             IGameFactory gameFactory, IPersisentProgressService progressService, AssetLoader assetLoader)
         {
-            _uiFactory = uIFactory;
             _gameFactory = gameFactory;
             _progressService = progressService;
             this.assetLoader = assetLoader;

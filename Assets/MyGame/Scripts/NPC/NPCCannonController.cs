@@ -4,11 +4,11 @@ using System;
 public class NPCCannonController
 {
     private CannonModel _cannon;
-    private CannonEnergyBar _energyBar;
+    private CannonEnergyBarModel _energyBar;
 
     private bool _enabled = false;
 
-    public NPCCannonController(CannonModel cannon, CannonEnergyBar energyBar)
+    public NPCCannonController(CannonModel cannon, CannonEnergyBarModel energyBar)
     {
         _cannon = cannon;
         _energyBar = energyBar;
