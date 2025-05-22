@@ -76,9 +76,9 @@ namespace Base.Health
             Current -= amount;
 
             if (_valueChanger != null)
-                _coroutineRunner.StopCoroutine(_valueChanger);
+                _coroutineRunner.EndCoroutine(_valueChanger);
 
-            _valueChanger = _coroutineRunner.StartCoroutine(ChangeValueCoroutine(startValue, Current));
+            _valueChanger = _coroutineRunner.LaunchCoroutine(ChangeValueCoroutine(startValue, Current));
 
             if (IsDead)
                 Dying?.Invoke();

@@ -15,7 +15,7 @@ namespace Base.UI.Settings
         public event Action<float> MusicVolumeChanged;
         public event Action<bool> MuteValueChanged;
 
-        private void OnEnable()
+        public void Enable()
         {
             _masterVolumeSlider.ValueChanged += MasterVolumeChanged;
             _soundsVolumeSlider.ValueChanged += SoundsVolumeChanged;
@@ -23,7 +23,7 @@ namespace Base.UI.Settings
             _muteToggle.ValueChanged += MuteValueChanged;
         }
 
-        private void OnDisable()
+        public void Disable()
         {
             _masterVolumeSlider.ValueChanged -= MasterVolumeChanged;
             _soundsVolumeSlider.ValueChanged -= SoundsVolumeChanged;

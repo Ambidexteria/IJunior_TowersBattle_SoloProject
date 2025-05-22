@@ -19,12 +19,14 @@ namespace Base.UI.PauseMenu
 
         public void RestartLevel()
         {
+            //Resume();
             _sceneChanger.ReloadGameScene();
         }
 
         public void ReturnToMainMenu()
         {
-            _sceneChanger.ReloadGameScene();
+            //Resume();
+            _sceneChanger.ReturnToMainMenu();
         }
 
         public void Pause()

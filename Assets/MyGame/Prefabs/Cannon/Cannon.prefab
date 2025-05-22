@@ -819,8 +819,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7f264def731063438b1389fd10ecd4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _energyViewPrefab: {fileID: 0}
-  _healthViewPrefab: {fileID: 0}
   _projectileCollider: {fileID: 4925998123324465694}
   _animator: {fileID: 2340961420092407450}
   _shootEffect: {fileID: 3189086467886362526}
@@ -924,6 +922,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8259704, guid: e019dc6d76133f043bcef8881b5f6c8d, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 4167368116912630129, guid: 3af58173019c02b479a9ba619ddf5990, type: 2}
     - target: {fileID: 19902000, guid: e019dc6d76133f043bcef8881b5f6c8d, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
@@ -1046,6 +1048,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 82007018935423512, guid: 500b7f9f6259be34fa81cd52dafd76c5, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 4167368116912630129, guid: 3af58173019c02b479a9ba619ddf5990, type: 2}
     - target: {fileID: 199479367386540494, guid: 500b7f9f6259be34fa81cd52dafd76c5, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1

@@ -53,13 +53,13 @@ public class NPCSoldierController
         if (_coroutine != null)
             return;
 
-        _coroutine = _coroutineRunner. StartCoroutine(SendSoldierToControlPointCoroutine());
+        _coroutine = _coroutineRunner. LaunchCoroutine(SendSoldierToControlPointCoroutine());
     }
 
     private  void StopSendingSoldiers()
     {
         if (_coroutine != null)
-            _coroutineRunner.StopCoroutine(_coroutine);
+            _coroutineRunner.EndCoroutine(_coroutine);
     }
 
     private IEnumerator SendSoldierToControlPointCoroutine()

@@ -58,7 +58,7 @@ namespace Base.GameLogic.ShootMinigame
                 return;
 
             if (_coroutine != null)
-                _coroutineRunner.StopCoroutine(_coroutine);
+                _coroutineRunner.EndCoroutine(_coroutine);
 
             _enabled = false;
         }
@@ -70,11 +70,11 @@ namespace Base.GameLogic.ShootMinigame
         private void PlaceRange()
         {
             if (_coroutine != null)
-                _coroutineRunner.StopCoroutine(_coroutine);
+                _coroutineRunner.EndCoroutine(_coroutine);
 
             CalculatePressRangeValues();
 
-            _coroutine = _coroutineRunner.StartCoroutine(MoveSliderCoroutine(_sliderSpeed));
+            _coroutine = _coroutineRunner.LaunchCoroutine(MoveSliderCoroutine(_sliderSpeed));
 
             PlacingPressRange?.Invoke(_minPressValue);
         }

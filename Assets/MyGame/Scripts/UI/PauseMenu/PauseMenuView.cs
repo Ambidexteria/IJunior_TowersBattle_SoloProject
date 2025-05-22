@@ -15,20 +15,21 @@ namespace Base
         public event Action RestartLevelButtonClicked;
         public event Action ReturnToMainMenuButtonClicked;
 
-        private void OnEnable()
+        public void Enable()
         {
+            Debug.LogWarning($"{nameof(PauseMenuView)} ENABLED");
             _resumeButton.Clicked += ResumeButtonClicked;
             _pauseButton.Clicked += PauseButtonClicked;
             _restartLevelButton.Clicked += RestartLevelButtonClicked;
             _returnToMainMenuButton.Clicked += ReturnToMainMenuButtonClicked;
         }
 
-        private void OnDisable()
+        public void Disable()
         {
-            _resumeButton.Clicked -= ResumeButtonClicked;
-            _pauseButton.Clicked -= PauseButtonClicked;
-            _restartLevelButton.Clicked -= RestartLevelButtonClicked;
-            _returnToMainMenuButton.Clicked -= ReturnToMainMenuButtonClicked;
+            _resumeButton.Clicked += ResumeButtonClicked;
+            _pauseButton.Clicked += PauseButtonClicked;
+            _restartLevelButton.Clicked += RestartLevelButtonClicked;
+            _returnToMainMenuButton.Clicked += ReturnToMainMenuButtonClicked;
         }
     }
 }

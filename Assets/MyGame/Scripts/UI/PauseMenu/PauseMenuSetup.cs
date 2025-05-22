@@ -18,6 +18,8 @@ namespace Base.UI.PauseMenu
             _presenter = new PauseMenuPresenter(_view, _model);
             _presenter.Enable();
 
+            _view.Enable();
+
             return _model;
         }
     }

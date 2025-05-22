@@ -4,9 +4,9 @@ namespace Base.UI.Settings
 {
     public class SettingsMenuModel
     {
-        private readonly AudioVolumeControllerService _volumeController;
+        private readonly IAudioVolumeControllerService _volumeController;
 
-        public SettingsMenuModel(AudioVolumeControllerService volumeController)
+        public SettingsMenuModel(IAudioVolumeControllerService volumeController)
         {
             _volumeController = volumeController;
         }

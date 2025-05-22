@@ -1,8 +1,10 @@
 using Base.Infrastructure;
+using Base.Services.Audio;
 using Base.Services.SceneManagment;
 using Base.Services.TimeManagment;
 using Base.UI.Game.StateMachine;
 using Base.UI.PauseMenu;
+using Base.UI.Settings;
 using UnityEngine;
 using Zenject;
 using Zenject.Asteroids;
@@ -12,6 +14,7 @@ namespace Base.Services.Factories.UI
     public class GameSceneUIFactory : MonoBehaviour
     {
         [SerializeField] private PauseMenuSetup _pauseMenuSetup;
+        [SerializeField] private SettingsMenuSetup _settingsMenuSetup;
 
         [SerializeField] private UIWindowController _cannonsHUD;
         [SerializeField] private UIWindowController _playerCannonHUD;
@@ -32,18 +35,23 @@ namespace Base.Services.Factories.UI
         private TimeController _timeController;
         private SceneChanger _sceneChanger;
         private GameUIStateMachine _uiStateMachine;
+        private IAudioVolumeControllerService _volumeControllerService;
+
         private GameStateMachine _gameStateMachine;
 
         [Inject]
-        private void Init(GameStateMachine gameStateMachine, TimeController timeController, SceneChanger sceneChanger)
+        private void Init(GameStateMachine gameStateMachine, TimeController timeController, SceneChanger sceneChanger,
+            IAudioVolumeControllerService volumeControllerService)
         {
             _gameStateMachine = gameStateMachine;
             _timeController = timeController;
             _sceneChanger = sceneChanger;
+            _volumeControllerService = volumeControllerService;
         }
 
         private void Awake()
         {
+            _timeController.Resume();
             CreateUIStateMachine();
         }
 
@@ -72,7 +80,6 @@ namespace Base.Services.Factories.UI
             if (_uiStateMachine == null)
                 CreateUIStateMachine();
 
-            var model = _pauseMenuSetup.CreatePauseMenu(_timeController, _sceneChanger);
             //model.Pause();
 
             return _uiStateMachine;
@@ -82,6 +89,9 @@ namespace Base.Services.Factories.UI
         {
             _uiStateMachine = new GameUIStateMachine(_cannonsHUD, _shootMinigameUI,
                 _pauseWindow, _settingsWindow, _winMessage, _defeatMessage);
+
+            _pauseMenuSetup.CreatePauseMenu(_timeController, _sceneChanger);
+            _settingsMenuSetup.CreateModel(_volumeControllerService);
 
             _uiStateMachine.Enter<CannonsHUDState>();
         }

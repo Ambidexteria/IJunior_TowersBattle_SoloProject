@@ -10,15 +10,10 @@ using Base.Soldier;
 using Base.GameLogic.ShootMinigame;
 using Base.Health;
 using Base.Services.Factories.UI;
+using Base.Services.SceneManagment;
 
 namespace Base.Services.Factories.Game
 {
-    [Serializable]
-    public class RaycastSettings
-    {
-        public LayerMask LayerMask;
-        public float RaycastLength;
-    }
 
     public class GameSceneFactory : MonoBehaviour
     {
@@ -29,6 +24,7 @@ namespace Base.Services.Factories.Game
         [SerializeField] private GameSceneUIFactory _uiFactory;
         [SerializeField] private SoldierForDespawnDetector _soldierDespawnDetector;
 
+        [Header("Player")]
         [SerializeField] private Transform _playerSpawnPoint;
         [SerializeField] private HealthSetup _playerHealthSetup;
         [SerializeField] private CannonEnergyBarSetup _playerCannonEnergyBarSetup;
@@ -37,7 +33,11 @@ namespace Base.Services.Factories.Game
         [SerializeField] private float _playerMaxEnergy = 20f;
         [SerializeField] private int _playerCannonDamage = 15;
         [SerializeField] private float _playerSpawnDelay;
+        [SerializeField] private RaycastSettings _soldierSelectorSettings;
+        [SerializeField] private RaycastSettings _controlPointSelectorSettings;
+        [SerializeField] private ShootMinigameSetup _shootMinigameSetup;
 
+        [Header("NPC")]
         [SerializeField] private Transform _npcSpawnPoint;
         [SerializeField] private HealthSetup _npcHealthSetup;
         [SerializeField] private CannonEnergyBarSetup _npcCannonEnergyBarSetup;
@@ -48,13 +48,10 @@ namespace Base.Services.Factories.Game
         [SerializeField] private float _npcSpawnDelay = 3f;
         [SerializeField] private float _npcNextCommandDelay = 5f;
 
-        [SerializeField] private RaycastSettings _soldierSelectorSettings;
-        [SerializeField] private RaycastSettings _controlPointSelectorSettings;
-        [SerializeField] private ShootMinigameSetup _shootMinigameSetup;
-
         private InputService _input;
         private PlayerInputController _playerInputController;
 
+        private SceneChanger _sceneChanger;
         private TimeController _timeController;
         private ICoroutineRunner _coroutineRunner;
         private SoldierSpawner _soldierSpawner;
@@ -65,11 +62,13 @@ namespace Base.Services.Factories.Game
 
         private CannonModel _playerCannon;
         private CannonModel _NPCCannon;
+        private BattleController _battleController;
 
         [Inject]
         private void Init(AssetLoader assetLoader, SoldierSpawner soldierSpawner, ICoroutineRunner coroutineRunner,
             CannonProjectileSpawner projectileSpawner, TeamColorChanger colorChanger,
-            ControlPointDatabase controlPointDatabase, InputService input, TimeController timeController)
+            ControlPointDatabase controlPointDatabase, InputService input, TimeController timeController, 
+            SceneChanger sceneChanger)
         {
             _coroutineRunner = coroutineRunner;
             _assetLoader = assetLoader;
@@ -78,13 +77,8 @@ namespace Base.Services.Factories.Game
             _colorChanher = colorChanger;
             _controlPointDatabase = controlPointDatabase;
             _timeController = timeController;
-
             _input = input;
-        }
-
-        public GameSceneFactory(AssetLoader assetLoader)
-        {
-            _assetLoader = assetLoader;
+            _sceneChanger = sceneChanger;
         }
 
         private void Awake()
@@ -95,8 +89,21 @@ namespace Base.Services.Factories.Game
             _playerCannon.SetEnemy(_NPCCannon);
             _NPCCannon.SetEnemy(_playerCannon);
 
-            BattleController battleController = new BattleController(player, npc, _uiFactory.GetUIStateMachine());
-            battleController.Enable();
+            _battleController = new BattleController(player, npc, _uiFactory.GetUIStateMachine());
+        }
+
+        private void OnEnable()
+        {
+            _battleController.Enable();
+
+            _sceneChanger.ChangingScene += _battleController.Disable;
+        }
+
+        private void OnDisable()
+        {
+            _battleController.Disable();
+
+            _sceneChanger.ChangingScene -= _battleController.Disable;
         }
 
         public Player CreatePlayer()
@@ -137,20 +144,6 @@ namespace Base.Services.Factories.Game
             NPC npc = new(cannonController, soldierController, spawnController);
 
             return npc;
-        }
-
-
-        private SoldierSpawnControllerModel CreateSoldierSpawnController(Team team, float spawnDelay, Transform spawnPoint,
-            UIWindowController uiWithView)
-        {
-            SoldierSpawnControllerView view = GetViewComponent<SoldierSpawnControllerView>(uiWithView);
-            var model = new SoldierSpawnControllerModel(spawnDelay, spawnPoint,
-                _soldierDespawnDetector, team, _soldierSpawner, _coroutineRunner);
-
-            var presenter = new SoldierSpawnControllerPresenter(model, view);
-            presenter.Enable();
-
-            return model;
         }
 
         private SoldierCommandController CreateSoldierCommandController(Team team)

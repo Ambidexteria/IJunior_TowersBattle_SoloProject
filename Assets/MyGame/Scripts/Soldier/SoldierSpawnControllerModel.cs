@@ -55,16 +55,16 @@ public class SoldierSpawnControllerModel
         if (_spawnCoroutine != null)
             return;
 
-        _spawnCoroutine = _coroutineRunner.StartCoroutine(SpawnCoroutine());
-        _countdownCoroutine = _coroutineRunner.StartCoroutine(SpawnCountdown());
+        _spawnCoroutine = _coroutineRunner.LaunchCoroutine(SpawnCoroutine());
+        _countdownCoroutine = _coroutineRunner.LaunchCoroutine(SpawnCountdown());
     }
 
     private void StopSpawn()
     {
         if (_spawnCoroutine != null)
         {
-            _coroutineRunner.StopCoroutine(_spawnCoroutine);
-            _coroutineRunner.StopCoroutine(_countdownCoroutine);
+            _coroutineRunner.EndCoroutine(_spawnCoroutine);
+            _coroutineRunner.EndCoroutine(_countdownCoroutine);
         }
     }
 

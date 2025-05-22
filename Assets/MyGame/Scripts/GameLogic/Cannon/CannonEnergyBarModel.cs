@@ -39,9 +39,9 @@ namespace Base.GameLogic.Cannon
             _active = true;
 
             if(_coroutine != null)
-                _coroutineRunner.StopCoroutine(_coroutine);
+                _coroutineRunner.EndCoroutine(_coroutine);
 
-            _coroutine = _coroutineRunner.StartCoroutine(Update());
+            _coroutine = _coroutineRunner.LaunchCoroutine(Update());
 
             _controlPointDatabase.ControlPointCaptured += OnControlPointCaptured;
         }
@@ -51,7 +51,7 @@ namespace Base.GameLogic.Cannon
             _active = false;
 
             if (_coroutine != null)
-                _coroutineRunner.StopCoroutine(_coroutine);
+                _coroutineRunner.EndCoroutine(_coroutine);
 
             _controlPointDatabase.ControlPointCaptured -= OnControlPointCaptured;
         }

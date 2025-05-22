@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -11,7 +12,7 @@ namespace Base.Services.Audio
         private const string SoundsVolume = nameof(SoundsVolume);
 
         private const int MinVolume = -80;
-        private const int VolumeConvertCoefficient = 20;
+        private const int VolumeConvertCoefficient = 50;
 
         private readonly AudioMixerGroup _masterAudioMixer;
 
@@ -51,23 +52,20 @@ namespace Base.Services.Audio
 
         public void SetMusicVolume(float volume)
         {
-            if (volume < MinVolume)
-                throw new ArgumentOutOfRangeException();
-
             ChangeVolume(BackgroundMusicVolume, volume);
         }
 
         public void SetSoundsVolume(float volume)
         {
-            if (volume < MinVolume)
-                throw new ArgumentOutOfRangeException();
-
             ChangeVolume(SoundsVolume, volume);
         }
 
-        private void ChangeVolume(string volumeGroup, float value)
+        private void ChangeVolume(string volumeGroup, float volume)
         {
-            _masterAudioMixer.audioMixer.SetFloat(volumeGroup, Mathf.Log10(value) * VolumeConvertCoefficient);
+            if (volume < MinVolume)
+                throw new ArgumentOutOfRangeException();
+
+            _masterAudioMixer.audioMixer.SetFloat(volumeGroup, Mathf.Log10(volume) * VolumeConvertCoefficient);
         }
     }
 }

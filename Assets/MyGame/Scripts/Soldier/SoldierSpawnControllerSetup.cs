@@ -1,6 +1,4 @@
 using Base.Infrastructure;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Base.Soldier
@@ -22,6 +20,11 @@ namespace Base.Soldier
             _presenter.Enable();
 
             return _model;
+        }
+
+        private void OnDestroy()
+        {
+            _model = null;
         }
     }
 }

@@ -36,6 +36,14 @@ public class ButtonClickHandler : MonoBehaviour
 
     private void LaunchAction()
     {
+        var delegates = Clicked.GetInvocationList();
+        string text = $"Active delegates on {nameof(Clicked)} in {nameof(ButtonClickHandler)}\n";
+
+        foreach (var delegator in delegates)
+            text += delegator.Method.Name + "\n";
+
+        Debug.Log(text);
+
         Clicked?.Invoke();
     }
 }

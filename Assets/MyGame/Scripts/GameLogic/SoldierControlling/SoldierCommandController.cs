@@ -55,7 +55,7 @@ public class SoldierCommandController
 
     private void OnSelect(InputAction.CallbackContext context)
     {
-        _coroutine = _coroutineRunner.StartCoroutine(TrySendSoldierToControlPoint());
+        _coroutine = _coroutineRunner.LaunchCoroutine(TrySendSoldierToControlPoint());
     }
 
     private IEnumerator TrySendSoldierToControlPoint()

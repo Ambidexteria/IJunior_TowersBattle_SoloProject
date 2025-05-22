@@ -1,6 +1,7 @@
 using Base.Data;
 using Base.Data.Scenes;
 using Base.Infrastructure;
+using System;
 
 namespace Base.Services.SceneManagment
 {
@@ -13,13 +14,17 @@ namespace Base.Services.SceneManagment
             _gameStateMachine = gaStateMachine;
         }
 
+        public event Action ChangingScene;
+
         public void ReturnToMainMenu()
         {
+            ChangingScene?.Invoke();
             _gameStateMachine.Enter<LoadLevelState, SceneData>(new MainMenuSceneData(SceneNames.MainMenu, ""));
         }
 
         public void ReloadGameScene()
         {
+            ChangingScene?.Invoke();
             _gameStateMachine.Enter<LoadLevelState, SceneData>(new GameSceneData(SceneNames.Game, ""));
         }
     }

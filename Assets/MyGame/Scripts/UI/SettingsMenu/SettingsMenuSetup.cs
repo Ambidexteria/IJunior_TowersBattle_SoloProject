@@ -20,11 +20,13 @@ namespace Base.UI.Settings
             _presenter?.Disable();
         }
 
-        public SettingsMenuModel CreateModel(AudioVolumeControllerService audioService)
+        public SettingsMenuModel CreateModel(IAudioVolumeControllerService audioService)
         {
             _model = new SettingsMenuModel(audioService);
             _presenter = new SettingsMenuPresenter(_view, _model);
+
             _presenter.Enable();
+            _view.Enable();
 
             return _model;
         }
