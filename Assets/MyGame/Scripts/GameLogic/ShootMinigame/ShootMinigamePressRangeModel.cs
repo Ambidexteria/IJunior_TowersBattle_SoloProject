@@ -11,7 +11,7 @@ namespace Base.GameLogic.ShootMinigame
     {
         private readonly TimeController _timeController;
         private readonly ICoroutineRunner _coroutineRunner;
-        private float _pressRangeWidthCoefficient = 0.1f;
+        private readonly float _pressRangeWidthCoefficient = 0.1f;
         private readonly float _sliderSpeedRate;
         private RectTransform _fullRangeRectTransform;
 
@@ -81,7 +81,6 @@ namespace Base.GameLogic.ShootMinigame
 
         private IEnumerator MoveSliderCoroutine(float speed)
         {
-            _timeController.SetSlowMotionTimeScale();
             speed /= _timeController.SlowMotionTimeScale;
 
             _currentValue = FullRangeMinValue;

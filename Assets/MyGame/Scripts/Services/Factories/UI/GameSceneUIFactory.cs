@@ -2,17 +2,21 @@ using Base.Infrastructure;
 using Base.Services.Audio;
 using Base.Services.SceneManagment;
 using Base.Services.TimeManagment;
-using Base.UI.Game.StateMachine;
+using Base.UI.StateMachine;
 using Base.UI.PauseMenu;
 using Base.UI.Settings;
 using UnityEngine;
 using Zenject;
-using Zenject.Asteroids;
+using Base.GameLogic;
+using System;
+using Base.PLayer;
+using Base.Services.SaveLoad;
 
 namespace Base.Services.Factories.UI
 {
     public class GameSceneUIFactory : MonoBehaviour
     {
+        [SerializeField] private BattleEndSetup _battleEndSetup;
         [SerializeField] private PauseMenuSetup _pauseMenuSetup;
         [SerializeField] private SettingsMenuSetup _settingsMenuSetup;
 
@@ -80,9 +84,12 @@ namespace Base.Services.Factories.UI
             if (_uiStateMachine == null)
                 CreateUIStateMachine();
 
-            //model.Pause();
-
             return _uiStateMachine;
+        }
+
+        public BattleEndModel GetBattleEndModel(Wallet wallet, ISaveLoadService saveLoadService)
+        {
+            return _battleEndSetup.Create(wallet, saveLoadService);
         }
 
         private void CreateUIStateMachine()
@@ -90,7 +97,7 @@ namespace Base.Services.Factories.UI
             _uiStateMachine = new GameUIStateMachine(_cannonsHUD, _shootMinigameUI,
                 _pauseWindow, _settingsWindow, _winMessage, _defeatMessage);
 
-            _pauseMenuSetup.CreatePauseMenu(_timeController, _sceneChanger);
+            _pauseMenuSetup.CreatePauseMenu(_sceneChanger);
             _settingsMenuSetup.CreateModel(_volumeControllerService);
 
             _uiStateMachine.Enter<CannonsHUDState>();
@@ -99,16 +106,19 @@ namespace Base.Services.Factories.UI
         private void OnLaunchShootMinigameButtonClicked()
         {
             _uiStateMachine.Enter<ShootMinigameState>();
+            _timeController.SetSlowMotionTimeScale();
         }
 
         private void OnPauseButtonClicked()
         {
             _uiStateMachine.Enter<PauseState>();
+            _timeController.Pause();
         }
 
         private void OnShootButtonCliked()
         {
             _uiStateMachine.Enter<CannonsHUDState>();
+            _timeController.SetDefaultTimeScale();
         }
 
         private void OnOpenSettingsButtonClicked()
@@ -119,6 +129,7 @@ namespace Base.Services.Factories.UI
         private void OnResumeButtonClicked()
         {
             _uiStateMachine.Enter<CannonsHUDState>();
+            _timeController.Resume();
         }
 
         private void OnCloseSettingsButtonClicked()

@@ -1,5 +1,4 @@
 using Base.Services.SceneManagment;
-using Base.Services.TimeManagment;
 using UnityEngine;
 
 namespace Base.UI.PauseMenu
@@ -11,9 +10,9 @@ namespace Base.UI.PauseMenu
         private PauseMenuPresenter _presenter;
         private PauseMenuModel _model;
 
-        public PauseMenuModel CreatePauseMenu(TimeController timeController, SceneChanger sceneChanger)
+        public PauseMenuModel CreatePauseMenu(SceneChanger sceneChanger)
         {
-            _model = new(timeController, sceneChanger);
+            _model = new(sceneChanger);
 
             _presenter = new PauseMenuPresenter(_view, _model);
             _presenter.Enable();

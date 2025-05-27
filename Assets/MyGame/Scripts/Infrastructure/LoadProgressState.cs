@@ -1,17 +1,19 @@
 ﻿using Base.Data;
+using Base.Data.Player;
 using Base.Data.Scenes;
 using Base.Services.PersistentProgress;
 using Base.Services.SaveLoad;
+using UnityEngine;
 
 namespace Base.Infrastructure
 {
     internal class LoadProgressState : IPayloadedState<SceneData>
     {
         private GameStateMachine _gameStateMachine;
-        private IPersisentProgressService _progressService;
+        private IPersisentDataService _progressService;
         private readonly ISaveLoadService _saveLoadService;
 
-        public LoadProgressState(GameStateMachine gameStateMachine, IPersisentProgressService persisentProgressService, ISaveLoadService saveLoadService)
+        public LoadProgressState(GameStateMachine gameStateMachine, IPersisentDataService persisentProgressService, ISaveLoadService saveLoadService)
         {
             _gameStateMachine = gameStateMachine;
             _progressService = persisentProgressService;
@@ -36,7 +38,8 @@ namespace Base.Infrastructure
 
         private PlayerProgress CreateProgress()
         {
-            return new PlayerProgress(SceneNames.MainMenu);
+            Debug.Log("CREATING NEW PLAYER PROGRESS");
+            return new PlayerProgress();
         }
     }
 }

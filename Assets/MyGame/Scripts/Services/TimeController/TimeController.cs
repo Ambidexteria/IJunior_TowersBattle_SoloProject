@@ -27,7 +27,6 @@ namespace Base.Services.TimeManagment
 
         public void Pause()
         {
-            Debug.Log("Pause");
             _timeScaleBeforePause = Time.timeScale;
             Time.timeScale = _pauseTimeScale;
             _paused = true;
@@ -35,8 +34,6 @@ namespace Base.Services.TimeManagment
 
         public void Resume()
         {
-            Debug.Log("Resume");
-
             if (_paused)
             {
                 Time.timeScale = _timeScaleBeforePause;

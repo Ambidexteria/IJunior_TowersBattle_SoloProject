@@ -1,6 +1,3 @@
-
-using UnityEngine;
-
 namespace Base.UI.PauseMenu
 {
     public class PauseMenuPresenter
@@ -16,16 +13,12 @@ namespace Base.UI.PauseMenu
 
         public void Enable()
         {
-            _view.PauseButtonClicked += Pause;
-            _view.ResumeButtonClicked += Resume;
             _view.RestartLevelButtonClicked += OnRestartLevelButtonClicked;
             _view.ReturnToMainMenuButtonClicked += OnReturnToMainMenuButtonClicked;
         }
 
         public void Disable()
         {
-            _view.PauseButtonClicked -= Pause;
-            _view.ResumeButtonClicked -= Resume;
             _view.RestartLevelButtonClicked -= OnRestartLevelButtonClicked;
             _view.ReturnToMainMenuButtonClicked -= OnReturnToMainMenuButtonClicked;
         }
@@ -38,17 +31,6 @@ namespace Base.UI.PauseMenu
         private void OnReturnToMainMenuButtonClicked()
         {
             _model.ReturnToMainMenu();
-        }
-
-        private void Pause()
-        {
-            Debug.LogWarning("Pause Presenter");
-            _model.Pause();
-        }
-
-        private void Resume()
-        {
-            _model.Resume();
         }
     }
 }

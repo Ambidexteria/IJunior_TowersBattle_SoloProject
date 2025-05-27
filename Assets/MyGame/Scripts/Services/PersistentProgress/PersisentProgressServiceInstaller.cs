@@ -6,7 +6,7 @@ namespace Base.Services.PersistentProgress
     {
         public override void InstallBindings()
         {
-            Container.Bind<IPersisentProgressService>().FromInstance(new PersisentProgressService()).AsSingle();
+            Container.Bind<IPersisentDataService>().FromInstance(new PersisentDataService()).AsSingle();
         }
     }
 }

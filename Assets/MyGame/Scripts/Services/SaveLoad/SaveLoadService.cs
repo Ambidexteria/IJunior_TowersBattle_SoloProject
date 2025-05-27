@@ -1,6 +1,8 @@
 ﻿using Base.Data;
-using Base.Services.Factories.Game;
+using Base.Data.Player;
+using Base.PLayer;
 using Base.Services.PersistentProgress;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Base.Services.SaveLoad
@@ -9,13 +11,11 @@ namespace Base.Services.SaveLoad
     {
         private const string ProgressKey = "Progress";
 
-        private readonly IPersisentProgressService _progressService;
-        private readonly IGameFactory _gameFactory;
+        private readonly IPersisentDataService _progressService;
 
-        public SaveLoadService(IPersisentProgressService persisentProgressService, IGameFactory gameFactory)
+        public SaveLoadService(IPersisentDataService persisentProgressService)
         {
             _progressService = persisentProgressService;
-            _gameFactory = gameFactory;
         }
 
         public PlayerProgress LoadProgress()
@@ -25,9 +25,6 @@ namespace Base.Services.SaveLoad
 
         public void SaveProgress()
         {
-            foreach(ISavedProgress writer in _gameFactory.GetProgressWriters())
-                writer.SaveProgress(_progressService.PlayerProgress);
-
             PlayerPrefs.SetString(ProgressKey, _progressService.PlayerProgress.ToJson());
         }
     }

@@ -11,10 +11,13 @@ using Base.GameLogic.ShootMinigame;
 using Base.Health;
 using Base.Services.Factories.UI;
 using Base.Services.SceneManagment;
+using Base.Services.SaveLoad;
+using Base.Services.PersistentProgress;
+using Base.GameLogic;
+using Base.PLayer;
 
 namespace Base.Services.Factories.Game
 {
-
     public class GameSceneFactory : MonoBehaviour
     {
         private const string PlayerCannon = "GameLogic/Cannon/PlayerCannon Variant";
@@ -25,17 +28,9 @@ namespace Base.Services.Factories.Game
         [SerializeField] private SoldierForDespawnDetector _soldierDespawnDetector;
 
         [Header("Player")]
-        [SerializeField] private Transform _playerSpawnPoint;
-        [SerializeField] private HealthSetup _playerHealthSetup;
-        [SerializeField] private CannonEnergyBarSetup _playerCannonEnergyBarSetup;
-        [SerializeField] private SoldierSpawnControllerSetup _playerSpawnControllerSetup;
-        [SerializeField] private float _playerMaxHealth = 100f;
-        [SerializeField] private float _playerMaxEnergy = 20f;
-        [SerializeField] private int _playerCannonDamage = 15;
-        [SerializeField] private float _playerSpawnDelay;
-        [SerializeField] private RaycastSettings _soldierSelectorSettings;
-        [SerializeField] private RaycastSettings _controlPointSelectorSettings;
-        [SerializeField] private ShootMinigameSetup _shootMinigameSetup;
+        [SerializeField] private PlayerFactory _playerFactory;
+        [SerializeField] private CannonSetup _playerCannonSetup;
+        [SerializeField] private HealthSetup _playerCannonHealthSetup;
 
         [Header("NPC")]
         [SerializeField] private Transform _npcSpawnPoint;
@@ -59,6 +54,9 @@ namespace Base.Services.Factories.Game
         private CannonProjectileSpawner _projectileSpawner;
         private TeamColorChanger _colorChanher;
         private ControlPointDatabase _controlPointDatabase;
+        private IPersisentDataService _persistentProgressService;
+        private Wallet _wallet;
+        private ISaveLoadService _saveLoadService;
 
         private CannonModel _playerCannon;
         private CannonModel _NPCCannon;
@@ -68,7 +66,8 @@ namespace Base.Services.Factories.Game
         private void Init(AssetLoader assetLoader, SoldierSpawner soldierSpawner, ICoroutineRunner coroutineRunner,
             CannonProjectileSpawner projectileSpawner, TeamColorChanger colorChanger,
             ControlPointDatabase controlPointDatabase, InputService input, TimeController timeController, 
-            SceneChanger sceneChanger)
+            SceneChanger sceneChanger, IPersisentDataService persistentProgressService, Wallet wallet, 
+            ISaveLoadService saveLoadService)
         {
             _coroutineRunner = coroutineRunner;
             _assetLoader = assetLoader;
@@ -79,6 +78,9 @@ namespace Base.Services.Factories.Game
             _timeController = timeController;
             _input = input;
             _sceneChanger = sceneChanger;
+            _persistentProgressService = persistentProgressService;
+            _wallet = wallet;
+            _saveLoadService = saveLoadService;
         }
 
         private void Awake()
@@ -89,7 +91,24 @@ namespace Base.Services.Factories.Game
             _playerCannon.SetEnemy(_NPCCannon);
             _NPCCannon.SetEnemy(_playerCannon);
 
-            _battleController = new BattleController(player, npc, _uiFactory.GetUIStateMachine());
+            _battleController = new BattleController(player, npc, _uiFactory.GetUIStateMachine(), 
+                _uiFactory.GetBattleEndModel(_wallet, _saveLoadService));
+            var progress = _persistentProgressService.PlayerProgress;
+
+            Debug.Log($"{nameof(progress)}: {nameof(progress.CannonData.Damage)} = {progress.CannonData.Damage}");
+            Debug.Log($"{nameof(_wallet)}: {nameof(_wallet.CurrentAmount)} = {_wallet.CurrentAmount}");
+        }
+
+        private Player CreatePlayer()
+        {
+            Team team = new Team(TeamType.Player);
+
+            _playerCannon = _playerCannonSetup.CreateCannonModel(team, _persistentProgressService.PlayerProgress.CannonData.Damage,
+                _colorChanher, _projectileSpawner, 
+                _playerCannonHealthSetup.CreateHealth(_persistentProgressService.PlayerProgress.CannonData.MaxHealth,
+                _coroutineRunner));
+
+            return _playerFactory.CreatePlayer(team, _playerCannon, _persistentProgressService.PlayerProgress.CannonData);
         }
 
         private void OnEnable()
@@ -104,26 +123,6 @@ namespace Base.Services.Factories.Game
             _battleController.Disable();
 
             _sceneChanger.ChangingScene -= _battleController.Disable;
-        }
-
-        public Player CreatePlayer()
-        {
-            Team team = new Team(TeamType.Player);
-
-            CannonEnergyBarModel cannonEnergyBar = _playerCannonEnergyBarSetup.CreateCannonEnergyBar(team, 
-                _controlPointDatabase, _playerMaxEnergy, _coroutineRunner);
-
-            _playerCannon = CreateCannon(PlayerCannon, team, _playerCannonDamage, _playerHealthSetup.CreateHealth(_playerMaxHealth, _coroutineRunner));
-
-            SoldierSpawnControllerModel spawnController = _playerSpawnControllerSetup.CreateSoldierSpawnController(_playerSpawnDelay, _playerSpawnPoint, 
-                _soldierDespawnDetector, team, _soldierSpawner, _coroutineRunner);
-
-            ShootMinigameModel shootMinigame = _shootMinigameSetup.CreateShootMinigameModel(cannonEnergyBar,
-                _timeController, _coroutineRunner, _uiFactory.GetUIStateMachine());
-            Player player = new Player(_playerCannon, cannonEnergyBar, shootMinigame,
-                spawnController, CreateSoldierCommandController(team));
-
-            return player;
         }
 
         public NPC CreateNPC()
@@ -146,31 +145,12 @@ namespace Base.Services.Factories.Game
             return npc;
         }
 
-        private SoldierCommandController CreateSoldierCommandController(Team team)
-        {
-            FloatingPointer floatingPointer = _assetLoader.Instantiate<FloatingPointer>(FloatingPointer);
-            SoldierSelector soldierSelector = new(_soldierSelectorSettings);
-            ControlPointSelector controlPointSelector = new ControlPointSelector(_controlPointSelectorSettings);
-
-            SoldierCommandController controller = new SoldierCommandController(0.1f, soldierSelector,
-                controlPointSelector, floatingPointer, _coroutineRunner, team, _input);
-
-            return controller;
-        }
-
         private CannonModel CreateCannon(string assetPath, Team team, int damage, HealthModel health)
         {
             CannonSetup setup = _assetLoader.Instantiate<CannonSetup>(assetPath);
             CannonModel model = setup.CreateCannonModel(team, damage, _colorChanher, _projectileSpawner, health);
 
             return model;
-        }
-
-        private Type GetViewComponent<Type>(UIWindowController ui) where Type : MonoBehaviour
-        {
-            Type component = ui.GetComponentInChildren<Type>();
-
-            return component ?? throw new NullReferenceException(component.gameObject.name);
         }
     }
 }

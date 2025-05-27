@@ -61,7 +61,6 @@ namespace Base.UI.MainMenu
 
         private void OnStartButtonClicked()
         {
-            Debug.Log("StartButtonClicked");
             StartButtonClicked?.Invoke();
         }
 

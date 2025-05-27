@@ -204,6 +204,7 @@ GameObject:
   - component: {fileID: 466672095}
   - component: {fileID: 466672094}
   - component: {fileID: 466672093}
+  - component: {fileID: 466672097}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -265,6 +266,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &466672097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 466672092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4e44dd98de51af42a85a3c8b4839a89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _soldierDespawnDetector: {fileID: 1737975391}
+  _playerSpawnPoint: {fileID: 1200605683}
+  _playerHealthSetup: {fileID: 0}
+  _playerCannonEnergyBarSetup: {fileID: 466672094}
+  _playerSpawnControllerSetup: {fileID: 466672093}
+  _playerMaxHealth: 100
+  _playerMaxEnergy: 20
+  _playerCannonDamage: 15
+  _playerSpawnDelay: 5
+  _soldierSelectorSettings:
+    LayerMask:
+      serializedVersion: 2
+      m_Bits: 576
+    RaycastLength: 200
+  _controlPointSelectorSettings:
+    LayerMask:
+      serializedVersion: 2
+      m_Bits: 128
+    RaycastLength: 200
+  _shootMinigameSetup: {fileID: 1462529301}
 --- !u!1 &549895255
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,6 +434,74 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -75, z: 0}
+--- !u!1001 &786115200
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 135565478940750097, guid: fd775bd279b78a247a6a2f21718a6648, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 135565478940750097, guid: fd775bd279b78a247a6a2f21718a6648, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 135565478940750097, guid: fd775bd279b78a247a6a2f21718a6648, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -26.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 135565478940750097, guid: fd775bd279b78a247a6a2f21718a6648, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99404055
+      objectReference: {fileID: 0}
+    - target: {fileID: 135565478940750097, guid: fd775bd279b78a247a6a2f21718a6648, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 135565478940750097, guid: fd775bd279b78a247a6a2f21718a6648, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.10901158
+      objectReference: {fileID: 0}
+    - target: {fileID: 135565478940750097, guid: fd775bd279b78a247a6a2f21718a6648, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 135565478940750097, guid: fd775bd279b78a247a6a2f21718a6648, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 135565478940750097, guid: fd775bd279b78a247a6a2f21718a6648, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -12.517
+      objectReference: {fileID: 0}
+    - target: {fileID: 135565478940750097, guid: fd775bd279b78a247a6a2f21718a6648, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8544477270952721018, guid: fd775bd279b78a247a6a2f21718a6648, type: 3}
+      propertyPath: m_Name
+      value: PlayerCannon Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fd775bd279b78a247a6a2f21718a6648, type: 3}
+--- !u!114 &786115201 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7248907336788648809, guid: fd775bd279b78a247a6a2f21718a6648, type: 3}
+  m_PrefabInstance: {fileID: 786115200}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7f264def731063438b1389fd10ecd4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &946900009
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -698,7 +799,7 @@ MonoBehaviour:
   _enabledSprite: {fileID: 21300000, guid: 7146957d0dc524c47bb83efbe11fd755, type: 3}
   _particleSystemController: {fileID: 1672414005}
   _pressRangeWidthCoefficient: 0.1
-  _sliderSpeedRate: 0.25
+  _sliderSpeedRate: 1
   _launcButtonView: {fileID: 1531964896}
   _fullRangeRectTransform: {fileID: 1083275499}
 --- !u!114 &1462529302
@@ -964,30 +1065,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _uiFactory: {fileID: 177351978}
   _soldierDespawnDetector: {fileID: 1737975391}
-  _playerSpawnPoint: {fileID: 1200605683}
-  _playerHealthSetup: {fileID: 466672095}
-  _playerCannonEnergyBarSetup: {fileID: 466672094}
-  _playerSpawnControllerSetup: {fileID: 466672093}
-  _playerMaxHealth: 100
-  _playerMaxEnergy: 5
-  _playerCannonDamage: 15
-  _playerSpawnDelay: 5
-  _soldierSelectorSettings:
-    LayerMask:
-      serializedVersion: 2
-      m_Bits: 576
-    RaycastLength: 200
-  _controlPointSelectorSettings:
-    LayerMask:
-      serializedVersion: 2
-      m_Bits: 128
-    RaycastLength: 200
-  _shootMinigameSetup: {fileID: 1462529301}
+  _playerFactory: {fileID: 466672097}
+  _playerCannonSetup: {fileID: 786115201}
+  _playerCannonHealthSetup: {fileID: 466672095}
   _npcSpawnPoint: {fileID: 1768754098}
   _npcHealthSetup: {fileID: 1485914197}
   _npcCannonEnergyBarSetup: {fileID: 1485914196}
   _npcSpawnControllerSetup: {fileID: 1485914195}
-  _npcMaxHealth: 50
+  _npcMaxHealth: 10
   _npcMaxEnergy: 30
   _npcCannonDamage: 10
   _npcSpawnDelay: 5
@@ -1625,6 +1710,7 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 1737975393}
   - {fileID: 549895256}
+  - {fileID: 786115200}
   - {fileID: 7059427838983764344}
   - {fileID: 2052909530}
   - {fileID: 946900009}

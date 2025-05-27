@@ -2,34 +2,31 @@
 using Base.Data;
 using Base.Services.PersistentProgress;
 using Base.Services.Factories.Game;
-using Base.Services.Factories.UI;
 using Base.Data.Scenes;
 using Base.Services.AssetManagment;
 using Base.Logic;
-using UnityEngine;
+using Base.Services.SaveLoad;
 
 namespace Base.Infrastructure
 {
     internal class LoadLevelState : IPayloadedState<SceneData>
     {
-        private readonly LoadingCurtain loadingCurtain;
+        private readonly LoadingCurtain _loadingCurtain;
         private readonly GameStateMachine _gameStateMachine;
         private readonly SceneLoader _sceneLoader;
-        private readonly IGameFactory _gameFactory;
-        private readonly IPersisentProgressService _progressService;
-        private readonly AssetLoader assetLoader;
+        private readonly ISaveLoadService _saveLoadService;
+        private readonly IPersisentDataService _progressService;
 
         private SceneData _currentSceneData;
 
         public LoadLevelState(LoadingCurtain loadingCurtain, GameStateMachine gameStateMachine, SceneLoader sceneLoader,
-            IGameFactory gameFactory, IPersisentProgressService progressService, AssetLoader assetLoader)
+            ISaveLoadService saveLoadService, IPersisentDataService progressService)
         {
-            _gameFactory = gameFactory;
             _progressService = progressService;
-            this.assetLoader = assetLoader;
-            this.loadingCurtain = loadingCurtain;
+            _loadingCurtain = loadingCurtain;
             _gameStateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
+            _saveLoadService = saveLoadService;
         }
 
         public void Enter(string sceneName)
@@ -39,34 +36,26 @@ namespace Base.Infrastructure
 
         public void Enter(SceneData sceneData)
         {
-            loadingCurtain.Show();
+            _loadingCurtain.Show();
             _currentSceneData = sceneData;
             _sceneLoader.LoadScene(_currentSceneData.SceneName, OnLoaded);
         }
 
         public void Exit()
         {
-            loadingCurtain.Hide();
+            _loadingCurtain.Hide();
         }
 
         private void OnLoaded()
         {
             InformProgressReaders();
 
-            Debug.LogWarning($"SCENE LOADED");
-
-            //if (_currentSceneData != null)
-            //    _uiFactory.CreateUI(_currentSceneData.UIName);
-
             _gameStateMachine.Enter<GameLoopState>();
         }
 
         private void InformProgressReaders()
         {
-            foreach (ISavedProgressReader progressReader in _gameFactory.GetProgressReaders())
-            {
-                progressReader.LoadProgress(_progressService.PlayerProgress);
-            }
+            _saveLoadService.LoadProgress();
         }
     }
 }

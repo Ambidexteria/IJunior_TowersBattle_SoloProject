@@ -1,4 +1,6 @@
-﻿namespace Base.Data
+﻿using Base.Data.Player;
+
+namespace Base.Data
 {
     public interface ISavedProgressReader
     {

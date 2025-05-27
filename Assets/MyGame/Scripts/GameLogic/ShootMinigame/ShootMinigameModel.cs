@@ -1,6 +1,6 @@
 using Base.GameLogic.Cannon;
 using Base.Services.TimeManagment;
-using Base.UI.Game.StateMachine;
+using Base.UI.StateMachine;
 using System;
 
 namespace Base.GameLogic.ShootMinigame
@@ -9,18 +9,13 @@ namespace Base.GameLogic.ShootMinigame
     {
         private readonly ShootMinigameLauncherModel _shootMinigameLauncher;
         private readonly CannonEnergyBarModel _cannonEnergyBar;
-        private readonly TimeController _timeController;
-        private readonly GameUIStateMachine _uIStateMachine;
         private readonly ShootMinigamePressRangeModel _minigamePressRange;
         private bool _enabled = false;
         private bool _minigameStarted = false;
 
         public ShootMinigameModel(CannonEnergyBarModel cannonEnergyBar, ShootMinigameLauncherModel launchMinigameModel, 
-            ShootMinigamePressRangeModel shootMinigamePressRangeModel, TimeController timeController,
-            GameUIStateMachine uIStateMachine)
+            ShootMinigamePressRangeModel shootMinigamePressRangeModel)
         {
-            _timeController = timeController;
-            _uIStateMachine = uIStateMachine;
             _minigamePressRange = shootMinigamePressRangeModel;
             _cannonEnergyBar = cannonEnergyBar;
             _shootMinigameLauncher = launchMinigameModel;
@@ -57,10 +52,7 @@ namespace Base.GameLogic.ShootMinigame
             if(_minigameStarted)
                 return;
 
-            _uIStateMachine.Enter<ShootMinigameState>();
-            _timeController.SetSlowMotionTimeScale();
             _minigamePressRange.Enable();
-
             _minigameStarted = true;
         }
 
@@ -68,9 +60,6 @@ namespace Base.GameLogic.ShootMinigame
         {
             if (_minigameStarted == false)
                 return;
-
-            _timeController.SetDefaultTimeScale();
-            _uIStateMachine.Enter<CannonsHUDState>();
 
             if (_minigamePressRange.IsCurrentValueInPressRange())
             {

@@ -22,7 +22,6 @@ namespace Base.GameLogic.Cannon
 
         public CannonEnergyBarModel(Team team, ControlPointDatabase controlPointDatabase, float maxEnergy, ICoroutineRunner coroutineRunner)
         {
-            Debug.LogWarning($"{controlPointDatabase} INITIATED = {controlPointDatabase != null}");
             _team = team;
             _controlPointDatabase = controlPointDatabase;
             _energyMax = maxEnergy;

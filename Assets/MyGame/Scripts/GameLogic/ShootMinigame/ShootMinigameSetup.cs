@@ -1,7 +1,7 @@
 using Base.GameLogic.Cannon;
 using Base.Infrastructure;
 using Base.Services.TimeManagment;
-using Base.UI.Game.StateMachine;
+using Base.UI.StateMachine;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,7 +33,7 @@ namespace Base.GameLogic.ShootMinigame
         private ShootMinigamePressRangePresenter _pressRangePresenter;
 
         public ShootMinigameModel CreateShootMinigameModel(CannonEnergyBarModel energyBar, TimeController timeController, 
-            ICoroutineRunner coroutineRunner, GameUIStateMachine uiStateMachine)
+            ICoroutineRunner coroutineRunner)
         {
             _launcherModel = new ShootMinigameLauncherModel(_luancherModelAnimator,
                 _disabledSprite, _enabledSprite, _particleSystemController);
@@ -45,8 +45,7 @@ namespace Base.GameLogic.ShootMinigame
             _pressRangePresenter = new ShootMinigamePressRangePresenter(_pressRangeModel, _pressRangeView);
             _pressRangePresenter.Enable();
 
-            _shootMinigameModel = new ShootMinigameModel(energyBar, _launcherModel,
-                _pressRangeModel, timeController, uiStateMachine);
+            _shootMinigameModel = new ShootMinigameModel(energyBar, _launcherModel, _pressRangeModel);
             _shootMinigmamePresenter = new ShootMinigamePresenter(_shootMinigameModel, _shootMinigameView);
             _shootMinigmamePresenter.Enable();
 

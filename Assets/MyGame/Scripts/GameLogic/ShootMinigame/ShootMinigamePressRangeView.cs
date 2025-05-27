@@ -22,7 +22,6 @@ namespace Base
 
         public void SetMinMaxValues(float min, float max)
         {
-            Debug.Log("");
             _sliderValueChanger.SetMinMaxValues(min, max);
         }
 

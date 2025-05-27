@@ -27,7 +27,6 @@ namespace Base.GameLogic.ShootMinigame
             StatusChanged?.Invoke(_enabledSprite);
             _particleSystemController.Play();
             _animator.Play(Scale);
-            Debug.Log("Play Scale anim");
         }
 
         public void Disable()

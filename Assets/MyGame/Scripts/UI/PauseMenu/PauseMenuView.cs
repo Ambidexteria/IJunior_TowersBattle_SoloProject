@@ -5,10 +5,8 @@ namespace Base
 {
     public class PauseMenuView : MonoBehaviour
     {
-        [SerializeField] private ButtonClickHandler _pauseButton;
         [SerializeField] private ButtonClickHandler _restartLevelButton;
         [SerializeField] private ButtonClickHandler _returnToMainMenuButton;
-        [SerializeField] private ButtonClickHandler _resumeButton;
 
         public event Action ResumeButtonClicked;
         public event Action PauseButtonClicked;
@@ -17,17 +15,12 @@ namespace Base
 
         public void Enable()
         {
-            Debug.LogWarning($"{nameof(PauseMenuView)} ENABLED");
-            _resumeButton.Clicked += ResumeButtonClicked;
-            _pauseButton.Clicked += PauseButtonClicked;
             _restartLevelButton.Clicked += RestartLevelButtonClicked;
             _returnToMainMenuButton.Clicked += ReturnToMainMenuButtonClicked;
         }
 
         public void Disable()
         {
-            _resumeButton.Clicked += ResumeButtonClicked;
-            _pauseButton.Clicked += PauseButtonClicked;
             _restartLevelButton.Clicked += RestartLevelButtonClicked;
             _returnToMainMenuButton.Clicked += ReturnToMainMenuButtonClicked;
         }

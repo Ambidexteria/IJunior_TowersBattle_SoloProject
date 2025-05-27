@@ -1,7 +1,7 @@
 using Base.Data;
+using Base.Data.Player;
 using Base.Services.SaveLoad;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Base
@@ -22,33 +22,33 @@ namespace Base
             if (playerProgress == null)
                 return;
 
-            if (GetActiveScene() == playerProgress.WorldData.PositionOnLevel.Level)
-            {
-                Vector3Data savedPosition = playerProgress.WorldData.PositionOnLevel.Position;
+            //if (GetActiveScene() == playerProgress.WorldData)
+            //{
+            //    Vector3Data savedPosition = playerProgress.WorldData.PositionOnLevel.Position;
 
-                if (savedPosition != null)
-                {
-                    transform.position = savedPosition.AsUnityVector3();
-                    Debug.Log(transform.position);
-                }
-            }
+            //    if (savedPosition != null)
+            //    {
+            //        transform.position = savedPosition.AsUnityVector3();
+            //        Debug.Log(transform.position);
+            //    }
+            //}
         }
 
-        private  string GetActiveScene()
-        {
-            return SceneManager.GetActiveScene().name;
-        }
+        //private  string GetActiveScene()
+        //{
+        //    return SceneManager.GetActiveScene().name;
+        //}
 
-        [ContextMenu(nameof(SaveProgress))]
-        public void SaveProgress()
-        {
-            _service.SaveProgress();
-            //playerProgress.WorldData.PositionOnLevel = new PositionOnLevel(GetActiveSceneName(), transform.position.AsVector3Data());
-        }
+        //[ContextMenu(nameof(SaveProgress))]
+        //public void SaveProgress()
+        //{
+        //    _service.SaveProgress();
+        //    //playerProgress.WorldData.PositionOnLevel = new PositionOnLevel(GetActiveSceneName(), transform.position.AsVector3Data());
+        //}
 
         public void SaveProgress(PlayerProgress playerProgress)
         {
-            playerProgress.WorldData.PositionOnLevel.Position = transform.position.AsVector3Data();
+            //playerProgress.WorldData.PositionOnLevel.Position = transform.position.AsVector3Data();
         }
     }
 }

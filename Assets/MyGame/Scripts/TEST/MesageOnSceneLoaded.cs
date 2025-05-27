@@ -7,7 +7,6 @@ namespace Base
     {
         private void Awake()
         {
-            Debug.Log($"{GetActiveSceneName()} succsessfully loaded");
 
         }
 
