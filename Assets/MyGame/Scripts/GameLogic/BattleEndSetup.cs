@@ -1,3 +1,4 @@
+using Base.Infrastructure;
 using Base.PLayer;
 using Base.Services.SaveLoad;
 using UnityEngine;
@@ -11,11 +12,12 @@ namespace Base.GameLogic
         private BattleEndPresenter _presenter;
         private BattleEndModel _model;
 
-        public BattleEndModel Create(Wallet wallet, ISaveLoadService saveLoadService)
+        public BattleEndModel Create(Game game, Wallet wallet, ISaveLoadService saveLoadService)
         {
-            _model = new BattleEndModel(wallet, saveLoadService);
+            _model = new BattleEndModel(game, wallet, saveLoadService);
 
             _presenter = new BattleEndPresenter(_model, _view);
+            _view.Enable();
             _presenter.Enable();
 
             return _model;

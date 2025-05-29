@@ -1,3 +1,4 @@
+using Base.GameLogic.UpgradeSystem;
 using System;
 
 namespace Base.Data.Player
@@ -5,9 +6,10 @@ namespace Base.Data.Player
     [Serializable]
     public class PlayerProgress
     {
+        public HealthUpgrade HealthUpgrade = new(1, 10, 10);
         public SoldierData SoldierData = new();
         public CannonData CannonData = new();
-        public int CurrentGold;
+        public int CurrentGold = 500;
     }
 
     [Serializable]
@@ -23,7 +25,7 @@ namespace Base.Data.Player
     public class CannonData
     {
         public float MaxHealth = 100f;
-        public float MaxEnergy = 20f;
+        public float MaxEnergy = 5f;
         public int Damage = 15;
     }
 }

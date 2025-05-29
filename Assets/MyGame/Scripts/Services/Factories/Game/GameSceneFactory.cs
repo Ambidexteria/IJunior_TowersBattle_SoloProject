@@ -15,6 +15,7 @@ using Base.Services.SaveLoad;
 using Base.Services.PersistentProgress;
 using Base.GameLogic;
 using Base.PLayer;
+using TMPro.EditorUtilities;
 
 namespace Base.Services.Factories.Game
 {
@@ -48,6 +49,7 @@ namespace Base.Services.Factories.Game
 
         private SceneChanger _sceneChanger;
         private TimeController _timeController;
+        private Infrastructure.Game _game;
         private ICoroutineRunner _coroutineRunner;
         private SoldierSpawner _soldierSpawner;
         private AssetLoader _assetLoader;
@@ -63,12 +65,13 @@ namespace Base.Services.Factories.Game
         private BattleController _battleController;
 
         [Inject]
-        private void Init(AssetLoader assetLoader, SoldierSpawner soldierSpawner, ICoroutineRunner coroutineRunner,
+        private void Init(Infrastructure.Game game, AssetLoader assetLoader, SoldierSpawner soldierSpawner, ICoroutineRunner coroutineRunner,
             CannonProjectileSpawner projectileSpawner, TeamColorChanger colorChanger,
             ControlPointDatabase controlPointDatabase, InputService input, TimeController timeController, 
             SceneChanger sceneChanger, IPersisentDataService persistentProgressService, Wallet wallet, 
             ISaveLoadService saveLoadService)
         {
+            _game = game;
             _coroutineRunner = coroutineRunner;
             _assetLoader = assetLoader;
             _soldierSpawner = soldierSpawner;
@@ -92,11 +95,12 @@ namespace Base.Services.Factories.Game
             _NPCCannon.SetEnemy(_playerCannon);
 
             _battleController = new BattleController(player, npc, _uiFactory.GetUIStateMachine(), 
-                _uiFactory.GetBattleEndModel(_wallet, _saveLoadService));
-            var progress = _persistentProgressService.PlayerProgress;
+                _uiFactory.GetBattleEndModel(_game, _wallet, _saveLoadService));
 
-            Debug.Log($"{nameof(progress)}: {nameof(progress.CannonData.Damage)} = {progress.CannonData.Damage}");
-            Debug.Log($"{nameof(_wallet)}: {nameof(_wallet.CurrentAmount)} = {_wallet.CurrentAmount}");
+            //var progress = _persistentProgressService.PlayerProgress;
+
+            //Debug.Log($"{nameof(progress)}: {nameof(progress.CannonData.Damage)} = {progress.CannonData.Damage}");
+            //Debug.Log($"{nameof(_wallet)}: {nameof(_wallet.CurrentAmount)} = {_wallet.CurrentAmount}");
         }
 
         private Player CreatePlayer()

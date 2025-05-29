@@ -87,9 +87,9 @@ namespace Base.Services.Factories.UI
             return _uiStateMachine;
         }
 
-        public BattleEndModel GetBattleEndModel(Wallet wallet, ISaveLoadService saveLoadService)
+        public BattleEndModel GetBattleEndModel(Infrastructure.Game game, Wallet wallet, ISaveLoadService saveLoadService)
         {
-            return _battleEndSetup.Create(wallet, saveLoadService);
+            return _battleEndSetup.Create(game, wallet, saveLoadService);
         }
 
         private void CreateUIStateMachine()

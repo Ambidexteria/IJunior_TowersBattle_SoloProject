@@ -1,8 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Base.Logic
-{
+namespace Base.Infrastructure
+{ 
     [RequireComponent (typeof(CanvasGroup))]
     public class LoadingCurtain : MonoBehaviour
     {

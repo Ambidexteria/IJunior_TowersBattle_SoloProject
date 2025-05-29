@@ -400,9 +400,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4449652890898753946, guid: 8feae091b0d23544aa2d0c762ac317f9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6005381716553094100}
-    - targetCorrespondingSourceObject: {fileID: 4449652890898753946, guid: 8feae091b0d23544aa2d0c762ac317f9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4351824742595381517}
   m_SourcePrefab: {fileID: 100100000, guid: 8feae091b0d23544aa2d0c762ac317f9, type: 3}
 --- !u!114 &1721591252530628966 stripped
 MonoBehaviour:
@@ -469,19 +466,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4351824742595381517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3259333950526023576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 594072a5de551d04a9c35513f147ad7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _button: {fileID: 0}
 --- !u!1001 &1391638224020191823
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -683,7 +667,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 594072a5de551d04a9c35513f147ad7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _button: {fileID: 0}
 --- !u!224 &3445918995118959417 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4360129332698550646, guid: 8feae091b0d23544aa2d0c762ac317f9, type: 3}
@@ -781,97 +764,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: SettingsButton
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: -6981856939904074533, guid: 8feae091b0d23544aa2d0c762ac317f9, type: 3}
-    - {fileID: 3250402988630833193, guid: 8feae091b0d23544aa2d0c762ac317f9, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4449652890898753946, guid: 8feae091b0d23544aa2d0c762ac317f9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4443487316793364128}
-    - targetCorrespondingSourceObject: {fileID: 4449652890898753946, guid: 8feae091b0d23544aa2d0c762ac317f9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7517230098792373851}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8feae091b0d23544aa2d0c762ac317f9, type: 3}
---- !u!114 &1977883566830070306 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 513268865815545700, guid: 8feae091b0d23544aa2d0c762ac317f9, type: 3}
-  m_PrefabInstance: {fileID: 2048475716328697158}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2426862358900393180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &2373378627481582640 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4360129332698550646, guid: 8feae091b0d23544aa2d0c762ac317f9, type: 3}
   m_PrefabInstance: {fileID: 2048475716328697158}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2426862358900393180 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4449652890898753946, guid: 8feae091b0d23544aa2d0c762ac317f9, type: 3}
-  m_PrefabInstance: {fileID: 2048475716328697158}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4443487316793364128
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2426862358900393180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1977883566830070306}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &7517230098792373851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2426862358900393180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 594072a5de551d04a9c35513f147ad7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _button: {fileID: 0}
 --- !u!1001 &5194812342269161369
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -977,9 +879,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4449652890898753946, guid: 8feae091b0d23544aa2d0c762ac317f9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 384528843001555357}
-    - targetCorrespondingSourceObject: {fileID: 4449652890898753946, guid: 8feae091b0d23544aa2d0c762ac317f9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3624388529696895844}
   m_SourcePrefab: {fileID: 100100000, guid: 8feae091b0d23544aa2d0c762ac317f9, type: 3}
 --- !u!114 &5695031652014663933 stripped
 MonoBehaviour:
@@ -1046,16 +945,3 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3624388529696895844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8491530465173030403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 594072a5de551d04a9c35513f147ad7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _button: {fileID: 0}

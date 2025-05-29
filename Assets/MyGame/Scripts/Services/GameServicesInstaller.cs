@@ -1,3 +1,4 @@
+using Base.GameLogic.UpgradeSystem;
 using Base.PLayer;
 using Zenject;
 
@@ -12,6 +13,7 @@ namespace Base.Services
             _container = ProjectContext.Instance.Container;
 
             WalletInstaller.Install(_container);
+            UpgradeSystemInstaller.Install(_container);
         }
     }
 }

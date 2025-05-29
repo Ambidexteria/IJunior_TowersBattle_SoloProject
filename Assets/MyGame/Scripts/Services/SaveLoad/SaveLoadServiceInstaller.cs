@@ -6,6 +6,6 @@ public class SaveLoadServiceInstaller : Installer<SaveLoadServiceInstaller>
 {
     public override void InstallBindings()
     {
-        Container.Bind<ISaveLoadService>().To<SaveLoadService>().FromNew().AsSingle();
+        Container.Bind<ISaveLoadService>().To<UnityJSONSaveLoadService>().FromNew().AsSingle();
     }
 }

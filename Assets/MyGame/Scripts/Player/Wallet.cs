@@ -43,6 +43,11 @@ namespace Base.PLayer
             }
         }
 
+        public bool IsEnoughMoney(int price)
+        {
+            return _currentValue >= price;
+        }
+
         private void UpdateGold()
         {
             _progressService.PlayerProgress.CurrentGold = _currentValue;

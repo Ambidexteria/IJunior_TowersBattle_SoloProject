@@ -1,20 +1,12 @@
 using Base.Data.Player;
 using Base.GameLogic.Cannon;
 using Base.GameLogic.ShootMinigame;
-using Base.Health;
 using Base.Infrastructure;
-using Base.PLayer;
 using Base.Services.AssetManagment;
 using Base.Services.Input;
-using Base.Services.PersistentProgress;
-using Base.Services.SaveLoad;
-using Base.Services.SceneManagment;
 using Base.Services.TimeManagment;
 using Base.Soldier;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Windows;
 using Zenject;
 
 namespace Base.Services.Factories.Game

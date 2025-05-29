@@ -19,6 +19,7 @@ namespace Base.Infrastructure
 
             _mainMenuSceneData = new(SceneNames.MainMenu, "UI/MainMenuUI");
             _gameSceneData = new(SceneNames.Game, "UI/PlayerHUD");
+
             _playerInputController = new PlayerInputController(input);
             _playerInputController.Enable();
         }
@@ -28,16 +29,14 @@ namespace Base.Infrastructure
             _gameStateMachine.Enter<BootstrapState, SceneData>(_mainMenuSceneData);
         }
 
-        private void StartBattle()
+        public void LoadGameScene()
         {
-            Debug.Log($"{nameof(Game)} - {nameof(StartBattle)}");
             _gameStateMachine.Enter<LoadLevelState, SceneData>(_gameSceneData);
         }
 
-        private void OnSceneLoaded(Canvas gameObject)
+        public void LoadMainMenu()
         {
-            if (gameObject.TryGetComponent(out MainMenuUISetup setup))
-                setup.GetModel().StartingBattle += StartBattle;
+            _gameStateMachine.Enter<LoadLevelState, SceneData>(_mainMenuSceneData);
         }
     }
 }

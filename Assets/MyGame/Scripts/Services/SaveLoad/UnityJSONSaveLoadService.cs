@@ -1,19 +1,17 @@
 ﻿using Base.Data;
 using Base.Data.Player;
-using Base.PLayer;
 using Base.Services.PersistentProgress;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Base.Services.SaveLoad
 {
-    public class SaveLoadService : ISaveLoadService
+    public class UnityJSONSaveLoadService : ISaveLoadService
     {
         private const string ProgressKey = "Progress";
 
         private readonly IPersisentDataService _progressService;
 
-        public SaveLoadService(IPersisentDataService persisentProgressService)
+        public UnityJSONSaveLoadService(IPersisentDataService persisentProgressService)
         {
             _progressService = persisentProgressService;
         }
