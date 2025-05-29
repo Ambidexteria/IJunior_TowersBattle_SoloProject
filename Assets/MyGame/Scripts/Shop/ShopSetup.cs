@@ -13,9 +13,10 @@ namespace Base.Shop
         private ShopModel _model;
         private ShopPresenter _presenter;
 
-        public ShopModel Create(Wallet wallet, RegularUpgradeSystem upgradeSystem, ISaveLoadService saveLoadService)
+        public ShopModel Create(Wallet wallet, RegularUpgradeSystem upgradeSystem, ISaveLoadService saveLoadService,
+            UpgradePrices prices)
         {
-            _model = new ShopModel(wallet, upgradeSystem, saveLoadService);
+            _model = new ShopModel(wallet, upgradeSystem, saveLoadService, prices);
 
             _presenter = new ShopPresenter(_view, _model);
             _presenter.Enable();

@@ -7,11 +7,13 @@ namespace Base.Shop
     public class ShopView : MonoBehaviour
     {
         [SerializeField] private ButtonClickHandler _cannonDamageUpgrade;
-        [SerializeField] private ButtonClickHandler _cannonHealthUpgrade;
-        [SerializeField] private ButtonClickHandler _spawnTimeUpgrade;
-
         [SerializeField] private TextMeshProUGUI _cannonDamageUpgradeLevel;
+
+        [SerializeField] private ButtonClickHandler _cannonHealthUpgrade;
         [SerializeField] private TextMeshProUGUI _cannonHealthUpgradeLevel;
+        [SerializeField] private TextMeshProUGUI _cannonHealthUpgradePrice;
+
+        [SerializeField] private ButtonClickHandler _spawnTimeUpgrade;
         [SerializeField] private TextMeshProUGUI _spawnTimeUpgradeLevel;
 
         [SerializeField] private TextMeshProUGUI _currentGoldAmount;
@@ -55,6 +57,11 @@ namespace Base.Shop
         public void DisplayCannonHealthUpgradeLevel(string text)
         {
             _cannonHealthUpgradeLevel.text = text;
+        }
+
+        public void SetHealthUpgradePrice(int price)
+        {
+            _cannonHealthUpgradePrice.text = price.ToString();
         }
 
         public void DisplaySpawnTimeUpgradeLevel(string text)

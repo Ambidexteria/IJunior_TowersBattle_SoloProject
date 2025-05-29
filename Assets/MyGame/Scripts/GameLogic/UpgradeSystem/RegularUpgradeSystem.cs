@@ -14,25 +14,25 @@ namespace Base.GameLogic.UpgradeSystem
     [Serializable]
     public abstract class Upgrade
     {
-        private int _currentLevel = 1;
-        private int _maxLevel = 10;
-        private int _upgradeValue = 10;
+        private readonly int _maxLevel;
 
-        public int UpgradeValue => _upgradeValue;
-        public string CurrentLevelText => $"{_currentLevel}/{_maxLevel}";
+        public int CurrentLevel = 0;
+        public int UpgradeValue = 10;
 
-        protected Upgrade(int currentLevel, int maxLevel, int upgradeValue)
+        public string CurrentLevelText => $"{CurrentLevel}/{_maxLevel}";
+
+        public Upgrade(int currentLevel, int maxLevel, int upgradeValue)
         {
-            _currentLevel = currentLevel;
+            CurrentLevel = currentLevel;
             _maxLevel = maxLevel;
-            _upgradeValue = upgradeValue;
+            UpgradeValue = upgradeValue;
         }
 
         public bool TryIncreaseLevel()
         {
-            if(_currentLevel < _maxLevel)
+            if (CurrentLevel < _maxLevel)
             {
-                _currentLevel++;
+                CurrentLevel++;
                 return true;
             }
 
@@ -43,8 +43,9 @@ namespace Base.GameLogic.UpgradeSystem
     public class RegularUpgradeSystem
     {
         private readonly IPersisentDataService _persisentDataService;
-
         private readonly HealthUpgrade _healthUpgrade;
+
+        public string HealthUpgradeLevel => _healthUpgrade.CurrentLevelText;
 
         public RegularUpgradeSystem(IPersisentDataService persisentDataService)
         {

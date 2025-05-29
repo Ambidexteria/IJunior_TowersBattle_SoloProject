@@ -1,5 +1,6 @@
 using Base.GameLogic.UpgradeSystem;
 using Base.PLayer;
+using Base.Services.PersistentProgress;
 using Base.Services.SaveLoad;
 using Base.Services.TimeManagment;
 using Base.Shop;
@@ -33,15 +34,17 @@ namespace Base.Services.Factories.UI
         private Wallet _wallet;
         private RegularUpgradeSystem _upgradeSystem;
         private MainMenuUIStateMachine _stateMachine;
+        private UpgradePrices _upgradePrices;
 
         [Inject]
         private void Init(TimeController timeController, Wallet wallet, RegularUpgradeSystem upgradeSystem,
-            ISaveLoadService saveLoadService)
+            ISaveLoadService saveLoadService, IPersisentDataService dataService)
         {
             _timeController = timeController;
             _wallet = wallet;
             _upgradeSystem = upgradeSystem;
             _saveLoadService = saveLoadService;
+            _upgradePrices = dataService.PlayerProgress.UpgradePrices;
         }
 
         private void Awake()
@@ -81,7 +84,7 @@ namespace Base.Services.Factories.UI
 
         private void CreateShop()
         {
-            _shopSetup.Create(_wallet, _upgradeSystem, _saveLoadService);
+            _shopSetup.Create(_wallet, _upgradeSystem, _saveLoadService, _upgradePrices);
         }
 
         private void OnOpenStagesButtonClicked()

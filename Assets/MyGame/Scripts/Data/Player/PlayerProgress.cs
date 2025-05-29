@@ -1,4 +1,5 @@
 using Base.GameLogic.UpgradeSystem;
+using Base.Shop;
 using System;
 
 namespace Base.Data.Player
@@ -6,10 +7,11 @@ namespace Base.Data.Player
     [Serializable]
     public class PlayerProgress
     {
+        public UpgradePrices UpgradePrices = new();
         public HealthUpgrade HealthUpgrade = new(1, 10, 10);
         public SoldierData SoldierData = new();
         public CannonData CannonData = new();
-        public int CurrentGold = 500;
+        public int CurrentGold = 10000;
     }
 
     [Serializable]

@@ -13,6 +13,8 @@
 
         public void Enable()
         {
+            _view.SetHealthUpgradePrice(_model.CannonHealthUpgradePrice);
+
             _view.CannonHealthUpgradeClicked += OnCannonHealthUpgradeClicked;
 
             _model.HealthUpgradeLevelChanged += OnHealthUpgradeLevelIncreased;
@@ -35,6 +37,7 @@
         private void OnHealthUpgradeLevelIncreased(string level)
         {
             _view.DisplayCannonHealthUpgradeLevel(level);
+            _view.SetHealthUpgradePrice(_model.CannonHealthUpgradePrice);
         }
 
         private void OnCannonHealthUpgradeClicked()

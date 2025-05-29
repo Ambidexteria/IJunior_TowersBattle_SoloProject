@@ -785,10 +785,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cannonDamageUpgrade: {fileID: 1163277375}
-  _cannonHealthUpgrade: {fileID: 1178818482}
-  _spawnTimeUpgrade: {fileID: 1244801330}
   _cannonDamageUpgradeLevel: {fileID: 433747096}
+  _cannonHealthUpgrade: {fileID: 1178818482}
   _cannonHealthUpgradeLevel: {fileID: 433747095}
+  _cannonHealthUpgradePrice: {fileID: 1494572733}
+  _spawnTimeUpgrade: {fileID: 1244801330}
   _spawnTimeUpgradeLevel: {fileID: 433747094}
   _currentGoldAmount: {fileID: 1677851993}
   _rewardAdsButton: {fileID: 618014535}
@@ -973,6 +974,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 594072a5de551d04a9c35513f147ad7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1494572733 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8295258392785826022, guid: d66cedab76d07dd48a0c7840326dd1e3, type: 3}
+  m_PrefabInstance: {fileID: 433747087}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1677851993 stripped
