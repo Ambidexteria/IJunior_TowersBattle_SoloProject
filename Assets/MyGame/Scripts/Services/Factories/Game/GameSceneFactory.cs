@@ -56,7 +56,7 @@ namespace Base.Services.Factories.Game
         private CannonProjectileSpawner _projectileSpawner;
         private TeamColorChanger _colorChanher;
         private ControlPointDatabase _controlPointDatabase;
-        private IPersisentDataService _persistentProgressService;
+        private IPersisentDataService _persistentDataService;
         private Wallet _wallet;
         private ISaveLoadService _saveLoadService;
 
@@ -81,7 +81,7 @@ namespace Base.Services.Factories.Game
             _timeController = timeController;
             _input = input;
             _sceneChanger = sceneChanger;
-            _persistentProgressService = persistentProgressService;
+            _persistentDataService = persistentProgressService;
             _wallet = wallet;
             _saveLoadService = saveLoadService;
         }
@@ -107,12 +107,13 @@ namespace Base.Services.Factories.Game
         {
             Team team = new Team(TeamType.Player);
 
-            _playerCannon = _playerCannonSetup.CreateCannonModel(team, _persistentProgressService.PlayerProgress.CannonData.Damage,
+            _playerCannon = _playerCannonSetup.CreateCannonModel(team, _persistentDataService.PlayerProgress.CannonData.Damage,
                 _colorChanher, _projectileSpawner, 
-                _playerCannonHealthSetup.CreateHealth(_persistentProgressService.PlayerProgress.CannonData.MaxHealth,
+                _playerCannonHealthSetup.CreateHealth(_persistentDataService.PlayerProgress.CannonData.MaxHealth,
                 _coroutineRunner));
 
-            return _playerFactory.CreatePlayer(team, _playerCannon, _persistentProgressService.PlayerProgress.CannonData);
+            return _playerFactory.CreatePlayer(team, _playerCannon, _persistentDataService.PlayerProgress.CannonData, 
+                _persistentDataService.PlayerProgress.SoldierData.SpawnDelay);
         }
 
         private void OnEnable()

@@ -1046,7 +1046,7 @@ MonoBehaviour:
   _npcHealthSetup: {fileID: 1485914197}
   _npcCannonEnergyBarSetup: {fileID: 1485914196}
   _npcSpawnControllerSetup: {fileID: 1485914195}
-  _npcMaxHealth: 10
+  _npcMaxHealth: 200
   _npcMaxEnergy: 30
   _npcCannonDamage: 10
   _npcSpawnDelay: 5

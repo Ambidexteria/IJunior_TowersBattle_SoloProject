@@ -1,5 +1,6 @@
 using Base.GameLogic.UpgradeSystem;
 using Base.Shop;
+using Newtonsoft.Json;
 using System;
 
 namespace Base.Data.Player
@@ -7,8 +8,10 @@ namespace Base.Data.Player
     [Serializable]
     public class PlayerProgress
     {
+        [JsonRequired]
+        public Upgrades Upgrades = new();
         public UpgradePrices UpgradePrices = new();
-        public HealthUpgrade HealthUpgrade = new(1, 10, 10);
+        public CannonHealthUpgrade HealthUpgrade = new(1, 10, 10);
         public SoldierData SoldierData = new();
         public CannonData CannonData = new();
         public int CurrentGold = 10000;

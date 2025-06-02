@@ -8,6 +8,7 @@ namespace Base.Shop
     {
         [SerializeField] private ButtonClickHandler _cannonDamageUpgrade;
         [SerializeField] private TextMeshProUGUI _cannonDamageUpgradeLevel;
+        [SerializeField] private TextMeshProUGUI _cannonDamageUpgradePrice;
 
         [SerializeField] private ButtonClickHandler _cannonHealthUpgrade;
         [SerializeField] private TextMeshProUGUI _cannonHealthUpgradeLevel;
@@ -15,6 +16,7 @@ namespace Base.Shop
 
         [SerializeField] private ButtonClickHandler _spawnTimeUpgrade;
         [SerializeField] private TextMeshProUGUI _spawnTimeUpgradeLevel;
+        [SerializeField] private TextMeshProUGUI _spawnTimeUpgradePrice;
 
         [SerializeField] private TextMeshProUGUI _currentGoldAmount;
 
@@ -59,14 +61,24 @@ namespace Base.Shop
             _cannonHealthUpgradeLevel.text = text;
         }
 
-        public void SetHealthUpgradePrice(int price)
+        public void DisplaySpawnTimeUpgradeLevel(string text)
+        {
+            _spawnTimeUpgradeLevel.text = text;
+        }
+
+        public void SetCannonHealthUpgradePrice(int price)
         {
             _cannonHealthUpgradePrice.text = price.ToString();
         }
 
-        public void DisplaySpawnTimeUpgradeLevel(string text)
+        public void SetCannonDamageUpgradePrice(int price)
         {
-            _spawnTimeUpgradeLevel.text = text;
+            _cannonDamageUpgradePrice.text = price.ToString();
+        }
+
+        public void SetSpawnTimeUpgradePrice(int price)
+        {
+            _spawnTimeUpgradePrice.text = price.ToString();
         }
 
         private void OnCannonDamageUpgradeClicked()

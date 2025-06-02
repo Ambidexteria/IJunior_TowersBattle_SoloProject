@@ -1,5 +1,6 @@
 ﻿using Base.Data;
 using Base.Data.Player;
+using Base.GameLogic.UpgradeSystem;
 
 namespace Base.Services.PersistentProgress
 {
@@ -7,5 +8,6 @@ namespace Base.Services.PersistentProgress
     {
         public PlayerProgress PlayerProgress { get; set; }
         AudioVolumeSettings AudioVolumeSettings { get; set; }
+        Upgrades Upgrades { get; }
     }
 }

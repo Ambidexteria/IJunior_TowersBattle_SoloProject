@@ -33,6 +33,7 @@ namespace Base.Infrastructure
 
         private void LoadProgressOrInitNew()
         {
+            //_saveLoadService.LoadUpgrades();
             _progressService.PlayerProgress = _saveLoadService.LoadProgress() ?? CreateProgress();
         }
 

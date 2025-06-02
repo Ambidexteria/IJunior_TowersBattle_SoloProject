@@ -13,19 +13,29 @@
 
         public void Enable()
         {
-            _view.SetHealthUpgradePrice(_model.CannonHealthUpgradePrice);
+            _view.SetCannonHealthUpgradePrice(_model.CannonHealthUpgradePrice);
+            _view.SetCannonDamageUpgradePrice(_model.CannonDamageUpgradePrice);
+            _view.SetSpawnTimeUpgradePrice(_model.SpawnTimeUpgradePrice);
 
             _view.CannonHealthUpgradeClicked += OnCannonHealthUpgradeClicked;
+            _view.CannonDamageUpgradeClicked += OnCannonDamageUpgradeClicked;
+            _view.SpawnTimeUpgradeClicked += OnSpawnTimeUpgradeClicked;
 
-            _model.HealthUpgradeLevelChanged += OnHealthUpgradeLevelIncreased;
+            _model.HealthUpgradeLevelChanged += OnCannonHealthUpgradeLevelIncreased;
+            _model.CannonDamageUpgradeLevelChanged += OnCannonDamageUpgradeLevelIncreased;
+            _model.SpawnTimehUpgradeLevelChanged += OnSpawnTimeUpgradeLevelIncreased;
             _model.CurrentGoldChanged += OnCurrentGoldChanged;
         }
 
         public void Disable()
         {
             _view.CannonHealthUpgradeClicked -= OnCannonHealthUpgradeClicked;
+            _view.CannonDamageUpgradeClicked -= OnCannonDamageUpgradeClicked;
+            _view.SpawnTimeUpgradeClicked -= OnSpawnTimeUpgradeClicked;
 
-            _model.HealthUpgradeLevelChanged -= OnHealthUpgradeLevelIncreased;
+            _model.HealthUpgradeLevelChanged -= OnCannonHealthUpgradeLevelIncreased;
+            _model.CannonDamageUpgradeLevelChanged -= OnCannonDamageUpgradeLevelIncreased;
+            _model.SpawnTimehUpgradeLevelChanged -= OnSpawnTimeUpgradeLevelIncreased;
             _model.CurrentGoldChanged -= OnCurrentGoldChanged;
         }
 
@@ -34,15 +44,34 @@
             _view.DisplayCurrentGold(amount);
         }
 
-        private void OnHealthUpgradeLevelIncreased(string level)
+        private void OnCannonHealthUpgradeLevelIncreased(string level)
         {
             _view.DisplayCannonHealthUpgradeLevel(level);
-            _view.SetHealthUpgradePrice(_model.CannonHealthUpgradePrice);
+        }
+
+        private void OnCannonDamageUpgradeLevelIncreased(string level)
+        {
+            _view.DisplayCannonDamageUpgradeLevel(level);
+        }
+
+        private void OnSpawnTimeUpgradeLevelIncreased(string level)
+        {
+            _view.DisplaySpawnTimeUpgradeLevel(level);
         }
 
         private void OnCannonHealthUpgradeClicked()
         {
             _model.BuyCannonHealthUpgrade();
+        }
+
+        private void OnSpawnTimeUpgradeClicked()
+        {
+            _model.BuySpawnTimeUpgrade();
+        }
+
+        private void OnCannonDamageUpgradeClicked()
+        {
+            _model.BuyCannonDamageUpgrade();
         }
     }
 }

@@ -1,12 +1,55 @@
 using Base.Services.PersistentProgress;
+using Unity.Plastic.Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace Base.GameLogic.UpgradeSystem
 {
     [Serializable]
-    public class HealthUpgrade : Upgrade
+    public class Upgrades
     {
-        public HealthUpgrade(int currentLevel, int maxLevel, int upgradeValue) : base(currentLevel, maxLevel, upgradeValue)
+        [JsonRequired]
+        private Dictionary<Type, Upgrade> _upgrades;
+
+        public Upgrades()
+        {
+            _upgrades = new Dictionary<Type, Upgrade>();
+            _upgrades.Add(typeof(CannonHealthUpgrade), new CannonHealthUpgrade(0, 10, 10));
+            _upgrades.Add(typeof(CannonDamageUpgrade), new CannonDamageUpgrade(0, 10, 5));
+            _upgrades.Add(typeof(SpawnTimeUpgrade), new SpawnTimeUpgrade(0, 10, -0.5f));
+        }
+
+        public Type GetUpgrade<Type>() where Type : Upgrade
+        {
+            Type upgrade = null;
+
+            if (_upgrades.ContainsKey(typeof(Type)))
+                upgrade = (Type)_upgrades[typeof(Type)];
+
+            return upgrade;
+        }
+    }
+
+    [Serializable]
+    public class CannonHealthUpgrade : Upgrade
+    {
+        public CannonHealthUpgrade(int currentLevel, int maxLevel, float upgradeValue) : base(currentLevel, maxLevel, upgradeValue)
+        {
+        }
+    }
+
+    [Serializable]
+    public class CannonDamageUpgrade : Upgrade
+    {
+        public CannonDamageUpgrade(int currentLevel, int maxLevel, float upgradeValue) : base(currentLevel, maxLevel, upgradeValue)
+        {
+        }
+    }
+
+    [Serializable]
+    public class SpawnTimeUpgrade : Upgrade
+    {
+        public SpawnTimeUpgrade(int currentLevel, int maxLevel, float upgradeValue) : base(currentLevel, maxLevel, upgradeValue)
         {
         }
     }
@@ -14,25 +57,31 @@ namespace Base.GameLogic.UpgradeSystem
     [Serializable]
     public abstract class Upgrade
     {
-        private readonly int _maxLevel;
+        [JsonRequired]
+        private int _maxLevel;
 
-        public int CurrentLevel = 0;
-        public int UpgradeValue = 10;
+        [JsonRequired]
+        private float _upgradeValue;
 
-        public string CurrentLevelText => $"{CurrentLevel}/{_maxLevel}";
+        [JsonRequired]
+        private int _currentLevel = 0;
 
-        public Upgrade(int currentLevel, int maxLevel, int upgradeValue)
+        public float UpgradeValue => _upgradeValue;
+
+        public string CurrentLevelText => $"{_currentLevel}/{_maxLevel}";
+
+        public Upgrade(int currentLevel, int maxLevel, float upgradeValue)
         {
-            CurrentLevel = currentLevel;
+            _currentLevel = currentLevel;
             _maxLevel = maxLevel;
-            UpgradeValue = upgradeValue;
+            _upgradeValue = upgradeValue;
         }
 
         public bool TryIncreaseLevel()
         {
-            if (CurrentLevel < _maxLevel)
+            if (_currentLevel < _maxLevel)
             {
-                CurrentLevel++;
+                _currentLevel++;
                 return true;
             }
 
@@ -42,26 +91,62 @@ namespace Base.GameLogic.UpgradeSystem
 
     public class RegularUpgradeSystem
     {
-        private readonly IPersisentDataService _persisentDataService;
-        private readonly HealthUpgrade _healthUpgrade;
+        private readonly IPersisentDataService _dataService;
+        private readonly Upgrades _upgrades;
+        private readonly CannonHealthUpgrade _healthUpgrade;
 
         public string HealthUpgradeLevel => _healthUpgrade.CurrentLevelText;
 
-        public RegularUpgradeSystem(IPersisentDataService persisentDataService)
+        public RegularUpgradeSystem(IPersisentDataService dataService)
         {
-            _persisentDataService = persisentDataService;
+            _dataService = dataService;
 
-            _healthUpgrade = _persisentDataService.PlayerProgress.HealthUpgrade;
+            _upgrades = _dataService.PlayerProgress.Upgrades;
+            _healthUpgrade = _upgrades.GetUpgrade<CannonHealthUpgrade>();
         }
 
-        public bool TryIncreaseCannonHealth(out string currentUpgradeLevel)
+        public string GetUpgradeLevel<Type>() where Type : Upgrade
         {
-            currentUpgradeLevel = null;
+            return _upgrades.GetUpgrade<Type>().CurrentLevelText;
+        }
 
-            if (_healthUpgrade.TryIncreaseLevel())
+        public bool TryIncreaseCannonHealth()
+        {
+            CannonHealthUpgrade upgrade = _upgrades.GetUpgrade<CannonHealthUpgrade>();
+
+            if (upgrade.TryIncreaseLevel())
             {
-                _persisentDataService.PlayerProgress.CannonData.MaxHealth += _healthUpgrade.UpgradeValue;
-                currentUpgradeLevel = _healthUpgrade.CurrentLevelText;
+                _dataService.PlayerProgress.CannonData.MaxHealth += upgrade.UpgradeValue;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool TryIncreaseCannonDamage()
+        {
+            CannonDamageUpgrade upgrade = _upgrades.GetUpgrade<CannonDamageUpgrade>();
+
+            if (upgrade.TryIncreaseLevel())
+            {
+                _dataService.PlayerProgress.CannonData.Damage += (int)upgrade.UpgradeValue;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
+        public bool TryDecreseSpawnTime()
+        {
+            SpawnTimeUpgrade upgrade = _upgrades.GetUpgrade<SpawnTimeUpgrade>();
+
+            if (upgrade.TryIncreaseLevel())
+            {
+                _dataService.PlayerProgress.SoldierData.SpawnDelay += upgrade.UpgradeValue;
                 return true;
             }
             else

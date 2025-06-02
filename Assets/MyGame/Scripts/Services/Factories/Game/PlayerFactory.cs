@@ -20,9 +20,6 @@ namespace Base.Services.Factories.Game
         [SerializeField] private Transform _playerSpawnPoint;
         [SerializeField] private CannonEnergyBarSetup _playerCannonEnergyBarSetup;
         [SerializeField] private SoldierSpawnControllerSetup _playerSpawnControllerSetup;
-        [SerializeField] private float _playerMaxEnergy = 20f;
-        [SerializeField] private int _playerCannonDamage = 15;
-        [SerializeField] private float _playerSpawnDelay;
         [SerializeField] private RaycastSettings _soldierSelectorSettings;
         [SerializeField] private RaycastSettings _controlPointSelectorSettings;
         [SerializeField] private ShootMinigameSetup _shootMinigameSetup;
@@ -49,12 +46,12 @@ namespace Base.Services.Factories.Game
             _timeController = timeController;
         }
 
-        public Player CreatePlayer(Team team, CannonModel cannon, CannonData cannonData)
+        public Player CreatePlayer(Team team, CannonModel cannon, CannonData cannonData, float soldierSpawnDelay)
         {
             CannonEnergyBarModel cannonEnergyBar = _playerCannonEnergyBarSetup.CreateCannonEnergyBar(team,
                 _controlPointDatabase, cannonData.MaxEnergy, _coroutineRunner);
 
-            SoldierSpawnControllerModel spawnController = _playerSpawnControllerSetup.CreateSoldierSpawnController(_playerSpawnDelay, _playerSpawnPoint,
+            SoldierSpawnControllerModel spawnController = _playerSpawnControllerSetup.CreateSoldierSpawnController(soldierSpawnDelay, _playerSpawnPoint,
                 _soldierDespawnDetector, team, _soldierSpawner, _coroutineRunner);
 
             ShootMinigameModel shootMinigame = _shootMinigameSetup.CreateShootMinigameModel(cannonEnergyBar,

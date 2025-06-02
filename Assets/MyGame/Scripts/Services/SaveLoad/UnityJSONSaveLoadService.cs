@@ -21,6 +21,11 @@ namespace Base.Services.SaveLoad
             return PlayerPrefs.GetString(ProgressKey)?.ToDeserialized<PlayerProgress>();
         }
 
+        public void LoadUpgrades()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void SaveProgress()
         {
             PlayerPrefs.SetString(ProgressKey, _progressService.PlayerProgress.ToJson());
