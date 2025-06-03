@@ -1,3 +1,4 @@
+using Base.Data;
 using System;
 using UnityEngine;
 
@@ -29,6 +30,15 @@ namespace Base.UI.Settings
             _soundsVolumeSlider.ValueChanged -= SoundsVolumeChanged;
             _musicVolumeSlider.ValueChanged -= MusicVolumeChanged;
             _muteToggle.ValueChanged -= MuteValueChanged;
+        }
+
+        public void Init(AudioVolumeSettings volumeSettings)
+        {
+            _masterVolumeSlider.SetValue(volumeSettings.MusicVolume);
+            _musicVolumeSlider.SetValue(volumeSettings.MusicVolume);
+            _soundsVolumeSlider.SetValue(volumeSettings.SoundsVolume);
+
+            _muteToggle.SetValue(volumeSettings.Muted);
         }
     }
 }

@@ -5,9 +5,9 @@ namespace Base.Data
     [Serializable]
     public class AudioVolumeSettings
     {
-        public float MasterVolume;
-        public float SoundsVolume;
-        public float MusicVolume;
-        public bool Muted;
+        public float MasterVolume = 1f;
+        public float SoundsVolume = 1f;
+        public float MusicVolume = 1f;
+        public bool Muted = false;
     }
 }

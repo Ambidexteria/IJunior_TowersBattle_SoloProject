@@ -14,6 +14,7 @@ namespace Base.Data.Player
         public CannonHealthUpgrade HealthUpgrade = new(1, 10, 10);
         public SoldierData SoldierData = new();
         public CannonData CannonData = new();
+        public AudioVolumeSettings AudioVolumeSettings = new();
         public int CurrentGold = 10000;
     }
 

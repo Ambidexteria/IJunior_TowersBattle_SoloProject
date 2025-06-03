@@ -11,6 +11,7 @@ using Base.GameLogic;
 using System;
 using Base.PLayer;
 using Base.Services.SaveLoad;
+using Base.Services.PersistentProgress;
 
 namespace Base.Services.Factories.UI
 {
@@ -40,17 +41,20 @@ namespace Base.Services.Factories.UI
         private SceneChanger _sceneChanger;
         private GameUIStateMachine _uiStateMachine;
         private IAudioVolumeControllerService _volumeControllerService;
-
+        private ISaveLoadService _saveLoadService;
+        private IPersisentDataService _dataService;
         private GameStateMachine _gameStateMachine;
 
         [Inject]
         private void Init(GameStateMachine gameStateMachine, TimeController timeController, SceneChanger sceneChanger,
-            IAudioVolumeControllerService volumeControllerService)
+            IAudioVolumeControllerService volumeControllerService, ISaveLoadService saveLoadService, IPersisentDataService dataService)
         {
             _gameStateMachine = gameStateMachine;
             _timeController = timeController;
             _sceneChanger = sceneChanger;
             _volumeControllerService = volumeControllerService;
+            _saveLoadService = saveLoadService;
+            _dataService = dataService;
         }
 
         private void Awake()
@@ -87,9 +91,9 @@ namespace Base.Services.Factories.UI
             return _uiStateMachine;
         }
 
-        public BattleEndModel GetBattleEndModel(Infrastructure.Game game, Wallet wallet, ISaveLoadService saveLoadService)
+        public BattleEndModel GetBattleEndModel(Infrastructure.Game game, Wallet wallet)
         {
-            return _battleEndSetup.Create(game, wallet, saveLoadService);
+            return _battleEndSetup.Create(game, wallet, _saveLoadService);
         }
 
         private void CreateUIStateMachine()
@@ -98,7 +102,7 @@ namespace Base.Services.Factories.UI
                 _pauseWindow, _settingsWindow, _winMessage, _defeatMessage);
 
             _pauseMenuSetup.CreatePauseMenu(_sceneChanger);
-            _settingsMenuSetup.CreateModel(_volumeControllerService);
+            _settingsMenuSetup.CreateModel(_volumeControllerService, _saveLoadService, _dataService.PlayerProgress.AudioVolumeSettings);
 
             _uiStateMachine.Enter<CannonsHUDState>();
         }

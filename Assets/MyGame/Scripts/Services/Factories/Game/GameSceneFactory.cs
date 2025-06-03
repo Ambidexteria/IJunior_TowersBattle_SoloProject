@@ -5,9 +5,7 @@ using Base.Services.TimeManagment;
 using Base.GameLogic.Cannon;
 using Zenject;
 using Base.Infrastructure;
-using System;
 using Base.Soldier;
-using Base.GameLogic.ShootMinigame;
 using Base.Health;
 using Base.Services.Factories.UI;
 using Base.Services.SceneManagment;
@@ -15,7 +13,6 @@ using Base.Services.SaveLoad;
 using Base.Services.PersistentProgress;
 using Base.GameLogic;
 using Base.PLayer;
-using TMPro.EditorUtilities;
 
 namespace Base.Services.Factories.Game
 {
@@ -95,12 +92,7 @@ namespace Base.Services.Factories.Game
             _NPCCannon.SetEnemy(_playerCannon);
 
             _battleController = new BattleController(player, npc, _uiFactory.GetUIStateMachine(), 
-                _uiFactory.GetBattleEndModel(_game, _wallet, _saveLoadService));
-
-            //var progress = _persistentProgressService.PlayerProgress;
-
-            //Debug.Log($"{nameof(progress)}: {nameof(progress.CannonData.Damage)} = {progress.CannonData.Damage}");
-            //Debug.Log($"{nameof(_wallet)}: {nameof(_wallet.CurrentAmount)} = {_wallet.CurrentAmount}");
+                _uiFactory.GetBattleEndModel(_game, _wallet));
         }
 
         private Player CreatePlayer()

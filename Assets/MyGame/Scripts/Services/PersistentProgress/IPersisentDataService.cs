@@ -7,7 +7,5 @@ namespace Base.Services.PersistentProgress
     public interface IPersisentDataService : IService
     {
         public PlayerProgress PlayerProgress { get; set; }
-        AudioVolumeSettings AudioVolumeSettings { get; set; }
-        Upgrades Upgrades { get; }
     }
 }

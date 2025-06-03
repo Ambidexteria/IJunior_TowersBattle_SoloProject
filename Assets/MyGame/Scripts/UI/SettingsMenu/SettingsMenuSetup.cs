@@ -1,4 +1,6 @@
+using Base.Data;
 using Base.Services.Audio;
+using Base.Services.SaveLoad;
 using UnityEngine;
 
 namespace Base.UI.Settings
@@ -20,12 +22,15 @@ namespace Base.UI.Settings
             _presenter?.Disable();
         }
 
-        public SettingsMenuModel CreateModel(IAudioVolumeControllerService audioService)
+        public SettingsMenuModel CreateModel(IAudioVolumeControllerService audioService, ISaveLoadService saveLoadService,
+            AudioVolumeSettings volumeSettings)
         {
-            _model = new SettingsMenuModel(audioService);
+            _model = new SettingsMenuModel(audioService, saveLoadService, volumeSettings);
             _presenter = new SettingsMenuPresenter(_view, _model);
 
             _presenter.Enable();
+
+            _view.Init(volumeSettings);
             _view.Enable();
 
             return _model;

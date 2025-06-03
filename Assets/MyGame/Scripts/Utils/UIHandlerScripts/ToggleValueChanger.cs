@@ -5,14 +5,9 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Toggle))]
 public class ToggleValueChanger : MonoBehaviour
 {
-    private Toggle _toggle;
+    [SerializeField] private Toggle _toggle;
 
     public Action<bool> ValueChanged;
-
-    private void Awake()
-    {
-        _toggle = GetComponent<Toggle>();
-    }
 
     private void OnEnable()
     {
@@ -22,6 +17,11 @@ public class ToggleValueChanger : MonoBehaviour
     private void OnDisable()
     {
         _toggle.onValueChanged.RemoveListener(ChangeValue);
+    }
+
+    public void SetValue(bool value)
+    {
+        _toggle.isOn = value;
     }
 
     private void ChangeValue(bool value)

@@ -1,10 +1,13 @@
 using Base.GameLogic.UpgradeSystem;
 using Base.PLayer;
+using Base.Services.Audio;
 using Base.Services.PersistentProgress;
 using Base.Services.SaveLoad;
 using Base.Services.TimeManagment;
 using Base.Shop;
+using Base.UI.Settings;
 using Base.UI.StateMachine;
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -12,7 +15,8 @@ namespace Base.Services.Factories.UI
 {
     public class MainMenuUIFactory : MonoBehaviour
     {
-        [SerializeField] private ShopSetup _shopSetup; 
+        [SerializeField] private ShopSetup _shopSetup;
+        [SerializeField] private SettingsMenuSetup _settingsSetup;
 
         [SerializeField] private ButtonClickHandler _startBattleButton;
 
@@ -34,17 +38,19 @@ namespace Base.Services.Factories.UI
         private Wallet _wallet;
         private RegularUpgradeSystem _upgradeSystem;
         private MainMenuUIStateMachine _stateMachine;
-        private UpgradePrices _upgradePrices;
+        private IPersisentDataService _dataService;
+        private IAudioVolumeControllerService _volumeControllerService;
 
         [Inject]
         private void Init(TimeController timeController, Wallet wallet, RegularUpgradeSystem upgradeSystem,
-            ISaveLoadService saveLoadService, IPersisentDataService dataService)
+            ISaveLoadService saveLoadService, IPersisentDataService dataService, IAudioVolumeControllerService volumeControllerService)
         {
             _timeController = timeController;
             _wallet = wallet;
             _upgradeSystem = upgradeSystem;
             _saveLoadService = saveLoadService;
-            _upgradePrices = dataService.PlayerProgress.UpgradePrices;
+            _dataService = dataService;
+            _volumeControllerService = volumeControllerService;
         }
 
         private void Awake()
@@ -52,6 +58,7 @@ namespace Base.Services.Factories.UI
             _timeController.SetDefaultTimeScale();
             CreateUIStateMachine();
             CreateShop();
+            CreateSettings();
         }
 
         private void OnEnable()
@@ -84,7 +91,11 @@ namespace Base.Services.Factories.UI
 
         private void CreateShop()
         {
-            _shopSetup.Create(_wallet, _upgradeSystem, _saveLoadService, _upgradePrices);
+            _shopSetup.Create(_wallet, _upgradeSystem, _saveLoadService, _dataService.PlayerProgress.UpgradePrices);
+        }
+        private void CreateSettings()
+        {
+            _settingsSetup.CreateModel(_volumeControllerService, _saveLoadService, _dataService.PlayerProgress.AudioVolumeSettings);
         }
 
         private void OnOpenStagesButtonClicked()
