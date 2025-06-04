@@ -1,5 +1,4 @@
-﻿using Base.UI.MainMenu;
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace Base.Services.Factories.UI
@@ -8,7 +7,6 @@ namespace Base.Services.Factories.UI
     {
         event Action<Canvas> Created;
 
-        MainMenuUIModel CreateMainMenuModel();
         void CreateUI(string name);
     }
 }

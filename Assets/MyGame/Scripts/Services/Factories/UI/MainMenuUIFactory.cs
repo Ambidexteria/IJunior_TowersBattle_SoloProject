@@ -6,8 +6,8 @@ using Base.Services.SaveLoad;
 using Base.Services.TimeManagment;
 using Base.Shop;
 using Base.UI.Settings;
+using Base.UI.StageSelection;
 using Base.UI.StateMachine;
-using System;
 using UnityEngine;
 using Zenject;
 
@@ -15,6 +15,7 @@ namespace Base.Services.Factories.UI
 {
     public class MainMenuUIFactory : MonoBehaviour
     {
+        [SerializeField] private StageSelectionMenuSetup _stageSelectionMenuSetup;
         [SerializeField] private ShopSetup _shopSetup;
         [SerializeField] private SettingsMenuSetup _settingsSetup;
 
@@ -40,10 +41,12 @@ namespace Base.Services.Factories.UI
         private MainMenuUIStateMachine _stateMachine;
         private IPersisentDataService _dataService;
         private IAudioVolumeControllerService _volumeControllerService;
+        private Infrastructure.Game _game;
 
         [Inject]
         private void Init(TimeController timeController, Wallet wallet, RegularUpgradeSystem upgradeSystem,
-            ISaveLoadService saveLoadService, IPersisentDataService dataService, IAudioVolumeControllerService volumeControllerService)
+            ISaveLoadService saveLoadService, IPersisentDataService dataService, 
+            IAudioVolumeControllerService volumeControllerService, Infrastructure.Game game)
         {
             _timeController = timeController;
             _wallet = wallet;
@@ -51,6 +54,7 @@ namespace Base.Services.Factories.UI
             _saveLoadService = saveLoadService;
             _dataService = dataService;
             _volumeControllerService = volumeControllerService;
+            _game = game;
         }
 
         private void Awake()
@@ -59,10 +63,13 @@ namespace Base.Services.Factories.UI
             CreateUIStateMachine();
             CreateShop();
             CreateSettings();
+            CreateStageSelectionMenu();
         }
 
         private void OnEnable()
         {
+            _startBattleButton.Clicked += OnStartButtonClicked;
+
             _openStagesButton.Clicked += OnOpenStagesButtonClicked;
             _openShopButton.Clicked += OnOpenShopButtonClicked;
             _openSettingsButton.Clicked += OnOpenSettingsButtonClicked;
@@ -74,19 +81,26 @@ namespace Base.Services.Factories.UI
 
         private void OnDisable()
         {
-            _openStagesButton.Clicked += OnOpenStagesButtonClicked;
-            _openShopButton.Clicked += OnOpenShopButtonClicked;
-            _openSettingsButton.Clicked += OnOpenSettingsButtonClicked;
+            _startBattleButton.Clicked -= OnStartButtonClicked;
 
-            _closeStagesButton.Clicked += OnCloseWindowButtonClicked;
-            _closeShopButton.Clicked += OnCloseWindowButtonClicked;
-            _closeSettingsButton.Clicked += OnCloseWindowButtonClicked;
+            _openStagesButton.Clicked -= OnOpenStagesButtonClicked;
+            _openShopButton.Clicked -= OnOpenShopButtonClicked;
+            _openSettingsButton.Clicked -= OnOpenSettingsButtonClicked;
+
+            _closeStagesButton.Clicked -= OnCloseWindowButtonClicked;
+            _closeShopButton.Clicked -= OnCloseWindowButtonClicked;
+            _closeSettingsButton.Clicked -= OnCloseWindowButtonClicked;
         }
 
         private void CreateUIStateMachine()
         {
             _stateMachine = new MainMenuUIStateMachine(_mainButtonsWindow, _shopWindow, _stagesWindow, _settingsWindow);
             _stateMachine.Enter<MainMenuState>();
+        }
+
+        private void CreateStageSelectionMenu()
+        {
+            _stageSelectionMenuSetup.Create(_dataService.PlayerProgress.StagesData, _dataService.PlayerProgress.GameSettings);
         }
 
         private void CreateShop()
@@ -96,6 +110,11 @@ namespace Base.Services.Factories.UI
         private void CreateSettings()
         {
             _settingsSetup.CreateModel(_volumeControllerService, _saveLoadService, _dataService.PlayerProgress.AudioVolumeSettings);
+        }
+
+        private void OnStartButtonClicked()
+        {
+            _game.LoadGameScene();
         }
 
         private void OnOpenStagesButtonClicked()

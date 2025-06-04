@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2107167824679429709}
   - component: {fileID: 1341240833390449838}
   m_Layer: 5
-  m_Name: StageIconControllerPrefab
+  m_Name: StageIconPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

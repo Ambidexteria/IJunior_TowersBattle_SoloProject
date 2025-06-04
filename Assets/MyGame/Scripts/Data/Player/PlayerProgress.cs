@@ -11,11 +11,18 @@ namespace Base.Data.Player
         [JsonRequired]
         public Upgrades Upgrades = new();
         public UpgradePrices UpgradePrices = new();
-        public CannonHealthUpgrade HealthUpgrade = new(1, 10, 10);
+        public StagesData StagesData = new ();
+        public GameSettings GameSettings = new();
         public SoldierData SoldierData = new();
         public CannonData CannonData = new();
         public AudioVolumeSettings AudioVolumeSettings = new();
         public int CurrentGold = 10000;
+    }
+
+    [Serializable]
+    public class GameSettings
+    {
+        public StageInfo SelectedStage;
     }
 
     [Serializable]
@@ -25,6 +32,18 @@ namespace Base.Data.Player
         public float Speed = 5f;
         public float Damage = 2f;
         public float SpawnDelay = 5f;
+
+        public SoldierData ()
+        {
+        }
+
+        public SoldierData(float maxHealth, float speed, float damage, float spawnDelay)
+        {
+            MaxHealth = maxHealth;
+            Speed = speed;
+            Damage = damage;
+            SpawnDelay = spawnDelay;
+        }
     }
 
     [Serializable]
@@ -33,5 +52,16 @@ namespace Base.Data.Player
         public float MaxHealth = 100f;
         public float MaxEnergy = 5f;
         public int Damage = 15;
+
+        public CannonData()
+        {
+        }
+
+        public CannonData(float maxHealth, float maxEnergy, int damage)
+        {
+            MaxHealth = maxHealth;
+            MaxEnergy = maxEnergy;
+            Damage = damage;
+        }
     }
 }

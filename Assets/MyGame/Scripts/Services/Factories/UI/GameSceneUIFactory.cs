@@ -8,7 +8,6 @@ using Base.UI.Settings;
 using UnityEngine;
 using Zenject;
 using Base.GameLogic;
-using System;
 using Base.PLayer;
 using Base.Services.SaveLoad;
 using Base.Services.PersistentProgress;
@@ -47,7 +46,8 @@ namespace Base.Services.Factories.UI
 
         [Inject]
         private void Init(GameStateMachine gameStateMachine, TimeController timeController, SceneChanger sceneChanger,
-            IAudioVolumeControllerService volumeControllerService, ISaveLoadService saveLoadService, IPersisentDataService dataService)
+            IAudioVolumeControllerService volumeControllerService, ISaveLoadService saveLoadService, 
+            IPersisentDataService dataService)
         {
             _gameStateMachine = gameStateMachine;
             _timeController = timeController;

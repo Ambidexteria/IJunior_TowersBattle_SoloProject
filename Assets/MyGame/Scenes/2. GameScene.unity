@@ -269,9 +269,6 @@ MonoBehaviour:
   _playerSpawnPoint: {fileID: 1200605683}
   _playerCannonEnergyBarSetup: {fileID: 466672094}
   _playerSpawnControllerSetup: {fileID: 466672093}
-  _playerMaxEnergy: 20
-  _playerCannonDamage: 15
-  _playerSpawnDelay: 5
   _soldierSelectorSettings:
     LayerMask:
       serializedVersion: 2
@@ -527,6 +524,10 @@ PrefabInstance:
     - target: {fileID: 7536203952324330460, guid: 58642a3a07dd07745988e8cb324218cf, type: 3}
       propertyPath: m_Name
       value: Stage (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7536203952324330460, guid: 58642a3a07dd07745988e8cb324218cf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1046,10 +1047,6 @@ MonoBehaviour:
   _npcHealthSetup: {fileID: 1485914197}
   _npcCannonEnergyBarSetup: {fileID: 1485914196}
   _npcSpawnControllerSetup: {fileID: 1485914195}
-  _npcMaxHealth: 200
-  _npcMaxEnergy: 30
-  _npcCannonDamage: 10
-  _npcSpawnDelay: 5
   _npcNextCommandDelay: 1
 --- !u!95 &1531964893 stripped
 Animator:

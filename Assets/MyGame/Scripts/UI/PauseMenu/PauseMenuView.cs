@@ -8,8 +8,6 @@ namespace Base
         [SerializeField] private ButtonClickHandler _restartLevelButton;
         [SerializeField] private ButtonClickHandler _returnToMainMenuButton;
 
-        public event Action ResumeButtonClicked;
-        public event Action PauseButtonClicked;
         public event Action RestartLevelButtonClicked;
         public event Action ReturnToMainMenuButtonClicked;
 
