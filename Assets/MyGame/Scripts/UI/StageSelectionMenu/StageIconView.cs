@@ -12,7 +12,9 @@ namespace Base.UI.StageSelection
         [SerializeField] private TextMeshProUGUI _stageName;
         [SerializeField] private ButtonClickHandler _button;
 
-        public event Action<string> Choosed;
+        public string StageName => _stageName.text;
+
+        public event Action<StageIconView> Clicked;
 
         private void OnEnable()
         {
@@ -50,8 +52,7 @@ namespace Base.UI.StageSelection
 
         private void OnButtonCLicked()
         {
-            ShowBorder();
-            Choosed?.Invoke(_stageName.text);
+            Clicked?.Invoke(this);
         }
     }
 }

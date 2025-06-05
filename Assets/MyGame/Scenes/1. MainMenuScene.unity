@@ -348,7 +348,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1833309194226005109, guid: d66cedab76d07dd48a0c7840326dd1e3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 345
+      value: 230
       objectReference: {fileID: 0}
     - target: {fileID: 1833309194226005109, guid: d66cedab76d07dd48a0c7840326dd1e3, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -490,6 +490,10 @@ PrefabInstance:
       propertyPath: m_IgnoreParentGroups
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5479737933175974661, guid: d66cedab76d07dd48a0c7840326dd1e3, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5506420509832132365, guid: d66cedab76d07dd48a0c7840326dd1e3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -552,6 +556,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5806143695998187111, guid: d66cedab76d07dd48a0c7840326dd1e3, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5926111364265602039, guid: d66cedab76d07dd48a0c7840326dd1e3, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6016672678792802423, guid: d66cedab76d07dd48a0c7840326dd1e3, type: 3}
@@ -644,7 +652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6505495541213038504, guid: d66cedab76d07dd48a0c7840326dd1e3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 575
+      value: 460
       objectReference: {fileID: 0}
     - target: {fileID: 6505495541213038504, guid: d66cedab76d07dd48a0c7840326dd1e3, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1249,7 +1257,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 862283618}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -1642,7 +1650,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 575, y: -140}
+  m_AnchoredPosition: {x: 690, y: -140}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &1348019851 stripped

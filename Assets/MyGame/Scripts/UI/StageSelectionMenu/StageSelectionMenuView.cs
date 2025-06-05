@@ -8,22 +8,45 @@ namespace Base.UI.StageSelection
     {
         [SerializeField] private StageIconView[] _stageViews;
 
-        public event Action<string> OnStageSelected;
+        private StageIconView _selectedIcon;
 
-        public void Init(StagesData stagesData)
+        public event Action<string> StageSelected;
+
+        public void Init(StagesData stagesData, string selectedStage)
         {
             StageInfo[] stages = stagesData.GetAllStages();
 
             for (int i = 0; i < _stageViews.Length; i++)
             {
+
                 _stageViews[i].Init(stages[i].Unlocked, stages[i].Name);
-                _stageViews[i].Choosed += OnStageChoosed;
+                _stageViews[i].Clicked += OnStageChoosed;
+
+                if(stages[i].Name == selectedStage)
+                    _selectedIcon = _stageViews[i];
             };
+
+            SetActiveStageIcon(selectedStage);
         }
 
-        private void OnStageChoosed(string name)
+        public void SetActiveStageIcon(string stageName)
         {
-            OnStageSelected?.Invoke(name);
+            _selectedIcon.HideBorder();
+
+            foreach (var stage in _stageViews)
+            {
+                if (stage.StageName == stageName)
+                {
+                    stage.ShowBorder();
+                    break;
+                }
+            }
+        }
+
+        private void OnStageChoosed(StageIconView stageIconView)
+        {
+            _selectedIcon = stageIconView;
+            StageSelected?.Invoke(_selectedIcon.StageName);
         }
     }
 }
