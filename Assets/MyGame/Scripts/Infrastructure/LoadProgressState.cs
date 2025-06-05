@@ -1,5 +1,5 @@
 ﻿using Base.Data;
-using Base.Data.Player;
+using Base.Data.Game;
 using Base.Data.Scenes;
 using Base.Services.PersistentProgress;
 using Base.Services.SaveLoad;
@@ -37,10 +37,10 @@ namespace Base.Infrastructure
             _progressService.PlayerProgress = _saveLoadService.LoadProgress() ?? CreateProgress();
         }
 
-        private PlayerProgress CreateProgress()
+        private GameData CreateProgress()
         {
             Debug.Log("CREATING NEW PLAYER PROGRESS");
-            return new PlayerProgress();
+            return new GameData();
         }
     }
 }

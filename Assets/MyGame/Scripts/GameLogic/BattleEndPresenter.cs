@@ -1,6 +1,3 @@
-using System;
-using UnityEngine;
-
 namespace Base.GameLogic
 {
     public class BattleEndPresenter
@@ -34,7 +31,6 @@ namespace Base.GameLogic
 
         private void OnHomeButtonClicked()
         {
-            Debug.Log("BattleEndPresenter --- OnHomeButtonClicked");
             _model.LoadMainMenu();
         }
 

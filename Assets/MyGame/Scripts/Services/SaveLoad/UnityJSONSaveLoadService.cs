@@ -1,5 +1,5 @@
 ﻿using Base.Data;
-using Base.Data.Player;
+using Base.Data.Game;
 using Base.Services.PersistentProgress;
 using UnityEngine;
 
@@ -16,9 +16,9 @@ namespace Base.Services.SaveLoad
             _progressService = persisentProgressService;
         }
 
-        public PlayerProgress LoadProgress()
+        public GameData LoadProgress()
         {
-            return PlayerPrefs.GetString(ProgressKey)?.ToDeserialized<PlayerProgress>();
+            return PlayerPrefs.GetString(ProgressKey)?.ToDeserialized<GameData>();
         }
 
         public void LoadUpgrades()

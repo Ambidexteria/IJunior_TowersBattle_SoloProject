@@ -5,14 +5,9 @@ using UnityEngine;
 
 public class ControlPointDatabase : MonoBehaviour
 {
-    [SerializeField] private List<ControlPoint> _controlPoints;
+    private List<ControlPoint> _controlPoints = new();
 
     public event Action<ControlPoint> ControlPointCaptured;
-
-    private void Awake()
-    {
-        ScanLevelForControlPoints();
-    }
 
     private void OnEnable()
     {
@@ -22,6 +17,13 @@ public class ControlPointDatabase : MonoBehaviour
     private void OnDisable()
     {
         UnsubscribeToControlPoints();
+    }
+
+    public void SetControlPointsOnStage(List<ControlPoint> controlPoints)
+    {
+        _controlPoints = controlPoints;
+
+        SubscribeToControlPoints();
     }
 
     public bool TryGetNearestVacantControlPoint(TeamType team, Vector3 position, out ControlPoint controlPoint)
@@ -47,12 +49,6 @@ public class ControlPointDatabase : MonoBehaviour
     private void OnControlPointCaptured(ControlPoint controlpoint)
     {
         ControlPointCaptured?.Invoke(controlpoint);
-    }
-
-    private void ScanLevelForControlPoints()
-    {
-        var controlPoints = FindObjectsOfType<ControlPoint>();
-        _controlPoints.AddRange(controlPoints);
     }
 
     private void SubscribeToControlPoints()

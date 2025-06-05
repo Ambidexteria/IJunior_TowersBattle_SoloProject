@@ -10,7 +10,7 @@ public class StageIconController : MonoBehaviour
 
     private Stage _stage;
 
-    public int StageId => _stage.Id;
+    //public int StageId => _stage.Id;
 
     public event Action<StageIconController> Choosed;
 
@@ -29,11 +29,11 @@ public class StageIconController : MonoBehaviour
         _button.Clicked -= OnButtonClicked;
     }
 
-    public void SetStage(Stage stage)
-    {
-        _stage = stage;
-        _stageIcon.sprite = stage.Icon;
-    }
+    //public void SetStage(Stage stage)
+    //{
+    //    _stage = stage;
+    //    _stageIcon.sprite = stage.Icon;
+    //}
 
     public void ShowBorderImage()
     {

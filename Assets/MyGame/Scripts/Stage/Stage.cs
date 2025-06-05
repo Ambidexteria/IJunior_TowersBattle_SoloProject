@@ -1,10 +1,17 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Stage : MonoBehaviour
 {
-    [SerializeField] private int _id;
-    [SerializeField] private Sprite _icon;
+    [SerializeField] private List<ControlPoint> _controlPoints;
+    [SerializeField] private Transform _playerSoldierSpawnPoint;
+    [SerializeField] private Transform _npcSoldierSpawnPoint;
 
-    public int Id => _id;
-    public Sprite Icon => _icon;
+    public Transform PlayerSoldierSpawnPoint => _playerSoldierSpawnPoint;
+    public Transform NPCSoldierSpawnPoint => _npcSoldierSpawnPoint;
+
+    public List<ControlPoint> GetControlPoints()
+    {
+        return new List<ControlPoint>(_controlPoints);
+    }
 }

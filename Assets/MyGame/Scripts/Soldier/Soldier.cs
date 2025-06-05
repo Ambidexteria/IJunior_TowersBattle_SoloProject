@@ -172,8 +172,13 @@ public class Soldier : SpawnableObject, ISoldier, IMovable, IAttacker
     {
         yield return _waitToDie;
 
-        _rigidbody.WakeUp();
-        _rigidbody.velocity += Physics.gravity * Time.deltaTime;
         _groundCollisionController.Disable();
+        _rigidbody.WakeUp();
+
+        while (enabled)
+        {
+            _rigidbody.velocity += Physics.gravity * Time.deltaTime;
+            yield return null;
+        }
     }
 }

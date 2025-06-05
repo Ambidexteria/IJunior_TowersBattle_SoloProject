@@ -46,7 +46,7 @@ public class StagesWindowController : UIWindowController
 
     private void OnStageIconChoosed(StageIconController stageIcon)
     {
-        PlayerPrefs.SetInt(StageId, stageIcon.StageId);
-        Debug.Log($"choosed stage with id = {stageIcon.StageId}");
+        //PlayerPrefs.SetInt(StageId, stageIcon.StageId);
+        //Debug.Log($"choosed stage with id = {stageIcon.StageId}");
     }
 }

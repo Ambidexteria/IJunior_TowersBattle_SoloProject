@@ -1,4 +1,4 @@
-using Base.Data.Player;
+using Base.Data.Game;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -69,34 +69,6 @@ namespace Base.Data
             StageInfo stage = new StageInfo("Stages/Stage (3)", "3", true, 400, 100, soldierData, cannonData);
 
             _stages.Add(stage);
-        }
-    }
-
-    [Serializable]
-    public class StageInfo
-    {
-        public string AssetPath;
-        public string Name;
-        public bool Unlocked;
-        public int WinReward;
-        public int DefeatReward;
-        public SoldierData EnemySoldier;
-        public CannonData EnemyCannon;
-
-        public StageInfo()
-        {
-        }
-
-        public StageInfo(string assetPath, string name, bool unlocked, int winReward, int defeatReward,
-            SoldierData enemySoldier, CannonData enemyCannon)
-        {
-            AssetPath = assetPath;
-            Name = name;
-            Unlocked = unlocked;
-            WinReward = winReward;
-            DefeatReward = defeatReward;
-            EnemySoldier = enemySoldier;
-            EnemyCannon = enemyCannon;
         }
     }
 }

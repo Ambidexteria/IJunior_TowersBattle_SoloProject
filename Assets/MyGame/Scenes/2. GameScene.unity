@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _soldierDespawnDetector: {fileID: 1737975391}
-  _playerSpawnPoint: {fileID: 1200605683}
+  _playerSpawnPoint: {fileID: 0}
   _playerCannonEnergyBarSetup: {fileID: 466672094}
   _playerSpawnControllerSetup: {fileID: 466672093}
   _soldierSelectorSettings:
@@ -473,67 +473,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7f264def731063438b1389fd10ecd4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &946900009
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 656437200589920505, guid: 58642a3a07dd07745988e8cb324218cf, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 656437200589920505, guid: 58642a3a07dd07745988e8cb324218cf, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 656437200589920505, guid: 58642a3a07dd07745988e8cb324218cf, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 656437200589920505, guid: 58642a3a07dd07745988e8cb324218cf, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 656437200589920505, guid: 58642a3a07dd07745988e8cb324218cf, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 656437200589920505, guid: 58642a3a07dd07745988e8cb324218cf, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 656437200589920505, guid: 58642a3a07dd07745988e8cb324218cf, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 656437200589920505, guid: 58642a3a07dd07745988e8cb324218cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 656437200589920505, guid: 58642a3a07dd07745988e8cb324218cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 656437200589920505, guid: 58642a3a07dd07745988e8cb324218cf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7536203952324330460, guid: 58642a3a07dd07745988e8cb324218cf, type: 3}
-      propertyPath: m_Name
-      value: Stage (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 7536203952324330460, guid: 58642a3a07dd07745988e8cb324218cf, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 58642a3a07dd07745988e8cb324218cf, type: 3}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,11 +592,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 594072a5de551d04a9c35513f147ad7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &1200605683 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3380317522038279614, guid: 58642a3a07dd07745988e8cb324218cf, type: 3}
-  m_PrefabInstance: {fileID: 946900009}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1434091884
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,7 +977,7 @@ MonoBehaviour:
   _playerFactory: {fileID: 466672097}
   _playerCannonSetup: {fileID: 786115201}
   _playerCannonHealthSetup: {fileID: 466672095}
-  _npcSpawnPoint: {fileID: 1768754098}
+  _npcSpawnPoint: {fileID: 0}
   _npcHealthSetup: {fileID: 1485914197}
   _npcCannonEnergyBarSetup: {fileID: 1485914196}
   _npcSpawnControllerSetup: {fileID: 1485914195}
@@ -1152,11 +1086,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1768754098 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1871218689619365047, guid: 58642a3a07dd07745988e8cb324218cf, type: 3}
-  m_PrefabInstance: {fileID: 946900009}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1839427413
 GameObject:
   m_ObjectHideFlags: 0
@@ -1680,5 +1609,4 @@ SceneRoots:
   - {fileID: 786115200}
   - {fileID: 7059427838983764344}
   - {fileID: 2052909530}
-  - {fileID: 946900009}
   - {fileID: 4135631466207130742}

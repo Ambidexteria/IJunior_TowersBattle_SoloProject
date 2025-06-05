@@ -1,5 +1,5 @@
 using Base.Data;
-using Base.Data.Player;
+using Base.Data.Game;
 using System;
 using UnityEngine;
 

@@ -1,4 +1,4 @@
-﻿using Base.Data.Player;
+﻿using Base.Data.Game;
 using Base.Services.PersistentProgress;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
@@ -23,16 +23,16 @@ namespace Base.Services.SaveLoad
             };
         }
 
-        public PlayerProgress LoadProgress()
+        public GameData LoadProgress()
         {
             string progress = PlayerPrefs.GetString(ProgressKey);
 
-            return JsonConvert.DeserializeObject<PlayerProgress>(progress, _settings);
+            return JsonConvert.DeserializeObject<GameData>(progress, _settings);
         }
 
         public void SaveProgress()
         {
-            PlayerProgress progress = _dataService.PlayerProgress;
+            GameData progress = _dataService.PlayerProgress;
 
             string jsonProgress = JsonConvert.SerializeObject(progress, Formatting.Indented, _settings);
 

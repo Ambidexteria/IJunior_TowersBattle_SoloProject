@@ -1,4 +1,4 @@
-using Base.Data.Player;
+using Base.Data.Game;
 using Base.GameLogic.Cannon;
 using Base.GameLogic.ShootMinigame;
 using Base.Infrastructure;
@@ -13,11 +13,9 @@ namespace Base.Services.Factories.Game
 {
     public class PlayerFactory : MonoBehaviour
     {
-        private const string PlayerCannon = "GameLogic/Cannon/PlayerCannon Variant";
-        private const string FloatingPointer = "GameLogic/Soldier/FloatingPointer";
+        private const string FloatingPointerAssetPath = "GameLogic/Soldier/FloatingPointer";
 
         [SerializeField] private SoldierForDespawnDetector _soldierDespawnDetector;
-        [SerializeField] private Transform _playerSpawnPoint;
         [SerializeField] private CannonEnergyBarSetup _playerCannonEnergyBarSetup;
         [SerializeField] private SoldierSpawnControllerSetup _playerSpawnControllerSetup;
         [SerializeField] private RaycastSettings _soldierSelectorSettings;
@@ -46,17 +44,18 @@ namespace Base.Services.Factories.Game
             _timeController = timeController;
         }
 
-        public Player CreatePlayer(Team team, CannonModel cannon, CannonData cannonData, float soldierSpawnDelay)
+        public Player CreatePlayer(Team team, CannonModel cannon, CannonData cannonData, float soldierSpawnDelay, Transform soldierSpawnPoint)
         {
             CannonEnergyBarModel cannonEnergyBar = _playerCannonEnergyBarSetup.CreateCannonEnergyBar(team,
                 _controlPointDatabase, cannonData.MaxEnergy, _coroutineRunner);
 
-            SoldierSpawnControllerModel spawnController = _playerSpawnControllerSetup.CreateSoldierSpawnController(soldierSpawnDelay, _playerSpawnPoint,
+            SoldierSpawnControllerModel spawnController = _playerSpawnControllerSetup.CreateSoldierSpawnController(
+                soldierSpawnDelay, soldierSpawnPoint,
                 _soldierDespawnDetector, team, _soldierSpawner, _coroutineRunner);
 
             ShootMinigameModel shootMinigame = _shootMinigameSetup.CreateShootMinigameModel(cannonEnergyBar,
                 _timeController, _coroutineRunner);
-            Player player = new Player(cannon, cannonEnergyBar, shootMinigame,
+            Player player = new (cannon, cannonEnergyBar, shootMinigame,
                 spawnController, CreateSoldierCommandController(team));
 
             return player;
@@ -64,11 +63,11 @@ namespace Base.Services.Factories.Game
 
         private SoldierCommandController CreateSoldierCommandController(Team team)
         {
-            FloatingPointer floatingPointer = _assetLoader.Instantiate<FloatingPointer>(FloatingPointer);
+            FloatingPointer floatingPointer = _assetLoader.Instantiate<FloatingPointer>(FloatingPointerAssetPath);
             SoldierSelector soldierSelector = new(_soldierSelectorSettings);
-            ControlPointSelector controlPointSelector = new ControlPointSelector(_controlPointSelectorSettings);
+            ControlPointSelector controlPointSelector = new (_controlPointSelectorSettings);
 
-            SoldierCommandController controller = new SoldierCommandController(0.1f, soldierSelector,
+            SoldierCommandController controller = new (0.1f, soldierSelector,
                 controlPointSelector, floatingPointer, _coroutineRunner, team, _input);
 
             return controller;

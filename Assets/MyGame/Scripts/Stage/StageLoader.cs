@@ -11,15 +11,15 @@ public class StageLoader : MonoBehaviour
     {
         _stageId = PlayerPrefs.GetInt(StageId);
 
-        if(_database.TryGetStageById(out Stage stage, _stageId))
-        {
-            Debug.Log($"stage with id = {_stageId} sucessfully loaded");
-            Instantiate(stage);
-            stage.gameObject.SetActive(true);
-        }
-        else
-        {
-            Debug.Log($"Cannot load stage with id = {_stageId}");
-        }
+        //if(_database.TryGetStageById(out Stage stage, _stageId))
+        //{
+        //    Debug.Log($"stage with id = {_stageId} sucessfully loaded");
+        //    Instantiate(stage);
+        //    stage.gameObject.SetActive(true);
+        //}
+        //else
+        //{
+        //    Debug.Log($"Cannot load stage with id = {_stageId}");
+        //}
     }
 }

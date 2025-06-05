@@ -17,21 +17,21 @@ public class StagesDatabase : MonoBehaviour
         CreateStageIconControllers();
     }
 
-    public bool TryGetStageById(out Stage stage,int id)
-    {
-        stage = null;
+    //public bool TryGetStageById(out Stage stage,int id)
+    //{
+    //    stage = null;
 
-        foreach(var tempStage in _loadedStages)
-        {
-            if(tempStage.Id == id)
-            {
-                stage = tempStage;
-                return true;
-            }
-        }
+    //    foreach(var tempStage in _loadedStages)
+    //    {
+    //        if(tempStage.Id == id)
+    //        {
+    //            stage = tempStage;
+    //            return true;
+    //        }
+    //    }
 
-        return false;
-    }
+    //    return false;
+    //}
 
     public List<StageIconController> GetStageIconControllersList()
     {
@@ -45,7 +45,7 @@ public class StagesDatabase : MonoBehaviour
         foreach (var stage in _loadedStages)
         {
             stageIconController = Instantiate(_prefab);
-            stageIconController.SetStage(stage);
+            //stageIconController.SetStage(stage);
             _stageIconControllersList.Add(stageIconController);
         }
     }
