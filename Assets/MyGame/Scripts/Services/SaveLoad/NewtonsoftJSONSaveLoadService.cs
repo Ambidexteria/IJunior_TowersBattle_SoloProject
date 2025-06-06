@@ -19,7 +19,7 @@ namespace Base.Services.SaveLoad
 
             _settings = new()
             {
-                TypeNameHandling = TypeNameHandling.All
+                TypeNameHandling = TypeNameHandling.All,
             };
         }
 
@@ -33,6 +33,7 @@ namespace Base.Services.SaveLoad
         public void SaveProgress()
         {
             GameData progress = _dataService.PlayerProgress;
+            Debug.Log("Progress saved");
 
             string jsonProgress = JsonConvert.SerializeObject(progress, Formatting.Indented, _settings);
 

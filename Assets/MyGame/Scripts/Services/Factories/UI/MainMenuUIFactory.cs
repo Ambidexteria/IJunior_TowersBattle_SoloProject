@@ -100,7 +100,8 @@ namespace Base.Services.Factories.UI
 
         private void CreateStageSelectionMenu()
         {
-            _stageSelectionMenuSetup.Create(_dataService.PlayerProgress.StagesData, _dataService.PlayerProgress.GameSettings);
+            _stageSelectionMenuSetup.Create(_dataService.PlayerProgress.StagesData, 
+                _dataService.PlayerProgress.GameSettings, _saveLoadService);
         }
 
         private void CreateShop()

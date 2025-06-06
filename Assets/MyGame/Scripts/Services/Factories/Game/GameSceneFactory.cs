@@ -77,7 +77,7 @@ namespace Base.Services.Factories.Game
             _wallet = wallet;
             _saveLoadService = saveLoadService;
 
-            _stageInfo = _dataSerive.PlayerProgress.GameSettings.SelectedStage;
+            _stageInfo = _dataSerive.PlayerProgress.StagesData.GetSelectedStage();
         }
 
         private void Awake()

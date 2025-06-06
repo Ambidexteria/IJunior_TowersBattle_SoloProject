@@ -263,7 +263,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4210213322490419938}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -475,6 +475,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2503938178813045062}
   - component: {fileID: 2618310161679429132}
+  - component: {fileID: 4659132557309750746}
   m_Layer: 5
   m_Name: StageIconPrefab
   m_TagString: Untagged
@@ -521,3 +522,16 @@ MonoBehaviour:
   _border: {fileID: 7634508041031268036}
   _stageName: {fileID: 7446830646967511442}
   _button: {fileID: 1627718988436416465}
+--- !u!114 &4659132557309750746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8902665292878498464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c99a626807538854bbdacaebc277f1a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _view: {fileID: 2618310161679429132}

@@ -29,5 +29,10 @@ namespace Base.Data
             EnemySoldier = enemySoldier;
             EnemyCannon = enemyCannon;
         }
+
+        public StageInfo Clone()
+        {
+            return new StageInfo(AssetPath, Name, Unlocked, WinReward, DefeatReward, EnemySoldier, EnemyCannon);
+        }
     }
 }
