@@ -1,8 +1,9 @@
+using Base.Soldier;
 using System;
 using UnityEngine;
 
-[RequireComponent (typeof(Collider))]
-[RequireComponent (typeof(Rigidbody))]
+[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Rigidbody))]
 public class Projectile : SpawnableObject
 {
     private const string ProjectilesParent = nameof(ProjectilesParent);
@@ -41,11 +42,11 @@ public class Projectile : SpawnableObject
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out ISoldier damageable))
+        if (other.TryGetComponent(out SoldierSetup setup))
         {
-            if(damageable.GetTeam() != _team)
+            if (setup.GetSoldier().GetTeam() != _team)
             {
-                damageable.TakeDamage(_damage);
+                setup.GetSoldier().TakeDamage(_damage);
                 Despawning?.Invoke(this);
             }
         }

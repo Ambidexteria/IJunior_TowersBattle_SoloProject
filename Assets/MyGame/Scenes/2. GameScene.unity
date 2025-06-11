@@ -179,6 +179,74 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _database: {fileID: 2052909531}
+--- !u!1001 &425164771
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 695030268753092125, guid: 2940718e65ded7549ab1473432e11921, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 695030268753092125, guid: 2940718e65ded7549ab1473432e11921, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 695030268753092125, guid: 2940718e65ded7549ab1473432e11921, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 25.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 695030268753092125, guid: 2940718e65ded7549ab1473432e11921, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.04640667
+      objectReference: {fileID: 0}
+    - target: {fileID: 695030268753092125, guid: 2940718e65ded7549ab1473432e11921, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 695030268753092125, guid: 2940718e65ded7549ab1473432e11921, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.99892265
+      objectReference: {fileID: 0}
+    - target: {fileID: 695030268753092125, guid: 2940718e65ded7549ab1473432e11921, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 695030268753092125, guid: 2940718e65ded7549ab1473432e11921, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 695030268753092125, guid: 2940718e65ded7549ab1473432e11921, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 174.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 695030268753092125, guid: 2940718e65ded7549ab1473432e11921, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9137955942463477110, guid: 2940718e65ded7549ab1473432e11921, type: 3}
+      propertyPath: m_Name
+      value: NPCCannon Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2940718e65ded7549ab1473432e11921, type: 3}
+--- !u!114 &425164772 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7844659894278884453, guid: 2940718e65ded7549ab1473432e11921, type: 3}
+  m_PrefabInstance: {fileID: 425164771}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7f264def731063438b1389fd10ecd4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &466672092
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,8 +333,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e44dd98de51af42a85a3c8b4839a89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _soldierSpawnerSettings:
+    poolDefaultCapacity: 10
+    poolMaxSize: 50
   _soldierDespawnDetector: {fileID: 1737975391}
-  _playerSpawnPoint: {fileID: 0}
   _playerCannonEnergyBarSetup: {fileID: 466672094}
   _playerSpawnControllerSetup: {fileID: 466672093}
   _soldierSelectorSettings:
@@ -763,6 +833,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1485914198}
+  - component: {fileID: 1485914199}
   - component: {fileID: 1485914197}
   - component: {fileID: 1485914196}
   - component: {fileID: 1485914195}
@@ -827,6 +898,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1485914199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485914194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6ad62e8567561f419a0e5580d766f5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spawnerSettings:
+    poolDefaultCapacity: 10
+    poolMaxSize: 50
+  _soldierDespawnDetector: {fileID: 1737975391}
+  _npcHealthSetup: {fileID: 1485914197}
+  _npcCannonEnergyBarSetup: {fileID: 1485914196}
+  _npcSpawnControllerSetup: {fileID: 1485914195}
+  _npcNextCommandDelay: 5
 --- !u!1 &1524025060
 GameObject:
   m_ObjectHideFlags: 0
@@ -860,19 +951,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f92f56452b131794ab9ec62ef0d13e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _soldierStats:
-    _maxHealth: 20
-    _minDistanceToTarget: 1
-    _speed: 5
-    _brakeSpeed: 10
-    _weaponDamage: 1
   _projectilesParent: {fileID: 549895256}
-  _soldierPrefab: {fileID: 2016997480567837586, guid: 6c54a8d06d04f15409aedeea0aae3269, type: 3}
+  _soldierPrefab: {fileID: 4247456144851534848, guid: 6c54a8d06d04f15409aedeea0aae3269, type: 3}
   _projectilePrefab: {fileID: 6178834008236417665, guid: f7cc1c658b160d241931534105534072, type: 3}
   _cannonProjectilePrefab: {fileID: 8881767865532895735, guid: d655a32cfdf3432409fc7685b185bd48, type: 3}
-  _soldierSpawnerSettings:
-    poolDefaultCapacity: 10
-    poolMaxSize: 30
   _projectileSpawnerSettings:
     poolDefaultCapacity: 50
     poolMaxSize: 100
@@ -977,11 +1059,9 @@ MonoBehaviour:
   _playerFactory: {fileID: 466672097}
   _playerCannonSetup: {fileID: 786115201}
   _playerCannonHealthSetup: {fileID: 466672095}
-  _npcSpawnPoint: {fileID: 0}
+  _npcFactory: {fileID: 1485914199}
+  _npcCannonSetup: {fileID: 425164772}
   _npcHealthSetup: {fileID: 1485914197}
-  _npcCannonEnergyBarSetup: {fileID: 1485914196}
-  _npcSpawnControllerSetup: {fileID: 1485914195}
-  _npcNextCommandDelay: 1
 --- !u!95 &1531964893 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 645200304627392414, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
@@ -1607,6 +1687,7 @@ SceneRoots:
   - {fileID: 1737975393}
   - {fileID: 549895256}
   - {fileID: 786115200}
+  - {fileID: 425164771}
   - {fileID: 7059427838983764344}
   - {fileID: 2052909530}
   - {fileID: 4135631466207130742}

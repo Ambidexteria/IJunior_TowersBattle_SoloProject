@@ -1,4 +1,5 @@
 using Base.Services.Factories.Game;
+using Base.Soldier;
 using UnityEngine;
 
 public class SoldierSelector
@@ -12,7 +13,7 @@ public class SoldierSelector
         _raycastLength = soldierSelectorSettings.RaycastLength;
     }
 
-    public bool TrySelectSoldier(out Soldier soldier, TeamType team)
+    public bool TrySelectSoldier(out SoldierModel soldier, TeamType team)
     {
         soldier = null;
 
@@ -20,10 +21,11 @@ public class SoldierSelector
 
         if (Physics.Raycast(ray, out RaycastHit hit, _raycastLength, _mask))
         {
-            if (hit.collider.transform.root.TryGetComponent(out soldier))
+            if (hit.collider.transform.root.TryGetComponent(out SoldierSetup setup))
             {
-                if (soldier.GetTeam() == team && soldier.IsDead() == false)
+                if (setup.GetSoldier().GetTeam() == team && setup.GetSoldier().IsDead() == false)
                 {
+                    soldier = setup.GetSoldier();
                     return true;
                 }
             }

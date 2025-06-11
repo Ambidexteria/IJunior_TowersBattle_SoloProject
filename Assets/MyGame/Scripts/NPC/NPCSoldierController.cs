@@ -7,7 +7,7 @@ using Base.Infrastructure;
 public class NPCSoldierController
 {
     [SerializeField] private ControlPointDatabase _controlPointDatabase;
-    [SerializeField] private List<Soldier> _soldiers = new List<Soldier>();
+    [SerializeField] private List<SoldierModel> _soldiers = new List<SoldierModel>();
     [SerializeField] private SoldierSpawnControllerModel _spawnController;
     [SerializeField] private float _startDelay = 1f;
     [SerializeField] private float _nextCommandDelay = 2f;
@@ -69,15 +69,15 @@ public class NPCSoldierController
         while (_enabled)
         {
             if (_soldiers.Count > 0)
-                if (TryGetIdleSoldier(out Soldier soldier))
-                    if (_controlPointDatabase.TryGetNearestVacantControlPoint(_team.Type, soldier.transform.position, out var controlPoint))
+                if (TryGetIdleSoldier(out SoldierModel soldier))
+                    if (_controlPointDatabase.TryGetNearestVacantControlPoint(_team.Type, soldier.GetTransform().position, out var controlPoint))
                         soldier.MoveTo(controlPoint.transform);
 
             yield return _waitNextCommand;
         }
     }
 
-    private void AddNewSoldier(Soldier soldier)
+    private void AddNewSoldier(SoldierModel soldier)
     {
         if (soldier.GetTeam() != _team.Type)
             Debug.LogError("Trying add soldier from different team");
@@ -85,13 +85,13 @@ public class NPCSoldierController
         _soldiers.Add(soldier);
     }
 
-    private void RemoveSoldier(Soldier soldier)
+    private void RemoveSoldier(SoldierModel soldier)
     {
         if (soldier.GetTeam() != _team.Type)
             Debug.LogError("Trying add soldier from different team");
 
         if (_soldiers.Remove(soldier) == false)
-            Debug.LogError($"Cannot remove {soldier.gameObject.name} from List");
+            Debug.LogError($"Cannot remove {soldier.GetTransform().name} from List");
     }
 
     private void SendSoldierToControlPoint()
@@ -99,12 +99,12 @@ public class NPCSoldierController
         if (_soldiers.Count == 0)
             return;
 
-        if (TryGetIdleSoldier(out Soldier soldier))
-            if (_controlPointDatabase.TryGetNearestVacantControlPoint(_team.Type, soldier.transform.position, out var controlPoint))
+        if (TryGetIdleSoldier(out SoldierModel soldier))
+            if (_controlPointDatabase.TryGetNearestVacantControlPoint(_team.Type, soldier.GetTransform().position, out var controlPoint))
                 soldier.MoveTo(controlPoint.transform);
     }
 
-    private bool TryGetIdleSoldier(out Soldier soldier)
+    private bool TryGetIdleSoldier(out SoldierModel soldier)
     {
         soldier = null;
         var idleSoldiers = _soldiers.Where(x => x.IsDead() == false).Where(x => x.IsIdle).ToList();

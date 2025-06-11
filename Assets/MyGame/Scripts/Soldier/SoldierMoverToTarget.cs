@@ -1,3 +1,4 @@
+using Base.Data.Game;
 using System.Collections;
 using UnityEngine;
 using Zenject;
@@ -16,7 +17,7 @@ public class SoldierMoverToTarget
     private bool _isStopped = true;
 
     [Inject]
-    public SoldierMoverToTarget(Rigidbody rigidbody, SoldierStats stats)
+    public SoldierMoverToTarget(Rigidbody rigidbody, SoldierData stats)
     {
         _rigidbody = rigidbody;
 

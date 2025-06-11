@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using Base.Logic;
+using Base.Soldier;
 
 public class TargetDetector
 {
@@ -55,24 +56,26 @@ public class TargetDetector
 
     private void OnTriggerEntered(Collider other)
     {
-        if (other.TryGetComponent(out ISoldier target))
-            if (IsTargetAliveEnemy(target))
-                if (_enemySoldiers.Contains(target) == false)
-                    _enemySoldiers.Add(target);
+        if (other.TryGetComponent(out SoldierSetup target))
+            if (IsTargetAliveEnemy(target.GetSoldier()))
+                if (_enemySoldiers.Contains(target.GetSoldier()) == false)
+                    _enemySoldiers.Add(target.GetSoldier());
 
         DeleteDeadEnemies();
 
         if (_enemySoldiers.Count == NumberOfSoldiersToCallDetectedEvent)
         {
-            Detected?.Invoke(target);
+            Debug.Log($"{target} is null --- {target is null}");
+            Debug.Log($"{nameof(_enemySoldiers)}.Count = {_enemySoldiers.Count}");
+            Detected?.Invoke(target.GetSoldier());
         }
     }
 
     private void OnTriggerExited(Collider other)
     {
-        if (other.TryGetComponent(out ISoldier target))
-            if (_enemySoldiers.Contains(target))
-                _enemySoldiers.Remove(target);
+        if (other.TryGetComponent(out SoldierSetup target))
+            if (_enemySoldiers.Contains(target.GetSoldier()))
+                _enemySoldiers.Remove(target.GetSoldier());
     }
 
     private bool IsTargetAliveEnemy(ISoldier target)

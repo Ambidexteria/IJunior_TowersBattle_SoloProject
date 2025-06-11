@@ -60,14 +60,14 @@ public class SoldierCommandController
 
     private IEnumerator TrySendSoldierToControlPoint()
     {
-        if (_soldierSelector.TrySelectSoldier(out Soldier soldier, _team.Type) == false)
+        if (_soldierSelector.TrySelectSoldier(out SoldierModel soldier, _team.Type) == false)
         {
             yield break;
         }
 
         Debug.Log("soldier selected");
 
-        _floatingPointer.PlaceAbove(soldier.transform);
+        _floatingPointer.PlaceAbove(soldier.GetTransform());
 
         yield return _waitForSeconds;
 

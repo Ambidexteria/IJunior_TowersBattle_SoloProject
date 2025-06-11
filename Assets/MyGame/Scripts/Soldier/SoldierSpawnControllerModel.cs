@@ -1,18 +1,19 @@
 using Base.Infrastructure;
+using Base.Soldier;
 using System;
 using System.Collections;
 using UnityEngine;
 
 public class SoldierSpawnControllerModel
 {
-    private float _spawnDelay;
-    private Transform _spawnPoint;
-    private SoldierForDespawnDetector _despawnDetector;
+    private readonly float _spawnDelay;
+    private readonly Transform _spawnPoint;
+    private readonly SoldierForDespawnDetector _despawnDetector;
 
-    private Team _team;
-    private WaitForSeconds _wait;
-    private SoldierSpawner _spawner;
-    private Soldier _soldier;
+    private readonly Team _team;
+    private readonly WaitForSeconds _wait;
+    private readonly SoldierSpawner _spawner;
+    private readonly SoldierSetup _soldierSetup;
     private Coroutine _spawnCoroutine;
     private Coroutine _countdownCoroutine;
 
@@ -30,15 +31,14 @@ public class SoldierSpawnControllerModel
         _team = team;
         _spawner = spawner;
         _coroutineRunner = coroutineRunner;
-
         _wait = new WaitForSeconds(_spawnDelay);
     }
 
     public float TimeBeforeNextSpawn { get; private set; }
 
     public event Action<float> TimeBeforeNextSpawnChanged;
-    public event Action<Soldier> Spawned;
-    public event Action<Soldier> Despawned;
+    public event Action<SoldierModel> Spawned;
+    public event Action<SoldierModel> Despawned;
 
     public void Enable()
     {
@@ -83,13 +83,15 @@ public class SoldierSpawnControllerModel
     {
         while (_enabled)
         {
-            _soldier = _spawner.Spawn();
-            _soldier.transform.position = _spawnPoint.position;
-            _soldier.SetTeam(_team);
-            _soldier.gameObject.SetActive(true);
-            _soldier.DespawnerDetected += OnSoldierDespawning;
+            SoldierSetup setup = _spawner.Spawn();
+            SoldierModel soldier = setup.GetSoldier();
 
-            Spawned?.Invoke(_soldier);
+            setup.gameObject.SetActive(true);
+            soldier.GetTransform().position = _spawnPoint.position;
+            soldier.Enable();
+            soldier.DespawnerDetected += OnSoldierDespawning;
+
+            Spawned?.Invoke(soldier);
 
             _nextSpawnTime = Time.time + _spawnDelay;
 
@@ -97,10 +99,12 @@ public class SoldierSpawnControllerModel
         }
     }
 
-    private void OnSoldierDespawning(Soldier soldier)
+    private void OnSoldierDespawning(SoldierSetup setup)
     {
+        SoldierModel soldier = setup.GetSoldier();
         soldier.DespawnerDetected -= OnSoldierDespawning;
+        soldier.Disable();
         Despawned?.Invoke(soldier);
-        _spawner.Despawn(soldier);
+        _spawner.Despawn(setup);
     }
 }

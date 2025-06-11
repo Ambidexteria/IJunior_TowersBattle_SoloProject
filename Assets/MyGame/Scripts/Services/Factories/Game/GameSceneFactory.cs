@@ -31,24 +31,19 @@ namespace Base.Services.Factories.Game
         [SerializeField] private HealthSetup _playerCannonHealthSetup;
 
         [Header("NPC")]
-        [SerializeField] private Transform _npcSpawnPoint;
+        [SerializeField] private NPCFactory _npcFactory;
+        [SerializeField] private CannonSetup _npcCannonSetup;
         [SerializeField] private HealthSetup _npcHealthSetup;
-        [SerializeField] private CannonEnergyBarSetup _npcCannonEnergyBarSetup;
-        [SerializeField] private SoldierSpawnControllerSetup _npcSpawnControllerSetup;
-        [SerializeField] private float _npcNextCommandDelay = 5f;
 
-        private InputService _input;
         private SceneChanger _sceneChanger;
         private Infrastructure.Game _game;
         private ICoroutineRunner _coroutineRunner;
-        private SoldierSpawner _soldierSpawner;
         private AssetLoader _assetLoader;
         private CannonProjectileSpawner _projectileSpawner;
         private TeamColorChanger _colorChanher;
         private ControlPointDatabase _controlPointDatabase;
         private IPersisentDataService _dataSerive;
         private Wallet _wallet;
-        private ISaveLoadService _saveLoadService;
 
         private StageInfo _stageInfo;
 
@@ -58,24 +53,20 @@ namespace Base.Services.Factories.Game
         private Stage _stage;
 
         [Inject]
-        private void Init(Infrastructure.Game game, AssetLoader assetLoader, SoldierSpawner soldierSpawner, ICoroutineRunner coroutineRunner,
+        private void Init(Infrastructure.Game game, AssetLoader assetLoader, ICoroutineRunner coroutineRunner,
             CannonProjectileSpawner projectileSpawner, TeamColorChanger colorChanger,
-            ControlPointDatabase controlPointDatabase, InputService input, TimeController timeController, 
-            SceneChanger sceneChanger, IPersisentDataService dataService, Wallet wallet, 
-            ISaveLoadService saveLoadService)
+            ControlPointDatabase controlPointDatabase,
+            SceneChanger sceneChanger, IPersisentDataService dataService, Wallet wallet)
         {
             _game = game;
             _coroutineRunner = coroutineRunner;
             _assetLoader = assetLoader;
-            _soldierSpawner = soldierSpawner;
             _projectileSpawner = projectileSpawner;
             _colorChanher = colorChanger;
             _controlPointDatabase = controlPointDatabase;
-            _input = input;
             _sceneChanger = sceneChanger;
             _dataSerive = dataService;
             _wallet = wallet;
-            _saveLoadService = saveLoadService;
 
             _stageInfo = _dataSerive.PlayerProgress.StagesData.GetSelectedStage();
         }
@@ -86,7 +77,7 @@ namespace Base.Services.Factories.Game
             _controlPointDatabase.SetControlPointsOnStage(_stage.GetControlPoints());
 
             Player player = CreatePlayer();
-            NPC npc = CreateNPC(_stageInfo.EnemyCannon, _stageInfo.EnemySoldier);
+            NPC npc = CreateNPC();
 
             _playerCannon.SetEnemy(_NPCCannon);
             _NPCCannon.SetEnemy(_playerCannon);
@@ -109,24 +100,14 @@ namespace Base.Services.Factories.Game
             _sceneChanger.ChangingScene -= _battleController.Disable;
         }
 
-        public NPC CreateNPC(CannonData cannonData, SoldierData soldierData)
+        public NPC CreateNPC()
         {
             Team team = new Team(TeamType.NPC);
-            CannonEnergyBarModel energyBar = _npcCannonEnergyBarSetup.CreateCannonEnergyBar(team,
-                _controlPointDatabase, cannonData.MaxEnergy, _coroutineRunner);
 
-            _NPCCannon = CreateCannon(NPCCannon, team, cannonData.Damage, _npcHealthSetup.CreateHealth(cannonData.MaxHealth, _coroutineRunner));
-            SoldierSpawnControllerModel spawnController = _npcSpawnControllerSetup.CreateSoldierSpawnController(soldierData.SpawnDelay, 
-                _stage.NPCSoldierSpawnPoint, _soldierDespawnDetector, team, _soldierSpawner, _coroutineRunner);
+            _NPCCannon =  _npcCannonSetup.CreateCannonModel(team, _stageInfo.EnemyCannon.Damage, _colorChanher, _projectileSpawner, 
+                _npcHealthSetup.CreateHealth(_stageInfo.EnemyCannon.MaxHealth, _coroutineRunner));
 
-            NPCCannonController cannonController = new (_NPCCannon, energyBar);
-
-            NPCSoldierController soldierController = new (_controlPointDatabase,
-                spawnController, soldierData.SpawnDelay, _npcNextCommandDelay, team, _coroutineRunner);
-
-            NPC npc = new(cannonController, soldierController, spawnController);
-
-            return npc;
+            return _npcFactory.CreateNPC(team, _NPCCannon, _stageInfo.EnemyCannon, _stageInfo.EnemySoldier, _stage.NPCSoldierSpawnPoint);
         }
 
         private Player CreatePlayer()
@@ -139,7 +120,7 @@ namespace Base.Services.Factories.Game
                 _coroutineRunner));
 
             return _playerFactory.CreatePlayer(team, _playerCannon, _dataSerive.PlayerProgress.CannonData,
-                _dataSerive.PlayerProgress.SoldierData.SpawnDelay, _stage.PlayerSoldierSpawnPoint);
+                _dataSerive.PlayerProgress.SoldierData.SpawnDelay, _stage.PlayerSoldierSpawnPoint, _dataSerive.PlayerProgress.SoldierData);
         }
 
         private void LoadStage()

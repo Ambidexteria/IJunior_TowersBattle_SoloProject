@@ -1,3 +1,4 @@
+using Base.Soldier;
 using System;
 using UnityEngine;
 
@@ -26,9 +27,9 @@ public class ControlPoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out ISoldier soldier))
+        if (other.TryGetComponent(out SoldierSetup soldier))
         {
-            TeamType team = soldier.GetTeam();
+            TeamType team = soldier.GetSoldier().GetTeam();
 
             if (_team != team)
                 ChangeTeam(team);
