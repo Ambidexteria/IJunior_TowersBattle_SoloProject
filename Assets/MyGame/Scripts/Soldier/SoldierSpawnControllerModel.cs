@@ -2,6 +2,7 @@ using Base.Infrastructure;
 using Base.Soldier;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SoldierSpawnControllerModel
@@ -14,12 +15,13 @@ public class SoldierSpawnControllerModel
     private readonly WaitForSeconds _wait;
     private readonly SoldierSpawner _spawner;
     private readonly SoldierSetup _soldierSetup;
+    private readonly ICoroutineRunner _coroutineRunner;
+
     private Coroutine _spawnCoroutine;
     private Coroutine _countdownCoroutine;
 
     private bool _enabled = true;
     private float _nextSpawnTime = 0;
-    private ICoroutineRunner _coroutineRunner;
 
     public SoldierSpawnControllerModel(float spawnDelay, Transform spawnPoint, 
         SoldierForDespawnDetector despawnDetector, Team team, SoldierSpawner spawner,

@@ -13,9 +13,10 @@ public class TargetDetector
     private Team _team;
     private List<ISoldier> _enemySoldiers = new List<ISoldier>();
 
-    public TargetDetector(TriggerObserver triggerObserver)
+    public TargetDetector(TriggerObserver triggerObserver, Team team)
     {
         _triggerObserver = triggerObserver;
+        _team = team;
     }
 
     public event Action<ISoldier> Detected;
@@ -31,11 +32,6 @@ public class TargetDetector
     {
         _triggerObserver.Entered -= OnTriggerEntered;
         _triggerObserver.Exited -= OnTriggerExited;
-    }
-
-    public void SetTeam(Team team)
-    {
-        _team = team;
     }
 
     public bool TryGetNextAttackTarget(out ISoldier target)
@@ -64,11 +60,8 @@ public class TargetDetector
         DeleteDeadEnemies();
 
         if (_enemySoldiers.Count == NumberOfSoldiersToCallDetectedEvent)
-        {
-            Debug.Log($"{target} is null --- {target is null}");
-            Debug.Log($"{nameof(_enemySoldiers)}.Count = {_enemySoldiers.Count}");
-            Detected?.Invoke(target.GetSoldier());
-        }
+            if (target != null)
+                Detected?.Invoke(target.GetSoldier());
     }
 
     private void OnTriggerExited(Collider other)

@@ -6,6 +6,6 @@ namespace Base.Services.PersistentProgress
 {
     public class PersisentDataService : IPersisentDataService
     {
-        public GameData PlayerProgress { get; set; }
+        public GameData GameData { get; set; }
     }
 }

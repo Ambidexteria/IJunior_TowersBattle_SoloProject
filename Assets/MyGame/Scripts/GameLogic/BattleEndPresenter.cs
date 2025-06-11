@@ -13,7 +13,8 @@ namespace Base.GameLogic
 
         public void Enable()
         {
-            _model.BattleEnded += OnBattleEnded;
+            _model.GoldAmountChanged += OnGoldEarned;
+            _model.ScoreChanged += OnScoreChanged;
             _model.PlayerWinned += OnPlayerWinned;
             _model.PlayerLoosed += OnPlayerLoosed;
 
@@ -22,7 +23,8 @@ namespace Base.GameLogic
 
         public void Disable()
         {
-            _model.BattleEnded -= OnBattleEnded;
+            _model.GoldAmountChanged -= OnGoldEarned;
+            _model.ScoreChanged -= OnScoreChanged;
             _model.PlayerWinned -= OnPlayerWinned;
             _model.PlayerLoosed -= OnPlayerLoosed;
 
@@ -34,10 +36,14 @@ namespace Base.GameLogic
             _model.LoadMainMenu();
         }
 
-        private void OnBattleEnded(int earnedGold)
+        private void OnGoldEarned(int earnedGold)
         {
-            _view.ShowCurrentGold(_model.CurrentGoldAmount);
             _view.ShowEarnedGold(earnedGold);
+        }
+
+        private void OnScoreChanged(int score)
+        {
+            _view.ShowScore(score);
         }
 
         private void OnPlayerWinned()

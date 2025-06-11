@@ -1,7 +1,6 @@
 using Base.Data.Game;
 using Base.Infrastructure;
 using Base.Logic;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,6 +23,12 @@ namespace Base.Soldier
         private ICoroutineRunner _coroutineRunner;
 
         private SoldierModel _soldier;
+
+        private void OnDisable()
+        {
+            if (_soldier != null)
+                _soldier.Disable();
+        }
 
         public void Init(Team team, SoldierData stats, ICoroutineRunner coroutineRunner, TeamColorChanger colorChanger)
         {

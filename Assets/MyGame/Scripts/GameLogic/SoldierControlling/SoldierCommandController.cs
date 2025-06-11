@@ -1,5 +1,6 @@
 using Base.Infrastructure;
 using Base.Services.Input;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,10 +8,10 @@ using Zenject;
 
 public class SoldierCommandController
 {
-    [SerializeField] private float _secondClickDelay = 0.1f;
-    [SerializeField] private SoldierSelector _soldierSelector;
-    [SerializeField] private ControlPointSelector _controlPointSelector;
-    [SerializeField] private FloatingPointer _floatingPointer;
+    private float _secondClickDelay = 0.1f;
+    private SoldierSelector _soldierSelector;
+    private ControlPointSelector _controlPointSelector;
+    private FloatingPointer _floatingPointer;
 
     private ICoroutineRunner _coroutineRunner;
     private Team _team;
@@ -22,8 +23,8 @@ public class SoldierCommandController
     private WaitUntil _waitUntilNextClick;
     private bool _playerClickLeftMouseButton = false;
 
-    public SoldierCommandController(float secondClickDelay, SoldierSelector soldierSelector, 
-        ControlPointSelector controlPointSelector, FloatingPointer floatingPointer, 
+    public SoldierCommandController(float secondClickDelay, SoldierSelector soldierSelector,
+        ControlPointSelector controlPointSelector, FloatingPointer floatingPointer,
         ICoroutineRunner coroutineRunner, Team team, InputService input)
     {
         _secondClickDelay = secondClickDelay;
@@ -55,7 +56,8 @@ public class SoldierCommandController
 
     private void OnSelect(InputAction.CallbackContext context)
     {
-        _coroutine = _coroutineRunner.LaunchCoroutine(TrySendSoldierToControlPoint());
+        if (_coroutine == null)
+            _coroutine = _coroutineRunner.LaunchCoroutine(TrySendSoldierToControlPoint());
     }
 
     private IEnumerator TrySendSoldierToControlPoint()
@@ -87,7 +89,6 @@ public class SoldierCommandController
         else
         {
             Debug.Log("Control Point isn't selected");
-            yield break;
         }
 
         _floatingPointer.Hide();
@@ -95,6 +96,17 @@ public class SoldierCommandController
         _coroutine = null;
 
         Debug.Log("Method ended");
+
+        StopCoroutine();
+    }
+
+    private void StopCoroutine()
+    {
+        if(_coroutine != null)
+        {
+            _coroutineRunner.EndCoroutine(_coroutine);
+            _coroutine = null;
+        }
     }
 
     private void ClickLeftMouseButton(InputAction.CallbackContext context)

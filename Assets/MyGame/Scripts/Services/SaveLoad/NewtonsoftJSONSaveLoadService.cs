@@ -32,8 +32,7 @@ namespace Base.Services.SaveLoad
 
         public void SaveProgress()
         {
-            GameData progress = _dataService.PlayerProgress;
-            Debug.Log("Progress saved");
+            GameData progress = _dataService.GameData;
 
             string jsonProgress = JsonConvert.SerializeObject(progress, Formatting.Indented, _settings);
 

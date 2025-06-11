@@ -101,7 +101,7 @@ namespace Base.GameLogic.UpgradeSystem
         {
             _dataService = dataService;
 
-            _upgrades = _dataService.PlayerProgress.Upgrades;
+            _upgrades = _dataService.GameData.Upgrades;
             _healthUpgrade = _upgrades.GetUpgrade<CannonHealthUpgrade>();
         }
 
@@ -116,7 +116,7 @@ namespace Base.GameLogic.UpgradeSystem
 
             if (upgrade.TryIncreaseLevel())
             {
-                _dataService.PlayerProgress.CannonData.MaxHealth += upgrade.UpgradeValue;
+                _dataService.GameData.CannonData.MaxHealth += upgrade.UpgradeValue;
                 return true;
             }
             else
@@ -131,7 +131,7 @@ namespace Base.GameLogic.UpgradeSystem
 
             if (upgrade.TryIncreaseLevel())
             {
-                _dataService.PlayerProgress.CannonData.Damage += (int)upgrade.UpgradeValue;
+                _dataService.GameData.CannonData.Damage += (int)upgrade.UpgradeValue;
                 return true;
             }
             else
@@ -146,7 +146,7 @@ namespace Base.GameLogic.UpgradeSystem
 
             if (upgrade.TryIncreaseLevel())
             {
-                _dataService.PlayerProgress.SoldierData.SpawnDelay += upgrade.UpgradeValue;
+                _dataService.GameData.SoldierData.SpawnDelay += upgrade.UpgradeValue;
                 return true;
             }
             else

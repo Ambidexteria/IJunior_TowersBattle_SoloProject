@@ -20,7 +20,8 @@ public class FloatingPointer : MonoBehaviour
     {
         if (_active)
         {
-            Float();
+            if (Time.timeScale > 0)
+                Float();
 
             if (_target != null)
             {
@@ -45,7 +46,7 @@ public class FloatingPointer : MonoBehaviour
     private void Float()
     {
         float yOffset;
-        float angle = Mathf.PI * Time.deltaTime * _speed;
+        float angle = Mathf.PI * Time.unscaledDeltaTime * _speed;
 
         _currentAngle += angle;
         yOffset = Mathf.Sin(_currentAngle) * _amplitude;
@@ -53,5 +54,6 @@ public class FloatingPointer : MonoBehaviour
         Vector3 position = _pointerObject.transform.position;
         position.y += yOffset;
         _pointerObject.transform.position = position;
+
     }
 }

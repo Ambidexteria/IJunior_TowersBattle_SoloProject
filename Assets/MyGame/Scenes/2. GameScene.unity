@@ -1208,39 +1208,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2037766862 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6706877142439136285, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
-  m_PrefabInstance: {fileID: 4135631466207130742}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 594072a5de551d04a9c35513f147ad7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2037766863 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 678238949843930818, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
-  m_PrefabInstance: {fileID: 4135631466207130742}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 594072a5de551d04a9c35513f147ad7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2037766864 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 432097331194047878, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
-  m_PrefabInstance: {fileID: 4135631466207130742}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 594072a5de551d04a9c35513f147ad7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2038776308
 GameObject:
   m_ObjectHideFlags: 0
@@ -1471,18 +1438,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1391757208913530732, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
-      propertyPath: _openSettingsButton
-      value: 
-      objectReference: {fileID: 2037766863}
-    - target: {fileID: 2634324470685204504, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
-      propertyPath: m_Name
-      value: BattleEndWindow
-      objectReference: {fileID: 0}
-    - target: {fileID: 2634324470685204504, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2703744961053632304, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1499,14 +1454,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2897618464384355379, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
-      propertyPath: _restartLevelButton
-      value: 
-      objectReference: {fileID: 2037766864}
-    - target: {fileID: 2897618464384355379, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
-      propertyPath: _returnToMainMenuButton
-      value: 
-      objectReference: {fileID: 2037766862}
     - target: {fileID: 3560970001497781685, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1515,10 +1462,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5466186600930082177, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
-      propertyPath: _homeButton
-      value: 
-      objectReference: {fileID: 4135631466207130743}
     - target: {fileID: 5617443836188350654, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
       propertyPath: m_Name
       value: GameSceneUI
@@ -1540,17 +1483,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
---- !u!114 &4135631466207130743 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7422363564842455568, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
-  m_PrefabInstance: {fileID: 4135631466207130742}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 594072a5de551d04a9c35513f147ad7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4135631466207130744 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6615974357010868227, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}

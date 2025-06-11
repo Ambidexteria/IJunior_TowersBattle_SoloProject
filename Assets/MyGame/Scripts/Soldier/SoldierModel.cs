@@ -32,6 +32,7 @@ public class SoldierModel : ISoldier, IMovable, IAttacker
     private Coroutine _coroutine;
 
     private bool _enabled = false;
+    private Coroutine _dieCoroutine;
 
     public SoldierModel(SoldierGroundCollisionController groundCollisionController, Animator animator,
         SoldierWeapon weapon, TriggerObserver enemyTrigger, TriggerObserver despawnerTrigger,
@@ -53,12 +54,13 @@ public class SoldierModel : ISoldier, IMovable, IAttacker
         _waitToDie = new WaitForSeconds(_dieDelay);
         _despawnerDetector = new DespawnerDetector(_despawnerTrigger);
         _rotatorToTarget = new RotatorToTarget(_soldierTransform);
-        _enemiesDetector = new TargetDetector(_enemyTrigger);
+        _enemiesDetector = new TargetDetector(_enemyTrigger, _team);
         _stateMachine = new SoldierStateMachine(_animator, this);
         _moverToTarget = new SoldierMoverToTarget(_rigidbody, stats);
         _health = new HealthModel(stats.MaxHealth, coroutineRunner);
 
-        SetTeam(_team);
+        _colorChanger.Recolor(team, _marks);
+        _weapon.SetTeam(_team);
     }
 
     public bool IsIdle => _stateMachine.IsIdle;
@@ -70,15 +72,14 @@ public class SoldierModel : ISoldier, IMovable, IAttacker
 
     public void Enable()
     {
-        if(_enabled) 
+        if (_enabled)
             return;
 
-        Debug.Log($"{_soldierTransform.name} ENBALED");
-
+        _enemiesDetector.Enable();
         _stateMachine.Enable();
+        _groundCollisionController.Enable();
 
         _health.Increase(_health.MaxValue);
-        _groundCollisionController.Enable();
 
         _despawnerDetector.Detected += OnDespawnerDetected;
         _enemiesDetector.Detected += OnEnemyTargetDetected;
@@ -91,10 +92,11 @@ public class SoldierModel : ISoldier, IMovable, IAttacker
 
     public void Disable()
     {
-        if(_enabled == false)
+        if (_enabled == false)
             return;
 
         _stateMachine.Disable();
+        _enemiesDetector.Disable();
 
         _despawnerDetector.Detected -= OnDespawnerDetected;
         _enemiesDetector.Detected -= OnEnemyTargetDetected;
@@ -103,17 +105,10 @@ public class SoldierModel : ISoldier, IMovable, IAttacker
         if (_coroutine != null)
             _coroutineRunner.EndCoroutine(_coroutine);
 
+        if (_dieCoroutine != null)
+            _coroutineRunner.EndCoroutine(_dieCoroutine);
+
         _enabled = false;
-    }
-
-    public void SetTeam(Team team)
-    {
-        _team = team;
-
-        _colorChanger.Recolor(team, _marks);
-        _enemiesDetector.SetTeam(team);
-        _enemiesDetector.Enable();
-        _weapon.SetTeam(team);
     }
 
     public void MoveTo(Transform target)
@@ -193,7 +188,7 @@ public class SoldierModel : ISoldier, IMovable, IAttacker
         StopAttack();
         Stop();
 
-        _coroutineRunner.LaunchCoroutine(DieCoroutine());
+        _dieCoroutine = _coroutineRunner.LaunchCoroutine(DieCoroutine());
     }
 
     private void OnDespawnerDetected()

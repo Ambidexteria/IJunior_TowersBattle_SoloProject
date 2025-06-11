@@ -17,17 +17,6 @@ namespace Base.Data.Game
         public CannonData CannonData = new();
         public AudioVolumeSettings AudioVolumeSettings = new();
         public int CurrentGold = 10000;
-
-        //public GameData()
-        //{
-        //    Upgrades = new();
-        //    UpgradePrices = new();
-        //    StagesData = new();
-        //    GameSettings = new();
-        //    SoldierData = new();
-        //    CannonData = new();
-        //    AudioVolumeSettings = new();
-        //    CurrentGold = 10000;
-        //}
+        public PlayerScore Score = new();
     }
 }

@@ -5,9 +5,9 @@ namespace Base.Data.Game
     [Serializable]
     public class CannonData
     {
-        public float MaxHealth = 100f;
-        public float MaxEnergy = 5f;
-        public int Damage = 15;
+        public float MaxHealth = 50f;
+        public float MaxEnergy = 30f;
+        public int Damage = 10;
 
         public CannonData()
         {

@@ -9,7 +9,7 @@ namespace Base.GameLogic
         [SerializeField] private ButtonClickHandler _homeButton;
         [SerializeField] private UIWindowController _winMessage;
         [SerializeField] private UIWindowController _defeatMessage;
-        [SerializeField] private TextMeshProUGUI _currentGoldText;
+        [SerializeField] private TextMeshProUGUI _score;
         [SerializeField] private TextMeshProUGUI _earnedGoldText;
 
         public event Action HomeButtonClicked;
@@ -24,9 +24,9 @@ namespace Base.GameLogic
             _homeButton.Clicked -= OnHomeButtonClicked;
         }
 
-        public void ShowCurrentGold(int amount)
+        public void ShowScore(int amount)
         {
-            _currentGoldText.text = amount.ToString();
+            _score.text = amount.ToString();
         }
 
         public void ShowEarnedGold(int amount)

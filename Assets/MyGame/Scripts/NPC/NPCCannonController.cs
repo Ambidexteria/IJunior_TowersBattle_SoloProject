@@ -14,6 +14,8 @@ public class NPCCannonController
         _energyBar = energyBar;
     }
 
+    public int CannonDamageTaken => _cannon.DamageTaken;
+
     public event Action CannonDestroyed;
 
     public void Enable()

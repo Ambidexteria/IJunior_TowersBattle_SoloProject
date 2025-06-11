@@ -8,6 +8,8 @@ public class NPC
 
     private bool _enabled = false;
 
+    public int CannonDamageTaken => _cannonController.CannonDamageTaken;
+
     public event Action Defeated;
 
     public NPC(NPCCannonController cannonController, NPCSoldierController soldierController, SoldierSpawnControllerModel soldierSpawnController)

@@ -12,7 +12,7 @@ namespace Base.PLayer
         public Wallet(IPersisentDataService progressService)
         {
             _progressService = progressService;
-            _currentValue = _progressService.PlayerProgress.CurrentGold;
+            _currentValue = _progressService.GameData.CurrentGold;
         }
 
         public int CurrentAmount => _currentValue;
@@ -50,7 +50,7 @@ namespace Base.PLayer
 
         private void UpdateGold()
         {
-            _progressService.PlayerProgress.CurrentGold = _currentValue;
+            _progressService.GameData.CurrentGold = _currentValue;
         }
     }
 }

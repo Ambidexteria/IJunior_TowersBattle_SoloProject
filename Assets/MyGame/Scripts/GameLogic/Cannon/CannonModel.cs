@@ -49,6 +49,7 @@ namespace Base.GameLogic.Cannon
             Recolor();
         }
 
+        public int DamageTaken => (int)(_health.MaxValue - _health.Current);
         public int Damage => _damage;
         public Transform Transform => _transfrom;
 

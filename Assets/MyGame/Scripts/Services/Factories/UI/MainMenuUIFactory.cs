@@ -100,17 +100,17 @@ namespace Base.Services.Factories.UI
 
         private void CreateStageSelectionMenu()
         {
-            _stageSelectionMenuSetup.Create(_dataService.PlayerProgress.StagesData, 
-                _dataService.PlayerProgress.GameSettings, _saveLoadService);
+            _stageSelectionMenuSetup.Create(_dataService.GameData.StagesData, 
+                _dataService.GameData.GameSettings, _saveLoadService);
         }
 
         private void CreateShop()
         {
-            _shopSetup.Create(_wallet, _upgradeSystem, _saveLoadService, _dataService.PlayerProgress.UpgradePrices);
+            _shopSetup.Create(_wallet, _upgradeSystem, _saveLoadService, _dataService.GameData.UpgradePrices);
         }
         private void CreateSettings()
         {
-            _settingsSetup.CreateModel(_volumeControllerService, _saveLoadService, _dataService.PlayerProgress.AudioVolumeSettings);
+            _settingsSetup.CreateModel(_volumeControllerService, _saveLoadService, _dataService.GameData.AudioVolumeSettings);
         }
 
         private void OnStartButtonClicked()

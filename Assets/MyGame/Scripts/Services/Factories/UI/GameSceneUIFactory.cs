@@ -11,6 +11,8 @@ using Base.GameLogic;
 using Base.PLayer;
 using Base.Services.SaveLoad;
 using Base.Services.PersistentProgress;
+using Base.Data;
+using Base.Data.Game;
 
 namespace Base.Services.Factories.UI
 {
@@ -91,9 +93,9 @@ namespace Base.Services.Factories.UI
             return _uiStateMachine;
         }
 
-        public BattleEndModel GetBattleEndModel(Infrastructure.Game game, Wallet wallet)
+        public BattleEndModel GetBattleEndModel(Infrastructure.Game game, Wallet wallet, StageInfo stageInfo, PlayerScore score)
         {
-            return _battleEndSetup.Create(game, wallet, _saveLoadService);
+            return _battleEndSetup.Create(game, wallet, score, _saveLoadService, stageInfo.WinReward, stageInfo.DefeatReward);
         }
 
         private void CreateUIStateMachine()
@@ -102,7 +104,7 @@ namespace Base.Services.Factories.UI
                 _pauseWindow, _settingsWindow, _winMessage, _defeatMessage);
 
             _pauseMenuSetup.CreatePauseMenu(_sceneChanger);
-            _settingsMenuSetup.CreateModel(_volumeControllerService, _saveLoadService, _dataService.PlayerProgress.AudioVolumeSettings);
+            _settingsMenuSetup.CreateModel(_volumeControllerService, _saveLoadService, _dataService.GameData.AudioVolumeSettings);
 
             _uiStateMachine.Enter<CannonsHUDState>();
         }
