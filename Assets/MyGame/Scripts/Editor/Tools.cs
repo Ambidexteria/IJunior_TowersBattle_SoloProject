@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Base.Editor
+namespace CustomEditorTools
 {
     public class Tools
     {

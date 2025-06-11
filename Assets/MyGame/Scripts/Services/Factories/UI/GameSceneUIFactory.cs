@@ -28,8 +28,7 @@ namespace Base.Services.Factories.UI
         [SerializeField] private UIWindowController _shootMinigameUI;
         [SerializeField] private UIWindowController _pauseWindow;
         [SerializeField] private UIWindowController _settingsWindow;
-        [SerializeField] private UIWindowController _winMessage;
-        [SerializeField] private UIWindowController _defeatMessage;
+        [SerializeField] private UIWindowController _battleEndWindow;
 
         [SerializeField] private ButtonClickHandler _launchShootMinigameButton;
         [SerializeField] private ButtonClickHandler _pauseButton;
@@ -101,7 +100,7 @@ namespace Base.Services.Factories.UI
         private void CreateUIStateMachine()
         {
             _uiStateMachine = new GameUIStateMachine(_cannonsHUD, _shootMinigameUI,
-                _pauseWindow, _settingsWindow, _winMessage, _defeatMessage);
+                _pauseWindow, _settingsWindow, _battleEndWindow);
 
             _pauseMenuSetup.CreatePauseMenu(_sceneChanger);
             _settingsMenuSetup.CreateModel(_volumeControllerService, _saveLoadService, _dataService.GameData.AudioVolumeSettings);

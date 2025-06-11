@@ -17,7 +17,6 @@ public class SoldierGroundCollisionController : MonoBehaviour
 
     public void Disable()
     {
-        Debug.Log($"{gameObject.transform.root.name} --- SoldierGroundCollider disabled");
         _groundCollider.enabled = false;
     }
 }

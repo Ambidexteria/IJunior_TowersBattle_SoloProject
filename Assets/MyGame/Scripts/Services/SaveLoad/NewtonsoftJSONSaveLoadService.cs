@@ -1,6 +1,6 @@
 ﻿using Base.Data.Game;
 using Base.Services.PersistentProgress;
-using Unity.Plastic.Newtonsoft.Json;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Base.Services.SaveLoad

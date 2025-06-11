@@ -1,8 +1,6 @@
 ﻿using Base.Data;
 using Base.Data.Game;
 using Base.Services.SaveLoad;
-using System;
-using UnityEngine;
 
 namespace Base.UI.StageSelection
 {
@@ -26,13 +24,6 @@ namespace Base.UI.StageSelection
             _activeIcon.ShowBorder();
         }
 
-        public event Action<string> StageSelected;
-
-        public void SetActiveStage(string name)
-        {
-
-        }
-
         private void SubcribeForIconModels()
         {
             foreach (var iconModel in _stagesIcons)
@@ -50,7 +41,6 @@ namespace Base.UI.StageSelection
             {
                 _stagesData.SetSelectedStage(name);
                 _saveLoadService.SaveProgress();
-                Debug.Log("Progress saved");
                 _activeIcon.HideBorder();
 
                 _activeIcon = GetIconByName(name);
