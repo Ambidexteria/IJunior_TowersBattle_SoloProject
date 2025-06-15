@@ -38,7 +38,7 @@ namespace Base.GameLogic
         private void OnPlayerDefeated()
         {
             _battleEnd.End(false, _npc.CannonDamageTaken);
-            _uIStateMachine.Enter<DefeatMessageState>();
+            _uIStateMachine.Enter<BattleEndState>();
 
             _player.Disable();
             _npc.Disable();
@@ -47,7 +47,7 @@ namespace Base.GameLogic
         private void OnNPCDefeated()
         {
             _battleEnd.End(true, _npc.CannonDamageTaken);
-            _uIStateMachine.Enter<WinMessageState>();
+            _uIStateMachine.Enter<BattleEndState>();
 
             _player.Disable();
             _npc.Disable();

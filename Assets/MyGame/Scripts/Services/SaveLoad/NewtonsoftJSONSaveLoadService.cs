@@ -1,6 +1,6 @@
 ﻿using Base.Data.Game;
 using Base.Services.PersistentProgress;
-using Unity.Plastic.Newtonsoft.Json;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Base.Services.SaveLoad
@@ -8,6 +8,7 @@ namespace Base.Services.SaveLoad
     public class NewtonsoftJSONSaveLoadService : ISaveLoadService
     {
         private const string ProgressKey = "Progress";
+        private const string UpgradesKey = "Upgrades";
 
         private readonly IPersisentDataService _dataService;
         private readonly JsonSerializerSettings _settings;
@@ -31,11 +32,11 @@ namespace Base.Services.SaveLoad
 
         public void SaveProgress()
         {
-            GameData data = _dataService.GameData;
+            GameData progress = _dataService.GameData;
 
-            string jsonConvertedData = JsonConvert.SerializeObject(data, Formatting.Indented, _settings);
+            string jsonProgress = JsonConvert.SerializeObject(progress, Formatting.Indented, _settings);
 
-            PlayerPrefs.SetString(ProgressKey, jsonConvertedData);
+            PlayerPrefs.SetString(ProgressKey, jsonProgress);
         }
     }
 }
