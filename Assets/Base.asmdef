@@ -5,7 +5,8 @@
         "Unity.TextMeshPro",
         "Unity.TextMeshPro.Editor",
         "Unity.InputSystem",
-        "Zenject"
+        "Zenject",
+        "PluginYourGames"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

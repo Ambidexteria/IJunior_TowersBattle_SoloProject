@@ -1,5 +1,5 @@
 {
-    "name": "PlayerInput",
+    "name": "InputService",
     "maps": [
         {
             "name": "Game",
@@ -9,6 +9,15 @@
                     "name": "Select",
                     "type": "Button",
                     "id": "08da2186-481a-4010-a89a-c464074d6253",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Move",
+                    "type": "Button",
+                    "id": "977fffac-0b5a-4545-9427-8e40eebc2133",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -35,6 +44,17 @@
                     "processors": "",
                     "groups": "Windows",
                     "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1e32d6c8-9370-4071-9f6b-b9e90c4196ee",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

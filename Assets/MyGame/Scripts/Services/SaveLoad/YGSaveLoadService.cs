@@ -1,23 +1,21 @@
-﻿using Base.Data.Game;
+using Base.Data.Game;
 using Base.Services.PersistentProgress;
 using Newtonsoft.Json;
 using UnityEngine;
-using YG;
+using PlayerPrefs = RedefineYG.PlayerPrefs;
 
 namespace Base.Services.SaveLoad
 {
-    public class NewtonsoftJSONSaveLoadService : ISaveLoadService
+    public class YGSaveLoadService : ISaveLoadService
     {
         private const string ProgressKey = "Progress";
-        private const string UpgradesKey = "Upgrades";
 
         private readonly IPersisentDataService _dataService;
         private readonly JsonSerializerSettings _settings;
 
-        public NewtonsoftJSONSaveLoadService(IPersisentDataService progressService)
+        public YGSaveLoadService(IPersisentDataService progressService)
         {
             _dataService = progressService;
-            
 
             _settings = new()
             {
