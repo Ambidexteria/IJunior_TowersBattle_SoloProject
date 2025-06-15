@@ -1,19 +1,11 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 guid: 9ef5f9984b9ce8a418aca2172f2fd7d0
-=======
-guid: 8efe342a0068cf447ac9c18752f70d1c
->>>>>>> parent of 6c28e14 (Update_70)
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences: []
   executionOrder: 0
-<<<<<<< HEAD
   icon: {fileID: 2800000, guid: 78704f9de18ec0d40964fd072709ecdd, type: 3}
-=======
-  icon: {fileID: 2800000, guid: f7f61904b49993445b3e0385b563a10c, type: 3}
->>>>>>> parent of 6c28e14 (Update_70)
   userData: 
   assetBundleName: 
   assetBundleVariant: 
