@@ -14,10 +14,13 @@
         public void Enable()
         {
             _view.StageSelected += OnStageIconClicked;
+
+            _model.StageSelected += OnStageSelected;
         }
 
         private void OnStageIconClicked(string name)
         {
+            _model.SetActiveStage(name);
         }
 
         private void OnStageSelected(string name)

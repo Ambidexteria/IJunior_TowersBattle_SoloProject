@@ -16,7 +16,7 @@ namespace Base.Data.Game
         public SoldierData SoldierData = new();
         public CannonData CannonData = new();
         public AudioVolumeSettings AudioVolumeSettings = new();
-        public int CurrentGold = 300;
+        public int CurrentGold = 10000;
         public PlayerScore Score = new();
     }
 }
