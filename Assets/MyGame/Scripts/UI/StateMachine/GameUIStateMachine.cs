@@ -13,7 +13,7 @@ namespace Base.UI.StateMachine
             UIWindowController shootMinigame, 
             UIWindowController pauseWindow,  
             UIWindowController settingsWindow,
-            UIWindowController winMessage)
+            UIWindowController winMessage, UIWindowController defeatMessage)
         {
             _states = new Dictionary<Type, IUIState>
             {
@@ -21,7 +21,8 @@ namespace Base.UI.StateMachine
                 { typeof(ShootMinigameState), new ShootMinigameState(shootMinigame) },
                 { typeof(PauseState), new PauseState(pauseWindow) },
                 { typeof(SettingsMenuState), new SettingsMenuState(settingsWindow) },
-                { typeof(BattleEndState), new BattleEndState(winMessage) },
+                { typeof(WinMessageState), new WinMessageState(winMessage) },
+                { typeof(DefeatMessageState), new DefeatMessageState(defeatMessage, pauseWindow) }
             };
         }
 

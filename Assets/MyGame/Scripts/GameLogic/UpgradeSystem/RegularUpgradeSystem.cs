@@ -1,5 +1,5 @@
 using Base.Services.PersistentProgress;
-using Newtonsoft.Json;
+using Unity.Plastic.Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
