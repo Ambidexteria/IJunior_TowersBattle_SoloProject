@@ -2,6 +2,7 @@
 using Base.Services.PersistentProgress;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
+using YG;
 
 namespace Base.Services.SaveLoad
 {
