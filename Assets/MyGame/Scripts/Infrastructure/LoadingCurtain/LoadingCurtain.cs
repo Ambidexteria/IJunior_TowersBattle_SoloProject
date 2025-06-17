@@ -17,6 +17,9 @@ namespace Base.Infrastructure
         private void Awake()
         {
             _curtain = GetComponent<CanvasGroup>();
+
+            ExceptionsTest.NullRefTest(nameof(LoadingCurtain), nameof(Awake), _curtain);
+
             _wait = new WaitForSeconds(_startDelay);
 
             DontDestroyOnLoad(gameObject);

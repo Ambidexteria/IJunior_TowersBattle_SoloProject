@@ -1,0 +1,3 @@
+Build path: D:/UnityProjects/Builds/Dev/TowersBattle
+Build number: 15
+PluginYG version: 2.0031

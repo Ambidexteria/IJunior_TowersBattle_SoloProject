@@ -17,12 +17,17 @@ namespace Base.Infrastructure
         private IExitableState _activeState;
 
         [Inject]
-        public GameStateMachine(LoadingCurtain loadingCurtain, SceneLoader sceneLoader, 
-            IPersisentDataService persisentProgress, ISaveLoadService saveLoadService, AssetLoader assetLoader)
+        public GameStateMachine(LoadingCurtain loadingCurtain, SceneLoader sceneLoader,
+            IPersisentDataService persisentProgress, ISaveLoadService saveLoadService, AssetLoader assetLoader,
+            ICoroutineRunner coroutineRunner)
         {
+            ExceptionsTest.NullRefTest(nameof(GameStateMachine), "constructor", loadingCurtain, sceneLoader,
+             persisentProgress, saveLoadService, assetLoader,
+             coroutineRunner);
+
             _states = new Dictionary<Type, IExitableState>
             {
-                { typeof(BootstrapState), new BootstrapState(this, sceneLoader) },
+                { typeof(BootstrapState), new BootstrapState(this, sceneLoader, coroutineRunner) },
                 { typeof(LoadLevelState), new LoadLevelState(loadingCurtain, this, sceneLoader, saveLoadService, persisentProgress) },
                 { typeof(LoadProgressState), new LoadProgressState(this, persisentProgress, saveLoadService)},
                 { typeof(GameLoopState), new GameLoopState(this) }
@@ -41,6 +46,8 @@ namespace Base.Infrastructure
 
         public void Enter<TState, TPayload>(TPayload payload) where TState : class, IPayloadedState<TPayload>
         {
+            ExceptionsTest.NullRefTest(nameof(GameStateMachine), nameof(Enter), payload);
+
             Debug.Log($"Enter {nameof(TState)} state with payload {nameof(TPayload)}");
             _activeState?.Exit();
 

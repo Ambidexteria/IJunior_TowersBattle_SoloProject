@@ -5,6 +5,6 @@ public class SaveLoadServiceInstaller : Installer<SaveLoadServiceInstaller>
 {
     public override void InstallBindings()
     {
-        Container.Bind<ISaveLoadService>().To<NewtonsoftJSONSaveLoadService>().FromNew().AsSingle();
+        Container.Bind<ISaveLoadService>().To<YGSaveLoadService>().FromNew().AsSingle();
     }
 }

@@ -34,7 +34,7 @@ namespace Base.UI.Settings
 
         public void Init(AudioVolumeSettings volumeSettings)
         {
-            _masterVolumeSlider.SetValue(volumeSettings.MusicVolume);
+            _masterVolumeSlider.SetValue(volumeSettings.MasterVolume);
             _musicVolumeSlider.SetValue(volumeSettings.MusicVolume);
             _soundsVolumeSlider.SetValue(volumeSettings.SoundsVolume);
 

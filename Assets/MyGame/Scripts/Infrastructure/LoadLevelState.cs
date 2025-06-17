@@ -1,10 +1,6 @@
 ﻿using Base.Services.SceneManagment;
-using Base.Data;
 using Base.Services.PersistentProgress;
-using Base.Services.Factories.Game;
 using Base.Data.Scenes;
-using Base.Services.AssetManagment;
-using Base.Logic;
 using Base.Services.SaveLoad;
 
 namespace Base.Infrastructure
@@ -22,6 +18,9 @@ namespace Base.Infrastructure
         public LoadLevelState(LoadingCurtain loadingCurtain, GameStateMachine gameStateMachine, SceneLoader sceneLoader,
             ISaveLoadService saveLoadService, IPersisentDataService progressService)
         {
+            ExceptionsTest.NullRefTest(nameof(LoadLevelState), "constructor" ,  loadingCurtain,  gameStateMachine,  sceneLoader,
+             saveLoadService,  progressService);
+
             _progressService = progressService;
             _loadingCurtain = loadingCurtain;
             _gameStateMachine = gameStateMachine;
@@ -36,6 +35,8 @@ namespace Base.Infrastructure
 
         public void Enter(SceneData sceneData)
         {
+            ExceptionsTest.NullRefTest(nameof(LoadLevelState), nameof(Enter), sceneData);
+
             _loadingCurtain.Show();
             _currentSceneData = sceneData;
             _sceneLoader.LoadScene(_currentSceneData.SceneName, OnLoaded);
@@ -48,14 +49,7 @@ namespace Base.Infrastructure
 
         private void OnLoaded()
         {
-            InformProgressReaders();
-
             _gameStateMachine.Enter<GameLoopState>();
-        }
-
-        private void InformProgressReaders()
-        {
-            _saveLoadService.LoadProgress();
         }
     }
 }

@@ -9,13 +9,28 @@ namespace Base.Data
     [Serializable]
     public class StagesData
     {
-        [JsonRequired]
-        private List<StageInfo> _stages = new()
+        //[JsonRequired]
+        public StageInfo[] _stages/* = new()*/;
+        //{
+        //    new StageInfo("Stages/Stage (1)", "1", true, 200, 50, new SoldierData(10, 4, 1, 10f), new CannonData(30, 30, 10)),
+        //    new StageInfo("Stages/Stage (2)", "2", true, 400, 100, new SoldierData(15, 4, 1, 8f), new CannonData(50, 25, 15)),
+        //    new StageInfo("Stages/Stage (3)", "3", true, 600, 150, new SoldierData(20, 4, 1, 6f), new CannonData(70, 20, 20))
+        //};
+
+        public StagesData()
         {
-            new StageInfo("Stages/Stage (1)", "1", true, 200, 50, new SoldierData(10, 4, 1, 10f), new CannonData(30, 30, 10)),
-            new StageInfo("Stages/Stage (2)", "2", true, 400, 100, new SoldierData(15, 4, 1, 8f), new CannonData(50, 25, 15)),
-            new StageInfo("Stages/Stage (3)", "3", true, 600, 150, new SoldierData(20, 4, 1, 6f), new CannonData(70, 20, 20))
-        };
+            Debug.Log($"{nameof(StagesData)} - constructor");
+            //Debug.Log($"{nameof(_stages)}.Count = {_stages.Count}");
+
+            _stages = new[]
+            {
+                new StageInfo("Stages/Stage (1)", "1", true, 200, 50, new SoldierData(10, 4, 1, 10f), new CannonData(30, 30, 10)),
+                new StageInfo("Stages/Stage (2)", "2", true, 400, 100, new SoldierData(15, 4, 1, 8f), new CannonData(50, 25, 15)),
+                new StageInfo("Stages/Stage (3)", "3", true, 600, 150, new SoldierData(20, 4, 1, 6f), new CannonData(70, 20, 20))
+            };
+
+            Debug.Log($"{nameof(_stages)}.Length = {_stages.Length}");
+        }
 
         public string SelectedStageName = string.Empty;
 
@@ -44,7 +59,7 @@ namespace Base.Data
 
         public StageInfo[] GetAllStages()
         {
-            StageInfo[] stageInfos = new StageInfo[_stages.Count];
+            StageInfo[] stageInfos = new StageInfo[_stages.Length];
 
             for (int i = 0; i < stageInfos.Length; i++)
             {

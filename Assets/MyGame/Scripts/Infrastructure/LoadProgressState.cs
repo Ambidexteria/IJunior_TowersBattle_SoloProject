@@ -1,5 +1,4 @@
-﻿using Base.Data;
-using Base.Data.Game;
+﻿using Base.Data.Game;
 using Base.Data.Scenes;
 using Base.Services.PersistentProgress;
 using Base.Services.SaveLoad;
@@ -13,8 +12,12 @@ namespace Base.Infrastructure
         private IPersisentDataService _progressService;
         private readonly ISaveLoadService _saveLoadService;
 
-        public LoadProgressState(GameStateMachine gameStateMachine, IPersisentDataService persisentProgressService, ISaveLoadService saveLoadService)
+        public LoadProgressState(GameStateMachine gameStateMachine, IPersisentDataService persisentProgressService, 
+            ISaveLoadService saveLoadService)
         {
+            ExceptionsTest.NullRefTest(nameof(LoadProgressState), "constructor", gameStateMachine, persisentProgressService, 
+                saveLoadService);
+
             _gameStateMachine = gameStateMachine;
             _progressService = persisentProgressService;
             _saveLoadService = saveLoadService;
@@ -22,6 +25,8 @@ namespace Base.Infrastructure
 
         public void Enter(SceneData scene)
         {
+            ExceptionsTest.NullRefTest(nameof(LoadProgressState), nameof(Enter), scene);
+
             LoadProgressOrInitNew();
 
             _gameStateMachine.Enter<LoadLevelState, SceneData>(scene);
@@ -34,7 +39,7 @@ namespace Base.Infrastructure
         private void LoadProgressOrInitNew()
         {
             //_saveLoadService.LoadUpgrades();
-            _progressService.GameData = _saveLoadService.LoadProgress() ?? CreateProgress();
+            _progressService.GameData = /*_saveLoadService.LoadProgress() ?? */ CreateProgress();
         }
 
         private GameData CreateProgress()

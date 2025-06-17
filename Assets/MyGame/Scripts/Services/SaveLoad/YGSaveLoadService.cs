@@ -2,6 +2,7 @@ using Base.Data.Game;
 using Base.Services.PersistentProgress;
 using Newtonsoft.Json;
 using UnityEngine;
+using YG;
 using PlayerPrefs = RedefineYG.PlayerPrefs;
 
 namespace Base.Services.SaveLoad
@@ -37,6 +38,7 @@ namespace Base.Services.SaveLoad
             string jsonProgress = JsonConvert.SerializeObject(progress, Formatting.Indented, _settings);
 
             PlayerPrefs.SetString(ProgressKey, jsonProgress);
+            PlayerPrefs.Save();
         }
     }
 }

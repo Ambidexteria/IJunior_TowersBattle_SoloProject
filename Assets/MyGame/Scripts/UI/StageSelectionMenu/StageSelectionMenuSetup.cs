@@ -18,6 +18,7 @@ namespace Base.UI.StageSelection
         public void Create(StagesData stages, GameSettings gameSettings, ISaveLoadService saveLoadService)
         {
             var stagesInfo = stages.GetAllStages();
+            Debug.Log($"Stages count - {stagesInfo.Length}");
             StageIconModel[] iconModels = new StageIconModel[stagesInfo.Length];
 
             for (int i = 0; i < stagesInfo.Length; i++)

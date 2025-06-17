@@ -9,6 +9,8 @@ namespace Base.Infrastructure
 
         private void Awake()
         {
+            ExceptionsTest.NullRefTest(nameof(EntryPoint), nameof(Awake), _game);
+
             _game.EnterBootstrapState();
 
             DontDestroyOnLoad(gameObject);

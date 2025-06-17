@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Base.Services.AssetManagment;
 using Base.GameLogic.Cannon;
@@ -46,6 +47,7 @@ namespace Base.Services.Factories.Game
         private CannonModel _NPCCannon;
         private BattleController _battleController;
         private Stage _stage;
+        private TestAttackTarget _testAttackTarget;
 
         [Inject]
         private void Init(Infrastructure.Game game, AssetLoader assetLoader, ICoroutineRunner coroutineRunner,
@@ -53,6 +55,9 @@ namespace Base.Services.Factories.Game
             ControlPointDatabase controlPointDatabase,
             SceneChanger sceneChanger, IPersisentDataService dataService, Wallet wallet)
         {
+            ExceptionsTest.NullRefTest(nameof(GameSceneFactory), nameof(Init),  game,  assetLoader,  coroutineRunner,
+             projectileSpawner,  colorChanger, controlPointDatabase, sceneChanger,  dataService,  wallet);
+
             _game = game;
             _coroutineRunner = coroutineRunner;
             _assetLoader = assetLoader;
@@ -62,14 +67,17 @@ namespace Base.Services.Factories.Game
             _sceneChanger = sceneChanger;
             _dataSerive = dataService;
             _wallet = wallet;
-
-            _stageInfo = _dataSerive.GameData.StagesData.GetSelectedStage();
         }
 
         private void Awake()
         {
-            LoadStage();
+            _stageInfo = _dataSerive.GameData.StagesData.GetSelectedStage() ?? throw new NullReferenceException(nameof(_stageInfo));
+            Debug.Log("loading stage...");
+            _stage = _assetLoader.Instantiate<Stage>(_stageInfo.AssetPath) ?? throw new NullReferenceException(nameof(_stage));
+            Debug.Log("stage loaded");
+
             _controlPointDatabase.SetControlPointsOnStage(_stage.GetControlPoints());
+            Debug.Log("_controlPointDatabase loaded");
 
             Player player = CreatePlayer();
             NPC npc = CreateNPC();
@@ -120,11 +128,15 @@ namespace Base.Services.Factories.Game
 
         private void LoadStage()
         {
+            Debug.Log("loading stage...");
             _stage = _assetLoader.Instantiate<Stage>(_stageInfo.AssetPath);
+            Debug.Log("stage loaded");
         }
 
         private CannonModel CreateCannon(string assetPath, Team team, int damage, HealthModel health)
         {
+            ExceptionsTest.NullRefTest(nameof(GameSceneFactory), nameof(CreateCannon), team, health);
+
             CannonSetup setup = _assetLoader.Instantiate<CannonSetup>(assetPath);
             CannonModel model = setup.CreateCannonModel(team, damage, _colorChanher, _projectileSpawner, health);
 

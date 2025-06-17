@@ -15,7 +15,9 @@ namespace Base.Infrastructure
 
         public Game(GameStateMachine gameStateMachine, InputService input)
         {
-            _gameStateMachine = gameStateMachine ?? throw new NullReferenceException(nameof(GameStateMachine));
+            ExceptionsTest.NullRefTest(nameof(Game), "constructor", gameStateMachine, input);
+
+            _gameStateMachine = gameStateMachine;
 
             _mainMenuSceneData = new(SceneNames.MainMenu, "UI/MainMenuUI");
             _gameSceneData = new(SceneNames.Game, "UI/PlayerHUD");
