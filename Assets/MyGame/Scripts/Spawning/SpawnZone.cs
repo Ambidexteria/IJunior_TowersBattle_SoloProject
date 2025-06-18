@@ -9,6 +9,9 @@ public class SpawnZone : MonoBehaviour
     private void Awake()
     {
         _collider = GetComponent<Collider2D>();
+
+        ExceptionsTest.NullRefMethodTest(nameof(SpawnZone), nameof(Awake), _collider);
+
         _collider.isTrigger = true;
 
         _scale = _collider.transform.localScale;

@@ -12,6 +12,8 @@ public class Barrel : MonoBehaviour
 
     private void Awake()
     {
+        ExceptionsTest.NullRefMethodTest(nameof(Barrel), nameof(Awake), _startPoint, _directionPoint);
+
         CalculateDirection();
     }
 

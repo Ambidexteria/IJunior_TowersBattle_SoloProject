@@ -9,6 +9,8 @@ public class AttackSoldierState : ISoldierState
 
     public AttackSoldierState(Animator animator, IAttacker soldier, IMovable movable)
     {
+        ExceptionsTest.NullRefConstructorTest(nameof(AttackSoldierState), animator, soldier, movable);
+
         _animator = animator;
         _soldier = soldier;
     }
@@ -17,6 +19,8 @@ public class AttackSoldierState : ISoldierState
 
     public void OnStart(SoldierStateContext context)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(AttackSoldierState), nameof(OnStart), context);
+
         _attackTarget = context.AttackTarget;
         _soldier.Attack(_attackTarget);
         _animator.SetTrigger(SoldierAnimationTriggerNames.IdleToAttack);

@@ -8,6 +8,8 @@ public class DespawnerDetector
 
     public DespawnerDetector(TriggerObserver trigger)
     {
+        ExceptionsTest.NullRefConstructorTest(nameof(DespawnerDetector), trigger);
+
         _trigger = trigger;
         _trigger.Entered += OnTriggerEntered;
     }
@@ -16,6 +18,8 @@ public class DespawnerDetector
 
     private void OnTriggerEntered(Collider other)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(DespawnerDetector), nameof(OnTriggerEntered), other);
+
         if (other.TryGetComponent(out SoldierForDespawnDetector _))
             Detected?.Invoke();
     }

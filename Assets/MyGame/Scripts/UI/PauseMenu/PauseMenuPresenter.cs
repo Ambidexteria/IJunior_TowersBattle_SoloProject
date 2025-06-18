@@ -1,3 +1,5 @@
+using Base.Services.SceneManagment;
+
 namespace Base.UI.PauseMenu
 {
     public class PauseMenuPresenter
@@ -7,6 +9,8 @@ namespace Base.UI.PauseMenu
 
         public PauseMenuPresenter(PauseMenuView view, PauseMenuModel model)
         {
+            ExceptionsTest.NullRefConstructorTest(nameof(PauseMenuModel), view, model);
+
             _view = view;
             _model = model;
         }

@@ -6,11 +6,15 @@ public class RotatorToTarget
 
     public RotatorToTarget(Transform unitTransform)
     {
+        ExceptionsTest.NullRefConstructorTest(nameof(RotatorToTarget), unitTransform);
+
         _transform = unitTransform;
     }
 
     public void RotateAroundYAxisTo(Transform target)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(RotatorToTarget), nameof(RotateAroundYAxisTo), target);
+
         float checkRoationDegree = 1f;
         float angleBefore = GetAngleTo(target);
 
@@ -26,6 +30,8 @@ public class RotatorToTarget
 
     private float GetAngleTo(Transform target)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(RotatorToTarget), nameof(GetAngleTo), target);
+
         Vector3 projectedVector = Vector3.ProjectOnPlane(target.position - _transform.position, Vector3.up);
         return Vector3.Angle(_transform.forward, projectedVector);
     }

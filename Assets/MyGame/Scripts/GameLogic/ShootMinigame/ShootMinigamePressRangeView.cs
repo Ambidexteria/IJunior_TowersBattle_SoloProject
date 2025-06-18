@@ -10,6 +10,11 @@ namespace Base
 
         public Vector2 PressRangePosition => _pressRangeImage.rectTransform.anchoredPosition;
 
+        private void Awake()
+        {
+            ExceptionsTest.NullRefMethodTest(nameof(ShootMinigamePressRangeView), nameof(Awake), _sliderValueChanger, _pressRangeImage);
+        }
+
         public void SetWidth(float x)
         {
             _pressRangeImage.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, x);

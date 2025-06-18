@@ -27,6 +27,8 @@ namespace Base.Shop
         public ShopModel(Wallet wallet, RegularUpgradeSystem upgradeSystem, ISaveLoadService saveLoadService, 
             UpgradePrices prices)
         {
+            ExceptionsTest.NullRefConstructorTest(nameof(ShopModel), wallet, upgradeSystem, saveLoadService, prices);
+
             _wallet = wallet;
             _upgradeSystem = upgradeSystem;
             _saveLoadService = saveLoadService;

@@ -3,13 +3,15 @@ namespace Base.Health
     public class HealthPresenter
     {
         private readonly HealthModel _model;
-        private readonly HealthView _healthView;
+        private readonly HealthView _view;
 
-        public HealthPresenter(HealthModel model, HealthView healthView)
+        public HealthPresenter(HealthModel model, HealthView view)
         {
+            ExceptionsTest.NullRefConstructorTest(nameof(HealthPresenter), model, view);
+
             _model = model;
-            _healthView = healthView;
-            _healthView.SetMaxHealth(_model.MaxValue);
+            _view = view;
+            _view.SetMaxHealth(_model.MaxValue);
         }
 
         public void Enable()
@@ -24,7 +26,7 @@ namespace Base.Health
 
         private void OnHealthChanged(float amount)
         {
-            _healthView.Display(amount);
+            _view.Display(amount);
         }
     }
 }

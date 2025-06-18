@@ -9,6 +9,7 @@ using Base.Services.SaveLoad;
 using Base.Services.SceneManagment;
 using Base.Services.TimeManagment;
 using Base.Soldier;
+using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
@@ -40,6 +41,9 @@ namespace Base.Services.Factories.Game
             SceneChanger sceneChanger, IPersisentDataService dataService,
             ISaveLoadService saveLoadService, GenericSpawnableObjectFactory<SoldierSetup> soldierFactory)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(NPCFactory), nameof(Init), game, assetLoader, coroutineRunner,
+                projectileSpawner, colorChanger,controlPointDatabase,sceneChanger, dataService, saveLoadService, soldierFactory);
+
             _coroutineRunner = coroutineRunner;
             _assetLoader = assetLoader;
             _projectileSpawner = projectileSpawner;
@@ -50,8 +54,17 @@ namespace Base.Services.Factories.Game
             _soldierFactory = soldierFactory;
         }
 
+        private void Awake()
+        {
+            ExceptionsTest.NullRefMethodTest(nameof(NPCFactory), nameof(Awake),_spawnerSettings,
+                _soldierDespawnDetector, _npcHealthSetup,_npcCannonEnergyBarSetup,_npcSpawnControllerSetup);
+        }
+
         public NPC CreateNPC(Team team, CannonModel cannon, CannonData cannonData, SoldierData soldierData, Transform soldierSpawnPoint)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(NPCFactory), nameof(CreateNPC), team, cannon, 
+                cannonData, soldierData, soldierSpawnPoint);
+
             CannonEnergyBarModel energyBar = _npcCannonEnergyBarSetup.CreateCannonEnergyBar(team,
                 _controlPointDatabase, cannonData.MaxEnergy, _coroutineRunner);
 

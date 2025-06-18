@@ -18,6 +18,8 @@ public class ImageSmootOpacityChanger : MonoBehaviour
     {
         _image = GetComponent<Image>();
 
+        ExceptionsTest.NullRefMethodTest(nameof(ImageSmootOpacityChanger), nameof(Awake), _image);
+
         _targetOpacity = _image.color.a;
         _waitDelay = new WaitForSeconds(_startDelay);
     }

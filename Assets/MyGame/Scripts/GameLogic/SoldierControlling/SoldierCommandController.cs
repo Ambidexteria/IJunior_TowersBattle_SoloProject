@@ -27,6 +27,9 @@ public class SoldierCommandController
         ControlPointSelector controlPointSelector, FloatingPointer floatingPointer,
         ICoroutineRunner coroutineRunner, Team team, InputService input)
     {
+        ExceptionsTest.NullRefConstructorTest(nameof(SoldierCommandController), soldierSelector,
+            controlPointSelector,  floatingPointer,coroutineRunner,  team,  input);
+
         _secondClickDelay = secondClickDelay;
         _soldierSelector = soldierSelector;
         _controlPointSelector = controlPointSelector;
@@ -56,6 +59,8 @@ public class SoldierCommandController
 
     private void OnSelect(InputAction.CallbackContext context)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(SoldierCommandController), nameof(context), context);
+
         if (_coroutine == null)
             _coroutine = _coroutineRunner.LaunchCoroutine(TrySendSoldierToControlPoint());
     }
@@ -111,6 +116,8 @@ public class SoldierCommandController
 
     private void ClickLeftMouseButton(InputAction.CallbackContext context)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(SoldierCommandController), nameof(context), context);
+
         _playerClickLeftMouseButton = true;
     }
 }

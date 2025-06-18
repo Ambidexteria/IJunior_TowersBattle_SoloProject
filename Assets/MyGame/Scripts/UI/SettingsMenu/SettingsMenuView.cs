@@ -16,6 +16,12 @@ namespace Base.UI.Settings
         public event Action<float> MusicVolumeChanged;
         public event Action<bool> MuteValueChanged;
 
+        private void Awake()
+        {
+            ExceptionsTest.NullRefMethodTest(nameof(SettingsMenuView), nameof(Awake), _masterVolumeSlider, _soundsVolumeSlider, 
+                _musicVolumeSlider, _muteToggle);
+        }
+
         public void Enable()
         {
             _masterVolumeSlider.ValueChanged += MasterVolumeChanged;
@@ -34,6 +40,8 @@ namespace Base.UI.Settings
 
         public void Init(AudioVolumeSettings volumeSettings)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(SettingsMenuView), nameof(Init), volumeSettings);
+
             _masterVolumeSlider.SetValue(volumeSettings.MasterVolume);
             _musicVolumeSlider.SetValue(volumeSettings.MusicVolume);
             _soundsVolumeSlider.SetValue(volumeSettings.SoundsVolume);

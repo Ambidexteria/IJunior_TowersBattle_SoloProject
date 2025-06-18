@@ -7,6 +7,8 @@ public class ControlPointDatabaseInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
+        ExceptionsTest.NullRefMethodTest(nameof(ControlPointDatabaseInstaller), nameof(InstallBindings), _controlPointDatabase);
+
         Container.Bind<ControlPointDatabase>().FromComponentInNewPrefab(_controlPointDatabase).AsSingle().NonLazy();
     }
 }

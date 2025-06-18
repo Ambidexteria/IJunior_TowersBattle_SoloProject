@@ -15,6 +15,8 @@ public class TargetDetector
 
     public TargetDetector(TriggerObserver triggerObserver, Team team)
     {
+        ExceptionsTest.NullRefConstructorTest(nameof(TargetDetector), triggerObserver, team);
+
         _triggerObserver = triggerObserver;
         _team = team;
     }

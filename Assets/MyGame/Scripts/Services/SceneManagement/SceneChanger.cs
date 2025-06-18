@@ -9,9 +9,10 @@ namespace Base.Services.SceneManagment
     {
         private readonly GameStateMachine _gameStateMachine;
 
-        public SceneChanger(GameStateMachine gaStateMachine)
+        public SceneChanger(GameStateMachine gameStateMachine)
         {
-            _gameStateMachine = gaStateMachine;
+            ExceptionsTest.NullRefConstructorTest(nameof(SceneChanger), gameStateMachine);
+            _gameStateMachine = gameStateMachine;
         }
 
         public event Action ChangingScene;

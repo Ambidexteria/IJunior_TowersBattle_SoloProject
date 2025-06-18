@@ -19,6 +19,8 @@ public class SoldierMoverToTarget
     [Inject]
     public SoldierMoverToTarget(Rigidbody rigidbody, SoldierData stats)
     {
+        ExceptionsTest.NullRefConstructorTest(nameof(SoldierMoverToTarget), rigidbody, stats);
+
         _rigidbody = rigidbody;
 
         _minDistanceToTarget = stats.MinDistanceToTarget;
@@ -44,6 +46,8 @@ public class SoldierMoverToTarget
 
     public void MoveTo(Transform target)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(SoldierMoverToTarget), nameof(MoveTo), target);
+
         _target = target;
         _isStopped = false;
     }

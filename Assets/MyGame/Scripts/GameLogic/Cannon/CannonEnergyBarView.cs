@@ -11,6 +11,11 @@ namespace Base.GameLogic.Cannon
 
         private float _maxEnergy;
 
+        private void Awake()
+        {
+            ExceptionsTest.NullRefMethodTest(nameof(CannonEnergyBarView), nameof(Awake), _sliderValueChanger, _textMeshProUGUI);
+        }
+
         public void SetMaxEnergy(float  maxEnergy)
         {
             _maxEnergy = maxEnergy;

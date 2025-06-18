@@ -23,6 +23,8 @@ public class Projectile : SpawnableObject
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+
+        ExceptionsTest.NullRefMethodTest(nameof(Projectile), nameof(Awake), _rigidbody);
     }
 
     private void OnEnable()
@@ -42,6 +44,8 @@ public class Projectile : SpawnableObject
 
     private void OnTriggerEnter(Collider other)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(Projectile), nameof(OnTriggerEnter), other);
+
         if (other.TryGetComponent(out SoldierSetup setup))
         {
             if (setup.GetSoldier().GetTeam() != _team)

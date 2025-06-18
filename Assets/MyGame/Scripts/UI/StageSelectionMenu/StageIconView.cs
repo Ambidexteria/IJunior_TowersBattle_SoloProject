@@ -16,6 +16,11 @@ namespace Base.UI.StageSelection
 
         public event Action<StageIconView> Clicked;
 
+        private void Awake()
+        {
+            ExceptionsTest.NullRefMethodTest(nameof(StageIconView), nameof(Awake), _lock, _border, _stageName, _button);
+        }
+
         private void OnEnable()
         {
             _button.Clicked += OnButtonCLicked;

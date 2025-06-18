@@ -18,8 +18,11 @@ namespace Base.GameLogic
 
         public int CurrentGoldAmount => _wallet.CurrentAmount;
 
-        public BattleEndModel(Game game, Wallet wallet, ISaveLoadService saveLoadService, int winReward, int defeatReward, PlayerScore score)
+        public BattleEndModel(Game game, Wallet wallet, ISaveLoadService saveLoadService, int winReward, int defeatReward, 
+            PlayerScore score)
         {
+            ExceptionsTest.NullRefConstructorTest(nameof(BattleEndModel), game, wallet, saveLoadService, score);
+
             _game = game;
             _wallet = wallet;
             _saveLoadService = saveLoadService;

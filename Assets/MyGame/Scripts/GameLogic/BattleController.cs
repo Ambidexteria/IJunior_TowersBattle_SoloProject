@@ -11,6 +11,8 @@ namespace Base.GameLogic
 
         public BattleController(Player player, NPC npc, GameUIStateMachine uIStateMachine, BattleEndModel battleEnd)
         {
+            ExceptionsTest.NullRefConstructorTest(nameof(BattleController), player, npc, uIStateMachine, battleEnd);
+
             _player = player;
             _npc = npc;
             _uIStateMachine = uIStateMachine;
@@ -38,7 +40,7 @@ namespace Base.GameLogic
         private void OnPlayerDefeated()
         {
             _battleEnd.End(false, _npc.CannonDamageTaken);
-            _uIStateMachine.Enter<DefeatMessageState>();
+            _uIStateMachine.Enter<BattleEndState>();
 
             _player.Disable();
             _npc.Disable();
@@ -47,7 +49,7 @@ namespace Base.GameLogic
         private void OnNPCDefeated()
         {
             _battleEnd.End(true, _npc.CannonDamageTaken);
-            _uIStateMachine.Enter<WinMessageState>();
+            _uIStateMachine.Enter<BattleEndState>();
 
             _player.Disable();
             _npc.Disable();

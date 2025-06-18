@@ -8,14 +8,18 @@ public class MovingSoldierState : ISoldierState
 
     public MovingSoldierState(Animator animator, IMovable moverToTarget)
     {
-        _animator = animator ?? throw new NullReferenceException(nameof(animator));
-        _movable = moverToTarget ?? throw new NullReferenceException(nameof(moverToTarget));
+        ExceptionsTest.NullRefConstructorTest(nameof(MovingSoldierState), animator, moverToTarget);
+
+        _animator = animator;
+        _movable = moverToTarget;
     }
 
     public event Action TargetReached;
 
     public void OnStart(SoldierStateContext context)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(MovingSoldierState), nameof(OnStart), context);
+
         _animator.SetTrigger(SoldierAnimationTriggerNames.IdleToMove);
     }
 

@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class SoldierModel : ISoldier, IMovable, IAttacker
 {
@@ -37,8 +38,14 @@ public class SoldierModel : ISoldier, IMovable, IAttacker
     public SoldierModel(SoldierGroundCollisionController groundCollisionController, Animator animator,
         SoldierWeapon weapon, TriggerObserver enemyTrigger, TriggerObserver despawnerTrigger,
         float dieDelay, List<ColorChangerMark> marks, Rigidbody rigidbody,
-        Team team, SoldierData stats, ICoroutineRunner coroutineRunner, TeamColorChanger teamColorChanger, Transform soldierTransform)
+        Team team, SoldierData stats, ICoroutineRunner coroutineRunner,
+        TeamColorChanger teamColorChanger, Transform soldierTransform)
     {
+        ExceptionsTest.NullRefConstructorTest(nameof(SoldierModel), groundCollisionController, animator,
+            weapon, enemyTrigger, despawnerTrigger, marks, rigidbody, team, stats, coroutineRunner, 
+            teamColorChanger, soldierTransform);
+        ExceptionsTest.EmptyListTest(nameof(SoldierModel), ExceptionsTest.ConstructorName, marks);
+
         _groundCollisionController = groundCollisionController;
         _animator = animator;
         _weapon = weapon;
@@ -113,6 +120,8 @@ public class SoldierModel : ISoldier, IMovable, IAttacker
 
     public void MoveTo(Transform target)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(SoldierModel), nameof(MoveTo), target);
+
         MovingToTarget?.Invoke(target);
         _moverToTarget.MoveTo(target);
         _rotatorToTarget.RotateAroundYAxisTo(target);
@@ -130,6 +139,8 @@ public class SoldierModel : ISoldier, IMovable, IAttacker
 
     public void Attack(ISoldier enemySoldier)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(SoldierModel), nameof(Attack), enemySoldier);
+
         _weapon.Attack(enemySoldier);
         _rotatorToTarget.RotateAroundYAxisTo(enemySoldier.GetTransform());
     }
@@ -176,6 +187,8 @@ public class SoldierModel : ISoldier, IMovable, IAttacker
 
     private void OnEnemyTargetDetected(ISoldier soldier)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(SoldierModel), nameof(Attack), soldier);
+
         if (soldier == null)
             return;
 

@@ -9,6 +9,8 @@ public class ControlPointSelector
 
     public ControlPointSelector(RaycastSettings controlPointSelectorSettings)
     {
+        ExceptionsTest.NullRefConstructorTest(nameof(ControlPointSelector), controlPointSelectorSettings);
+
         _mask = controlPointSelectorSettings.LayerMask;
         _raycastLength = controlPointSelectorSettings.RaycastLength;
     }

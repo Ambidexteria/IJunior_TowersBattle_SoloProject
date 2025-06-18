@@ -24,12 +24,17 @@ namespace Base.GameLogic.Cannon
         [Inject]
         private void Init(TeamColorChanger colorChanger)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(CannonProjectile), nameof(Init), colorChanger);
+
             _colorChanger = colorChanger;
         }
 
         private void Awake()
         {
             _collider = GetComponent<Collider>();
+
+            ExceptionsTest.NullRefMethodTest(nameof(CannonProjectile), nameof(Awake), _markForRecoloring, _follower, _colorChanger);
+
             _collider.enabled = false;
         }
 
@@ -40,6 +45,8 @@ namespace Base.GameLogic.Cannon
 
         public void Init(Team team, Vector3 start, Vector3 fifnish, int damage)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(CannonProjectile), nameof(Init), team);
+
             _team = team;
             _colorChanger.Recolor(_team, _markForRecoloring);
             _damage = damage;

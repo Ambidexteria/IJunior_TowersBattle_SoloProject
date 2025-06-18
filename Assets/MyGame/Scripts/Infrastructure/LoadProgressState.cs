@@ -15,7 +15,7 @@ namespace Base.Infrastructure
         public LoadProgressState(GameStateMachine gameStateMachine, IPersisentDataService persisentProgressService, 
             ISaveLoadService saveLoadService)
         {
-            ExceptionsTest.NullRefTest(nameof(LoadProgressState), "constructor", gameStateMachine, persisentProgressService, 
+            ExceptionsTest.NullRefConstructorTest(nameof(LoadProgressState), gameStateMachine, persisentProgressService, 
                 saveLoadService);
 
             _gameStateMachine = gameStateMachine;
@@ -25,7 +25,7 @@ namespace Base.Infrastructure
 
         public void Enter(SceneData scene)
         {
-            ExceptionsTest.NullRefTest(nameof(LoadProgressState), nameof(Enter), scene);
+            ExceptionsTest.NullRefMethodTest(nameof(LoadProgressState), nameof(Enter), scene);
 
             LoadProgressOrInitNew();
 

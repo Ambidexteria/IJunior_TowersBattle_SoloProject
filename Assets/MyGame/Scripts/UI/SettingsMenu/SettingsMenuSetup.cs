@@ -12,6 +12,11 @@ namespace Base.UI.Settings
         private SettingsMenuModel _model;
         private SettingsMenuPresenter _presenter;
 
+        private void Awake()
+        {
+            ExceptionsTest.NullRefMethodTest(nameof(SettingsMenuSetup), nameof(Awake), _view);
+        }
+
         private void OnEnable()
         {
             _presenter?.Enable();
@@ -25,6 +30,8 @@ namespace Base.UI.Settings
         public SettingsMenuModel CreateModel(IAudioVolumeControllerService audioService, ISaveLoadService saveLoadService,
             AudioVolumeSettings volumeSettings)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(SettingsMenuSetup), nameof(CreateModel), audioService, saveLoadService, volumeSettings);
+
             _model = new SettingsMenuModel(audioService, saveLoadService, volumeSettings);
             _presenter = new SettingsMenuPresenter(_view, _model);
 

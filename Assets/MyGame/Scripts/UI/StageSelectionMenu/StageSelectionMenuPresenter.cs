@@ -7,6 +7,8 @@
 
         public StageSelectionMenuPresenter(StageSelectionMenuView view, StageSelectionMenuModel model)
         {
+            ExceptionsTest.NullRefConstructorTest(nameof(StageSelectionMenuPresenter), view, model);
+
             _view = view;
             _model = model;
         }

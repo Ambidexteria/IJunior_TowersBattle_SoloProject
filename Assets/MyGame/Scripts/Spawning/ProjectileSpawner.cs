@@ -6,6 +6,8 @@ public class ProjectileSpawner : GenericSpawner<Projectile>
 
     public ProjectileSpawner(SpawnerSettings settings, GenericSpawnableObjectFactory<Projectile> factory, Transform parentObject) : base(settings, factory)
     {
+        ExceptionsTest.NullRefConstructorTest(nameof(ProjectileSpawner), settings, factory, parentObject);
+
         _parentObject = parentObject;
     }
 

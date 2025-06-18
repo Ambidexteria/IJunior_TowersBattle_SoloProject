@@ -1,4 +1,5 @@
 using Base.GameLogic.UpgradeSystem;
+using Base.Infrastructure;
 using Base.PLayer;
 using Base.Services.Audio;
 using Base.Services.PersistentProgress;
@@ -10,6 +11,8 @@ using Base.UI.StageSelection;
 using Base.UI.StateMachine;
 using UnityEngine;
 using Zenject;
+using Zenject.Asteroids;
+using Zenject.SpaceFighter;
 
 namespace Base.Services.Factories.UI
 {
@@ -45,9 +48,12 @@ namespace Base.Services.Factories.UI
 
         [Inject]
         private void Init(TimeController timeController, Wallet wallet, RegularUpgradeSystem upgradeSystem,
-            ISaveLoadService saveLoadService, IPersisentDataService dataService, 
+            ISaveLoadService saveLoadService, IPersisentDataService dataService,
             IAudioVolumeControllerService volumeControllerService, Infrastructure.Game game)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(MainMenuUIFactory), nameof(Init), timeController, wallet, upgradeSystem,
+                saveLoadService, dataService, volumeControllerService, game);
+
             _timeController = timeController;
             _wallet = wallet;
             _upgradeSystem = upgradeSystem;
@@ -56,9 +62,14 @@ namespace Base.Services.Factories.UI
             _volumeControllerService = volumeControllerService;
             _game = game;
         }
-
         private void Awake()
         {
+            ExceptionsTest.NullRefMethodTest(nameof(MainMenuUIFactory), nameof(Init),
+                _stageSelectionMenuSetup, _shopSetup, _settingsSetup, 
+                _startBattleButton, _openStagesButton, _openShopButton, _openSettingsButton, 
+                _mainButtonsWindow, _stagesWindow, _shopWindow, _settingsWindow, 
+                _closeStagesButton, _closeShopButton, _closeSettingsButton);
+
             _timeController.SetDefaultTimeScale();
             CreateUIStateMachine();
             CreateShop();
@@ -100,7 +111,7 @@ namespace Base.Services.Factories.UI
 
         private void CreateStageSelectionMenu()
         {
-            _stageSelectionMenuSetup.Create(_dataService.GameData.StagesData, 
+            _stageSelectionMenuSetup.Create(_dataService.GameData.StagesData,
                 _dataService.GameData.GameSettings, _saveLoadService);
         }
 

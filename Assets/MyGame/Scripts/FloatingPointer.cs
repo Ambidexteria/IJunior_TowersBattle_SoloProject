@@ -14,6 +14,8 @@ public class FloatingPointer : MonoBehaviour
     private void Awake()
     {
         _pointerObject.transform.localPosition += new Vector3(0, _height, 0);
+
+        ExceptionsTest.NullRefMethodTest(nameof(FloatingPointer), nameof(Awake), _pointerObject);
     }
 
     private void Update()
@@ -32,6 +34,8 @@ public class FloatingPointer : MonoBehaviour
 
     public void PlaceAbove(Transform target)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(FloatingPointer), nameof(PlaceAbove), target);
+
         _target = target;
         _active = true;
         _pointerObject.gameObject.SetActive(true);

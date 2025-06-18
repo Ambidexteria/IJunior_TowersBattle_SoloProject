@@ -14,6 +14,12 @@ namespace Base.GameLogic
 
         public event Action HomeButtonClicked;
 
+        private void Awake()
+        {
+            ExceptionsTest.NullRefMethodTest(nameof(BattleEndView), nameof(Awake), _homeButton, _winMessage, _defeatMessage, 
+                _score, _earnedGoldText);
+        }
+
         public void Enable()
         {
             _homeButton.Clicked += OnHomeButtonClicked;

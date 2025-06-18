@@ -9,6 +9,8 @@ namespace Base.GameLogic.ShootMinigame
 
         public ShootMinigamePresenter(ShootMinigameModel model, ShootMinigameView view)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(ShootMinigamePresenter), ExceptionsTest.ConstructorName, model, view);
+
             _model = model;
             _view = view;
         }

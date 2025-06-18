@@ -27,6 +27,9 @@ public class SoldierSpawnControllerModel
         SoldierForDespawnDetector despawnDetector, Team team, SoldierSpawner spawner,
         ICoroutineRunner coroutineRunner)
     {
+        ExceptionsTest.NullRefConstructorTest(nameof(SoldierSpawnControllerModel), spawnPoint,
+            despawnDetector, team, spawner, coroutineRunner);
+
         _spawnDelay = spawnDelay;
         _spawnPoint = spawnPoint;
         _despawnDetector = despawnDetector;
@@ -103,6 +106,8 @@ public class SoldierSpawnControllerModel
 
     private void OnSoldierDespawning(SoldierSetup setup)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(SoldierSpawnControllerModel), nameof(OnSoldierDespawning), setup);
+
         SoldierModel soldier = setup.GetSoldier();
         soldier.DespawnerDetected -= OnSoldierDespawning;
         soldier.Disable();

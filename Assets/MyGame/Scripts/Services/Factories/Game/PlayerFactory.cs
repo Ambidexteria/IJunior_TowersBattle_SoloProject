@@ -6,8 +6,11 @@ using Base.Services.AssetManagment;
 using Base.Services.Input;
 using Base.Services.TimeManagment;
 using Base.Soldier;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Windows;
 using Zenject;
+using Zenject.Asteroids;
 
 namespace Base.Services.Factories.Game
 {
@@ -33,10 +36,13 @@ namespace Base.Services.Factories.Game
         private TimeController _timeController;
 
         [Inject]
-        private void Init(AssetLoader assetLoader, GenericSpawnableObjectFactory<SoldierSetup> soldierFactory,ICoroutineRunner coroutineRunner,
+        private void Init(AssetLoader assetLoader, GenericSpawnableObjectFactory<SoldierSetup> soldierFactory, ICoroutineRunner coroutineRunner,
             CannonProjectileSpawner projectileSpawner, TeamColorChanger colorChanger,
             ControlPointDatabase controlPointDatabase, InputService input, TimeController timeController)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(PlayerFactory), nameof(Init), assetLoader, soldierFactory, coroutineRunner,
+                projectileSpawner, colorChanger, controlPointDatabase, input, timeController);
+
             _coroutineRunner = coroutineRunner;
             _assetLoader = assetLoader;
             _soldierFactory = soldierFactory;
@@ -47,12 +53,22 @@ namespace Base.Services.Factories.Game
             _timeController = timeController;
         }
 
+        private void Awake()
+        {
+            ExceptionsTest.NullRefMethodTest(nameof(PlayerFactory), nameof(Awake), _soldierSpawnerSettings, _soldierDespawnDetector,
+                _playerCannonEnergyBarSetup, _playerSpawnControllerSetup, _soldierSelectorSettings, _controlPointSelectorSettings,
+                _shootMinigameSetup);
+        }
+
         public Player CreatePlayer(Team team, CannonModel cannon, CannonData cannonData, float soldierSpawnDelay, Transform soldierSpawnPoint, SoldierData soldierStats)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(PlayerFactory), nameof(CreatePlayer), team, cannon, 
+                cannonData, soldierSpawnPoint, soldierStats);
+
             CannonEnergyBarModel cannonEnergyBar = _playerCannonEnergyBarSetup.CreateCannonEnergyBar(team,
                 _controlPointDatabase, cannonData.MaxEnergy, _coroutineRunner);
 
-            SoldierSpawner spawner = new (team, soldierStats, _coroutineRunner, _colorChanger, 
+            SoldierSpawner spawner = new(team, soldierStats, _coroutineRunner, _colorChanger,
                 _soldierSpawnerSettings, _soldierFactory);
 
             SoldierSpawnControllerModel spawnController = _playerSpawnControllerSetup.CreateSoldierSpawnController(
@@ -61,7 +77,7 @@ namespace Base.Services.Factories.Game
 
             ShootMinigameModel shootMinigame = _shootMinigameSetup.CreateShootMinigameModel(cannonEnergyBar,
                 _timeController, _coroutineRunner);
-            Player player = new (cannon, cannonEnergyBar, shootMinigame,
+            Player player = new(cannon, cannonEnergyBar, shootMinigame,
                 spawnController, CreateSoldierCommandController(team));
 
             return player;
@@ -69,11 +85,13 @@ namespace Base.Services.Factories.Game
 
         private SoldierCommandController CreateSoldierCommandController(Team team)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(PlayerFactory), nameof(CreatePlayer), team);
+
             FloatingPointer floatingPointer = _assetLoader.Instantiate<FloatingPointer>(FloatingPointerAssetPath);
             SoldierSelector soldierSelector = new(_soldierSelectorSettings);
-            ControlPointSelector controlPointSelector = new (_controlPointSelectorSettings);
+            ControlPointSelector controlPointSelector = new(_controlPointSelectorSettings);
 
-            SoldierCommandController controller = new (0.1f, soldierSelector,
+            SoldierCommandController controller = new(0.1f, soldierSelector,
                 controlPointSelector, floatingPointer, _coroutineRunner, team, _input);
 
             return controller;

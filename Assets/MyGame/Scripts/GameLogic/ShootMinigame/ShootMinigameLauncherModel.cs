@@ -14,6 +14,9 @@ namespace Base.GameLogic.ShootMinigame
         public ShootMinigameLauncherModel(Animator animator, Sprite disabledSprite, Sprite enabledSprite,
             ParticleSystemController particleSystemController)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(ShootMinigameLauncherModel), ExceptionsTest.ConstructorName, animator, disabledSprite, 
+                enabledSprite, particleSystemController);
+
             _animator = animator;
             _disabledSprite = disabledSprite;
             _enabledSprite = enabledSprite;

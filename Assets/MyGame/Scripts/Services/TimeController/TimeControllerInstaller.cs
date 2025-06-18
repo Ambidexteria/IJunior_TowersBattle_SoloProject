@@ -10,7 +10,7 @@ namespace Base.Services.TimeManagment
 
         public override void InstallBindings()
         {
-            TimeController time = new TimeController(_defaultTimeScale, _pauseTimeScale, _slowMotionTimeScale);
+            TimeController time = new (_defaultTimeScale, _pauseTimeScale, _slowMotionTimeScale);
 
             Container.Bind<TimeController>().FromInstance(time).AsSingle();
         }

@@ -10,6 +10,8 @@ namespace Base.GameLogic.ShootMinigame
 
         public ShootMinigameLauncherPresenter(ShootMinigameLauncherModel model, Image view)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(ShootMinigameLauncherPresenter), ExceptionsTest.ConstructorName, model, view);
+
             _model = model;
             _view = view;
         }
@@ -21,6 +23,8 @@ namespace Base.GameLogic.ShootMinigame
 
         private void OnStatusChanged(Sprite sprite)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(ShootMinigameLauncherPresenter), nameof(OnStatusChanged), sprite);
+
             _view.sprite = sprite;
         }
     }

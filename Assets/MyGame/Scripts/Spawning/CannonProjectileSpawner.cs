@@ -4,6 +4,7 @@ public class CannonProjectileSpawner : GenericSpawner<CannonProjectile>
 {
     public CannonProjectileSpawner(SpawnerSettings settings, GenericSpawnableObjectFactory<CannonProjectile> factory) : base(settings, factory)
     {
+        ExceptionsTest.NullRefConstructorTest(nameof(CannonProjectileSpawner), settings, factory);
     }
 
     protected override void PrepareForSpawn(ref CannonProjectile projectile)

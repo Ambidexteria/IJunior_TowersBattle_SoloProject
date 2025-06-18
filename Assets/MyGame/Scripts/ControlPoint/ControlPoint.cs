@@ -22,6 +22,9 @@ public class ControlPoint : MonoBehaviour
     private void Awake()
     {
         _renderer = GetComponent<Renderer>();
+
+        ExceptionsTest.NullRefMethodTest(nameof(ControlPoint), nameof(Awake), _renderer, _npcColor, _playerColor);
+
         _defaultMaterial = _renderer.material;
     }
 

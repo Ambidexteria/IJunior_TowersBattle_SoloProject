@@ -3,13 +3,15 @@ using System;
 
 public class NPCCannonController
 {
-    private CannonModel _cannon;
-    private CannonEnergyBarModel _energyBar;
+    private readonly CannonModel _cannon;
+    private readonly CannonEnergyBarModel _energyBar;
 
     private bool _enabled = false;
 
     public NPCCannonController(CannonModel cannon, CannonEnergyBarModel energyBar)
     {
+        ExceptionsTest.NullRefConstructorTest(nameof(NPCCannonController), cannon, energyBar);
+
         _cannon = cannon;
         _energyBar = energyBar;
     }

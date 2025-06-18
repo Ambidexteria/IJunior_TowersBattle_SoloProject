@@ -7,6 +7,8 @@
 
         public ShopPresenter(ShopView view, ShopModel model)
         {
+            ExceptionsTest.NullRefConstructorTest(nameof(ShopPresenter), view, model);
+
             _view = view;
             _model = model;
         }

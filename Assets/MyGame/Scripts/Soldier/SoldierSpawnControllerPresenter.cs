@@ -7,6 +7,8 @@ namespace Base.Soldier
 
         public SoldierSpawnControllerPresenter(SoldierSpawnControllerModel model, SoldierSpawnControllerView view)
         {
+            ExceptionsTest.NullRefConstructorTest(nameof(SoldierSpawnControllerPresenter), model, view);
+
             _model = model;
             _view = view;
         }

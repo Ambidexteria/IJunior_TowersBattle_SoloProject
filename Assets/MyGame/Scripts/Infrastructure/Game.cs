@@ -15,7 +15,7 @@ namespace Base.Infrastructure
 
         public Game(GameStateMachine gameStateMachine, InputService input)
         {
-            ExceptionsTest.NullRefTest(nameof(Game), "constructor", gameStateMachine, input);
+            ExceptionsTest.NullRefConstructorTest(nameof(Game), gameStateMachine, input);
 
             _gameStateMachine = gameStateMachine;
 

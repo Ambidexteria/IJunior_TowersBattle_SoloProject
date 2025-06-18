@@ -8,6 +8,8 @@ public class SoldierGroundCollisionController : MonoBehaviour
     private void Awake()
     {
         _groundCollider = GetComponent<Collider>();
+
+        ExceptionsTest.NullRefMethodTest(nameof(SoldierGroundCollisionController), nameof(Awake), _groundCollider);
     }
 
     public void Enable()

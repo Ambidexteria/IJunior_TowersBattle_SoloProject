@@ -22,6 +22,8 @@ public class SoldierWeapon : MonoBehaviour
 
     private void Awake()
     {
+        ExceptionsTest.NullRefMethodTest(nameof(SoldierWeapon), nameof(Awake), _barrel);
+
         _waitCooldown = new WaitForSeconds(_shootCooldown);
         _waitStartDelay = new WaitForSeconds(_startDelay);
     }
@@ -29,16 +31,22 @@ public class SoldierWeapon : MonoBehaviour
     [Inject]
     private void Init(ProjectileSpawner spawner)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(SoldierWeapon), nameof(Init), spawner);
+
         _projectileSpawner = spawner;
     }
 
     public void SetTeam(Team team)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(SoldierWeapon), nameof(SetTeam), team);
+
         _team = team;
     }
 
     public void Attack(ISoldier soldier)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(SoldierWeapon), nameof(Attack), soldier);
+
         if (soldier.GetTeam() == _team.Type)
             return;
 
@@ -62,6 +70,8 @@ public class SoldierWeapon : MonoBehaviour
 
     private IEnumerator Shoot(ISoldier target)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(SoldierWeapon), nameof(Shoot), target);
+
         yield return _waitStartDelay;
 
         while (_isTargetAlive)

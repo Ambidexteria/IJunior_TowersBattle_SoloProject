@@ -14,9 +14,11 @@ namespace Base.Services.SaveLoad
         private readonly IPersisentDataService _dataService;
         private readonly JsonSerializerSettings _settings;
 
-        public YGSaveLoadService(IPersisentDataService progressService)
+        public YGSaveLoadService(IPersisentDataService dataService)
         {
-            _dataService = progressService;
+            ExceptionsTest.NullRefConstructorTest(nameof(YGSaveLoadService), dataService);
+
+            _dataService = dataService;
 
             _settings = new()
             {

@@ -8,6 +8,8 @@ public class PlayerInputController
 
     public PlayerInputController(InputService input)
     {
+        ExceptionsTest.NullRefConstructorTest(nameof(PlayerInputController), input);
+
         _input = input;
     }
 

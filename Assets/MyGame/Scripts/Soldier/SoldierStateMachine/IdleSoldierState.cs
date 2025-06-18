@@ -7,11 +7,14 @@ public class IdleSoldierState : ISoldierState
 
     public IdleSoldierState(Animator animator)
     {
-        _animator = animator ?? throw new NullReferenceException(nameof(animator));
+        ExceptionsTest.NullRefConstructorTest(nameof(IdleSoldierState), animator);
+
+        _animator = animator;
     }
 
     public void OnStart(SoldierStateContext context)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(IdleSoldierState), nameof(OnStart), context);
     }
 
     public void OnStop()

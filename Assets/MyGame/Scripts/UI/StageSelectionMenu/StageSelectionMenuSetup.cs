@@ -10,15 +10,21 @@ namespace Base.UI.StageSelection
     {
         [SerializeField] private StageIconSetup _iconPrefab;
         [SerializeField] private RectTransform _iconsParentObject;
-        [SerializeField] private StageSelectionMenuView _view;
 
         private StageSelectionMenuModel _model;
         private StageSelectionMenuPresenter _presenter;
 
+        private void Awake()
+        {
+            ExceptionsTest.NullRefMethodTest(nameof(StageSelectionMenuSetup), nameof(Awake), 
+                _iconPrefab, _iconsParentObject);
+        }
+
         public void Create(StagesData stages, GameSettings gameSettings, ISaveLoadService saveLoadService)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(StageSelectionMenuSetup), nameof(Create), stages, gameSettings, saveLoadService);
+
             var stagesInfo = stages.GetAllStages();
-            Debug.Log($"Stages count - {stagesInfo.Length}");
             StageIconModel[] iconModels = new StageIconModel[stagesInfo.Length];
 
             for (int i = 0; i < stagesInfo.Length; i++)

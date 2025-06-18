@@ -3,6 +3,8 @@ using Base.Infrastructure;
 using Base.PLayer;
 using Base.Services.SaveLoad;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
+using Zenject.SpaceFighter;
 
 namespace Base.GameLogic
 {
@@ -13,8 +15,15 @@ namespace Base.GameLogic
         private BattleEndPresenter _presenter;
         private BattleEndModel _model;
 
+        private void Awake()
+        {
+            ExceptionsTest.NullRefMethodTest(nameof(BattleEndSetup), nameof(Awake), _view);
+        }
+
         public BattleEndModel Create(Game game, Wallet wallet, PlayerScore score, ISaveLoadService saveLoadService, int winReward, int defeatReward)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(BattleEndSetup), nameof(Create), game, wallet, score, saveLoadService);
+
             _model = new BattleEndModel(game, wallet, saveLoadService, winReward, defeatReward, score);
 
             _presenter = new BattleEndPresenter(_model, _view);

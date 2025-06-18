@@ -11,6 +11,8 @@ namespace Base.PLayer
 
         public Wallet(IPersisentDataService progressService)
         {
+            ExceptionsTest.NullRefConstructorTest(nameof(Wallet), progressService);
+
             _progressService = progressService;
             _currentValue = _progressService.GameData.CurrentGold;
         }

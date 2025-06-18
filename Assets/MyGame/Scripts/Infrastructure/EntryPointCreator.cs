@@ -11,7 +11,7 @@ namespace Base.Infrastructure
 
         private void Awake()
         {
-            ExceptionsTest.NullRefTest(nameof(EntryPointCreator), nameof(Awake),  _prefab);
+            ExceptionsTest.NullRefMethodTest(nameof(EntryPointCreator), nameof(Awake),  _prefab);
             _entryPoint = FindFirstObjectByType<EntryPoint>();
 
             if (_entryPoint == null)

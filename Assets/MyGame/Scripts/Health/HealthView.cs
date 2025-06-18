@@ -13,11 +13,7 @@ namespace Base.Health
 
         private void Awake()
         {
-            if (_healthBar == null)
-                throw new ArgumentNullException();
-
-            if (_text == null)
-                throw new ArgumentNullException();
+            ExceptionsTest.NullRefMethodTest(nameof(HealthView), nameof(Awake), _text, _healthBar);
         }
 
         public void Display(float value)

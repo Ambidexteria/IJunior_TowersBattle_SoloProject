@@ -17,7 +17,7 @@ namespace Base.Infrastructure
 
         public BootstrapState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, ICoroutineRunner coroutineRunner) 
         {
-            ExceptionsTest.NullRefTest(nameof(BootstrapState), "constructor", gameStateMachine, sceneLoader, coroutineRunner);
+            ExceptionsTest.NullRefConstructorTest(nameof(BootstrapState), gameStateMachine, sceneLoader, coroutineRunner);
 
             _gameStateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
@@ -26,7 +26,7 @@ namespace Base.Infrastructure
 
         public void Enter(SceneData sceneData)
         {
-            ExceptionsTest.NullRefTest(nameof(BootstrapState), nameof(Enter), sceneData);
+            ExceptionsTest.NullRefMethodTest(nameof(BootstrapState), nameof(Enter), sceneData);
 
             _currentSceneData = sceneData;
             _sceneLoader.LoadScene(SceneNames.Initial, EnsureYandexSDKInitialized);

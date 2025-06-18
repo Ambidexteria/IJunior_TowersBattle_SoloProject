@@ -13,6 +13,8 @@ namespace Base.UI.Settings
         public SettingsMenuModel(IAudioVolumeControllerService volumeController, ISaveLoadService saveLoadService,
             AudioVolumeSettings volumeSettings)
         {
+            ExceptionsTest.NullRefConstructorTest(nameof(SettingsMenuModel), volumeController, saveLoadService, volumeSettings);
+
             _volumeController = volumeController;
             _saveLoadService = saveLoadService;
             _volumeSettings = volumeSettings;

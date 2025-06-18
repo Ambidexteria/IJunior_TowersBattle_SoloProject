@@ -2,9 +2,9 @@ using System;
 
 public class NPC
 {
-    private NPCCannonController _cannonController;
-    private NPCSoldierController _soldierController;
-    private SoldierSpawnControllerModel _soldierSpawnController;
+    private readonly NPCCannonController _cannonController;
+    private readonly NPCSoldierController _soldierController;
+    private readonly SoldierSpawnControllerModel _soldierSpawnController;
 
     private bool _enabled = false;
 
@@ -14,6 +14,8 @@ public class NPC
 
     public NPC(NPCCannonController cannonController, NPCSoldierController soldierController, SoldierSpawnControllerModel soldierSpawnController)
     {
+        ExceptionsTest.NullRefConstructorTest(nameof(NPC), cannonController, soldierController, soldierSpawnController);
+
         _cannonController = cannonController;
         _soldierController = soldierController;
         _soldierSpawnController = soldierSpawnController;

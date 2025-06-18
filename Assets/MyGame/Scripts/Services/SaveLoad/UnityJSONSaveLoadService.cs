@@ -9,11 +9,13 @@ namespace Base.Services.SaveLoad
     {
         private const string ProgressKey = "Progress";
 
-        private readonly IPersisentDataService _progressService;
+        private readonly IPersisentDataService _dataService;
 
-        public UnityJSONSaveLoadService(IPersisentDataService persisentProgressService)
+        public UnityJSONSaveLoadService(IPersisentDataService persisentDataService)
         {
-            _progressService = persisentProgressService;
+            ExceptionsTest.NullRefConstructorTest(nameof(UnityJSONSaveLoadService), persisentDataService);
+
+            _dataService = persisentDataService;
         }
 
         public GameData LoadProgress()
@@ -28,7 +30,7 @@ namespace Base.Services.SaveLoad
 
         public void SaveProgress()
         {
-            PlayerPrefs.SetString(ProgressKey, _progressService.GameData.ToJson());
+            PlayerPrefs.SetString(ProgressKey, _dataService.GameData.ToJson());
         }
     }
 }

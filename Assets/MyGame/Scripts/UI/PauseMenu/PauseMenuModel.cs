@@ -10,6 +10,8 @@ namespace Base.UI.PauseMenu
 
         public PauseMenuModel(SceneChanger sceneChanger)
         {
+            ExceptionsTest.NullRefConstructorTest(nameof(PauseMenuModel), sceneChanger);
+
             _sceneChanger = sceneChanger;
         }
 

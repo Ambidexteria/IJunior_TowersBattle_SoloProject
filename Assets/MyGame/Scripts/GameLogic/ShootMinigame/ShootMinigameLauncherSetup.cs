@@ -16,6 +16,9 @@ namespace Base.GameLogic.ShootMinigame
 
         private void Awake()
         {
+            ExceptionsTest.NullRefMethodTest(nameof(ShootMinigameLauncherSetup), nameof(Awake), _view, _animator, _disabledSprite, 
+                _enabledSprite, _particleSystemController);
+
             _model = new ShootMinigameLauncherModel(_animator, _disabledSprite, _enabledSprite, _particleSystemController);
 
             _presenter = new ShootMinigameLauncherPresenter(_model, _view);

@@ -10,6 +10,12 @@ public class Stage : MonoBehaviour
     public Transform PlayerSoldierSpawnPoint => _playerSoldierSpawnPoint;
     public Transform NPCSoldierSpawnPoint => _npcSoldierSpawnPoint;
 
+    private void Awake()
+    {
+        ExceptionsTest.NullRefMethodTest(nameof(Stage), nameof(Awake), _controlPoints, _playerSoldierSpawnPoint, _npcSoldierSpawnPoint);
+        ExceptionsTest.EmptyListTest(nameof(Stage), nameof(Awake), _controlPoints);
+    }
+
     public List<ControlPoint> GetControlPoints()
     {
         return new List<ControlPoint>(_controlPoints);

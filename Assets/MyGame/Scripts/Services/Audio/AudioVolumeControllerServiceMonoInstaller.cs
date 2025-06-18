@@ -10,6 +10,8 @@ namespace Base.Services.Audio
 
         public override void InstallBindings()
         {
+            ExceptionsTest.NullRefMethodTest(nameof(AudioVolumeControllerServiceMonoInstaller), nameof(InstallBindings), _mixerGroup);
+
             Container.Bind<IAudioVolumeControllerService>().To<AudioVolumeControllerService>().AsSingle().WithArguments(_mixerGroup);
         }
     }

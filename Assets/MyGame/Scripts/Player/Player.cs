@@ -14,6 +14,9 @@ public class Player
     public Player(CannonModel cannon, CannonEnergyBarModel energyBar, ShootMinigameModel shootMinigame, 
         SoldierSpawnControllerModel soldierSpawnerController, SoldierCommandController commandController)
     {
+        ExceptionsTest.NullRefConstructorTest(nameof(Player), cannon, energyBar, shootMinigame, 
+            soldierSpawnerController, commandController);
+
         _cannon = cannon;
         _energyBar = energyBar;
         _shootMinigame = shootMinigame;

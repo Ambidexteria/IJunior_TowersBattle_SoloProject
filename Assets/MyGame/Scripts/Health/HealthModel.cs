@@ -16,6 +16,8 @@ namespace Base.Health
 
         public HealthModel(float maxValue, ICoroutineRunner coroutineRunner, float smoothDecreasingSpeed = 1f)
         {
+            ExceptionsTest.NullRefConstructorTest(nameof(HealthModel), coroutineRunner);
+
             _maxValue = maxValue;
             _coroutineRunner = coroutineRunner;
             _smoothDecreasingSpeed = smoothDecreasingSpeed;

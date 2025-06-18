@@ -15,13 +15,16 @@ namespace Base.UI.StateMachine
             UIWindowController settingsWindow,
             UIWindowController winMessage)
         {
+            ExceptionsTest.NullRefConstructorTest(nameof(GameUIStateMachine), cannonsHUD, shootMinigame, pauseWindow,
+                settingsWindow, winMessage);
+
             _states = new Dictionary<Type, IUIState>
             {
                 { typeof(CannonsHUDState), new CannonsHUDState(cannonsHUD) },
                 { typeof(ShootMinigameState), new ShootMinigameState(shootMinigame) },
                 { typeof(PauseState), new PauseState(pauseWindow) },
                 { typeof(SettingsMenuState), new SettingsMenuState(settingsWindow) },
-                { typeof(WinMessageState), new WinMessageState(winMessage) },
+                { typeof(BattleEndState), new BattleEndState(winMessage) },
             };
         }
 

@@ -11,7 +11,7 @@ namespace Base.Infrastructure
 
         public Coroutine LaunchCoroutine(IEnumerator enumerator)
         {
-            ExceptionsTest.NullRefTest(nameof(CoroutineRunner), nameof(EndCoroutine), enumerator);
+            ExceptionsTest.NullRefMethodTest(nameof(CoroutineRunner), nameof(EndCoroutine), enumerator);
 
             var coroutine = StartCoroutine(enumerator);
             _launchedCoroutines.Add(coroutine);
@@ -21,7 +21,7 @@ namespace Base.Infrastructure
 
         public void EndCoroutine(Coroutine coroutine)
         {
-            ExceptionsTest.NullRefTest(nameof(CoroutineRunner), nameof(EndCoroutine), coroutine);
+            ExceptionsTest.NullRefMethodTest(nameof(CoroutineRunner), nameof(EndCoroutine), coroutine);
 
             _launchedCoroutines?.Remove(coroutine);
 

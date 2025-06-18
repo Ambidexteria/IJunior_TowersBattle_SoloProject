@@ -12,6 +12,11 @@ namespace Base.UI.StageSelection
 
         public event Action<string> StageSelected;
 
+        private void Awake()
+        {
+            
+        }
+
         public void Init(StagesData stagesData, string selectedStage)
         {
             StageInfo[] stages = stagesData.GetAllStages();

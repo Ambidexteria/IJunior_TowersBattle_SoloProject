@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TeamColorChanger
 {
@@ -11,13 +9,18 @@ public class TeamColorChanger
 
     public TeamColorChanger(Material playerColor, Material NPCColor, Material defaultColor)
     {
-        _playerColor = playerColor ?? throw new NullReferenceException(nameof(playerColor));
-        _npcColor = NPCColor ?? throw new NullReferenceException(nameof(NPCColor));
-        _defaultColor = defaultColor ?? throw new NullReferenceException(nameof(defaultColor));
+        ExceptionsTest.NullRefConstructorTest(nameof(TeamColorChanger), playerColor, NPCColor, defaultColor);
+
+        _playerColor = playerColor;
+        _npcColor = NPCColor;
+        _defaultColor = defaultColor;
     }
 
     public void Recolor(Team team, List<ColorChangerMark> marks)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(TeamColorChanger), nameof(Recolor), team, marks);
+        ExceptionsTest.EmptyListTest(nameof(TeamColorChanger), nameof(Recolor), marks);
+
         Material material = GetMaterialByTeamType(team.Type);
 
         foreach (var mark in marks)
@@ -26,12 +29,16 @@ public class TeamColorChanger
 
     public void Recolor(Team team, ColorChangerMark mark)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(TeamColorChanger), nameof(Recolor), team, mark);
+
         Material material = GetMaterialByTeamType(team.Type);
         mark.SetMaterial(material);
     }
 
     public Color GetColor(Team team)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(TeamColorChanger), nameof(GetColor), team);
+
         Material material = GetMaterialByTeamType(team.Type);
         return material.color;
     }

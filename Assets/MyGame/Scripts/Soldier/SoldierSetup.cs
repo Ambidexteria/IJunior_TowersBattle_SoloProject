@@ -24,6 +24,13 @@ namespace Base.Soldier
 
         private SoldierModel _soldier;
 
+        private void Awake()
+        {
+            ExceptionsTest.NullRefMethodTest(nameof(SoldierSetup), nameof(Awake),
+                _groundCollisionController, _animator, _weapon, _enemyTrigger, _despawnerTrigger, _marks, _rigidbody);
+            ExceptionsTest.EmptyListTest(nameof(SoldierSetup), nameof(Awake), _marks);
+        }
+
         private void OnDisable()
         {
             if (_soldier != null)
@@ -32,6 +39,9 @@ namespace Base.Soldier
 
         public void Init(Team team, SoldierData stats, ICoroutineRunner coroutineRunner, TeamColorChanger colorChanger)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(SoldierSetup), nameof(Init),
+                team, stats, coroutineRunner, colorChanger);
+
             _team = team;
             _stats = stats;
             _coroutineRunner = coroutineRunner;

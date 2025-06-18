@@ -21,7 +21,7 @@ namespace Base.Infrastructure
             IPersisentDataService persisentProgress, ISaveLoadService saveLoadService, AssetLoader assetLoader,
             ICoroutineRunner coroutineRunner)
         {
-            ExceptionsTest.NullRefTest(nameof(GameStateMachine), "constructor", loadingCurtain, sceneLoader,
+            ExceptionsTest.NullRefConstructorTest(nameof(GameStateMachine), loadingCurtain, sceneLoader,
              persisentProgress, saveLoadService, assetLoader,
              coroutineRunner);
 
@@ -46,7 +46,7 @@ namespace Base.Infrastructure
 
         public void Enter<TState, TPayload>(TPayload payload) where TState : class, IPayloadedState<TPayload>
         {
-            ExceptionsTest.NullRefTest(nameof(GameStateMachine), nameof(Enter), payload);
+            ExceptionsTest.NullRefMethodTest(nameof(GameStateMachine), nameof(Enter), payload);
 
             Debug.Log($"Enter {nameof(TState)} state with payload {nameof(TPayload)}");
             _activeState?.Exit();

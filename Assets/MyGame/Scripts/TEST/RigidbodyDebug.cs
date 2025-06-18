@@ -10,6 +10,8 @@ namespace Base.Test.Unity
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody> ();
+
+            ExceptionsTest.NullRefMethodTest(nameof(RigidbodyDebug), nameof(Awake), _rigidbody);
         }
 
         [ContextMenu(nameof(ShowVecloity))]

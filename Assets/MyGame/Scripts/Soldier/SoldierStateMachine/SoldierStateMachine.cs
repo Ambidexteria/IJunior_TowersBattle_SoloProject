@@ -16,6 +16,8 @@ public class SoldierStateMachine
 
     public SoldierStateMachine(Animator animator, ISoldier solder)
     {
+        ExceptionsTest.NullRefConstructorTest(nameof(SoldierStateMachine), animator, solder);
+
         _animator = animator;
         _soldier = solder;
 
@@ -58,6 +60,8 @@ public class SoldierStateMachine
 
     private void SetAttackState(ISoldier target)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(SoldierStateMachine), nameof(SetAttackState), target);
+
         if (_currentStateType == SoldierStateType.Attack)
             return;
 
@@ -69,6 +73,8 @@ public class SoldierStateMachine
 
     private void SetMoveState(Transform target)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(SoldierStateMachine), nameof(SetMoveState), target);
+
         _context.MoveTarget = target;
         ChangeState(SoldierStateType.Move);
     }
@@ -110,10 +116,10 @@ public class SoldierStateMachine
 
     private void InitializeStatesDictionary()
     {
-        MovingSoldierState moveState = new MovingSoldierState(_animator, _soldier);
-        AttackSoldierState attackState = new AttackSoldierState(_animator, _soldier, _soldier);
-        DieSoldierState dieState = new DieSoldierState(_animator);
-        IdleSoldierState idleState = new IdleSoldierState(_animator);
+        MovingSoldierState moveState = new (_animator, _soldier);
+        AttackSoldierState attackState = new (_animator, _soldier, _soldier);
+        DieSoldierState dieState = new (_animator);
+        IdleSoldierState idleState = new (_animator);
 
         moveState.TargetReached += SetIdleState;
         attackState.AllTargetsDestroyed += ReturnToPreviousState;

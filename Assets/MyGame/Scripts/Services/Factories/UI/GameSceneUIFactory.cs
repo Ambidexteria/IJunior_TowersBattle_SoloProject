@@ -13,6 +13,7 @@ using Base.Services.SaveLoad;
 using Base.Services.PersistentProgress;
 using Base.Data;
 using Base.Data.Game;
+using Zenject.Asteroids;
 
 namespace Base.Services.Factories.UI
 {
@@ -45,9 +46,12 @@ namespace Base.Services.Factories.UI
 
         [Inject]
         private void Init(GameStateMachine gameStateMachine, TimeController timeController, SceneChanger sceneChanger,
-            IAudioVolumeControllerService volumeControllerService, ISaveLoadService saveLoadService, 
+            IAudioVolumeControllerService volumeControllerService, ISaveLoadService saveLoadService,
             IPersisentDataService dataService)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(GameSceneUIFactory), nameof(Init), gameStateMachine, timeController, sceneChanger,
+                volumeControllerService, saveLoadService, dataService);
+
             _gameStateMachine = gameStateMachine;
             _timeController = timeController;
             _sceneChanger = sceneChanger;
@@ -58,6 +62,11 @@ namespace Base.Services.Factories.UI
 
         private void Awake()
         {
+            ExceptionsTest.NullRefMethodTest(nameof(GameSceneUIFactory), nameof(Awake),
+                _battleEndSetup, _pauseMenuSetup, _settingsMenuSetup, _cannonsHUD, _shootMinigameUI,
+                _pauseWindow, _settingsWindow, _battleEndWindow, _launchShootMinigameButton, _pauseButton, _shootButton, 
+                _openSettingsButton, _resumeButton, _closeSettingsWindowButton);
+
             _timeController.Resume();
             CreateUIStateMachine();
             Debug.Log("GameSceneUIFactory awakened");
@@ -93,6 +102,8 @@ namespace Base.Services.Factories.UI
 
         public BattleEndModel GetBattleEndModel(Infrastructure.Game game, Wallet wallet, StageInfo stageInfo, PlayerScore score)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(GameSceneUIFactory), nameof(GetBattleEndModel), game, wallet, stageInfo, score);
+
             return _battleEndSetup.Create(game, wallet, score, _saveLoadService, stageInfo.WinReward, stageInfo.DefeatReward);
         }
 

@@ -14,6 +14,9 @@ namespace Base.Logic
         private void Awake()
         {
             _collider = GetComponent<Collider>();
+
+            ExceptionsTest.NullRefMethodTest(nameof(TriggerObserver), nameof(Awake), _collider);
+
             _collider.isTrigger = true;
         }
 

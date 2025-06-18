@@ -9,6 +9,8 @@ public class SoldierSelector
 
     public SoldierSelector(RaycastSettings soldierSelectorSettings)
     {
+        ExceptionsTest.NullRefConstructorTest(nameof(ControlPointSelector), soldierSelectorSettings);
+
         _mask = soldierSelectorSettings.LayerMask;
         _raycastLength = soldierSelectorSettings.RaycastLength;
     }

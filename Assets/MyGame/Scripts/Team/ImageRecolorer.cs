@@ -10,9 +10,16 @@ public class ImageRecolorer : MonoBehaviour
     private TeamColorChanger _colorChanger;
     private Image _image;
 
+    private void Awake()
+    {
+        ExceptionsTest.NullRefMethodTest(nameof(ImageRecolorer), nameof(Awake), _team);
+    }
+
     [Inject]
     private void Init(TeamColorChanger database)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(ImageRecolorer), nameof(Init), database);
+
         _colorChanger = database;
         _image = GetComponent<Image>();
 

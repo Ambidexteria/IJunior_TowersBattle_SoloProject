@@ -9,7 +9,7 @@ namespace Base.Infrastructure
 
         public override void InstallBindings()
         {
-            ExceptionsTest.NullRefTest(nameof(LoadingCurtainInstaller), nameof(InstallBindings), _loadingCurtain);
+            ExceptionsTest.NullRefMethodTest(nameof(LoadingCurtainInstaller), nameof(InstallBindings), _loadingCurtain);
 
             Container.Bind<LoadingCurtain>().FromComponentInNewPrefab(_loadingCurtain).AsSingle();
         }

@@ -13,14 +13,15 @@ namespace Base.Services.SceneManagment
 
         public SceneLoader(ICoroutineRunner coroutineRunner) 
         { 
+            ExceptionsTest.NullRefConstructorTest(nameof(SceneLoader), coroutineRunner);
+
             _coroutineRunner = coroutineRunner;
         }
 
-        public event Action<string> LoadingScene;
-
         public void LoadScene(string name, Action onLoaded = null)
         {
-            LoadingScene?.Invoke(name);
+            ExceptionsTest.NullRefMethodTest(nameof(SceneLoader), nameof(LoadScene), name, onLoaded);
+
             _coroutineRunner.LaunchCoroutine(LoadSceneCoroutine(name, onLoaded));
         }
 

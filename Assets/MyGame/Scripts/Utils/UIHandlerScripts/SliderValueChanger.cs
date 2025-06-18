@@ -18,6 +18,8 @@ public class SliderValueChanger : MonoBehaviour
     private void Awake()
     {
         _slider = GetComponent<Slider>();
+
+        ExceptionsTest.NullRefMethodTest(nameof(SliderValueChanger), nameof(Awake), _slider);
     }
 
     private void OnEnable()

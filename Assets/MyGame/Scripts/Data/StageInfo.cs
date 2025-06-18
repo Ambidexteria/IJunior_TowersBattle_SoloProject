@@ -21,6 +21,8 @@ namespace Base.Data
         public StageInfo(string assetPath, string name, bool unlocked, int winReward, int defeatReward,
             SoldierData enemySoldier, CannonData enemyCannon)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(StageInfo), "constructor", assetPath, name, enemySoldier, enemyCannon);
+
             AssetPath = assetPath;
             Name = name;
             Unlocked = unlocked;

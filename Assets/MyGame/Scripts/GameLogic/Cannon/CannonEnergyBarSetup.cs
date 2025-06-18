@@ -13,6 +13,8 @@ namespace Base.GameLogic.Cannon
         public CannonEnergyBarModel CreateCannonEnergyBar(Team team, ControlPointDatabase controlPointDatabase, 
             float maxEnergy, ICoroutineRunner coroutineRunner)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(CannonEnergyBarSetup), ExceptionsTest.ConstructorName, team, controlPointDatabase, coroutineRunner);
+
             _model = new(team, controlPointDatabase, maxEnergy, coroutineRunner);
             
             _presenter = new CannonEnergyBarPresenter(_model, _view);

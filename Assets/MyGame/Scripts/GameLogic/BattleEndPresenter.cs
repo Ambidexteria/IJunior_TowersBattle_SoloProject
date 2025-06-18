@@ -7,6 +7,8 @@ namespace Base.GameLogic
 
         public BattleEndPresenter(BattleEndModel model, BattleEndView view)
         {
+            ExceptionsTest.NullRefConstructorTest(nameof(BattleEndPresenter), model, view);
+
             _model = model;
             _view = view;
         }

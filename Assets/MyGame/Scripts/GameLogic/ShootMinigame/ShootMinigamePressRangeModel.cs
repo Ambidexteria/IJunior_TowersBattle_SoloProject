@@ -27,6 +27,9 @@ namespace Base.GameLogic.ShootMinigame
         public ShootMinigamePressRangeModel(float pressRangeWidthCoefficienr, float sliderSpeedRate, RectTransform fullPressRange,
             TimeController timeController, ICoroutineRunner coroutineRunner)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(ShootMinigamePressRangeModel), ExceptionsTest.ConstructorName, fullPressRange, 
+                timeController, coroutineRunner);
+
             _pressRangeWidthCoefficient = pressRangeWidthCoefficienr;
             _sliderSpeedRate = sliderSpeedRate;
             _fullRangeRectTransform = fullPressRange;

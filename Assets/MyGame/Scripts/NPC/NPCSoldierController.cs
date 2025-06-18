@@ -6,11 +6,11 @@ using Base.Infrastructure;
 
 public class NPCSoldierController
 {
-    [SerializeField] private ControlPointDatabase _controlPointDatabase;
-    [SerializeField] private List<SoldierModel> _soldiers = new List<SoldierModel>();
-    [SerializeField] private SoldierSpawnControllerModel _spawnController;
-    [SerializeField] private float _startDelay = 1f;
-    [SerializeField] private float _nextCommandDelay = 2f;
+    private ControlPointDatabase _controlPointDatabase;
+    private List<SoldierModel> _soldiers = new List<SoldierModel>();
+    private SoldierSpawnControllerModel _spawnController;
+    private float _startDelay = 1f;
+    private float _nextCommandDelay = 2f;
 
     private Team _team;
     private readonly ICoroutineRunner _coroutineRunner;
@@ -22,6 +22,9 @@ public class NPCSoldierController
     public NPCSoldierController(ControlPointDatabase controlPointDatabase, SoldierSpawnControllerModel spawnController,
         float startDelay, float nextCommandDelay, Team team, ICoroutineRunner coroutineRunner)
     {
+        ExceptionsTest.NullRefConstructorTest(nameof(NPCSoldierController), controlPointDatabase, spawnController,
+            team, coroutineRunner);
+
         _controlPointDatabase = controlPointDatabase;
         _spawnController = spawnController;
         _startDelay = startDelay;
@@ -79,6 +82,8 @@ public class NPCSoldierController
 
     private void AddNewSoldier(SoldierModel soldier)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(NPCSoldierController), nameof(AddNewSoldier), soldier);
+
         if (soldier.GetTeam() != _team.Type)
             Debug.LogError("Trying add soldier from different team");
 
@@ -87,6 +92,8 @@ public class NPCSoldierController
 
     private void RemoveSoldier(SoldierModel soldier)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(NPCSoldierController), nameof(RemoveSoldier), soldier);
+
         if (soldier.GetTeam() != _team.Type)
             Debug.LogError("Trying add soldier from different team");
 

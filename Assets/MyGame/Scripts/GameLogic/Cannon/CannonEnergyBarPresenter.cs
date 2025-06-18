@@ -7,6 +7,8 @@
 
         public CannonEnergyBarPresenter(CannonEnergyBarModel model, CannonEnergyBarView cannonEnergyBarView)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(CannonEnergyBarPresenter), ExceptionsTest.ConstructorName, model, cannonEnergyBarView);
+
             _model = model;
             _view = cannonEnergyBarView;
             _view.SetMaxEnergy(_model.MaxEnergy);

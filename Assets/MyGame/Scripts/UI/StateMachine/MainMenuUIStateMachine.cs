@@ -12,6 +12,8 @@ namespace Base.UI.StateMachine
         public MainMenuUIStateMachine(UIWindowController mainMenuWondow, UIWindowController shopWindow,
             UIWindowController stagesWindow, UIWindowController settingsWindow)
         {
+            ExceptionsTest.NullRefConstructorTest(nameof(MainMenuUIStateMachine), mainMenuWondow, shopWindow, stagesWindow, settingsWindow);
+
             _states = new Dictionary<Type, IUIState>
             {
                 { typeof(MainMenuState), new MainMenuState(mainMenuWondow) },

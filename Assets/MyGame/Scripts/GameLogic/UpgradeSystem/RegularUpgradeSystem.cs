@@ -99,6 +99,8 @@ namespace Base.GameLogic.UpgradeSystem
 
         public RegularUpgradeSystem(IPersisentDataService dataService)
         {
+            ExceptionsTest.NullRefConstructorTest(nameof(RegularUpgradeSystem), dataService);
+
             _dataService = dataService;
 
             _upgrades = _dataService.GameData.Upgrades;

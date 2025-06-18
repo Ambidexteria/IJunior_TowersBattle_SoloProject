@@ -18,7 +18,7 @@ namespace Base.Infrastructure
         {
             _curtain = GetComponent<CanvasGroup>();
 
-            ExceptionsTest.NullRefTest(nameof(LoadingCurtain), nameof(Awake), _curtain);
+            ExceptionsTest.NullRefMethodTest(nameof(LoadingCurtain), nameof(Awake), _curtain);
 
             _wait = new WaitForSeconds(_startDelay);
 

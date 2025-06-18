@@ -22,6 +22,8 @@ namespace Base.GameLogic.Cannon
 
         public CannonEnergyBarModel(Team team, ControlPointDatabase controlPointDatabase, float maxEnergy, ICoroutineRunner coroutineRunner)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(CannonEnergyBarModel), "constructor", team, controlPointDatabase, coroutineRunner);
+
             _team = team;
             _controlPointDatabase = controlPointDatabase;
             _energyMax = maxEnergy;
@@ -37,7 +39,7 @@ namespace Base.GameLogic.Cannon
         {
             _active = true;
 
-            if(_coroutine != null)
+            if (_coroutine != null)
                 _coroutineRunner.EndCoroutine(_coroutine);
 
             _coroutine = _coroutineRunner.LaunchCoroutine(Update());
@@ -87,6 +89,8 @@ namespace Base.GameLogic.Cannon
 
         private void OnControlPointCaptured(ControlPoint controlPoint)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(CannonEnergyBarModel), nameof(OnControlPointCaptured), controlPoint);
+
             if (controlPoint.Team == _team.Type)
             {
                 _controlPoints.Add(controlPoint);

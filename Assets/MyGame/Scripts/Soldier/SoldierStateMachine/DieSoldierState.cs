@@ -7,6 +7,8 @@ public class DieSoldierState : ISoldierState
 
     public DieSoldierState(Animator animator)
     {
+        ExceptionsTest.NullRefConstructorTest(nameof(DieSoldierState), animator);
+
         _animator = animator;
     }
 
@@ -15,6 +17,8 @@ public class DieSoldierState : ISoldierState
 
     public void OnStart(SoldierStateContext context)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(DieSoldierState), nameof(OnStart), context);
+
         _animator.SetTrigger(SoldierAnimationTriggerNames.Death);
         Dying?.Invoke();
     }

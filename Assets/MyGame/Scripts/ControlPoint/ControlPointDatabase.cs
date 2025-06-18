@@ -21,6 +21,9 @@ public class ControlPointDatabase : MonoBehaviour
 
     public void SetControlPointsOnStage(List<ControlPoint> controlPoints)
     {
+        ExceptionsTest.NullRefMethodTest(nameof(ControlPointDatabase), nameof(SetControlPointsOnStage), controlPoints);
+        ExceptionsTest.EmptyListTest(nameof(ControlPointDatabase), nameof(SetControlPointsOnStage), controlPoints);
+
         _controlPoints = controlPoints;
 
         SubscribeToControlPoints();

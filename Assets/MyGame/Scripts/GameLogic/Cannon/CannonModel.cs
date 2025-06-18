@@ -33,6 +33,10 @@ namespace Base.GameLogic.Cannon
             CannonProjectileSpawner projectileSpawner, TeamColorChanger colorChanger,
             List<ColorChangerMark> marksForRecoloring = null)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(CannonModel), ExceptionsTest.ConstructorName, transfrom, triggerObserver, team, 
+                animator, shootEffect, takeDamageEffect, barrel, health,projectileSpawner, colorChanger, marksForRecoloring);
+            ExceptionsTest.EmptyListTest(nameof(CannonModel), ExceptionsTest.ConstructorName, marksForRecoloring);
+
             _transfrom = transfrom;
             _triggerObserver = triggerObserver;
             _team = team;
@@ -71,6 +75,8 @@ namespace Base.GameLogic.Cannon
 
         public void SetEnemy(CannonModel enemy)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(CannonModel), nameof(SetEnemy), enemy);
+
             _enemyCannon = enemy;
         }
 
@@ -107,6 +113,8 @@ namespace Base.GameLogic.Cannon
 
         private void OnTriggerCollided(Collider collider)
         {
+            ExceptionsTest.NullRefMethodTest(nameof(CannonModel), nameof(OnTriggerCollided), collider);
+
             if (collider.TryGetComponent(out CannonProjectile projectile))
             {
                 if (projectile.TeamType != _team.Type)

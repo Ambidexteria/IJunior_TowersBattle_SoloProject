@@ -9,7 +9,7 @@ namespace Base.Infrastructure
 
         public GameLoopState(GameStateMachine stateMachine) 
         {
-            ExceptionsTest.NullRefTest(nameof(GameLoopState), "constructor", stateMachine);
+            ExceptionsTest.NullRefConstructorTest(nameof(GameLoopState), stateMachine);
 
             _stateMachine = stateMachine;
         }

@@ -55,7 +55,7 @@ namespace Base.Services.Factories.Game
             ControlPointDatabase controlPointDatabase,
             SceneChanger sceneChanger, IPersisentDataService dataService, Wallet wallet)
         {
-            ExceptionsTest.NullRefTest(nameof(GameSceneFactory), nameof(Init),  game,  assetLoader,  coroutineRunner,
+            ExceptionsTest.NullRefMethodTest(nameof(GameSceneFactory), nameof(Init),  game,  assetLoader,  coroutineRunner,
              projectileSpawner,  colorChanger, controlPointDatabase, sceneChanger,  dataService,  wallet);
 
             _game = game;
@@ -71,13 +71,14 @@ namespace Base.Services.Factories.Game
 
         private void Awake()
         {
+            ExceptionsTest.NullRefMethodTest(nameof(GameSceneFactory), nameof(Awake),
+                _uiFactory, _soldierDespawnDetector, _playerFactory, _playerCannonSetup, _playerCannonHealthSetup,
+                _npcFactory, _npcCannonSetup, _npcHealthSetup);
+
             _stageInfo = _dataSerive.GameData.StagesData.GetSelectedStage() ?? throw new NullReferenceException(nameof(_stageInfo));
-            Debug.Log("loading stage...");
             _stage = _assetLoader.Instantiate<Stage>(_stageInfo.AssetPath) ?? throw new NullReferenceException(nameof(_stage));
-            Debug.Log("stage loaded");
 
             _controlPointDatabase.SetControlPointsOnStage(_stage.GetControlPoints());
-            Debug.Log("_controlPointDatabase loaded");
 
             Player player = CreatePlayer();
             NPC npc = CreateNPC();
@@ -135,7 +136,7 @@ namespace Base.Services.Factories.Game
 
         private CannonModel CreateCannon(string assetPath, Team team, int damage, HealthModel health)
         {
-            ExceptionsTest.NullRefTest(nameof(GameSceneFactory), nameof(CreateCannon), team, health);
+            ExceptionsTest.NullRefMethodTest(nameof(GameSceneFactory), nameof(CreateCannon), team, health);
 
             CannonSetup setup = _assetLoader.Instantiate<CannonSetup>(assetPath);
             CannonModel model = setup.CreateCannonModel(team, damage, _colorChanher, _projectileSpawner, health);
