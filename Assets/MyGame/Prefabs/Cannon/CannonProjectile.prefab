@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 377235606007167285}
   - component: {fileID: 2241672942401163929}
   - component: {fileID: 7934203902096088718}
-  - component: {fileID: 1745978903805150923}
-  - component: {fileID: 1937902054429134807}
   - component: {fileID: 8881767865532895735}
   - component: {fileID: 5555777768464970143}
   - component: {fileID: -8899736289200925569}
+  - component: {fileID: 1937902054429134807}
+  - component: {fileID: 1745978903805150923}
   - component: {fileID: 2466582117651574477}
   m_Layer: 0
   m_Name: CannonProjectile
@@ -89,27 +89,49 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &1745978903805150923
-SphereCollider:
+--- !u!114 &8881767865532895735
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1193307598005301408}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f6783d9864878f42aafe01e9b77218b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _markForRecoloring: {fileID: -8899736289200925569}
+  _damage: 0
+  _speed: 20
+  _follower: {fileID: 5555777768464970143}
+--- !u!114 &5555777768464970143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1193307598005301408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bc343bcdf7feb4479d1c46a9c83b841, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxPoints: 30
+  _yOffsetCoefficient: 8
+--- !u!114 &-8899736289200925569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1193307598005301408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 252a39ed6355c3e4094f6e7af111f20e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderer: {fileID: 7934203902096088718}
 --- !u!96 &1937902054429134807
 TrailRenderer:
   serializedVersion: 3
@@ -223,48 +245,27 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
---- !u!114 &8881767865532895735
-MonoBehaviour:
+--- !u!135 &1745978903805150923
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1193307598005301408}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f6783d9864878f42aafe01e9b77218b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _markForRecoloring: {fileID: -8899736289200925569}
-  _damage: 0
-  _speed: 20
-  _follower: {fileID: 5555777768464970143}
---- !u!114 &5555777768464970143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1193307598005301408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bc343bcdf7feb4479d1c46a9c83b841, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxPoints: 30
-  _yOffsetCoefficient: 8
---- !u!114 &-8899736289200925569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1193307598005301408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 252a39ed6355c3e4094f6e7af111f20e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &2466582117651574477
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ namespace Base.GameLogic.UpgradeSystem
     [Serializable]
     public class Upgrades
     {
-        //[JsonRequired]
+        [JsonRequired]
         public Dictionary<Type, Upgrade> _upgrades;
 
         public Upgrades()

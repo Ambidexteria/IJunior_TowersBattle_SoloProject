@@ -16,10 +16,9 @@ namespace Base.Infrastructure
         private readonly Dictionary<Type, IExitableState> _states;
         private IExitableState _activeState;
 
-        [Inject]
         public GameStateMachine(LoadingCurtain loadingCurtain, SceneLoader sceneLoader,
             IPersisentDataService persisentProgress, ISaveLoadService saveLoadService, AssetLoader assetLoader,
-            ICoroutineRunner coroutineRunner)
+            ICoroutineRunner coroutineRunner, InputService input)
         {
             ExceptionsTest.NullRefConstructorTest(nameof(GameStateMachine), loadingCurtain, sceneLoader,
              persisentProgress, saveLoadService, assetLoader,
@@ -27,9 +26,9 @@ namespace Base.Infrastructure
 
             _states = new Dictionary<Type, IExitableState>
             {
-                { typeof(BootstrapState), new BootstrapState(this, sceneLoader, coroutineRunner) },
+                { typeof(BootstrapState), new BootstrapState(this, sceneLoader, coroutineRunner, input) },
                 { typeof(LoadLevelState), new LoadLevelState(loadingCurtain, this, sceneLoader, saveLoadService, persisentProgress) },
-                { typeof(LoadProgressState), new LoadProgressState(this, persisentProgress, saveLoadService)},
+                { typeof(LoadProgressState), new LoadProgressState(this, persisentProgress, saveLoadService, input)},
                 { typeof(GameLoopState), new GameLoopState(this) }
             };
         }

@@ -59,6 +59,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Debug",
+            "id": "0e9bb5c0-b6f3-4e96-a43e-dbd4243fa9eb",
+            "actions": [
+                {
+                    "name": "ContinueLoading",
+                    "type": "Button",
+                    "id": "1aa81959-457c-437c-9f2e-bac3e4309b2c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ResetProgress",
+                    "type": "Button",
+                    "id": "4b075001-4047-48ec-9030-f6105935d26a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "014bb2ee-afbe-43c5-a56c-8a1c484c594e",
+                    "path": "<Keyboard>/u",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ContinueLoading",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9a310f72-f619-435d-80e4-f5bd2991010e",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ResetProgress",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

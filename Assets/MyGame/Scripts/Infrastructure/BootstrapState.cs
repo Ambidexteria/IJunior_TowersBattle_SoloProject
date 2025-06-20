@@ -1,5 +1,6 @@
 ﻿using Base.Data;
 using Base.Data.Scenes;
+using Base.Services.Input;
 using Base.Services.SceneManagment;
 using System.Collections;
 using UnityEngine;
@@ -11,17 +12,19 @@ namespace Base.Infrastructure
     {
         private readonly SceneLoader _sceneLoader;
         private readonly ICoroutineRunner _coroutineRunner;
+        private readonly InputService _input;
         private readonly GameStateMachine _gameStateMachine;
 
         private SceneData _currentSceneData;
 
-        public BootstrapState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, ICoroutineRunner coroutineRunner) 
+        public BootstrapState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, ICoroutineRunner coroutineRunner, InputService input)
         {
             ExceptionsTest.NullRefConstructorTest(nameof(BootstrapState), gameStateMachine, sceneLoader, coroutineRunner);
 
             _gameStateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
             _coroutineRunner = coroutineRunner;
+            _input = input;
         }
 
         public void Enter(SceneData sceneData)
@@ -44,8 +47,15 @@ namespace Base.Infrastructure
 
         private IEnumerator StartEnsureYandexSDKInitializedCoroutine()
         {
-            while(YG2.isSDKEnabled == false)
+            bool enabled = false;
+
+            while (enabled == false || YG2.isSDKEnabled == false)
+            {
                 yield return null;
+
+                if (_input.Debug.ContinueLoading.IsPressed())
+                    enabled = true;
+            }
 
             EnterLoadProgressState();
         }

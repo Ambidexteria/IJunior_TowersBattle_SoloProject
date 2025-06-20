@@ -88,7 +88,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32ea011df97f9c04c9fdcb961b4289de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _team: {fileID: 0}
 --- !u!1 &3160033722885174162
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,6 +277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eec4f9ef22801b4186c518d70370db8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _slider: {fileID: 0}
 --- !u!114 &3708251988197052305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,7 +292,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sliderValueChanger: {fileID: 3035501693565824051}
   _textMeshProUGUI: {fileID: 2623556571688506377}
-  _energyBar: {fileID: 0}
 --- !u!1001 &547790469986555909
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -409,7 +408,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4441832734938729266, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
       propertyPath: m_fontSize
-      value: 34.95
+      value: 44.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441832734938729266, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: ab121c23b841bc443b369b6309d047be, type: 2}
+    - target: {fileID: 4441832734938729266, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1871039123268113387, guid: ab121c23b841bc443b369b6309d047be, type: 2}
+    - target: {fileID: 4441832734938729266, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4441832734938729268, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
       propertyPath: m_Name

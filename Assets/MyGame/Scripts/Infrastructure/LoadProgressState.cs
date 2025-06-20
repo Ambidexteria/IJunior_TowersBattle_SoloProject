@@ -11,16 +11,18 @@ namespace Base.Infrastructure
         private GameStateMachine _gameStateMachine;
         private IPersisentDataService _progressService;
         private readonly ISaveLoadService _saveLoadService;
+        private readonly InputService _input;
 
-        public LoadProgressState(GameStateMachine gameStateMachine, IPersisentDataService persisentProgressService, 
-            ISaveLoadService saveLoadService)
+        public LoadProgressState(GameStateMachine gameStateMachine, IPersisentDataService persisentProgressService,
+            ISaveLoadService saveLoadService, InputService input)
         {
-            ExceptionsTest.NullRefConstructorTest(nameof(LoadProgressState), gameStateMachine, persisentProgressService, 
+            ExceptionsTest.NullRefConstructorTest(nameof(LoadProgressState), gameStateMachine, persisentProgressService,
                 saveLoadService);
 
             _gameStateMachine = gameStateMachine;
             _progressService = persisentProgressService;
             _saveLoadService = saveLoadService;
+            _input = input;
         }
 
         public void Enter(SceneData scene)
@@ -38,8 +40,15 @@ namespace Base.Infrastructure
 
         private void LoadProgressOrInitNew()
         {
-            //_saveLoadService.LoadUpgrades();
-            _progressService.GameData = /*_saveLoadService.LoadProgress() ?? */ CreateProgress();
+            if (_input.Debug.ResetProgress.IsPressed())
+            {
+                Debug.LogWarning($"ProgressDeleted");
+                _progressService.GameData = CreateProgress();
+            }
+            else
+            {
+                _progressService.GameData = _saveLoadService.LoadProgress() ?? CreateProgress();
+            }
         }
 
         private GameData CreateProgress()

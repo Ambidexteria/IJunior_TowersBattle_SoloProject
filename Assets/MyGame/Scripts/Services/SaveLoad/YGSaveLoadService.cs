@@ -3,14 +3,11 @@ using Base.Services.PersistentProgress;
 using Newtonsoft.Json;
 using UnityEngine;
 using YG;
-using PlayerPrefs = RedefineYG.PlayerPrefs;
 
 namespace Base.Services.SaveLoad
 {
     public class YGSaveLoadService : ISaveLoadService
     {
-        private const string ProgressKey = "Progress";
-
         private readonly IPersisentDataService _dataService;
         private readonly JsonSerializerSettings _settings;
 
@@ -23,24 +20,66 @@ namespace Base.Services.SaveLoad
             _settings = new()
             {
                 TypeNameHandling = TypeNameHandling.All,
+                Formatting = Formatting.Indented
             };
         }
 
         public GameData LoadProgress()
         {
-            string progress = PlayerPrefs.GetString(ProgressKey);
+            string json = YG2.saves.JSONGameData ??= string.Empty;
+            //json = json.Insert(1, "n");
+            Debug.Log(json);
 
-            return JsonConvert.DeserializeObject<GameData>(progress, _settings);
+            if (json != string.Empty)
+            {
+                if (json[1] == 'n')
+                {
+                    Debug.LogWarning("Replacing chars");
+                    json = ConvertJsonString(json);
+                }
+            }
+
+            Debug.Log(json);
+            Debug.Log($"gameData string hashCode = {json.GetHashCode()}");
+            Debug.Log($"string length = {json.Length}");
+
+            GameData gameData = JsonConvert.DeserializeObject<GameData>(json, _settings);
+            return gameData;
         }
 
         public void SaveProgress()
         {
-            GameData progress = _dataService.GameData;
+            GameData gameData = _dataService.GameData;
+            string json = JsonConvert.SerializeObject(gameData, Formatting.Indented, _settings);
 
-            string jsonProgress = JsonConvert.SerializeObject(progress, Formatting.Indented, _settings);
+            Debug.Log(json);
+            Debug.Log($"gameData string hashCode = {json.GetHashCode()}");
+            Debug.Log($"string length = {json.Length}");
 
-            PlayerPrefs.SetString(ProgressKey, jsonProgress);
-            PlayerPrefs.Save();
+            YG2.saves.JSONGameData = JsonConvert.SerializeObject(gameData, _settings);
+            YG2.SaveProgress();
+        }
+
+        private string ConvertJsonString(string json)
+        {
+            char previous;
+            char next;
+
+            for (int i = 0; i < json.Length; i++)
+            {
+                if (json[i] == 'n')
+                {
+                    previous = json[i - 1];
+                    next = json[i + 1];
+                    if (previous == '{' || previous == '}' || previous == ',' || next == ' ')
+                    {
+                        json = json.Remove(i, 1);
+                        json = json.Insert(i, "\n");
+                    }
+                }
+            }
+
+            return json;
         }
     }
 }

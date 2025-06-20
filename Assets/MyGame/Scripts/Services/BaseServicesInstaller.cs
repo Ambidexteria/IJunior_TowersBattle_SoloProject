@@ -21,12 +21,12 @@ namespace Base.Services
             SceneLoaderInstaller.Install(_container);
             InputInstaller.Install(_container);
             AssetLoaderInstaller.Install(_container);
-            PersisentProgressServiceInstaller.Install(_container);
+            PersisentDataServiceInstaller.Install(_container);
             SaveLoadServiceInstaller.Install(_container);
             TimeControllerInstaller.Install(_container);
             SceneChangerInstaller.Install(_container);
 
-            GameInstaller.Install(_container);
+            //GameInstaller.Install(_container);
         }
     }
 }
