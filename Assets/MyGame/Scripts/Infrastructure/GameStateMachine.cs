@@ -1,6 +1,7 @@
 ﻿using Base.Services.AssetManagment;
 using Base.Services.Factories.Game;
 using Base.Services.Factories.UI;
+using Base.Services.Localization;
 using Base.Services.PersistentProgress;
 using Base.Services.SaveLoad;
 using Base.Services.SceneManagment;
@@ -18,7 +19,7 @@ namespace Base.Infrastructure
 
         public GameStateMachine(LoadingCurtain loadingCurtain, SceneLoader sceneLoader,
             IPersisentDataService persisentProgress, ISaveLoadService saveLoadService, AssetLoader assetLoader,
-            ICoroutineRunner coroutineRunner, InputService input)
+            ICoroutineRunner coroutineRunner, InputService input, ILocalizationService localizationService)
         {
             ExceptionsTest.NullRefConstructorTest(nameof(GameStateMachine), loadingCurtain, sceneLoader,
              persisentProgress, saveLoadService, assetLoader,
@@ -28,7 +29,7 @@ namespace Base.Infrastructure
             {
                 { typeof(BootstrapState), new BootstrapState(this, sceneLoader, coroutineRunner, input) },
                 { typeof(LoadLevelState), new LoadLevelState(loadingCurtain, this, sceneLoader, saveLoadService, persisentProgress) },
-                { typeof(LoadProgressState), new LoadProgressState(this, persisentProgress, saveLoadService, input)},
+                { typeof(LoadProgressState), new LoadProgressState(this, persisentProgress, saveLoadService, input, localizationService)},
                 { typeof(GameLoopState), new GameLoopState(this) }
             };
         }

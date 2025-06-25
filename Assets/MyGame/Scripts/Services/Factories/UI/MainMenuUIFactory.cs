@@ -2,6 +2,7 @@ using Base.GameLogic.UpgradeSystem;
 using Base.Infrastructure;
 using Base.PLayer;
 using Base.Services.Audio;
+using Base.Services.Localization;
 using Base.Services.PersistentProgress;
 using Base.Services.SaveLoad;
 using Base.Services.TimeManagment;
@@ -45,14 +46,16 @@ namespace Base.Services.Factories.UI
         private IPersisentDataService _dataService;
         private IAudioVolumeControllerService _volumeControllerService;
         private Infrastructure.Game _game;
+        private ILocalizationService _localizationService;
 
         [Inject]
         private void Init(TimeController timeController, Wallet wallet, RegularUpgradeSystem upgradeSystem,
             ISaveLoadService saveLoadService, IPersisentDataService dataService,
-            IAudioVolumeControllerService volumeControllerService, Infrastructure.Game game)
+            IAudioVolumeControllerService volumeControllerService, Infrastructure.Game game,
+            ILocalizationService localizationService)
         {
             ExceptionsTest.NullRefMethodTest(nameof(MainMenuUIFactory), nameof(Init), timeController, wallet, upgradeSystem,
-                saveLoadService, dataService, volumeControllerService, game);
+                saveLoadService, dataService, volumeControllerService, game, localizationService);
 
             _timeController = timeController;
             _wallet = wallet;
@@ -61,6 +64,7 @@ namespace Base.Services.Factories.UI
             _dataService = dataService;
             _volumeControllerService = volumeControllerService;
             _game = game;
+            _localizationService = localizationService;
         }
         private void Awake()
         {
@@ -121,7 +125,8 @@ namespace Base.Services.Factories.UI
         }
         private void CreateSettings()
         {
-            _settingsSetup.CreateModel(_volumeControllerService, _saveLoadService, _dataService.GameData.AudioVolumeSettings);
+            _settingsSetup.CreateModel(_volumeControllerService, _saveLoadService, _dataService.GameData.AudioVolumeSettings,
+                _localizationService);
         }
 
         private void OnStartButtonClicked()

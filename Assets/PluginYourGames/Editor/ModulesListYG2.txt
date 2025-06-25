@@ -1,3 +1,5 @@
 Authorization v1.021
+Leaderboards v1.01
+Localization v1.001
 RedefinePlayerPrefs v1.001
 Storage v1.02

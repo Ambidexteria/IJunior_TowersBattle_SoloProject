@@ -13,7 +13,7 @@ using Base.Services.SaveLoad;
 using Base.Services.PersistentProgress;
 using Base.Data;
 using Base.Data.Game;
-using Zenject.Asteroids;
+using Base.Services.Localization;
 
 namespace Base.Services.Factories.UI
 {
@@ -42,15 +42,16 @@ namespace Base.Services.Factories.UI
         private IAudioVolumeControllerService _volumeControllerService;
         private ISaveLoadService _saveLoadService;
         private IPersisentDataService _dataService;
+        private ILocalizationService _localizationService;
         private GameStateMachine _gameStateMachine;
 
         [Inject]
         private void Init(GameStateMachine gameStateMachine, TimeController timeController, SceneChanger sceneChanger,
             IAudioVolumeControllerService volumeControllerService, ISaveLoadService saveLoadService,
-            IPersisentDataService dataService)
+            IPersisentDataService dataService, ILocalizationService localizationService)
         {
             ExceptionsTest.NullRefMethodTest(nameof(GameSceneUIFactory), nameof(Init), gameStateMachine, timeController, sceneChanger,
-                volumeControllerService, saveLoadService, dataService);
+                volumeControllerService, saveLoadService, dataService, localizationService);
 
             _gameStateMachine = gameStateMachine;
             _timeController = timeController;
@@ -58,6 +59,7 @@ namespace Base.Services.Factories.UI
             _volumeControllerService = volumeControllerService;
             _saveLoadService = saveLoadService;
             _dataService = dataService;
+            _localizationService = localizationService;
         }
 
         private void Awake()
@@ -113,7 +115,8 @@ namespace Base.Services.Factories.UI
                 _pauseWindow, _settingsWindow, _battleEndWindow);
 
             _pauseMenuSetup.CreatePauseMenu(_sceneChanger);
-            _settingsMenuSetup.CreateModel(_volumeControllerService, _saveLoadService, _dataService.GameData.AudioVolumeSettings);
+            _settingsMenuSetup.CreateModel(_volumeControllerService, _saveLoadService, _dataService.GameData.AudioVolumeSettings,
+                _localizationService);
 
             _uiStateMachine.Enter<CannonsHUDState>();
         }

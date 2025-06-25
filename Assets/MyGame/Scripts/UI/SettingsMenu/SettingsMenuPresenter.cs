@@ -1,3 +1,5 @@
+using System;
+
 namespace Base.UI.Settings
 {
     public class SettingsMenuPresenter
@@ -15,18 +17,38 @@ namespace Base.UI.Settings
 
         public void Enable()
         {
+            _view.RussianLanguageButtonCLicked += OnRussianLanguageButtonCLicked;
+            _view.EnglishLanguageButtonCLicked += OnEnglishLanguageButtonCLicked;
+            _view.TurkishLanguageButtonCLicked += OnTurkishLanguageButtonCLicked;
             _view.MasterVolumeChanged += OnMasterVolumeChanged;
             _view.MusicVolumeChanged += OnMusicVolumeChanged;
             _view.SoundsVolumeChanged += OnSoundsVolumeChanged;
             _view.MuteValueChanged += OnMuteValueChanged;
         }
-
         public void Disable()
         {
+            _view.RussianLanguageButtonCLicked -= OnRussianLanguageButtonCLicked;
+            _view.EnglishLanguageButtonCLicked -= OnEnglishLanguageButtonCLicked;
+            _view.TurkishLanguageButtonCLicked -= OnTurkishLanguageButtonCLicked;
             _view.MasterVolumeChanged -= OnMasterVolumeChanged;
             _view.MusicVolumeChanged -= OnMusicVolumeChanged;
             _view.SoundsVolumeChanged -= OnSoundsVolumeChanged;
             _view.MuteValueChanged -= OnMuteValueChanged;
+        }
+
+        private void OnRussianLanguageButtonCLicked()
+        {
+            _model.SetRussianLanguage();
+        }
+
+        private void OnEnglishLanguageButtonCLicked()
+        {
+            _model.SetEnglishLanguage();
+        }
+
+        private void OnTurkishLanguageButtonCLicked()
+        {
+            _model.SetTurkishLanguage();
         }
 
         private void OnMasterVolumeChanged(float value)

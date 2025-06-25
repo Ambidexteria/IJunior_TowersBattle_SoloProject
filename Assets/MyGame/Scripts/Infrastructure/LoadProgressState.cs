@@ -1,20 +1,23 @@
 ﻿using Base.Data.Game;
 using Base.Data.Scenes;
+using Base.Services.Localization;
 using Base.Services.PersistentProgress;
 using Base.Services.SaveLoad;
 using UnityEngine;
+using YG;
 
 namespace Base.Infrastructure
 {
     internal class LoadProgressState : IPayloadedState<SceneData>
     {
-        private GameStateMachine _gameStateMachine;
-        private IPersisentDataService _progressService;
+        private readonly GameStateMachine _gameStateMachine;
+        private readonly IPersisentDataService _progressService;
         private readonly ISaveLoadService _saveLoadService;
         private readonly InputService _input;
+        private readonly ILocalizationService _localizationService;
 
         public LoadProgressState(GameStateMachine gameStateMachine, IPersisentDataService persisentProgressService,
-            ISaveLoadService saveLoadService, InputService input)
+            ISaveLoadService saveLoadService, InputService input, ILocalizationService localizationService)
         {
             ExceptionsTest.NullRefConstructorTest(nameof(LoadProgressState), gameStateMachine, persisentProgressService,
                 saveLoadService);
@@ -23,6 +26,7 @@ namespace Base.Infrastructure
             _progressService = persisentProgressService;
             _saveLoadService = saveLoadService;
             _input = input;
+            _localizationService = localizationService;
         }
 
         public void Enter(SceneData scene)
@@ -49,6 +53,9 @@ namespace Base.Infrastructure
             {
                 _progressService.GameData = _saveLoadService.LoadProgress() ?? CreateProgress();
             }
+
+            _localizationService.SetLanguage(YG2.lang);
+            _progressService.GameData.GameSettings.Language = YG2.lang;
         }
 
         private GameData CreateProgress()

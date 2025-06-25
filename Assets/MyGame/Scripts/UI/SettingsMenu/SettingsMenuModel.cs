@@ -1,5 +1,6 @@
 using Base.Data;
 using Base.Services.Audio;
+using Base.Services.Localization;
 using Base.Services.SaveLoad;
 
 namespace Base.UI.Settings
@@ -9,15 +10,32 @@ namespace Base.UI.Settings
         private readonly IAudioVolumeControllerService _volumeController;
         private readonly ISaveLoadService _saveLoadService;
         private readonly AudioVolumeSettings _volumeSettings;
+        private readonly ILocalizationService _localizationService;
 
         public SettingsMenuModel(IAudioVolumeControllerService volumeController, ISaveLoadService saveLoadService,
-            AudioVolumeSettings volumeSettings)
+            AudioVolumeSettings volumeSettings, ILocalizationService localizationService)
         {
             ExceptionsTest.NullRefConstructorTest(nameof(SettingsMenuModel), volumeController, saveLoadService, volumeSettings);
 
             _volumeController = volumeController;
             _saveLoadService = saveLoadService;
             _volumeSettings = volumeSettings;
+            _localizationService = localizationService;
+        }
+
+        public void SetRussianLanguage()
+        {
+            _localizationService.SetLanguage("ru");
+        }
+
+        public void SetEnglishLanguage()
+        {
+            _localizationService.SetLanguage("en");
+        }
+
+        public void SetTurkishLanguage()
+        {
+            _localizationService.SetLanguage("tr");
         }
 
         public void ToggleMute(bool value)

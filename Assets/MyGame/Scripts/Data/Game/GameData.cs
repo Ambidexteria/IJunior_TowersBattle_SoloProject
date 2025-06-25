@@ -11,7 +11,7 @@ namespace Base.Data.Game
     {
         public Upgrades Upgrades;
         public UpgradePrices UpgradePrices;
-        public StagesData StagesData    ;
+        public StagesData StagesData;
         public GameSettings GameSettings;
         public SoldierData SoldierData;
         public CannonData CannonData;

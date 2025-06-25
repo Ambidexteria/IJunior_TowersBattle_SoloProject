@@ -76,11 +76,11 @@ MonoBehaviour:
     saveCloud: 0
     selectWebGLTemplate: 1
     runInBackground: 1
-    enableExceptions: 1
-    compressionFormat: 1
+    enableExceptions: 0
+    compressionFormat: 0
     decompressionFallback: 1
-    autoGraphicsAPI: 1
-    minimalCodeCompression: 1
+    autoGraphicsAPI: 0
+    minimalCodeCompression: 0
     dataCaching: 0
     colorSpace: 0
     archivingBuild: 0
