@@ -90,7 +90,18 @@
                     "path": "<Keyboard>/u",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Windows",
+                    "action": "ContinueLoading",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3647d195-2b02-4f16-98ba-67a41f03ae82",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Android",
                     "action": "ContinueLoading",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -101,10 +112,43 @@
                     "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Windows",
                     "action": "ResetProgress",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "6570ed30-67cd-4c5c-8989-501b57175238",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ResetProgress",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "08cf6eba-4833-4548-a1f6-d31d84acacaf",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Android",
+                    "action": "ResetProgress",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "a6c1c09f-b86b-4dc0-b8e6-f2295753e904",
+                    "path": "<Touchscreen>/delta/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Android",
+                    "action": "ResetProgress",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

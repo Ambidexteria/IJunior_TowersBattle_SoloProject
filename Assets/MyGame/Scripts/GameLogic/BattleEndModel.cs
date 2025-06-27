@@ -1,3 +1,4 @@
+using Base.Data;
 using Base.Data.Game;
 using Base.Infrastructure;
 using Base.PLayer;
@@ -14,12 +15,13 @@ namespace Base.GameLogic
         private readonly int _winReward;
         private readonly int _defeatReward;
         private readonly PlayerScore _score;
+        private readonly StagesData _stagesData;
         private int _earnedGold;
 
         public int CurrentGoldAmount => _wallet.CurrentAmount;
 
         public BattleEndModel(Game game, Wallet wallet, ISaveLoadService saveLoadService, int winReward, int defeatReward, 
-            PlayerScore score)
+            PlayerScore score, StagesData stagesData)
         {
             ExceptionsTest.NullRefConstructorTest(nameof(BattleEndModel), game, wallet, saveLoadService, score);
 
@@ -29,6 +31,7 @@ namespace Base.GameLogic
             _winReward = winReward;
             _defeatReward = defeatReward;
             _score = score;
+            _stagesData = stagesData;
         }
 
         public event Action PlayerWinned;
@@ -43,6 +46,7 @@ namespace Base.GameLogic
             {
                 _earnedGold = _winReward;
                 PlayerWinned?.Invoke();
+                _stagesData.TryUnlockNextStage();
             }
             else
             {

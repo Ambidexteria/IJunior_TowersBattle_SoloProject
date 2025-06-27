@@ -768,7 +768,7 @@ MonoBehaviour:
   _disabledSprite: {fileID: 21300000, guid: a9d0e56c83eb8f041b2c84c187fab956, type: 3}
   _enabledSprite: {fileID: 21300000, guid: 7146957d0dc524c47bb83efbe11fd755, type: 3}
   _particleSystemController: {fileID: 1672414005}
-  _pressRangeWidthCoefficient: 0.1
+  _pressRangeWidthCoefficient: 0.2
   _sliderSpeedRate: 1
   _launchButtonView: {fileID: 1531964896}
   _fullRangeRectTransform: {fileID: 1083275499}

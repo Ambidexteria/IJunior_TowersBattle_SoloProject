@@ -1,6 +1,5 @@
 ﻿using Base.Data;
 using Base.Data.Scenes;
-using Base.Services.Input;
 using Base.Services.SceneManagment;
 using System.Collections;
 using UnityEngine;

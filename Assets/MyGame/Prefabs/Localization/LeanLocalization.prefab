@@ -767,6 +767,7 @@ Transform:
   - {fileID: 4277807738302604176}
   - {fileID: 6489313266936335641}
   - {fileID: 5898375831102052251}
+  - {fileID: 8598057332387155703}
   m_Father: {fileID: 2136878880861742391}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7405756217417200048
@@ -878,6 +879,61 @@ MonoBehaviour:
     Object: {fileID: 0}
   - Language: Turkish
     Text: "Kazan\xE7!"
+    Object: {fileID: 0}
+--- !u!1 &8093304024852649907
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8598057332387155703}
+  - component: {fileID: 2792500064372360743}
+  m_Layer: 0
+  m_Name: records button
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8598057332387155703
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8093304024852649907}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8907514042647000062}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2792500064372360743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8093304024852649907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb15fa0e7301ff849bf4d6dcede7c12b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: 0
+  entries:
+  - Language: English
+    Text: Records
+    Object: {fileID: 0}
+  - Language: Russian
+    Text: "\u0420\u0435\u043A\u043E\u0440\u0434\u044B"
+    Object: {fileID: 0}
+  - Language: Turkish
+    Text: "Kay\u0131tlar"
     Object: {fileID: 0}
 --- !u!1 &8268035559161122954
 GameObject:

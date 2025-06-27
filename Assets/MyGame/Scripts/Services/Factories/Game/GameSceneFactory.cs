@@ -87,7 +87,7 @@ namespace Base.Services.Factories.Game
             _NPCCannon.SetEnemy(_playerCannon);
 
             _battleController = new BattleController(player, npc, _uiFactory.GetUIStateMachine(), 
-                _uiFactory.GetBattleEndModel(_game, _wallet, _stageInfo, _dataSerive.GameData.Score));
+                _uiFactory.GetBattleEndModel(_game, _wallet, _stageInfo, _dataSerive.GameData.Score, _dataSerive.GameData.StagesData));
         }
 
         private void OnEnable()

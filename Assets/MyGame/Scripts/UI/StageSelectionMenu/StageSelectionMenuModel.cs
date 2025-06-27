@@ -52,9 +52,7 @@ namespace Base.UI.StageSelection
             if (_stagesData.IsStageExist(name))
             {
                 _stagesData.SetSelectedStage(name);
-                Debug.Log($"Stages count after saving - {_stagesData._stages.Length}");
                 _saveLoadService.SaveProgress();
-                Debug.Log("Progress saved");
                 _activeIcon.HideBorder();
 
                 _activeIcon = GetIconByName(name);

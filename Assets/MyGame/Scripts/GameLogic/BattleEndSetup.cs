@@ -1,3 +1,4 @@
+using Base.Data;
 using Base.Data.Game;
 using Base.Infrastructure;
 using Base.PLayer;
@@ -20,11 +21,12 @@ namespace Base.GameLogic
             ExceptionsTest.NullRefMethodTest(nameof(BattleEndSetup), nameof(Awake), _view);
         }
 
-        public BattleEndModel Create(Game game, Wallet wallet, PlayerScore score, ISaveLoadService saveLoadService, int winReward, int defeatReward)
+        public BattleEndModel Create(Game game, Wallet wallet, PlayerScore score, ISaveLoadService saveLoadService, int winReward, int defeatReward,
+            StagesData stagesData)
         {
             ExceptionsTest.NullRefMethodTest(nameof(BattleEndSetup), nameof(Create), game, wallet, score, saveLoadService);
 
-            _model = new BattleEndModel(game, wallet, saveLoadService, winReward, defeatReward, score);
+            _model = new BattleEndModel(game, wallet, saveLoadService, winReward, defeatReward, score, stagesData);
 
             _presenter = new BattleEndPresenter(_model, _view);
             _view.Enable();

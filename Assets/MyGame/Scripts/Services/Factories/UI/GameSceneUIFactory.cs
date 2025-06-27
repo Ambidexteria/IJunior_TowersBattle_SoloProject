@@ -102,11 +102,11 @@ namespace Base.Services.Factories.UI
             return _uiStateMachine;
         }
 
-        public BattleEndModel GetBattleEndModel(Infrastructure.Game game, Wallet wallet, StageInfo stageInfo, PlayerScore score)
+        public BattleEndModel GetBattleEndModel(Infrastructure.Game game, Wallet wallet, StageInfo stageInfo, PlayerScore score, StagesData stagesData)
         {
             ExceptionsTest.NullRefMethodTest(nameof(GameSceneUIFactory), nameof(GetBattleEndModel), game, wallet, stageInfo, score);
 
-            return _battleEndSetup.Create(game, wallet, score, _saveLoadService, stageInfo.WinReward, stageInfo.DefeatReward);
+            return _battleEndSetup.Create(game, wallet, score, _saveLoadService, stageInfo.WinReward, stageInfo.DefeatReward, stagesData);
         }
 
         private void CreateUIStateMachine()

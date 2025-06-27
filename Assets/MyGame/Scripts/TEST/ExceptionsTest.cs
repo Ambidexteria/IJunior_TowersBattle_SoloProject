@@ -6,7 +6,7 @@ public static class ExceptionsTest
 {
     public const string ConstructorName = "constructor";
 
-    public static bool Enabled = false;
+    public static bool Enabled = true;
 
     public static void NullRefMethodTest(string className, string methodName, params object[] testObjects)
     {
