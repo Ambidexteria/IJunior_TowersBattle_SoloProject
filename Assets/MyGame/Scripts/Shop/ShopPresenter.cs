@@ -22,6 +22,7 @@
             _view.CannonHealthUpgradeClicked += OnCannonHealthUpgradeClicked;
             _view.CannonDamageUpgradeClicked += OnCannonDamageUpgradeClicked;
             _view.SpawnTimeUpgradeClicked += OnSpawnTimeUpgradeClicked;
+            _view.RewardAdsClicked += OnRewardAdsClicked;
 
             _model.HealthUpgradeLevelChanged += OnCannonHealthUpgradeLevelIncreased;
             _model.CannonDamageUpgradeLevelChanged += OnCannonDamageUpgradeLevelIncreased;
@@ -34,6 +35,7 @@
             _view.CannonHealthUpgradeClicked -= OnCannonHealthUpgradeClicked;
             _view.CannonDamageUpgradeClicked -= OnCannonDamageUpgradeClicked;
             _view.SpawnTimeUpgradeClicked -= OnSpawnTimeUpgradeClicked;
+            _view.RewardAdsClicked -= OnRewardAdsClicked;
 
             _model.HealthUpgradeLevelChanged -= OnCannonHealthUpgradeLevelIncreased;
             _model.CannonDamageUpgradeLevelChanged -= OnCannonDamageUpgradeLevelIncreased;
@@ -44,6 +46,11 @@
         private void OnCurrentGoldChanged(int amount)
         {
             _view.DisplayCurrentGold(amount);
+        }
+
+        private void OnRewardAdsClicked()
+        {
+            _model.ShowRewardAds();
         }
 
         private void OnCannonHealthUpgradeLevelIncreased(string level)

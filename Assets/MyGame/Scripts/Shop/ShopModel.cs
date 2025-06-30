@@ -2,6 +2,7 @@
 using Base.PLayer;
 using Base.Services.SaveLoad;
 using System;
+using YG;
 
 namespace Base.Shop
 {
@@ -15,14 +16,13 @@ namespace Base.Shop
 
     public class ShopModel
     {
+        private const string Coin = "Coin";
+        private const int RewardCoins = 500;
+
         private readonly Wallet _wallet;
         private readonly RegularUpgradeSystem _upgradeSystem;
         private readonly ISaveLoadService _saveLoadService;
         private readonly UpgradePrices _prices;
-
-        public int CannonHealthUpgradePrice => _prices.CannonHealth;
-        public int CannonDamageUpgradePrice => _prices.CannonDamage;
-        public int SpawnTimeUpgradePrice => _prices.SpawnTime;
 
         public ShopModel(Wallet wallet, RegularUpgradeSystem upgradeSystem, ISaveLoadService saveLoadService, 
             UpgradePrices prices)
@@ -34,6 +34,9 @@ namespace Base.Shop
             _saveLoadService = saveLoadService;
             _prices = prices;
         }
+        public int CannonHealthUpgradePrice => _prices.CannonHealth;
+        public int CannonDamageUpgradePrice => _prices.CannonDamage;
+        public int SpawnTimeUpgradePrice => _prices.SpawnTime;
 
         public event Action<int> CurrentGoldChanged;
 
@@ -46,6 +49,11 @@ namespace Base.Shop
             CurrentGoldChanged?.Invoke(_wallet.CurrentAmount);
 
             UpdateUpgradeLevels();
+        }
+
+        public void ShowRewardAds()
+        {
+            YG2.RewardedAdvShow(Coin, AddReward);
         }
 
         public void BuyCannonHealthUpgrade()
@@ -79,6 +87,13 @@ namespace Base.Shop
                     BuyUpgrade(CannonDamageUpgradePrice);
                 }
             }
+        }
+
+        private void AddReward()
+        {
+            _wallet.Add(RewardCoins);
+            _saveLoadService.SaveProgress();
+            CurrentGoldChanged?.Invoke(_wallet.CurrentAmount);
         }
 
         private void BuyUpgrade(int price)
