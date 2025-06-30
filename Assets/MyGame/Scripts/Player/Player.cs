@@ -31,7 +31,6 @@ public class Player
         if(_enabled) 
             return;
 
-        //_energyBar.Filled += OnEnergyBarFilled;
         _cannon.Destroyed += OnCannonDestroyed;
 
         _shootMinigame.Winned += OnWinMinigame;
@@ -51,9 +50,7 @@ public class Player
         if (_enabled == false)
             return;
 
-        //_energyBar.Filled -= OnEnergyBarFilled;
         _cannon.Destroyed -= OnCannonDestroyed;
-
         _shootMinigame.Winned -= OnWinMinigame;
         _shootMinigame.Loosed -= OnLooseMinigame;
 
@@ -65,14 +62,6 @@ public class Player
 
         _enabled = false;
     }
-
-    //private void OnEnergyBarFilled()
-    //{
-    //    if (_shootMinigame.Activated)
-    //        return;
-
-    //    _shootMinigame.ReadyToPlay();
-    //}
 
     private void OnWinMinigame()
     {

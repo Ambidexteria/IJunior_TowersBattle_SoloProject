@@ -1,6 +1,4 @@
 using Base.GameLogic.Cannon;
-using Base.Services.TimeManagment;
-using Base.UI.StateMachine;
 using System;
 
 namespace Base.GameLogic.ShootMinigame

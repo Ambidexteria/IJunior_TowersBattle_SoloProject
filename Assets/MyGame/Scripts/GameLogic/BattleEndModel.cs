@@ -46,7 +46,7 @@ namespace Base.GameLogic
             {
                 _earnedGold = _winReward;
                 PlayerWinned?.Invoke();
-                _stagesData.TryUnlockNextStage();
+                _stagesData.UnlockNextStage();
             }
             else
             {

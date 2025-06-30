@@ -25,7 +25,8 @@ namespace Base.GameLogic.ShootMinigame
         {
             ExceptionsTest.NullRefMethodTest(nameof(ShootMinigameLauncherPresenter), nameof(OnStatusChanged), sprite);
 
-            _view.sprite = sprite;
+            if (_view != null)
+                _view.sprite = sprite;
         }
     }
 }

@@ -2,11 +2,10 @@
 using Base.Data.Game;
 using Base.Services.SaveLoad;
 using System;
-using UnityEngine;
 
 namespace Base.UI.StageSelection
 {
-    public class StageSelectionMenuModel
+    public class StageSelectionMenu
     {
         private readonly StageIconModel[] _stagesIcons;
         private readonly StagesData _stagesData;
@@ -14,9 +13,9 @@ namespace Base.UI.StageSelection
         private readonly ISaveLoadService _saveLoadService;
         private StageIconModel _activeIcon;
 
-        public StageSelectionMenuModel(StageIconModel[] iconModels, StagesData stagesData, GameSettings gameSettings, ISaveLoadService saveLoadService)
+        public StageSelectionMenu(StageIconModel[] iconModels, StagesData stagesData, GameSettings gameSettings, ISaveLoadService saveLoadService)
         {
-            ExceptionsTest.NullRefConstructorTest(nameof(StageSelectionMenuModel), iconModels, stagesData, gameSettings,
+            ExceptionsTest.NullRefConstructorTest(nameof(StageSelectionMenu), iconModels, stagesData, gameSettings,
                 saveLoadService);
 
             _stagesIcons = iconModels;
@@ -30,11 +29,6 @@ namespace Base.UI.StageSelection
         }
 
         public event Action<string> StageSelected;
-
-        public void SetActiveStage(string name)
-        {
-
-        }
 
         private void SubcribeForIconModels()
         {

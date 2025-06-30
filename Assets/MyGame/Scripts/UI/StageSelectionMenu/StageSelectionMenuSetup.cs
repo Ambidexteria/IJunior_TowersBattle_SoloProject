@@ -1,7 +1,7 @@
 using Base.Data;
 using Base.Data.Game;
 using Base.Services.SaveLoad;
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Base.UI.StageSelection
@@ -11,12 +11,11 @@ namespace Base.UI.StageSelection
         [SerializeField] private StageIconSetup _iconPrefab;
         [SerializeField] private RectTransform _iconsParentObject;
 
-        private StageSelectionMenuModel _model;
-        private StageSelectionMenuPresenter _presenter;
+        private StageSelectionMenu _model;
 
         private void Awake()
         {
-            ExceptionsTest.NullRefMethodTest(nameof(StageSelectionMenuSetup), nameof(Awake), 
+            ExceptionsTest.NullRefMethodTest(nameof(StageSelectionMenuSetup), nameof(Awake),
                 _iconPrefab, _iconsParentObject);
         }
 
@@ -24,17 +23,16 @@ namespace Base.UI.StageSelection
         {
             ExceptionsTest.NullRefMethodTest(nameof(StageSelectionMenuSetup), nameof(Create), stages, gameSettings, saveLoadService);
 
-            var stagesInfo = stages.GetAllStages();
-            StageIconModel[] iconModels = new StageIconModel[stagesInfo.Length];
+            List<StageIconModel> icons = new List<StageIconModel>();
 
-            for (int i = 0; i < stagesInfo.Length; i++)
+            foreach (var stageInfo in stages.UnlockedStagesInfo)
             {
                 StageIconSetup setup = Instantiate(_iconPrefab);
                 setup.transform.SetParent(_iconsParentObject);
-                iconModels[i] = setup.CreateModel(stagesInfo[i].Unlocked, stagesInfo[i].Name);
+                icons.Add(setup.CreateModel(stageInfo.Value, stageInfo.Key));
             }
 
-            _model = new StageSelectionMenuModel(iconModels, stages, gameSettings, saveLoadService);
+            _model = new StageSelectionMenu(icons.ToArray(), stages, gameSettings, saveLoadService);
         }
     }
 }
