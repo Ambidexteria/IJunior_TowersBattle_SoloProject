@@ -3,14 +3,10 @@ using Base.GameLogic.Cannon;
 using Base.GameLogic.ShootMinigame;
 using Base.Infrastructure;
 using Base.Services.AssetManagment;
-using Base.Services.Input;
 using Base.Services.TimeManagment;
 using Base.Soldier;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Windows;
 using Zenject;
-using Zenject.Asteroids;
 
 namespace Base.Services.Factories.Game
 {
@@ -25,6 +21,7 @@ namespace Base.Services.Factories.Game
         [SerializeField] private RaycastSettings _soldierSelectorSettings;
         [SerializeField] private RaycastSettings _controlPointSelectorSettings;
         [SerializeField] private ShootMinigameSetup _shootMinigameSetup;
+        [SerializeField] private float _spawnRadius = 2f;
 
         private ICoroutineRunner _coroutineRunner;
         private AssetLoader _assetLoader;
@@ -72,7 +69,7 @@ namespace Base.Services.Factories.Game
                 _soldierSpawnerSettings, _soldierFactory);
 
             SoldierSpawnControllerModel spawnController = _playerSpawnControllerSetup.CreateSoldierSpawnController(
-                soldierSpawnDelay, soldierSpawnPoint,
+                soldierSpawnDelay, _spawnRadius, soldierSpawnPoint,
                 _soldierDespawnDetector, team, spawner, _coroutineRunner);
 
             ShootMinigameModel shootMinigame = _shootMinigameSetup.CreateShootMinigameModel(cannonEnergyBar,

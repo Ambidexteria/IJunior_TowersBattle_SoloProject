@@ -2,12 +2,12 @@ using Base.Infrastructure;
 using Base.Soldier;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SoldierSpawnControllerModel
 {
     private readonly float _spawnDelay;
+    private readonly float _spawnRadius;
     private readonly Transform _spawnPoint;
     private readonly SoldierForDespawnDetector _despawnDetector;
 
@@ -23,7 +23,7 @@ public class SoldierSpawnControllerModel
     private bool _enabled = true;
     private float _nextSpawnTime = 0;
 
-    public SoldierSpawnControllerModel(float spawnDelay, Transform spawnPoint, 
+    public SoldierSpawnControllerModel(float spawnDelay, float spawnRadius, Transform spawnPoint, 
         SoldierForDespawnDetector despawnDetector, Team team, SoldierSpawner spawner,
         ICoroutineRunner coroutineRunner)
     {
@@ -31,6 +31,7 @@ public class SoldierSpawnControllerModel
             despawnDetector, team, spawner, coroutineRunner);
 
         _spawnDelay = spawnDelay;
+        _spawnRadius = spawnRadius;
         _spawnPoint = spawnPoint;
         _despawnDetector = despawnDetector;
         _team = team;
@@ -92,7 +93,8 @@ public class SoldierSpawnControllerModel
             SoldierModel soldier = setup.GetSoldier();
 
             setup.gameObject.SetActive(true);
-            soldier.GetTransform().position = _spawnPoint.position;
+
+            soldier.GetTransform().position = GetRandomSpawnPosition();
             soldier.Enable();
             soldier.DespawnerDetected += OnSoldierDespawning;
 
@@ -102,6 +104,14 @@ public class SoldierSpawnControllerModel
 
             yield return _wait;
         }
+    }
+
+    private Vector3 GetRandomSpawnPosition()
+    {
+        Vector3 spawnPosition = _spawnPoint.position;
+        Vector2 random = UnityEngine.Random.insideUnitCircle * _spawnRadius;
+
+        return new Vector3(spawnPosition.x + random.x, spawnPosition.y, spawnPosition.z + random.y);
     }
 
     private void OnSoldierDespawning(SoldierSetup setup)

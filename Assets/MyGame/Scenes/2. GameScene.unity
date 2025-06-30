@@ -323,6 +323,7 @@ MonoBehaviour:
       m_Bits: 128
     RaycastLength: 200
   _shootMinigameSetup: {fileID: 1462529301}
+  _spawnRadius: 2
 --- !u!1 &549895255
 GameObject:
   m_ObjectHideFlags: 0
@@ -908,7 +909,8 @@ MonoBehaviour:
   _npcHealthSetup: {fileID: 1485914197}
   _npcCannonEnergyBarSetup: {fileID: 1485914196}
   _npcSpawnControllerSetup: {fileID: 1485914195}
-  _npcNextCommandDelay: 5
+  _soldierNextCommandDelay: 5
+  _spawnRadius: 2
 --- !u!1 &1524025060
 GameObject:
   m_ObjectHideFlags: 0
@@ -1150,7 +1152,7 @@ Transform:
   m_GameObject: {fileID: 1737975390}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -10, z: 0}
+  m_LocalPosition: {x: 0, y: -15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

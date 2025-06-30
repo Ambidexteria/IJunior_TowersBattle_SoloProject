@@ -7,31 +7,30 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
-public class SoldierModel : ISoldier, IMovable, IAttacker
+public class SoldierModel : ISoldier
 {
-    private SoldierGroundCollisionController _groundCollisionController;
-    private Animator _animator;
-    private SoldierWeapon _weapon;
-    private TriggerObserver _enemyTrigger;
-    private TriggerObserver _despawnerTrigger;
-    private TeamColorChanger _colorChanger;
+    private readonly SoldierGroundCollisionController _groundCollisionController;
+    private readonly Animator _animator;
+    private readonly SoldierWeapon _weapon;
+    private readonly TriggerObserver _enemyTrigger;
+    private readonly TriggerObserver _despawnerTrigger;
+    private readonly TeamColorChanger _colorChanger;
     private readonly Transform _soldierTransform;
-    private float _dieDelay;
-    private List<ColorChangerMark> _marks;
-    private HealthModel _health;
-    private ICoroutineRunner _coroutineRunner;
-    private RotatorToTarget _rotatorToTarget;
-    private DespawnerDetector _despawnerDetector;
-    private SoldierStateMachine _stateMachine;
-    private SoldierMoverToTarget _moverToTarget;
-    private TargetDetector _enemiesDetector;
-    private Rigidbody _rigidbody;
-    private Team _team;
-    private WaitForSeconds _waitToDie;
-    private Coroutine _coroutine;
+    private readonly float _dieDelay;
+    private readonly List<ColorChangerMark> _marks;
+    private readonly HealthModel _health;
+    private readonly ICoroutineRunner _coroutineRunner;
+    private readonly RotatorToTarget _rotatorToTarget;
+    private readonly DespawnerDetector _despawnerDetector;
+    private readonly SoldierStateMachine _stateMachine;
+    private readonly SoldierMoverToTarget _moverToTarget;
+    private readonly TargetDetector _enemiesDetector;
+    private readonly Rigidbody _rigidbody;
+    private readonly Team _team;
+    private readonly WaitForSeconds _waitToDie;
 
+    private Coroutine _updateCoroutine;
     private bool _enabled = false;
     private Coroutine _dieCoroutine;
 
@@ -94,7 +93,7 @@ public class SoldierModel : ISoldier, IMovable, IAttacker
 
         _enabled = true;
 
-        _coroutine = _coroutineRunner.LaunchCoroutine(UpdateCoroutine());
+        _updateCoroutine = _coroutineRunner.LaunchCoroutine(UpdateCoroutine());
     }
 
     public void Disable()
@@ -109,8 +108,8 @@ public class SoldierModel : ISoldier, IMovable, IAttacker
         _enemiesDetector.Detected -= OnEnemyTargetDetected;
         _health.Dying -= Die;
 
-        if (_coroutine != null)
-            _coroutineRunner.EndCoroutine(_coroutine);
+        if (_updateCoroutine != null)
+            _coroutineRunner.EndCoroutine(_updateCoroutine);
 
         if (_dieCoroutine != null)
             _coroutineRunner.EndCoroutine(_dieCoroutine);

@@ -81,7 +81,7 @@ public class SoldierWeapon : MonoBehaviour
             projectile.Init(_team.Type);
             projectile.gameObject.SetActive(true);
             projectile.transform.position = _barrel.transform.position;
-            projectile.Rigidbody.velocity = _barrel.forward * _projectileSpeed;
+            projectile.Rigidbody.velocity = (target.GetTransform().position - _barrel.position) * _projectileSpeed;
 
             if (target.IsDead())
             {
