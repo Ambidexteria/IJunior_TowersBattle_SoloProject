@@ -11,9 +11,8 @@ using Base.UI.Settings;
 using Base.UI.StageSelection;
 using Base.UI.StateMachine;
 using UnityEngine;
+using YG;
 using Zenject;
-using Zenject.Asteroids;
-using Zenject.SpaceFighter;
 
 namespace Base.Services.Factories.UI
 {
@@ -22,21 +21,26 @@ namespace Base.Services.Factories.UI
         [SerializeField] private StageSelectionMenuSetup _stageSelectionMenuSetup;
         [SerializeField] private ShopSetup _shopSetup;
         [SerializeField] private SettingsMenuSetup _settingsSetup;
+        [SerializeField] private AuthorizationMenu _authorizationMenu;
 
         [SerializeField] private ButtonClickHandler _startBattleButton;
 
         [SerializeField] private ButtonClickHandler _openStagesButton;
         [SerializeField] private ButtonClickHandler _openShopButton;
         [SerializeField] private ButtonClickHandler _openSettingsButton;
+        [SerializeField] private ButtonClickHandler _openLeaderboardButton;
 
         [SerializeField] private UIWindowController _mainButtonsWindow;
         [SerializeField] private UIWindowController _stagesWindow;
         [SerializeField] private UIWindowController _shopWindow;
         [SerializeField] private UIWindowController _settingsWindow;
+        [SerializeField] private UIWindowController _leaderboardWindow;
+        [SerializeField] private UIWindowController _authorizationWindow;
 
         [SerializeField] private ButtonClickHandler _closeStagesButton;
         [SerializeField] private ButtonClickHandler _closeShopButton;
         [SerializeField] private ButtonClickHandler _closeSettingsButton;
+        [SerializeField] private ButtonClickHandler _closeLeaderboardButton;
 
         private ISaveLoadService _saveLoadService;
         private TimeController _timeController;
@@ -71,14 +75,16 @@ namespace Base.Services.Factories.UI
             ExceptionsTest.NullRefMethodTest(nameof(MainMenuUIFactory), nameof(Init),
                 _stageSelectionMenuSetup, _shopSetup, _settingsSetup, 
                 _startBattleButton, _openStagesButton, _openShopButton, _openSettingsButton, 
-                _mainButtonsWindow, _stagesWindow, _shopWindow, _settingsWindow, 
-                _closeStagesButton, _closeShopButton, _closeSettingsButton);
+                _mainButtonsWindow, _stagesWindow, _shopWindow, _settingsWindow, _leaderboardWindow, _authorizationWindow, 
+                _closeStagesButton, _closeShopButton, _closeSettingsButton, _closeLeaderboardButton);
 
             _timeController.SetDefaultTimeScale();
             CreateUIStateMachine();
             CreateShop();
             CreateSettings();
             CreateStageSelectionMenu();
+
+            _authorizationMenu.Init(_stateMachine);
         }
 
         private void OnEnable()
@@ -88,10 +94,12 @@ namespace Base.Services.Factories.UI
             _openStagesButton.Clicked += OnOpenStagesButtonClicked;
             _openShopButton.Clicked += OnOpenShopButtonClicked;
             _openSettingsButton.Clicked += OnOpenSettingsButtonClicked;
+            _openLeaderboardButton.Clicked += OnOpenLeaderboardButtonClicked;
 
             _closeStagesButton.Clicked += OnCloseWindowButtonClicked;
             _closeShopButton.Clicked += OnCloseWindowButtonClicked;
             _closeSettingsButton.Clicked += OnCloseWindowButtonClicked;
+            _closeLeaderboardButton.Clicked += OnCloseWindowButtonClicked;
         }
 
         private void OnDisable()
@@ -101,15 +109,18 @@ namespace Base.Services.Factories.UI
             _openStagesButton.Clicked -= OnOpenStagesButtonClicked;
             _openShopButton.Clicked -= OnOpenShopButtonClicked;
             _openSettingsButton.Clicked -= OnOpenSettingsButtonClicked;
+            _openLeaderboardButton.Clicked -= OnOpenLeaderboardButtonClicked;
 
             _closeStagesButton.Clicked -= OnCloseWindowButtonClicked;
             _closeShopButton.Clicked -= OnCloseWindowButtonClicked;
             _closeSettingsButton.Clicked -= OnCloseWindowButtonClicked;
+            _closeLeaderboardButton.Clicked -= OnCloseWindowButtonClicked;
         }
 
         private void CreateUIStateMachine()
         {
-            _stateMachine = new MainMenuUIStateMachine(_mainButtonsWindow, _shopWindow, _stagesWindow, _settingsWindow);
+            _stateMachine = new MainMenuUIStateMachine(_mainButtonsWindow, _shopWindow, _stagesWindow, _settingsWindow,
+                _leaderboardWindow, _authorizationWindow);
             _stateMachine.Enter<MainMenuState>();
         }
 
@@ -149,9 +160,17 @@ namespace Base.Services.Factories.UI
             _stateMachine.Enter<SettingsMenuState>();
         }
 
+        private void OnOpenLeaderboardButtonClicked()
+        {
+            if (YG2.player.auth)
+                _stateMachine.Enter<LeaderboardWindowState>();
+            else
+                _stateMachine.Enter<AutorizationWindowState>();
+        }
+
         private void OnCloseWindowButtonClicked()
         {
             _stateMachine.Enter<MainMenuState>();
-        }
+        }  
     }
 }

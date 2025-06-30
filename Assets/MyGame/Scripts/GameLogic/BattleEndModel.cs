@@ -2,6 +2,7 @@ using Base.Data;
 using Base.Data.Game;
 using Base.Infrastructure;
 using Base.PLayer;
+using Base.Services.PluginYG.LeaderBoard;
 using Base.Services.SaveLoad;
 using System;
 
@@ -16,6 +17,8 @@ namespace Base.GameLogic
         private readonly int _defeatReward;
         private readonly PlayerScore _score;
         private readonly StagesData _stagesData;
+        private readonly PluginYGLeaderboard _leaderboard;
+
         private int _earnedGold;
 
         public int CurrentGoldAmount => _wallet.CurrentAmount;
@@ -32,6 +35,8 @@ namespace Base.GameLogic
             _defeatReward = defeatReward;
             _score = score;
             _stagesData = stagesData;
+
+            _leaderboard = new PluginYGLeaderboard(score);
         }
 
         public event Action PlayerWinned;
@@ -56,6 +61,7 @@ namespace Base.GameLogic
 
             _wallet.Add(_earnedGold);
             _score.Value += npcCannonDamageTaken;
+            _leaderboard.UpdateScore();
             GoldAmountChanged?.Invoke(_earnedGold);
             ScoreChanged?.Invoke(npcCannonDamageTaken);
 
