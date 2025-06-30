@@ -1,3 +1,5 @@
+using Base.Services.TimeManagment;
+using Base.UI.RewardForAds;
 using Base.UI.StateMachine;
 
 namespace Base.GameLogic
@@ -8,8 +10,11 @@ namespace Base.GameLogic
         private readonly NPC _npc;
         private readonly GameUIStateMachine _uIStateMachine;
         private readonly BattleEndModel _battleEnd;
+        private readonly TimeController _timeController;
+        private readonly RestoreHealthForRewardAdsModel _restoreHealthForRewardAds;
 
-        public BattleController(Player player, NPC npc, GameUIStateMachine uIStateMachine, BattleEndModel battleEnd)
+        public BattleController(Player player, NPC npc, GameUIStateMachine uIStateMachine, BattleEndModel battleEnd, 
+            TimeController timeController, RestoreHealthForRewardAdsModel restoreHealthForRewardAds)
         {
             ExceptionsTest.NullRefConstructorTest(nameof(BattleController), player, npc, uIStateMachine, battleEnd);
 
@@ -17,6 +22,8 @@ namespace Base.GameLogic
             _npc = npc;
             _uIStateMachine = uIStateMachine;
             _battleEnd = battleEnd;
+            _timeController = timeController;
+            _restoreHealthForRewardAds = restoreHealthForRewardAds;
         }
 
         public void Enable()
@@ -26,6 +33,7 @@ namespace Base.GameLogic
 
             _player.Defeated += OnPlayerDefeated;
             _npc.Defeated += OnNPCDefeated;
+            _restoreHealthForRewardAds.RewardGained += OnRewardGained;
         }
 
         public void Disable()
@@ -35,15 +43,13 @@ namespace Base.GameLogic
 
             _player.Defeated -= OnPlayerDefeated;
             _npc.Defeated -= OnNPCDefeated;
+            _restoreHealthForRewardAds.RewardGained -= OnRewardGained;
         }
 
         private void OnPlayerDefeated()
         {
-            _battleEnd.End(false, _npc.CannonDamageTaken);
-            _uIStateMachine.Enter<BattleEndState>();
-
-            _player.Disable();
-            _npc.Disable();
+            _timeController.Pause();
+            _uIStateMachine.Enter<RestoreHealthForRewardAdsWindow>();
         }
 
         private void OnNPCDefeated()
@@ -53,6 +59,24 @@ namespace Base.GameLogic
 
             _player.Disable();
             _npc.Disable();
+        }
+
+        private void OnRewardGained(bool gained)
+        {
+            _timeController.Resume();
+
+            if (gained)
+            {
+                _uIStateMachine.Enter<CannonsHUDState>();
+            }
+            else
+            {
+                _battleEnd.End(false, _npc.CannonDamageTaken);
+                _uIStateMachine.Enter<BattleEndState>();
+
+                _player.Disable();
+                _npc.Disable();
+            }
         }
     }
 }

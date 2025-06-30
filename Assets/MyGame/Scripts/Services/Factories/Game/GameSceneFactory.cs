@@ -11,6 +11,7 @@ using Base.Services.PersistentProgress;
 using Base.GameLogic;
 using Base.PLayer;
 using Base.Data;
+using Base.Services.TimeManagment;
 
 namespace Base.Services.Factories.Game
 {
@@ -40,7 +41,7 @@ namespace Base.Services.Factories.Game
         private ControlPointDatabase _controlPointDatabase;
         private IPersisentDataService _dataSerive;
         private Wallet _wallet;
-
+        private TimeController _timeController;
         private StageInfo _stageInfo;
 
         private CannonModel _playerCannon;
@@ -53,7 +54,8 @@ namespace Base.Services.Factories.Game
         private void Init(Infrastructure.Game game, AssetLoader assetLoader, ICoroutineRunner coroutineRunner,
             CannonProjectileSpawner projectileSpawner, TeamColorChanger colorChanger,
             ControlPointDatabase controlPointDatabase,
-            SceneChanger sceneChanger, IPersisentDataService dataService, Wallet wallet)
+            SceneChanger sceneChanger, IPersisentDataService dataService, Wallet wallet,
+            TimeController timeController)
         {
             ExceptionsTest.NullRefMethodTest(nameof(GameSceneFactory), nameof(Init),  game,  assetLoader,  coroutineRunner,
              projectileSpawner,  colorChanger, controlPointDatabase, sceneChanger,  dataService,  wallet);
@@ -67,6 +69,7 @@ namespace Base.Services.Factories.Game
             _sceneChanger = sceneChanger;
             _dataSerive = dataService;
             _wallet = wallet;
+            _timeController = timeController;
         }
 
         private void Awake()
@@ -87,7 +90,8 @@ namespace Base.Services.Factories.Game
             _NPCCannon.SetEnemy(_playerCannon);
 
             _battleController = new BattleController(player, npc, _uiFactory.GetUIStateMachine(), 
-                _uiFactory.GetBattleEndModel(_game, _wallet, _stageInfo, _dataSerive.GameData.Score, _dataSerive.GameData.StagesData));
+                _uiFactory.GetBattleEndModel(_game, _wallet, _stageInfo, _dataSerive.GameData.Score, _dataSerive.GameData.StagesData),
+                _timeController, _uiFactory.GetRestoreHealthForRewardAdsModel(_playerCannonHealthSetup.GetModel()));
         }
 
         private void OnEnable()

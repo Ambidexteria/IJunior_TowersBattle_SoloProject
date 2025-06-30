@@ -15,24 +15,24 @@ public class NPCSoldierController
     private Team _team;
     private readonly ICoroutineRunner _coroutineRunner;
     private Coroutine _coroutine;
-    private WaitForSeconds _startWait;
+    private WaitForSeconds _startCommandDelay;
     private WaitForSeconds _waitNextCommand;
     private bool _enabled = true;
 
     public NPCSoldierController(ControlPointDatabase controlPointDatabase, SoldierSpawnControllerModel spawnController,
-        float startDelay, float nextCommandDelay, Team team, ICoroutineRunner coroutineRunner)
+        float startCommandDelay, float nextCommandDelay, Team team, ICoroutineRunner coroutineRunner)
     {
         ExceptionsTest.NullRefConstructorTest(nameof(NPCSoldierController), controlPointDatabase, spawnController,
             team, coroutineRunner);
 
         _controlPointDatabase = controlPointDatabase;
         _spawnController = spawnController;
-        _startDelay = startDelay;
+        _startDelay = startCommandDelay;
         _nextCommandDelay = nextCommandDelay;
         _team = team;
         _coroutineRunner = coroutineRunner;
 
-        _startWait = new WaitForSeconds(_startDelay);
+        _startCommandDelay = new WaitForSeconds(_startDelay);
         _waitNextCommand = new WaitForSeconds(_nextCommandDelay);
     }
 
@@ -67,7 +67,7 @@ public class NPCSoldierController
 
     private IEnumerator SendSoldierToControlPointCoroutine()
     {
-        yield return _startWait;
+        yield return _startCommandDelay;
 
         while (_enabled)
         {

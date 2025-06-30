@@ -50,6 +50,9 @@ namespace Base.Health
             if (amount <= 0)
                 throw new ArgumentOutOfRangeException(nameof(amount) + " in " + nameof(HealthModel));
 
+            if (_valueChanger != null)
+                _coroutineRunner.EndCoroutine(_valueChanger);
+
             Current += amount;
             Current = Mathf.Clamp(Current, 0, _maxValue);
 

@@ -5,6 +5,7 @@ using Base.PLayer;
 using Base.Services.PluginYG.LeaderBoard;
 using Base.Services.SaveLoad;
 using System;
+using YG;
 
 namespace Base.GameLogic
 {
@@ -66,6 +67,8 @@ namespace Base.GameLogic
             ScoreChanged?.Invoke(npcCannonDamageTaken);
 
             _saveLoadService.SaveProgress();
+
+            YG2.InterstitialAdvShow();
         }
 
         public void LoadMainMenu()

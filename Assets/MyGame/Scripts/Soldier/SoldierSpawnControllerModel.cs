@@ -6,13 +6,15 @@ using UnityEngine;
 
 public class SoldierSpawnControllerModel
 {
+    private readonly float _startSpawnDelay;
     private readonly float _spawnDelay;
     private readonly float _spawnRadius;
     private readonly Transform _spawnPoint;
     private readonly SoldierForDespawnDetector _despawnDetector;
 
     private readonly Team _team;
-    private readonly WaitForSeconds _wait;
+    private readonly WaitForSeconds _spawnCooldown;
+    private readonly WaitForSeconds _startDelay;
     private readonly SoldierSpawner _spawner;
     private readonly SoldierSetup _soldierSetup;
     private readonly ICoroutineRunner _coroutineRunner;
@@ -23,13 +25,14 @@ public class SoldierSpawnControllerModel
     private bool _enabled = true;
     private float _nextSpawnTime = 0;
 
-    public SoldierSpawnControllerModel(float spawnDelay, float spawnRadius, Transform spawnPoint, 
+    public SoldierSpawnControllerModel(float startSpawnDelay, float spawnDelay, float spawnRadius, Transform spawnPoint, 
         SoldierForDespawnDetector despawnDetector, Team team, SoldierSpawner spawner,
         ICoroutineRunner coroutineRunner)
     {
         ExceptionsTest.NullRefConstructorTest(nameof(SoldierSpawnControllerModel), spawnPoint,
             despawnDetector, team, spawner, coroutineRunner);
 
+        _startSpawnDelay = startSpawnDelay;
         _spawnDelay = spawnDelay;
         _spawnRadius = spawnRadius;
         _spawnPoint = spawnPoint;
@@ -37,7 +40,8 @@ public class SoldierSpawnControllerModel
         _team = team;
         _spawner = spawner;
         _coroutineRunner = coroutineRunner;
-        _wait = new WaitForSeconds(_spawnDelay);
+        _startDelay = new WaitForSeconds(_startSpawnDelay);
+        _spawnCooldown = new WaitForSeconds(_spawnDelay);
     }
 
     public float TimeBeforeNextSpawn { get; private set; }
@@ -87,6 +91,9 @@ public class SoldierSpawnControllerModel
 
     private IEnumerator SpawnCoroutine()
     {
+        _nextSpawnTime = Time.time + _startSpawnDelay;
+        yield return _startDelay;
+
         while (_enabled)
         {
             SoldierSetup setup = _spawner.Spawn();
@@ -102,7 +109,7 @@ public class SoldierSpawnControllerModel
 
             _nextSpawnTime = Time.time + _spawnDelay;
 
-            yield return _wait;
+            yield return _spawnCooldown;
         }
     }
 

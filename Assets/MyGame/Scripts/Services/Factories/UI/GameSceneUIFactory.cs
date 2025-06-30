@@ -14,6 +14,8 @@ using Base.Services.PersistentProgress;
 using Base.Data;
 using Base.Data.Game;
 using Base.Services.Localization;
+using Base.UI.RewardForAds;
+using Base.Health;
 
 namespace Base.Services.Factories.UI
 {
@@ -22,12 +24,14 @@ namespace Base.Services.Factories.UI
         [SerializeField] private BattleEndSetup _battleEndSetup;
         [SerializeField] private PauseMenuSetup _pauseMenuSetup;
         [SerializeField] private SettingsMenuSetup _settingsMenuSetup;
+        [SerializeField] private RestoreHealthForRewardAdsSetup _restoreHealthForRewardAdsSetup;
 
         [SerializeField] private UIWindowController _cannonsHUD;
         [SerializeField] private UIWindowController _shootMinigameUI;
         [SerializeField] private UIWindowController _pauseWindow;
         [SerializeField] private UIWindowController _settingsWindow;
         [SerializeField] private UIWindowController _battleEndWindow;
+        [SerializeField] private UIWindowController _restoreHealthForRewardAds;
 
         [SerializeField] private ButtonClickHandler _launchShootMinigameButton;
         [SerializeField] private ButtonClickHandler _pauseButton;
@@ -65,7 +69,7 @@ namespace Base.Services.Factories.UI
         private void Awake()
         {
             ExceptionsTest.NullRefMethodTest(nameof(GameSceneUIFactory), nameof(Awake),
-                _battleEndSetup, _pauseMenuSetup, _settingsMenuSetup, _cannonsHUD, _shootMinigameUI,
+                _battleEndSetup, _pauseMenuSetup, _settingsMenuSetup, _cannonsHUD, _shootMinigameUI, _restoreHealthForRewardAdsSetup,
                 _pauseWindow, _settingsWindow, _battleEndWindow, _launchShootMinigameButton, _pauseButton, _shootButton, 
                 _openSettingsButton, _resumeButton, _closeSettingsWindowButton);
 
@@ -102,6 +106,11 @@ namespace Base.Services.Factories.UI
             return _uiStateMachine;
         }
 
+        public RestoreHealthForRewardAdsModel GetRestoreHealthForRewardAdsModel(HealthModel health)
+        {
+            return _restoreHealthForRewardAdsSetup.Create(health);
+        }
+
         public BattleEndModel GetBattleEndModel(Infrastructure.Game game, Wallet wallet, StageInfo stageInfo, PlayerScore score, StagesData stagesData)
         {
             ExceptionsTest.NullRefMethodTest(nameof(GameSceneUIFactory), nameof(GetBattleEndModel), game, wallet, stageInfo, score);
@@ -112,7 +121,7 @@ namespace Base.Services.Factories.UI
         private void CreateUIStateMachine()
         {
             _uiStateMachine = new GameUIStateMachine(_cannonsHUD, _shootMinigameUI,
-                _pauseWindow, _settingsWindow, _battleEndWindow);
+                _pauseWindow, _settingsWindow, _battleEndWindow, _restoreHealthForRewardAds);
 
             _pauseMenuSetup.CreatePauseMenu(_sceneChanger);
             _settingsMenuSetup.CreateModel(_volumeControllerService, _saveLoadService, _dataService.GameData.AudioVolumeSettings,

@@ -22,6 +22,7 @@ namespace Base.Services.Factories.Game
         [SerializeField] private RaycastSettings _controlPointSelectorSettings;
         [SerializeField] private ShootMinigameSetup _shootMinigameSetup;
         [SerializeField] private float _spawnRadius = 2f;
+        [SerializeField] private float _startSpawnDelay = 2f;
 
         private ICoroutineRunner _coroutineRunner;
         private AssetLoader _assetLoader;
@@ -69,7 +70,7 @@ namespace Base.Services.Factories.Game
                 _soldierSpawnerSettings, _soldierFactory);
 
             SoldierSpawnControllerModel spawnController = _playerSpawnControllerSetup.CreateSoldierSpawnController(
-                soldierSpawnDelay, _spawnRadius, soldierSpawnPoint,
+                _startSpawnDelay, soldierSpawnDelay, _spawnRadius, soldierSpawnPoint,
                 _soldierDespawnDetector, team, spawner, _coroutineRunner);
 
             ShootMinigameModel shootMinigame = _shootMinigameSetup.CreateShootMinigameModel(cannonEnergyBar,

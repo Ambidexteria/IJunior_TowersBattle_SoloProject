@@ -6,14 +6,6 @@ using YG;
 
 namespace Base.Shop
 {
-    [Serializable]
-    public class UpgradePrices
-    {
-        public int CannonHealth = 100;
-        public int CannonDamage = 100;
-        public int SpawnTime = 100;
-    }
-
     public class ShopModel
     {
         private const string Coin = "Coin";

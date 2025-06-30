@@ -1,15 +1,11 @@
 using Base.Data.Game;
 using Base.GameLogic.Cannon;
 using Base.Infrastructure;
-using Base.PLayer;
 using Base.Services.AssetManagment;
-using Base.Services.Input;
 using Base.Services.PersistentProgress;
 using Base.Services.SaveLoad;
 using Base.Services.SceneManagment;
-using Base.Services.TimeManagment;
 using Base.Soldier;
-using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
@@ -22,7 +18,9 @@ namespace Base.Services.Factories.Game
         [SerializeField] private HealthSetup _npcHealthSetup;
         [SerializeField] private CannonEnergyBarSetup _npcCannonEnergyBarSetup;
         [SerializeField] private SoldierSpawnControllerSetup _npcSpawnControllerSetup;
+        [SerializeField] private float _soldierStartCommandDelay = 1f;
         [SerializeField] private float _soldierNextCommandDelay = 5f;
+        [SerializeField] private float _startSpawnDelay = 2f;
         [SerializeField] private float _spawnRadius = 2f;
 
         private ICoroutineRunner _coroutineRunner;
@@ -71,13 +69,13 @@ namespace Base.Services.Factories.Game
 
             SoldierSpawner spawner = new (team, soldierData, _coroutineRunner, _colorChanher, _spawnerSettings, _soldierFactory);
 
-            SoldierSpawnControllerModel spawnController = _npcSpawnControllerSetup.CreateSoldierSpawnController(soldierData.SpawnDelay,
-                _spawnRadius ,soldierSpawnPoint, _soldierDespawnDetector, team, spawner, _coroutineRunner);
+            SoldierSpawnControllerModel spawnController = _npcSpawnControllerSetup.CreateSoldierSpawnController(_startSpawnDelay,
+                soldierData.SpawnDelay, _spawnRadius ,soldierSpawnPoint, _soldierDespawnDetector, team, spawner, _coroutineRunner);
 
             NPCCannonController cannonController = new(cannon, energyBar);
 
             NPCSoldierController soldierController = new(_controlPointDatabase,
-                spawnController, soldierData.SpawnDelay, _soldierNextCommandDelay, team, _coroutineRunner);
+                spawnController, _soldierStartCommandDelay, _soldierNextCommandDelay, team, _coroutineRunner);
 
             NPC npc = new(cannonController, soldierController, spawnController);
 

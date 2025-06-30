@@ -6,11 +6,11 @@ namespace Base.Data.Game
     public class SoldierData
     {
         public float MinDistanceToTarget  = 2f;
-        public float BrakeSpeed = 3f;
-        public float MaxHealth = 20f;
+        public float BrakeSpeed = 4f;
+        public float MaxHealth = 15f;
         public float Speed = 5f;
-        public float Damage = 2f;
-        public float SpawnDelay = 5f;
+        public float Damage = 1.5f;
+        public float SpawnDelay = 7f;
 
         public SoldierData()
         {

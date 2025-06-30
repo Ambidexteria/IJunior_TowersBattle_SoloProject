@@ -1,6 +1,7 @@
 using Base.Health;
 using Base.Infrastructure;
 using UnityEngine;
+using System;
 
 namespace Base
 {
@@ -10,10 +11,20 @@ namespace Base
 
         private HealthModel _model;
         private HealthPresenter _presenter;
+
         private void Awake()
         {
             ExceptionsTest.NullRefMethodTest(nameof(HealthSetup), nameof(Awake), _view);
         }
+
+        public HealthModel GetModel()
+        {
+            if(_model == null )
+                throw new NullReferenceException();
+
+            return _model;
+        }
+
         public HealthModel CreateHealth(float maxHealth, ICoroutineRunner coroutineRunner)
         {
             ExceptionsTest.NullRefMethodTest(nameof(HealthSetup), nameof(CreateHealth), coroutineRunner);

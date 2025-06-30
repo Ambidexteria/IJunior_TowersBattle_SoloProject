@@ -24,9 +24,9 @@ namespace Base.Data
         {
             _stages = new[]
             {
-                new StageInfo("Stages/Stage (1)", _stageOne, 200, 50, new SoldierData(10, 4, 1, 10f), new CannonData(30, 30, 10)),
-                new StageInfo("Stages/Stage (2)", _stageTwo, 400, 100, new SoldierData(15, 4, 1, 8f), new CannonData(50, 25, 15)),
-                new StageInfo("Stages/Stage (3)", _stageTree, 600, 150, new SoldierData(20, 4, 1, 6f), new CannonData(70, 20, 20))
+                new StageInfo("Stages/Stage (1)", _stageOne, 200, 50, new SoldierData(15, 4, 1, 10f), new CannonData(30, 30, 10)),
+                new StageInfo("Stages/Stage (2)", _stageTwo, 400, 100, new SoldierData(15, 4, 2, 8f), new CannonData(50, 25, 15)),
+                new StageInfo("Stages/Stage (3)", _stageTree, 600, 150, new SoldierData(20, 4, 2.5f, 6f), new CannonData(70, 20, 20))
             };
 
             UnlockedStagesInfo = new Dictionary<string, bool>()
