@@ -66,7 +66,7 @@ public class SoldierModel : ISoldier
         _health = new HealthModel(stats.MaxHealth, coroutineRunner);
 
         _colorChanger.Recolor(team, _marks);
-        _weapon.SetTeam(_team);
+        _weapon.Init(_team, stats.Damage);
     }
 
     public bool IsIdle => _stateMachine.IsIdle;
@@ -149,7 +149,7 @@ public class SoldierModel : ISoldier
         _weapon.StopAttack();
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         _health.Decrease(amount);
     }
@@ -157,6 +157,11 @@ public class SoldierModel : ISoldier
     public bool IsDead()
     {
         return _health.IsDead;
+    }
+
+    public bool IsAttacking()
+    {
+        return _weapon.IsTargetAlive;
     }
 
     public Transform GetTransform()

@@ -26,6 +26,7 @@ namespace Base.Shop
             _saveLoadService = saveLoadService;
             _prices = prices;
         }
+
         public int CannonHealthUpgradePrice => _prices.CannonHealth;
         public int CannonDamageUpgradePrice => _prices.CannonDamage;
         public int SpawnTimeUpgradePrice => _prices.SpawnTime;
@@ -72,11 +73,11 @@ namespace Base.Shop
 
         public void BuySpawnTimeUpgrade()
         {
-            if (_wallet.IsEnoughMoney(CannonDamageUpgradePrice))
+            if (_wallet.IsEnoughMoney(SpawnTimeUpgradePrice))
             {
                 if (_upgradeSystem.TryDecreseSpawnTime())
                 {
-                    BuyUpgrade(CannonDamageUpgradePrice);
+                    BuyUpgrade(SpawnTimeUpgradePrice);
                 }
             }
         }

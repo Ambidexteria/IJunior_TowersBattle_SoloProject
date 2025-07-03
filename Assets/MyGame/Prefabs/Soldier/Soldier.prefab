@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a76f00f6196ce114db07a126cf78326c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectileSpeed: 8
+  _projectileSpeed: 6
   _shootCooldown: 0.2
   _startDelay: 0.3
   _barrel: {fileID: 4532711806381905470}

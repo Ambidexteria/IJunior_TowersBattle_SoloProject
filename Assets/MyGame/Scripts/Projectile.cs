@@ -6,12 +6,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Projectile : SpawnableObject
 {
-    private const string ProjectilesParent = nameof(ProjectilesParent);
-
-    [SerializeField] private int _damage = 1;
+    [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private float _lifeTime = 3f;
 
-    private Rigidbody _rigidbody;
+    private float _damage = 1f;
     private TeamType _team;
 
     private float _currentTime;
@@ -22,8 +20,6 @@ public class Projectile : SpawnableObject
 
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody>();
-
         ExceptionsTest.NullRefMethodTest(nameof(Projectile), nameof(Awake), _rigidbody);
     }
 
@@ -56,8 +52,9 @@ public class Projectile : SpawnableObject
         }
     }
 
-    public void Init(TeamType team)
+    public void Init(TeamType team, float damage)
     {
         _team = team;
+        _damage = damage;
     }
 }

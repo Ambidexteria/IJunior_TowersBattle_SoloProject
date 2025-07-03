@@ -48,7 +48,6 @@ namespace Base.Services.Factories.Game
         private CannonModel _NPCCannon;
         private BattleController _battleController;
         private Stage _stage;
-        private TestAttackTarget _testAttackTarget;
 
         [Inject]
         private void Init(Infrastructure.Game game, AssetLoader assetLoader, ICoroutineRunner coroutineRunner,

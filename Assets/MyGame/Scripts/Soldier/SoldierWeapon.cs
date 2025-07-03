@@ -10,6 +10,7 @@ public class SoldierWeapon : MonoBehaviour
     [SerializeField] private float _startDelay;
     [SerializeField] private Transform _barrel;
 
+    private float _damage = 1f;
     private Team _team;
     private ProjectileSpawner _projectileSpawner;
 
@@ -17,6 +18,8 @@ public class SoldierWeapon : MonoBehaviour
     private WaitForSeconds _waitCooldown;
     private WaitForSeconds _waitStartDelay;
     private bool _isTargetAlive = false;
+
+    public bool IsTargetAlive => _isTargetAlive;
 
     public event Action TargetDestroyed;
 
@@ -36,11 +39,12 @@ public class SoldierWeapon : MonoBehaviour
         _projectileSpawner = spawner;
     }
 
-    public void SetTeam(Team team)
+    public void Init(Team team, float damage)
     {
-        ExceptionsTest.NullRefMethodTest(nameof(SoldierWeapon), nameof(SetTeam), team);
+        ExceptionsTest.NullRefMethodTest(nameof(SoldierWeapon), nameof(Init), team);
 
         _team = team;
+        _damage = damage;
     }
 
     public void Attack(ISoldier soldier)
@@ -66,6 +70,7 @@ public class SoldierWeapon : MonoBehaviour
 
         StopCoroutine(_coroutine);
         _coroutine = null;
+        _isTargetAlive = false;
     }
 
     private IEnumerator Shoot(ISoldier target)
@@ -78,7 +83,7 @@ public class SoldierWeapon : MonoBehaviour
         {
             Projectile projectile = _projectileSpawner.Spawn();
 
-            projectile.Init(_team.Type);
+            projectile.Init(_team.Type, _damage);
             projectile.gameObject.SetActive(true);
             projectile.transform.position = _barrel.position;
             projectile.Rigidbody.velocity = (target.GetTransform().position - projectile.transform.position) * _projectileSpeed;

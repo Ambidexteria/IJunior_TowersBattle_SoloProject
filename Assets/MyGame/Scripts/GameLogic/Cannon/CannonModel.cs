@@ -99,7 +99,7 @@ namespace Base.GameLogic.Cannon
             _animator.Play(BarrelDrawback);
         }
 
-        public void TakeDamage(int amount)
+        public void TakeDamage(float amount)
         {
             _health.SmoothDecrease(amount);
             _takeDamageEffect.Play();

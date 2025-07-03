@@ -25,7 +25,7 @@ public class SoldierSelector
         {
             if (hit.collider.transform.root.TryGetComponent(out SoldierSetup setup))
             {
-                if (setup.GetSoldier().GetTeam() == team && setup.GetSoldier().IsDead() == false)
+                if (setup.GetSoldier().GetTeam() == team && IsSelectable(setup.GetSoldier()))
                 {
                     soldier = setup.GetSoldier();
                     return true;
@@ -34,5 +34,10 @@ public class SoldierSelector
         }
 
         return false;
+    }
+
+    private bool IsSelectable(SoldierModel soldier)
+    {
+        return soldier.IsDead() == false && soldier.IsAttacking() == false;
     }
 }
