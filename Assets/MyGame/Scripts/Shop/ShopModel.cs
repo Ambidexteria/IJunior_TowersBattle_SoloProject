@@ -30,12 +30,16 @@ namespace Base.Shop
         public int CannonHealthUpgradePrice => _prices.CannonHealth;
         public int CannonDamageUpgradePrice => _prices.CannonDamage;
         public int SpawnTimeUpgradePrice => _prices.SpawnTime;
+        public int SoldierDamageUpgradePrice => _prices.SoldierDamage;
+        public int SoldierHealthUpgradePrice => _prices.SoldierHealth;
 
         public event Action<int> CurrentGoldChanged;
 
         public event Action<string> CannonDamageUpgradeLevelChanged;
         public event Action<string> HealthUpgradeLevelChanged;
         public event Action<string> SpawnTimehUpgradeLevelChanged;
+        public event Action<string> SoldierDamageUpgradeLevelChanged;
+        public event Action<string> SoldierHealthUpgradeLevelChanged;
 
         public void Enable()
         {
@@ -81,6 +85,28 @@ namespace Base.Shop
                 }
             }
         }
+        
+        public void BuySoldierDamageUpgrade()
+        {
+            if (_wallet.IsEnoughMoney(SoldierDamageUpgradePrice))
+            {
+                if (_upgradeSystem.TryIncreaseSoldierDamage())
+                {
+                    BuyUpgrade(SoldierDamageUpgradePrice);
+                }
+            }
+        }
+
+        public void BuySoldierHealthUpgrade()
+        {
+            if (_wallet.IsEnoughMoney(SoldierHealthUpgradePrice))
+            {
+                if (_upgradeSystem.TryIncreaseSoldierHealth())
+                {
+                    BuyUpgrade(SoldierHealthUpgradePrice);
+                }
+            }
+        }
 
         private void AddReward()
         {
@@ -102,6 +128,8 @@ namespace Base.Shop
             HealthUpgradeLevelChanged?.Invoke(_upgradeSystem.GetUpgradeLevel<CannonHealthUpgrade>());
             CannonDamageUpgradeLevelChanged?.Invoke(_upgradeSystem.GetUpgradeLevel<CannonDamageUpgrade>());
             SpawnTimehUpgradeLevelChanged?.Invoke(_upgradeSystem.GetUpgradeLevel<SpawnTimeUpgrade>());
+            SoldierDamageUpgradeLevelChanged?.Invoke(_upgradeSystem.GetUpgradeLevel<SoldierDamageUpgrade>());
+            SoldierHealthUpgradeLevelChanged?.Invoke(_upgradeSystem.GetUpgradeLevel<SoldierHealthUpgrade>());
         }
     }
 }

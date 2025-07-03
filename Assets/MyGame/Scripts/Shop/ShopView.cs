@@ -18,6 +18,14 @@ namespace Base.Shop
         [SerializeField] private TextMeshProUGUI _spawnTimeUpgradeLevel;
         [SerializeField] private TextMeshProUGUI _spawnTimeUpgradePrice;
 
+        [SerializeField] private ButtonClickHandler _soldierDamageUpgrade;
+        [SerializeField] private TextMeshProUGUI _soldierDamageUpgradeLevel;
+        [SerializeField] private TextMeshProUGUI _soldierDamageUpgradePrice;
+
+        [SerializeField] private ButtonClickHandler _soldierHealthUpgrade;
+        [SerializeField] private TextMeshProUGUI _soldierHealthUpgradeLevel;
+        [SerializeField] private TextMeshProUGUI _soldierHealthUpgradePrice;
+
         [SerializeField] private TextMeshProUGUI _currentGoldAmount;
 
         [SerializeField] private ButtonClickHandler _rewardAdsButton;
@@ -25,6 +33,8 @@ namespace Base.Shop
         public event Action CannonDamageUpgradeClicked;
         public event Action CannonHealthUpgradeClicked;
         public event Action SpawnTimeUpgradeClicked;
+        public event Action SoldierDamageUpgradeClicked;
+        public event Action SoldierHealthUpgradeClicked;
 
         public event Action RewardAdsClicked;
 
@@ -42,6 +52,8 @@ namespace Base.Shop
             _cannonDamageUpgrade.Clicked += OnCannonDamageUpgradeClicked;
             _cannonHealthUpgrade.Clicked += OnCannonHealthUpgradeClicked;
             _spawnTimeUpgrade.Clicked += OnSpawnTimeUpgradeClicked;
+            _soldierDamageUpgrade.Clicked += OnSoldierDamageUpgradeClicked;
+            _soldierHealthUpgrade.Clicked += OnSoldierHealthUpgradeClicked;
 
             _rewardAdsButton.Clicked += OnRewardAdsButtonClicked;
         }
@@ -51,6 +63,8 @@ namespace Base.Shop
             _cannonDamageUpgrade.Clicked -= OnCannonDamageUpgradeClicked;
             _cannonHealthUpgrade.Clicked -= OnCannonHealthUpgradeClicked;
             _spawnTimeUpgrade.Clicked -= OnSpawnTimeUpgradeClicked;
+            _soldierDamageUpgrade.Clicked -= OnSoldierDamageUpgradeClicked;
+            _soldierHealthUpgrade.Clicked -= OnSoldierHealthUpgradeClicked;
 
             _rewardAdsButton.Clicked -= OnRewardAdsButtonClicked;
         }
@@ -75,6 +89,16 @@ namespace Base.Shop
             _spawnTimeUpgradeLevel.text = text;
         }
 
+        public void DisplaySoldierDamageUpgradeLevel(string text)
+        {
+            _soldierDamageUpgradeLevel.text = text;
+        }
+
+        public void DisplaySoldierHealthUpgradeLevel(string text)
+        {
+            _soldierHealthUpgradeLevel.text  = text;
+        }
+
         public void SetCannonHealthUpgradePrice(int price)
         {
             _cannonHealthUpgradePrice.text = price.ToString();
@@ -90,6 +114,16 @@ namespace Base.Shop
             _spawnTimeUpgradePrice.text = price.ToString();
         }
 
+        public void SetSoldierDamageUpgradePrice(int price)
+        {
+            _soldierDamageUpgradePrice.text = price.ToString();
+        }
+
+        public void SetSoldierHealthUpgradePrice(int price)
+        {
+            _soldierHealthUpgradePrice.text = price.ToString();
+        }
+
         private void OnCannonDamageUpgradeClicked()
         {
             CannonDamageUpgradeClicked?.Invoke();
@@ -103,6 +137,16 @@ namespace Base.Shop
         private void OnSpawnTimeUpgradeClicked()
         {
             SpawnTimeUpgradeClicked?.Invoke();
+        }
+
+        private void OnSoldierDamageUpgradeClicked()
+        {
+            SoldierDamageUpgradeClicked?.Invoke();
+        }
+
+        private void OnSoldierHealthUpgradeClicked()
+        {
+            SoldierHealthUpgradeClicked?.Invoke();
         }
 
         private void OnRewardAdsButtonClicked()

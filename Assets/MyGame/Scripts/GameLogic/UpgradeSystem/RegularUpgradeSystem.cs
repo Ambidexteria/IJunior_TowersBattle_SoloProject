@@ -13,10 +13,14 @@ namespace Base.GameLogic.UpgradeSystem
 
         public Upgrades()
         {
-            _upgrades = new Dictionary<Type, Upgrade>();
-            _upgrades.Add(typeof(CannonHealthUpgrade), new CannonHealthUpgrade(0, 10, 10));
-            _upgrades.Add(typeof(CannonDamageUpgrade), new CannonDamageUpgrade(0, 10, 5));
-            _upgrades.Add(typeof(SpawnTimeUpgrade), new SpawnTimeUpgrade(0, 10, -0.5f));
+            _upgrades = new Dictionary<Type, Upgrade>
+            {
+                { typeof(CannonHealthUpgrade), new CannonHealthUpgrade(0, 10, 10) },
+                { typeof(CannonDamageUpgrade), new CannonDamageUpgrade(0, 10, 5) },
+                { typeof(SpawnTimeUpgrade), new SpawnTimeUpgrade(0, 10, -0.5f) },
+                { typeof(SoldierDamageUpgrade), new SoldierDamageUpgrade(0, 5, 0.2f) },
+                { typeof(SoldierHealthUpgrade), new SoldierHealthUpgrade(0, 5, 2f) }
+            };
         }
 
         public Type GetUpgrade<Type>() where Type : Upgrade
@@ -50,6 +54,20 @@ namespace Base.GameLogic.UpgradeSystem
     public class SpawnTimeUpgrade : Upgrade
     {
         public SpawnTimeUpgrade(int currentLevel, int maxLevel, float upgradeValue) : base(currentLevel, maxLevel, upgradeValue)
+        {
+        }
+    }
+
+    public class SoldierDamageUpgrade : Upgrade
+    {
+        public SoldierDamageUpgrade(int currentLevel, int maxLevel, float upgradeValue) : base(currentLevel, maxLevel, upgradeValue)
+        {
+        }
+    }  
+    
+    public class SoldierHealthUpgrade : Upgrade
+    {
+        public SoldierHealthUpgrade(int currentLevel, int maxLevel, float upgradeValue) : base(currentLevel, maxLevel, upgradeValue)
         {
         }
     }
@@ -149,6 +167,36 @@ namespace Base.GameLogic.UpgradeSystem
             if (upgrade.TryIncreaseLevel())
             {
                 _dataService.GameData.SoldierData.SpawnDelay += upgrade.UpgradeValue;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool TryIncreaseSoldierDamage()
+        {
+            SoldierDamageUpgrade upgrade = _upgrades.GetUpgrade<SoldierDamageUpgrade>();
+
+            if (upgrade.TryIncreaseLevel())
+            {
+                _dataService.GameData.SoldierData.Damage += upgrade.UpgradeValue;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool TryIncreaseSoldierHealth()
+        {
+            SoldierHealthUpgrade upgrade = _upgrades.GetUpgrade<SoldierHealthUpgrade>();
+
+            if (upgrade.TryIncreaseLevel())
+            {
+                _dataService.GameData.SoldierData.MaxHealth += upgrade.UpgradeValue;
                 return true;
             }
             else

@@ -18,15 +18,22 @@
             _view.SetCannonHealthUpgradePrice(_model.CannonHealthUpgradePrice);
             _view.SetCannonDamageUpgradePrice(_model.CannonDamageUpgradePrice);
             _view.SetSpawnTimeUpgradePrice(_model.SpawnTimeUpgradePrice);
+            _view.SetSoldierDamageUpgradePrice(_model.SoldierDamageUpgradePrice);
+            _view.SetSoldierHealthUpgradePrice(_model.SoldierHealthUpgradePrice);
 
             _view.CannonHealthUpgradeClicked += OnCannonHealthUpgradeClicked;
             _view.CannonDamageUpgradeClicked += OnCannonDamageUpgradeClicked;
             _view.SpawnTimeUpgradeClicked += OnSpawnTimeUpgradeClicked;
+            _view.SoldierDamageUpgradeClicked += OnSoldierDamageUpgradeClicked;
+            _view.SoldierHealthUpgradeClicked += OnSoldierHealthUpgradeClicked;
             _view.RewardAdsClicked += OnRewardAdsClicked;
 
             _model.HealthUpgradeLevelChanged += OnCannonHealthUpgradeLevelIncreased;
             _model.CannonDamageUpgradeLevelChanged += OnCannonDamageUpgradeLevelIncreased;
             _model.SpawnTimehUpgradeLevelChanged += OnSpawnTimeUpgradeLevelIncreased;
+            _model.SoldierDamageUpgradeLevelChanged += OnSoldierDamageLevelIncreased;
+            _model.SoldierHealthUpgradeLevelChanged += OnSoldierHealthUpgradeLevelIncreased;
+
             _model.CurrentGoldChanged += OnCurrentGoldChanged;
         }
 
@@ -35,11 +42,16 @@
             _view.CannonHealthUpgradeClicked -= OnCannonHealthUpgradeClicked;
             _view.CannonDamageUpgradeClicked -= OnCannonDamageUpgradeClicked;
             _view.SpawnTimeUpgradeClicked -= OnSpawnTimeUpgradeClicked;
+            _view.SoldierDamageUpgradeClicked -= OnSoldierDamageUpgradeClicked;
+            _view.SoldierHealthUpgradeClicked -= OnSoldierHealthUpgradeClicked;
             _view.RewardAdsClicked -= OnRewardAdsClicked;
 
             _model.HealthUpgradeLevelChanged -= OnCannonHealthUpgradeLevelIncreased;
             _model.CannonDamageUpgradeLevelChanged -= OnCannonDamageUpgradeLevelIncreased;
             _model.SpawnTimehUpgradeLevelChanged -= OnSpawnTimeUpgradeLevelIncreased;
+            _model.SoldierDamageUpgradeLevelChanged -= OnSoldierDamageLevelIncreased;
+            _model.SoldierHealthUpgradeLevelChanged -= OnSoldierHealthUpgradeLevelIncreased;
+
             _model.CurrentGoldChanged -= OnCurrentGoldChanged;
         }
 
@@ -68,6 +80,16 @@
             _view.DisplaySpawnTimeUpgradeLevel(level);
         }
 
+        private void OnSoldierDamageLevelIncreased(string level)
+        {
+            _view.DisplaySoldierDamageUpgradeLevel(level);
+        }
+
+        private void OnSoldierHealthUpgradeLevelIncreased(string level)
+        {
+            _view.DisplaySoldierHealthUpgradeLevel(level);
+        }
+
         private void OnCannonHealthUpgradeClicked()
         {
             _model.BuyCannonHealthUpgrade();
@@ -81,6 +103,16 @@
         private void OnCannonDamageUpgradeClicked()
         {
             _model.BuyCannonDamageUpgrade();
+        }
+
+        private void OnSoldierDamageUpgradeClicked()
+        {
+            _model.BuySoldierDamageUpgrade();
+        } 
+        
+        private void OnSoldierHealthUpgradeClicked()
+        {
+            _model.BuySoldierHealthUpgrade();
         }
     }
 }

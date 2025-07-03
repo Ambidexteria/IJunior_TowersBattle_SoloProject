@@ -37,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 440, y: 70}
+  m_SizeDelta: {x: 480, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7980212266813108904
 MonoBehaviour:
@@ -52,8 +52,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 10
-    m_Right: 10
+    m_Left: 5
+    m_Right: 5
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
@@ -100,7 +100,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 100}
+  m_SizeDelta: {x: 213.5, y: 100}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!1 &4569937797113592790
 GameObject:
@@ -136,7 +136,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 90, y: 0}
+  m_AnchoredPosition: {x: 72.2, y: 0}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &1158210226239061316
@@ -347,7 +347,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 500, y: 150}
+  m_SizeDelta: {x: 550, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7429925274949707476
 MonoBehaviour:
@@ -397,11 +397,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4441832734938729266, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
       propertyPath: m_margin.x
-      value: 0
+      value: -18.917236
       objectReference: {fileID: 0}
     - target: {fileID: 4441832734938729266, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
       propertyPath: m_margin.z
-      value: 0
+      value: -22.717957
       objectReference: {fileID: 0}
     - target: {fileID: 4441832734938729266, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
       propertyPath: m_fontAsset
@@ -417,7 +417,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4441832734938729268, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
       propertyPath: m_Name
-      value: Text_Title
+      value: Header
       objectReference: {fileID: 0}
     - target: {fileID: 4441832734938729269, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
       propertyPath: m_Pivot.x
@@ -523,7 +523,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4441832734938729266, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
       propertyPath: m_fontSize
-      value: 19.4
+      value: 25.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441832734938729266, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
+      propertyPath: m_margin.w
+      value: 18.51709
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441832734938729266, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
+      propertyPath: m_margin.x
+      value: -12.720123
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441832734938729266, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
+      propertyPath: m_margin.y
+      value: 16.745483
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441832734938729266, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
+      propertyPath: m_margin.z
+      value: -20.855194
       objectReference: {fileID: 0}
     - target: {fileID: 4441832734938729266, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
       propertyPath: m_fontAsset
@@ -646,7 +662,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4441832734938729266, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
       propertyPath: m_fontSize
-      value: 19.4
+      value: 26.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441832734938729266, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
+      propertyPath: m_margin.w
+      value: 8.477051
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441832734938729266, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
+      propertyPath: m_margin.x
+      value: -35.38867
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441832734938729266, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
+      propertyPath: m_margin.y
+      value: 9.321533
       objectReference: {fileID: 0}
     - target: {fileID: 4441832734938729266, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
       propertyPath: m_fontAsset
@@ -662,7 +690,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4441832734938729268, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
       propertyPath: m_Name
-      value: Text_Title
+      value: Text
       objectReference: {fileID: 0}
     - target: {fileID: 4441832734938729269, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
       propertyPath: m_Pivot.x
