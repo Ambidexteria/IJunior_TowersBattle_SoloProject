@@ -3,12 +3,13 @@ using Base.Services.TimeManagment;
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Base.GameLogic.ShootMinigame
 {
     public class ShootMinigamePressRangeModel
     {
+        private const float BorderSpacing = 0.1f;
+
         private readonly TimeController _timeController;
         private readonly ICoroutineRunner _coroutineRunner;
         private readonly float _pressRangeWidthCoefficient = 0.1f;
@@ -98,13 +99,18 @@ namespace Base.GameLogic.ShootMinigame
 
                 ValueChanged?.Invoke(nextValue);
 
-                if (nextValue == FullRangeMaxValue || nextValue == FullRangeMinValue)
+                if (IsOutsideFullRange(nextValue))
                 {
                     speed *= -1;
                 }
 
                 yield return null;
             }
+        }
+
+        private bool IsOutsideFullRange(float nextValue)
+        {
+            return nextValue >= (FullRangeMaxValue - BorderSpacing) || nextValue <= (FullRangeMinValue + BorderSpacing);
         }
 
         private void CalculateStaticValues()
