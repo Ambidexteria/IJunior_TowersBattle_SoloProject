@@ -12,6 +12,8 @@ using Base.GameLogic;
 using Base.PLayer;
 using Base.Data;
 using Base.Services.TimeManagment;
+using Base.Services.Audio;
+using Zenject.SpaceFighter;
 
 namespace Base.Services.Factories.Game
 {
@@ -42,6 +44,7 @@ namespace Base.Services.Factories.Game
         private IPersisentDataService _dataSerive;
         private Wallet _wallet;
         private TimeController _timeController;
+        private AudioPlayerService _audioPlayer;
         private StageInfo _stageInfo;
 
         private CannonModel _playerCannon;
@@ -54,7 +57,7 @@ namespace Base.Services.Factories.Game
             CannonProjectileSpawner projectileSpawner, TeamColorChanger colorChanger,
             ControlPointDatabase controlPointDatabase,
             SceneChanger sceneChanger, IPersisentDataService dataService, Wallet wallet,
-            TimeController timeController)
+            TimeController timeController, AudioPlayerService audioPlayer)
         {
             ExceptionsTest.NullRefMethodTest(nameof(GameSceneFactory), nameof(Init),  game,  assetLoader,  coroutineRunner,
              projectileSpawner,  colorChanger, controlPointDatabase, sceneChanger,  dataService,  wallet);
@@ -69,6 +72,7 @@ namespace Base.Services.Factories.Game
             _dataSerive = dataService;
             _wallet = wallet;
             _timeController = timeController;
+            _audioPlayer = audioPlayer;
         }
 
         private void Awake()
@@ -128,13 +132,6 @@ namespace Base.Services.Factories.Game
 
             return _playerFactory.CreatePlayer(team, _playerCannon, _dataSerive.GameData.CannonData,
                 _dataSerive.GameData.SoldierData.SpawnDelay, _stage.PlayerSoldierSpawnPoint, _dataSerive.GameData.SoldierData);
-        }
-
-        private void LoadStage()
-        {
-            Debug.Log("loading stage...");
-            _stage = _assetLoader.Instantiate<Stage>(_stageInfo.AssetPath);
-            Debug.Log("stage loaded");
         }
 
         private CannonModel CreateCannon(string assetPath, Team team, int damage, HealthModel health)

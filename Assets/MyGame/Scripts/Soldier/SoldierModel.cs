@@ -2,6 +2,7 @@ using Base.Data.Game;
 using Base.Health;
 using Base.Infrastructure;
 using Base.Logic;
+using Base.Services.Audio;
 using Base.Soldier;
 using System;
 using System.Collections;
@@ -17,6 +18,7 @@ public class SoldierModel : ISoldier
     private readonly TriggerObserver _despawnerTrigger;
     private readonly TeamColorChanger _colorChanger;
     private readonly Transform _soldierTransform;
+    private readonly AudioPlayerService _audioPlayer;
     private readonly float _dieDelay;
     private readonly List<ColorChangerMark> _marks;
     private readonly HealthModel _health;
@@ -38,7 +40,7 @@ public class SoldierModel : ISoldier
         SoldierWeapon weapon, TriggerObserver enemyTrigger, TriggerObserver despawnerTrigger,
         float dieDelay, List<ColorChangerMark> marks, Rigidbody rigidbody,
         Team team, SoldierData stats, ICoroutineRunner coroutineRunner,
-        TeamColorChanger teamColorChanger, Transform soldierTransform)
+        TeamColorChanger teamColorChanger, Transform soldierTransform, AudioPlayerService audioPlayer)
     {
         ExceptionsTest.NullRefConstructorTest(nameof(SoldierModel), groundCollisionController, animator,
             weapon, enemyTrigger, despawnerTrigger, marks, rigidbody, team, stats, coroutineRunner, 
@@ -57,6 +59,7 @@ public class SoldierModel : ISoldier
         _coroutineRunner = coroutineRunner;
         _colorChanger = teamColorChanger;
         _soldierTransform = soldierTransform;
+        _audioPlayer = audioPlayer;
         _waitToDie = new WaitForSeconds(_dieDelay);
         _despawnerDetector = new DespawnerDetector(_despawnerTrigger);
         _rotatorToTarget = new RotatorToTarget(_soldierTransform);
@@ -204,6 +207,7 @@ public class SoldierModel : ISoldier
         Dying?.Invoke();
         StopAttack();
         Stop();
+        _audioPlayer.PlaySoldierDeathSound();
 
         _dieCoroutine = _coroutineRunner.LaunchCoroutine(DieCoroutine());
     }

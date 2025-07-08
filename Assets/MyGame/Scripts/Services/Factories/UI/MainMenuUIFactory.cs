@@ -51,12 +51,13 @@ namespace Base.Services.Factories.UI
         private IAudioVolumeControllerService _volumeControllerService;
         private Infrastructure.Game _game;
         private ILocalizationService _localizationService;
+        private AudioPlayerService _auidoPlayer;
 
         [Inject]
         private void Init(TimeController timeController, Wallet wallet, RegularUpgradeSystem upgradeSystem,
             ISaveLoadService saveLoadService, IPersisentDataService dataService,
             IAudioVolumeControllerService volumeControllerService, Infrastructure.Game game,
-            ILocalizationService localizationService)
+            ILocalizationService localizationService, AudioPlayerService audioPlayer)
         {
             ExceptionsTest.NullRefMethodTest(nameof(MainMenuUIFactory), nameof(Init), timeController, wallet, upgradeSystem,
                 saveLoadService, dataService, volumeControllerService, game, localizationService);
@@ -69,10 +70,12 @@ namespace Base.Services.Factories.UI
             _volumeControllerService = volumeControllerService;
             _game = game;
             _localizationService = localizationService;
+            _auidoPlayer = audioPlayer;
         }
+
         private void Awake()
         {
-            ExceptionsTest.NullRefMethodTest(nameof(MainMenuUIFactory), nameof(Init),
+            ExceptionsTest.NullRefMethodTest(nameof(MainMenuUIFactory), nameof(Awake),
                 _stageSelectionMenuSetup, _shopSetup, _settingsSetup, 
                 _startBattleButton, _openStagesButton, _openShopButton, _openSettingsButton, 
                 _mainButtonsWindow, _stagesWindow, _shopWindow, _settingsWindow, _leaderboardWindow, _authorizationWindow, 
@@ -89,6 +92,8 @@ namespace Base.Services.Factories.UI
 
         private void OnEnable()
         {
+            _auidoPlayer.PlayMainMenuMusic();
+
             _startBattleButton.Clicked += OnStartButtonClicked;
 
             _openStagesButton.Clicked += OnOpenStagesButtonClicked;

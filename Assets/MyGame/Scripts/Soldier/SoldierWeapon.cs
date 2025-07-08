@@ -1,3 +1,4 @@
+using Base.Services.Audio;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -13,7 +14,7 @@ public class SoldierWeapon : MonoBehaviour
     private float _damage = 1f;
     private Team _team;
     private ProjectileSpawner _projectileSpawner;
-
+    private AudioPlayerService _audioPlayer;
     private Coroutine _coroutine;
     private WaitForSeconds _waitCooldown;
     private WaitForSeconds _waitStartDelay;
@@ -32,11 +33,12 @@ public class SoldierWeapon : MonoBehaviour
     }
 
     [Inject]
-    private void Init(ProjectileSpawner spawner)
+    private void Init(ProjectileSpawner spawner, AudioPlayerService audioPlayer)
     {
         ExceptionsTest.NullRefMethodTest(nameof(SoldierWeapon), nameof(Init), spawner);
 
         _projectileSpawner = spawner;
+        _audioPlayer = audioPlayer;
     }
 
     public void Init(Team team, float damage)
@@ -87,6 +89,8 @@ public class SoldierWeapon : MonoBehaviour
             projectile.gameObject.SetActive(true);
             projectile.transform.position = _barrel.position;
             projectile.Rigidbody.velocity = (target.GetTransform().position - projectile.transform.position) * _projectileSpeed;
+
+            _audioPlayer.PlaySoldierShootSound();
 
             if (target.IsDead())
             {

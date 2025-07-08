@@ -2,6 +2,7 @@ using Base.Data;
 using Base.Data.Game;
 using Base.Infrastructure;
 using Base.PLayer;
+using Base.Services.Audio;
 using Base.Services.PluginYG.LeaderBoard;
 using Base.Services.SaveLoad;
 using System;
@@ -18,6 +19,7 @@ namespace Base.GameLogic
         private readonly int _defeatReward;
         private readonly PlayerScore _score;
         private readonly StagesData _stagesData;
+        private readonly AudioPlayerService _audioPlayer;
         private readonly PluginYGLeaderboard _leaderboard;
 
         private int _earnedGold;
@@ -25,7 +27,7 @@ namespace Base.GameLogic
         public int CurrentGoldAmount => _wallet.CurrentAmount;
 
         public BattleEndModel(Game game, Wallet wallet, ISaveLoadService saveLoadService, int winReward, int defeatReward, 
-            PlayerScore score, StagesData stagesData)
+            PlayerScore score, StagesData stagesData, AudioPlayerService audioPlayer)
         {
             ExceptionsTest.NullRefConstructorTest(nameof(BattleEndModel), game, wallet, saveLoadService, score);
 
@@ -36,6 +38,7 @@ namespace Base.GameLogic
             _defeatReward = defeatReward;
             _score = score;
             _stagesData = stagesData;
+            _audioPlayer = audioPlayer;
 
             _leaderboard = new PluginYGLeaderboard(score);
         }
@@ -47,17 +50,18 @@ namespace Base.GameLogic
 
         public void End(bool isPlayerWin, int npcCannonDamageTaken)
         {
-
             if (isPlayerWin)
             {
                 _earnedGold = _winReward;
                 PlayerWinned?.Invoke();
+                _audioPlayer.PlayWinSound();
                 _stagesData.UnlockNextStage();
             }
             else
             {
                 _earnedGold = _defeatReward;
                 PlayerLoosed?.Invoke();
+                _audioPlayer.PlayDefeatSound();
             }
 
             _wallet.Add(_earnedGold);

@@ -12,14 +12,14 @@ namespace Base.Soldier
 
         private void Awake()
         {
-            ExceptionsTest.NullRefMethodTest(nameof(SoldierSpawnControllerSetup), nameof(CreateSoldierSpawnController), _view);
+            ExceptionsTest.NullRefMethodTest(nameof(SoldierSpawnControllerSetup), nameof(CreateModel), _view);
         }
 
-        public SoldierSpawnControllerModel CreateSoldierSpawnController(float startDelay, float spawnDelay, float spawnRadius, Transform spawnPoint,
+        public SoldierSpawnControllerModel CreateModel(float startDelay, float spawnDelay, float spawnRadius, Transform spawnPoint,
             SoldierForDespawnDetector despawnDetector, Team team, SoldierSpawner spawner,
             ICoroutineRunner coroutineRunner)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(SoldierSpawnControllerSetup), nameof(CreateSoldierSpawnController),
+            ExceptionsTest.NullRefMethodTest(nameof(SoldierSpawnControllerSetup), nameof(CreateModel),
                  spawnPoint, despawnDetector, team, spawner, coroutineRunner);
 
             _model = new( startDelay, spawnDelay, spawnRadius, spawnPoint, despawnDetector, team, spawner, coroutineRunner);

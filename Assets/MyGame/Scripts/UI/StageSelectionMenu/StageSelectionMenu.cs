@@ -28,8 +28,6 @@ namespace Base.UI.StageSelection
             _activeIcon.ShowBorder();
         }
 
-        public event Action<string> StageSelected;
-
         private void SubcribeForIconModels()
         {
             foreach (var iconModel in _stagesIcons)

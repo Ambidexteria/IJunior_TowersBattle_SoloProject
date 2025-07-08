@@ -1,10 +1,8 @@
 using Base.Infrastructure;
-using Base.Services.Input;
-using System;
+using Base.Services.Audio;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Zenject;
 
 public class SoldierCommandController
 {
@@ -16,6 +14,7 @@ public class SoldierCommandController
     private ICoroutineRunner _coroutineRunner;
     private Team _team;
     private InputService _input;
+    private readonly AudioPlayerService _audioPlayer;
     private Coroutine _coroutine;
 
 
@@ -25,7 +24,7 @@ public class SoldierCommandController
 
     public SoldierCommandController(float secondClickDelay, SoldierSelector soldierSelector,
         ControlPointSelector controlPointSelector, FloatingPointer floatingPointer,
-        ICoroutineRunner coroutineRunner, Team team, InputService input)
+        ICoroutineRunner coroutineRunner, Team team, InputService input, AudioPlayerService audioPlayer)
     {
         ExceptionsTest.NullRefConstructorTest(nameof(SoldierCommandController), soldierSelector,
             controlPointSelector,  floatingPointer,coroutineRunner,  team,  input);
@@ -37,7 +36,7 @@ public class SoldierCommandController
         _coroutineRunner = coroutineRunner;
         _team = team;
         _input = input;
-
+        _audioPlayer = audioPlayer;
         _waitForSeconds = new(_secondClickDelay);
         _waitUntilNextClick = new(() => _playerClickLeftMouseButton == true);
     }
@@ -68,39 +67,23 @@ public class SoldierCommandController
     private IEnumerator TrySendSoldierToControlPoint()
     {
         if (_soldierSelector.TrySelectSoldier(out SoldierModel soldier, _team.Type) == false)
-        {
             yield break;
-        }
-
-        Debug.Log("soldier selected");
 
         _floatingPointer.PlaceAbove(soldier.GetTransform());
+        _audioPlayer.PlaySoldierRandomAnswerSound();
 
         yield return _waitForSeconds;
-
-        Debug.Log("Delay ended");
 
         _playerClickLeftMouseButton = false;
 
         yield return _waitUntilNextClick;
 
-        Debug.Log("Next click registered");
-
         if (_controlPointSelector.TrySelectControlPoint(out ControlPoint controlPoint))
-        {
             soldier.MoveTo(controlPoint.transform);
-            Debug.Log("Soldier sended to point");
-        }
-        else
-        {
-            Debug.Log("Control Point isn't selected");
-        }
 
         _floatingPointer.Hide();
         _playerClickLeftMouseButton = false;
         _coroutine = null;
-
-        Debug.Log("Method ended");
 
         StopCoroutine();
     }

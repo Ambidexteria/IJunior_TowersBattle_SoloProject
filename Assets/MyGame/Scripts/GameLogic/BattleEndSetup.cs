@@ -2,6 +2,7 @@ using Base.Data;
 using Base.Data.Game;
 using Base.Infrastructure;
 using Base.PLayer;
+using Base.Services.Audio;
 using Base.Services.SaveLoad;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
@@ -22,11 +23,11 @@ namespace Base.GameLogic
         }
 
         public BattleEndModel Create(Game game, Wallet wallet, PlayerScore score, ISaveLoadService saveLoadService, int winReward, int defeatReward,
-            StagesData stagesData)
+            StagesData stagesData, AudioPlayerService audioPlayer)
         {
             ExceptionsTest.NullRefMethodTest(nameof(BattleEndSetup), nameof(Create), game, wallet, score, saveLoadService);
 
-            _model = new BattleEndModel(game, wallet, saveLoadService, winReward, defeatReward, score, stagesData);
+            _model = new BattleEndModel(game, wallet, saveLoadService, winReward, defeatReward, score, stagesData, audioPlayer);
 
             _presenter = new BattleEndPresenter(_model, _view);
             _view.Enable();

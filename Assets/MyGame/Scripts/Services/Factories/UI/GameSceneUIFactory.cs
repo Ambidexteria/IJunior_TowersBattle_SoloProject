@@ -16,6 +16,7 @@ using Base.Data.Game;
 using Base.Services.Localization;
 using Base.UI.RewardForAds;
 using Base.Health;
+using Zenject.SpaceFighter;
 
 namespace Base.Services.Factories.UI
 {
@@ -47,12 +48,14 @@ namespace Base.Services.Factories.UI
         private ISaveLoadService _saveLoadService;
         private IPersisentDataService _dataService;
         private ILocalizationService _localizationService;
+        private AudioPlayerService _audioPlayer;
         private GameStateMachine _gameStateMachine;
 
         [Inject]
         private void Init(GameStateMachine gameStateMachine, TimeController timeController, SceneChanger sceneChanger,
             IAudioVolumeControllerService volumeControllerService, ISaveLoadService saveLoadService,
-            IPersisentDataService dataService, ILocalizationService localizationService)
+            IPersisentDataService dataService, ILocalizationService localizationService,
+            AudioPlayerService audioPlayer)
         {
             ExceptionsTest.NullRefMethodTest(nameof(GameSceneUIFactory), nameof(Init), gameStateMachine, timeController, sceneChanger,
                 volumeControllerService, saveLoadService, dataService, localizationService);
@@ -64,6 +67,7 @@ namespace Base.Services.Factories.UI
             _saveLoadService = saveLoadService;
             _dataService = dataService;
             _localizationService = localizationService;
+            _audioPlayer = audioPlayer;
         }
 
         private void Awake()
@@ -80,6 +84,8 @@ namespace Base.Services.Factories.UI
 
         private void OnEnable()
         {
+            _audioPlayer.PlayGameSceneMusic();
+
             _launchShootMinigameButton.Clicked += OnLaunchShootMinigameButtonClicked;
             _pauseButton.Clicked += OnPauseButtonClicked;
             _shootButton.Clicked += OnShootButtonCliked;
@@ -115,7 +121,8 @@ namespace Base.Services.Factories.UI
         {
             ExceptionsTest.NullRefMethodTest(nameof(GameSceneUIFactory), nameof(GetBattleEndModel), game, wallet, stageInfo, score);
 
-            return _battleEndSetup.Create(game, wallet, score, _saveLoadService, stageInfo.WinReward, stageInfo.DefeatReward, stagesData);
+            return _battleEndSetup.Create(game, wallet, score, _saveLoadService, stageInfo.WinReward, 
+                stageInfo.DefeatReward, stagesData, _audioPlayer);
         }
 
         private void CreateUIStateMachine()

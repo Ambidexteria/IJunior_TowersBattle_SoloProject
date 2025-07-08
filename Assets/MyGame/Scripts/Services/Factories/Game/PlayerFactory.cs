@@ -3,10 +3,12 @@ using Base.GameLogic.Cannon;
 using Base.GameLogic.ShootMinigame;
 using Base.Infrastructure;
 using Base.Services.AssetManagment;
+using Base.Services.Audio;
 using Base.Services.TimeManagment;
 using Base.Soldier;
 using UnityEngine;
 using Zenject;
+using Zenject.SpaceFighter;
 
 namespace Base.Services.Factories.Game
 {
@@ -32,11 +34,13 @@ namespace Base.Services.Factories.Game
         private ControlPointDatabase _controlPointDatabase;
         private InputService _input;
         private TimeController _timeController;
+        private AudioPlayerService _audioPlayer;
 
         [Inject]
         private void Init(AssetLoader assetLoader, GenericSpawnableObjectFactory<SoldierSetup> soldierFactory, ICoroutineRunner coroutineRunner,
             CannonProjectileSpawner projectileSpawner, TeamColorChanger colorChanger,
-            ControlPointDatabase controlPointDatabase, InputService input, TimeController timeController)
+            ControlPointDatabase controlPointDatabase, InputService input, TimeController timeController,
+            AudioPlayerService audioPlayer)
         {
             ExceptionsTest.NullRefMethodTest(nameof(PlayerFactory), nameof(Init), assetLoader, soldierFactory, coroutineRunner,
                 projectileSpawner, colorChanger, controlPointDatabase, input, timeController);
@@ -49,6 +53,7 @@ namespace Base.Services.Factories.Game
             _controlPointDatabase = controlPointDatabase;
             _input = input;
             _timeController = timeController;
+            _audioPlayer = audioPlayer;
         }
 
         private void Awake()
@@ -58,7 +63,8 @@ namespace Base.Services.Factories.Game
                 _shootMinigameSetup);
         }
 
-        public Player CreatePlayer(Team team, CannonModel cannon, CannonData cannonData, float soldierSpawnDelay, Transform soldierSpawnPoint, SoldierData soldierStats)
+        public Player CreatePlayer(Team team, CannonModel cannon, CannonData cannonData, float soldierSpawnDelay, Transform soldierSpawnPoint, 
+            SoldierData soldierStats)
         {
             ExceptionsTest.NullRefMethodTest(nameof(PlayerFactory), nameof(CreatePlayer), team, cannon, 
                 cannonData, soldierSpawnPoint, soldierStats);
@@ -67,9 +73,9 @@ namespace Base.Services.Factories.Game
                 _controlPointDatabase, cannonData.MaxEnergy, _coroutineRunner);
 
             SoldierSpawner spawner = new(team, soldierStats, _coroutineRunner, _colorChanger,
-                _soldierSpawnerSettings, _soldierFactory);
+                _soldierSpawnerSettings, _soldierFactory, _audioPlayer);
 
-            SoldierSpawnControllerModel spawnController = _playerSpawnControllerSetup.CreateSoldierSpawnController(
+            SoldierSpawnControllerModel spawnController = _playerSpawnControllerSetup.CreateModel(
                 _startSpawnDelay, soldierSpawnDelay, _spawnRadius, soldierSpawnPoint,
                 _soldierDespawnDetector, team, spawner, _coroutineRunner);
 
@@ -90,7 +96,7 @@ namespace Base.Services.Factories.Game
             ControlPointSelector controlPointSelector = new(_controlPointSelectorSettings);
 
             SoldierCommandController controller = new(0.1f, soldierSelector,
-                controlPointSelector, floatingPointer, _coroutineRunner, team, _input);
+                controlPointSelector, floatingPointer, _coroutineRunner, team, _input, _audioPlayer);
 
             return controller;
         }
