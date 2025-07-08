@@ -1,5 +1,6 @@
 ﻿using Base.GameLogic.UpgradeSystem;
 using Base.PLayer;
+using Base.Services.PluginYG;
 using Base.Services.SaveLoad;
 using System;
 using YG;
@@ -50,7 +51,7 @@ namespace Base.Shop
 
         public void ShowRewardAds()
         {
-            YG2.RewardedAdvShow(Coin, AddReward);
+            AdsService.ShowRewardedAdsForMoney(AddReward);
         }
 
         public void BuyCannonHealthUpgrade()

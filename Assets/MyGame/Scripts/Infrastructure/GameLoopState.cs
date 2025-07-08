@@ -1,4 +1,4 @@
-﻿
+﻿using Base.Services.PluginYG;
 using UnityEngine;
 
 namespace Base.Infrastructure
@@ -16,13 +16,10 @@ namespace Base.Infrastructure
 
         public void Enter()
         {
-            //Debug.Log($"{nameof(GameLoopState)} - entered");
-            //_uiController.ShowMainMenu();
         }
 
         public void Exit()
         {
-
         }
     }
 }

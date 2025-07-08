@@ -60,7 +60,7 @@ namespace Base.Services.Audio
 
         public void PlaySoldierRandomAnswerSound()
         {
-            AudioClip soldierAnswer = _soldierAnswerSounds[Random.Range(0, _soldierAnswerSounds.Count - 1)];
+            AudioClip soldierAnswer = _soldierAnswerSounds[Random.Range(0, _soldierAnswerSounds.Count)];
             _soldierAnswerSource.clip = soldierAnswer;
             _soldierAnswerSource.Play();
         }

@@ -3,6 +3,7 @@ using Base.Data.Game;
 using Base.Infrastructure;
 using Base.PLayer;
 using Base.Services.Audio;
+using Base.Services.PluginYG;
 using Base.Services.PluginYG.LeaderBoard;
 using Base.Services.SaveLoad;
 using System;
@@ -56,12 +57,14 @@ namespace Base.GameLogic
                 PlayerWinned?.Invoke();
                 _audioPlayer.PlayWinSound();
                 _stagesData.UnlockNextStage();
+                MetricsService.CallLevelWinEvent();
             }
             else
             {
                 _earnedGold = _defeatReward;
                 PlayerLoosed?.Invoke();
                 _audioPlayer.PlayDefeatSound();
+                MetricsService.CallLevelDefeatEvent();
             }
 
             _wallet.Add(_earnedGold);
@@ -72,7 +75,7 @@ namespace Base.GameLogic
 
             _saveLoadService.SaveProgress();
 
-            YG2.InterstitialAdvShow();
+            AdsService.ShowInterstitialAds();
         }
 
         public void LoadMainMenu()

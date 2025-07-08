@@ -1,4 +1,5 @@
 ﻿using Base.Health;
+using Base.Services.PluginYG;
 using System;
 using YG;
 
@@ -6,7 +7,6 @@ namespace Base.UI.RewardForAds
 {
     public class RestoreHealthForRewardAdsModel
     {
-        private const string RewardID = "Health";
         private const float RestoreHealthPart = 0.3f;
 
         private readonly HealthModel _healthModel;
@@ -20,7 +20,7 @@ namespace Base.UI.RewardForAds
 
         public void ShowRewardAds()
         {
-            YG2.RewardedAdvShow(RewardID, GetReward);
+            AdsService.ShowRewardedAdsForHealth(GetReward);
         }
 
         public void RejectReward()

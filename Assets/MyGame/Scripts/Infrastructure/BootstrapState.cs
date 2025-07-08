@@ -1,5 +1,6 @@
 ﻿using Base.Data;
 using Base.Data.Scenes;
+using Base.Services.PluginYG;
 using Base.Services.SceneManagment;
 using System.Collections;
 using UnityEngine;
@@ -32,6 +33,7 @@ namespace Base.Infrastructure
 
             _currentSceneData = sceneData;
             _sceneLoader.LoadScene(SceneNames.Initial, EnsureYandexSDKInitialized);
+            MetricsService.CallGameLaunchedEvent();
         }
 
         public void Exit()
