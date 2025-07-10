@@ -14,6 +14,7 @@ using Base.Data;
 using Base.Services.TimeManagment;
 using Base.Services.Audio;
 using Zenject.SpaceFighter;
+using Base.Services.PluginYG;
 
 namespace Base.Services.Factories.Game
 {
@@ -77,6 +78,7 @@ namespace Base.Services.Factories.Game
 
         private void Awake()
         {
+
             ExceptionsTest.NullRefMethodTest(nameof(GameSceneFactory), nameof(Awake),
                 _uiFactory, _soldierDespawnDetector, _playerFactory, _playerCannonSetup, _playerCannonHealthSetup,
                 _npcFactory, _npcCannonSetup, _npcHealthSetup);
@@ -95,6 +97,8 @@ namespace Base.Services.Factories.Game
             _battleController = new BattleController(player, npc, _uiFactory.GetUIStateMachine(), 
                 _uiFactory.GetBattleEndModel(_game, _wallet, _stageInfo, _dataSerive.GameData.Score, _dataSerive.GameData.StagesData),
                 _timeController, _uiFactory.GetRestoreHealthForRewardAdsModel(_playerCannonHealthSetup.GetModel()));
+
+            MetricsService.CallStageLoadedEvent(_stageInfo.Name);
         }
 
         private void OnEnable()

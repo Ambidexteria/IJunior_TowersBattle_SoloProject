@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using YG;
 
@@ -6,25 +5,36 @@ namespace Base.Services.PluginYG
 {
     public class MetricsService : MonoBehaviour
     {
+        private const string Win = nameof(Win);
+        private const string Defeat = nameof(Defeat);
+
         private const string GameLaunched = nameof(GameLaunched);
-        private const string LevelWin = nameof(LevelWin);
-        private const string LevelDefeat = nameof(LevelDefeat);
+        private const string StageEnded = nameof(StageEnded);
         private const string InterAds = nameof(InterAds);
         private const string RewardedAds = nameof(RewardedAds);
+        private const string StageLoaded = nameof(StageLoaded);
+        private const string UpgradeBought = nameof(UpgradeBought);
 
         public static void CallGameLaunchedEvent()
         {
             YG2.MetricaSend(GameLaunched);
         }
 
-        public static void CallLevelWinEvent()
+        public static void CallStageEndedEvent(string stageName, bool isWin)
         {
-            YG2.MetricaSend(LevelWin);
+            string battleResult;
+
+            if (isWin)
+                battleResult = Win;
+            else
+                battleResult = Defeat;
+
+            YG2.MetricaSend(StageEnded, stageName, battleResult);
         }
 
-        public static void CallLevelDefeatEvent()
+        public static void CallStageLoadedEvent(string stageName)
         {
-            YG2.MetricaSend(LevelDefeat);
+            YG2.MetricaSend(StageLoaded, stageName, string.Empty);
         }
 
         public static void CallInterAdsEvent()
@@ -32,14 +42,14 @@ namespace Base.Services.PluginYG
             YG2.MetricaSend(InterAds);
         }
 
-        public static void CallRewardedAdsEvent(string reward)
+        public static void CallRewardedAdsEvent(string reward, int amount)
         {
-            Dictionary<string, string> dict = new Dictionary<string, string>
-            {
-                { RewardedAds, reward }
-            };
+            YG2.MetricaSend(RewardedAds, reward, amount.ToString());
+        }
 
-            YG2.MetricaSend(RewardedAds, dict);
+        public static void CallUpgradeBoughtEvent(string upgradeName, string upgradeLevel)
+        {
+            YG2.MetricaSend(RewardedAds, upgradeName, upgradeLevel);
         }
     }
 }

@@ -1,6 +1,7 @@
 using Lean.Localization;
 using System.Collections.Generic;
 using UnityEngine;
+using YG;
 
 namespace Base.Services.Localization
 {
@@ -25,11 +26,13 @@ namespace Base.Services.Localization
             if(_localizationCodes.ContainsKey(languageCode))
             {
                 LeanLocalization.SetCurrentLanguageAll(_localizationCodes[languageCode]);
+                YG2.SwitchLanguage(languageCode);
             }
             else
             {
                 Debug.LogWarning($"{nameof(LeanLocalizationService)}: language code \"{languageCode}\" not found. Default language set");
                 LeanLocalization.SetCurrentLanguageAll(_localizationCodes[DefaultCode]);
+                YG2.SwitchLanguage(languageCode);
             }
         }
     }

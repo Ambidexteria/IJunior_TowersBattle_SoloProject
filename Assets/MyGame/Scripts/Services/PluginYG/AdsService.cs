@@ -15,17 +15,17 @@ namespace Base.Services.PluginYG
             MetricsService.CallInterAdsEvent();
         }
 
-        public static void ShowRewardedAdsForMoney(Action adsShowed)
+        public static void ShowRewardedAdsForMoney(Action adsShowed, int amount)
         {
             YG2.RewardedAdvShow(Money, adsShowed);
-            MetricsService.CallRewardedAdsEvent(Money);
+            MetricsService.CallRewardedAdsEvent(Money, amount);
 
         }
 
-        public static void ShowRewardedAdsForHealth(Action adsShowed)
+        public static void ShowRewardedAdsForHealth(Action adsShowed, int amount)
         {
             YG2.RewardedAdvShow(Health, adsShowed);
-            MetricsService.CallRewardedAdsEvent(Health);
+            MetricsService.CallRewardedAdsEvent(Health, amount);
         }
     }
 }

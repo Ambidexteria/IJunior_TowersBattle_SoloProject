@@ -1,5 +1,6 @@
 ﻿using Base.Data.Game;
 using Base.Data.Scenes;
+using Base.Services.AssetManagment;
 using Base.Services.Localization;
 using Base.Services.PersistentProgress;
 using Base.Services.SaveLoad;
@@ -15,9 +16,11 @@ namespace Base.Infrastructure
         private readonly ISaveLoadService _saveLoadService;
         private readonly InputService _input;
         private readonly ILocalizationService _localizationService;
+        private readonly AssetLoader _assetLoader;
 
         public LoadProgressState(GameStateMachine gameStateMachine, IPersisentDataService persisentProgressService,
-            ISaveLoadService saveLoadService, InputService input, ILocalizationService localizationService)
+            ISaveLoadService saveLoadService, InputService input, ILocalizationService localizationService,
+            AssetLoader assetLoader)
         {
             ExceptionsTest.NullRefConstructorTest(nameof(LoadProgressState), gameStateMachine, persisentProgressService,
                 saveLoadService);
@@ -27,6 +30,7 @@ namespace Base.Infrastructure
             _saveLoadService = saveLoadService;
             _input = input;
             _localizationService = localizationService;
+            _assetLoader = assetLoader;
         }
 
         public void Enter(SceneData scene)

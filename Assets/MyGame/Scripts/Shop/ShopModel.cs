@@ -28,6 +28,7 @@ namespace Base.Shop
             _prices = prices;
         }
 
+        public int RewardCoinsAmount => RewardCoins;
         public int CannonHealthUpgradePrice => _prices.CannonHealth;
         public int CannonDamageUpgradePrice => _prices.CannonDamage;
         public int SpawnTimeUpgradePrice => _prices.SpawnTime;
@@ -51,7 +52,7 @@ namespace Base.Shop
 
         public void ShowRewardAds()
         {
-            AdsService.ShowRewardedAdsForMoney(AddReward);
+            AdsService.ShowRewardedAdsForMoney(AddReward, RewardCoins);
         }
 
         public void BuyCannonHealthUpgrade()

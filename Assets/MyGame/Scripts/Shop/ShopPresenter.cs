@@ -15,6 +15,8 @@
 
         public void Enable()
         {
+            _view.DisplayRewardCoinsAmount(_model.RewardCoinsAmount);
+
             _view.SetCannonHealthUpgradePrice(_model.CannonHealthUpgradePrice);
             _view.SetCannonDamageUpgradePrice(_model.CannonDamageUpgradePrice);
             _view.SetSpawnTimeUpgradePrice(_model.SpawnTimeUpgradePrice);

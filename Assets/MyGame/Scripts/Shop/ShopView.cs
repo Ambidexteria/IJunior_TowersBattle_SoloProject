@@ -28,6 +28,7 @@ namespace Base.Shop
 
         [SerializeField] private TextMeshProUGUI _currentGoldAmount;
 
+        [SerializeField] private TextMeshProUGUI _rewardCoinsAmount;
         [SerializeField] private ButtonClickHandler _rewardAdsButton;
 
         public event Action CannonDamageUpgradeClicked;
@@ -72,6 +73,11 @@ namespace Base.Shop
         public void DisplayCurrentGold(int amount)
         {
             _currentGoldAmount.text = amount.ToString();
+        }
+
+        public void DisplayRewardCoinsAmount(int amount)
+        {
+            _rewardCoinsAmount.text = amount.ToString();
         }
 
         public void DisplayCannonDamageUpgradeLevel(string text)

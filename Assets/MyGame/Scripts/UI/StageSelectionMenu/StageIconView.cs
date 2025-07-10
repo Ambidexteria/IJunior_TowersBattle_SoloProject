@@ -7,6 +7,7 @@ namespace Base.UI.StageSelection
 {
     public class StageIconView : MonoBehaviour
     {
+        [SerializeField] private Image _icon;
         [SerializeField] private Image _lock;
         [SerializeField] private Image _border;
         [SerializeField] private TextMeshProUGUI _stageName;
@@ -18,7 +19,7 @@ namespace Base.UI.StageSelection
 
         private void Awake()
         {
-            ExceptionsTest.NullRefMethodTest(nameof(StageIconView), nameof(Awake), _lock, _border, _stageName, _button);
+            ExceptionsTest.NullRefMethodTest(nameof(StageIconView), nameof(Awake), _icon, _lock, _border, _stageName, _button);
         }
 
         private void OnEnable()
@@ -31,9 +32,10 @@ namespace Base.UI.StageSelection
             _button.Clicked -= OnButtonCLicked;
         }
 
-        public void Init(bool unlocked, string stageName)
+        public void Init(Sprite sprite, bool unlocked, string stageName)
         {
             _stageName.text = stageName;
+            _icon.sprite = sprite;
 
             if (unlocked)
                 Unlock();

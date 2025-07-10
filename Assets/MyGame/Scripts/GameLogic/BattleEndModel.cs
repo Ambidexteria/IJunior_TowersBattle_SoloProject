@@ -25,8 +25,6 @@ namespace Base.GameLogic
 
         private int _earnedGold;
 
-        public int CurrentGoldAmount => _wallet.CurrentAmount;
-
         public BattleEndModel(Game game, Wallet wallet, ISaveLoadService saveLoadService, int winReward, int defeatReward, 
             PlayerScore score, StagesData stagesData, AudioPlayerService audioPlayer)
         {
@@ -57,14 +55,12 @@ namespace Base.GameLogic
                 PlayerWinned?.Invoke();
                 _audioPlayer.PlayWinSound();
                 _stagesData.UnlockNextStage();
-                MetricsService.CallLevelWinEvent();
             }
             else
             {
                 _earnedGold = _defeatReward;
                 PlayerLoosed?.Invoke();
                 _audioPlayer.PlayDefeatSound();
-                MetricsService.CallLevelDefeatEvent();
             }
 
             _wallet.Add(_earnedGold);
@@ -76,6 +72,7 @@ namespace Base.GameLogic
             _saveLoadService.SaveProgress();
 
             AdsService.ShowInterstitialAds();
+            MetricsService.CallStageEndedEvent(_stagesData.SelectedStageName, isPlayerWin);
         }
 
         public void LoadMainMenu()

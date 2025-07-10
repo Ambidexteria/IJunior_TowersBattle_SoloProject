@@ -8,7 +8,6 @@ namespace Base.Services.TimeManagment
         private float _pauseTimeScale = 0f;
         private float _slowMotionTimeScale = 0.2f;
 
-        private float _timeScaleBeforePause;
         private bool _paused;
 
         public TimeController(float defaultTimeScale, float pauseTimeScale, float slowMotionTimeScale)
@@ -27,23 +26,17 @@ namespace Base.Services.TimeManagment
 
         public void Pause()
         {
-            _timeScaleBeforePause = Time.timeScale;
             Time.timeScale = _pauseTimeScale;
-            _paused = true;
         }
 
         public void Resume()
         {
-            if (_paused)
-            {
-                Time.timeScale = _timeScaleBeforePause;
-                _paused = false;
-            }
+            Time.timeScale = _defaultTimeScale;
         }
 
         public void SetSlowMotionTimeScale()
         {
-            Time.timeScale *= _slowMotionTimeScale;
+            Time.timeScale = _defaultTimeScale * _slowMotionTimeScale;
         }
     }
 }

@@ -8,6 +8,7 @@ namespace Base.UI.StageSelection
 {
     public class StageSelectionMenuSetup : MonoBehaviour
     {
+        [SerializeField] private StageIconsDatabase _iconsDatabase;
         [SerializeField] private StageIconSetup _iconPrefab;
         [SerializeField] private RectTransform _iconsParentObject;
 
@@ -29,7 +30,7 @@ namespace Base.UI.StageSelection
             {
                 StageIconSetup setup = Instantiate(_iconPrefab);
                 setup.transform.SetParent(_iconsParentObject);
-                icons.Add(setup.CreateModel(stageInfo.Value, stageInfo.Key));
+                icons.Add(setup.CreateModel(_iconsDatabase.GetStageIcon(stageInfo.IconName), stageInfo.Unlocked, stageInfo.StageName));
             }
 
             _model = new StageSelectionMenu(icons.ToArray(), stages, gameSettings, saveLoadService);

@@ -14,9 +14,9 @@ namespace Base.UI.StageSelection
             ExceptionsTest.NullRefMethodTest(nameof(StageIconSetup), nameof(Awake), _view);
         }
 
-        public StageIconModel CreateModel(bool unlocked, string stageName)
+        public StageIconModel CreateModel(Sprite sprite, bool unlocked, string stageName)
         {
-            _view.Init(unlocked, stageName);
+            _view.Init(sprite, unlocked, stageName);
             _model = new StageIconModel(stageName, unlocked);
 
             _presenter = new StageIconPresenter(_view, _model);

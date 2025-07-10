@@ -29,7 +29,8 @@ namespace Base.Infrastructure
             {
                 { typeof(BootstrapState), new BootstrapState(this, sceneLoader, coroutineRunner, input) },
                 { typeof(LoadLevelState), new LoadLevelState(loadingCurtain, this, sceneLoader, saveLoadService, persisentProgress) },
-                { typeof(LoadProgressState), new LoadProgressState(this, persisentProgress, saveLoadService, input, localizationService)},
+                { typeof(LoadProgressState), new LoadProgressState(this, persisentProgress, saveLoadService, input, 
+                    localizationService, assetLoader)},
                 { typeof(GameLoopState), new GameLoopState(this) }
             };
         }

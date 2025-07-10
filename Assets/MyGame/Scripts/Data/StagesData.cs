@@ -1,22 +1,49 @@
 using Base.Data.Game;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace Base.Data
 {
+    public struct SerializedStageInfo
+    {
+        public string StageName;
+        public string IconName;
+        public bool Unlocked;
+
+        public SerializedStageInfo(string stageName, string iconName, bool unlocked)
+        {
+            StageName = stageName;
+            IconName = iconName;
+            Unlocked = unlocked;
+        }
+
+        public void Unlock()
+        {
+            Unlocked = true;
+        }
+    }
+
     [Serializable]
     public class StagesData
     {
-        private const string _stageOne = "1";
-        private const string _stageTwo = "2";
-        private const string _stageTree = "3";
+        private const string ForrestIcon = "forest_lake_icon";
+        private const string DesertIcon = "desert_icon";
+        private const string SnowForestIcon = "snow_forest_icon";
+
+        private const string StageOne = "1";
+        private const string StageTwo = "2";
+        private const string StageThree = "3";
+        private const string StageFour = "4";
+        private const string StageFive = "5";
+        private const string StageSix = "6";
+        private const string StageSeven = "7";
+        private const string StageEight = "8";
+        private const string StageNine = "9";
 
         private readonly StageInfo[] _stages;
 
         [JsonRequired]
-        public Dictionary<string, bool> UnlockedStagesInfo;
+        public SerializedStageInfo[] UnlockedStagesInfo;
 
         public string SelectedStageName = string.Empty;
 
@@ -24,16 +51,28 @@ namespace Base.Data
         {
             _stages = new[]
             {
-                new StageInfo("Stages/Stage (1)", _stageOne, 200, 50, new SoldierData(15, 4, 1, 10f), new CannonData(30, 30, 10)),
-                new StageInfo("Stages/Stage (2)", _stageTwo, 400, 100, new SoldierData(15, 4, 2, 8f), new CannonData(50, 25, 15)),
-                new StageInfo("Stages/Stage (3)", _stageTree, 600, 150, new SoldierData(20, 4, 2.5f, 6f), new CannonData(70, 20, 20))
+                new StageInfo("Stages/Stage (1)", StageOne, 200, 50, new SoldierData(15, 4, 1, 10f), new CannonData(30, 50, 10)),
+                new StageInfo("Stages/Stage (1)", StageTwo, 250, 50, new SoldierData(15, 4, 1, 10f), new CannonData(40, 50, 10)),
+                new StageInfo("Stages/Stage (1)", StageThree, 300, 50, new SoldierData(15, 4, 1, 10f), new CannonData(50, 50, 15)),
+                new StageInfo("Stages/Stage (2)", StageFour, 500, 100, new SoldierData(15, 4, 2, 8f), new CannonData(70, 50, 15)),
+                new StageInfo("Stages/Stage (2)", StageFive, 600, 100, new SoldierData(15, 4, 2, 8f), new CannonData(100, 50, 15)),
+                new StageInfo("Stages/Stage (2)", StageSix, 700, 100, new SoldierData(15, 4, 2, 8f), new CannonData(120, 50, 20)),
+                new StageInfo("Stages/Stage (3)", StageSeven, 1000, 150, new SoldierData(20, 4, 2.5f, 6f), new CannonData(150, 50, 25)),
+                new StageInfo("Stages/Stage (3)", StageEight, 1200, 150, new SoldierData(20, 4, 2.5f, 6f), new CannonData(170, 50, 25)),
+                new StageInfo("Stages/Stage (3)", StageNine, 1500, 150, new SoldierData(20, 4, 2.5f, 6f), new CannonData(200, 50, 30))
             };
 
-            UnlockedStagesInfo = new Dictionary<string, bool>()
+            UnlockedStagesInfo = new SerializedStageInfo[]
             {
-                {_stageOne, true},
-                {_stageTwo, false},
-                {_stageTree, false},
+                new(StageOne, ForrestIcon, true),
+                new(StageTwo, ForrestIcon, false),
+                new(StageThree, ForrestIcon, false),
+                new(StageFour, DesertIcon, true),
+                new(StageFive, DesertIcon, false),
+                new(StageSix, DesertIcon, false),
+                new(StageSeven, SnowForestIcon, true),
+                new(StageEight, SnowForestIcon, false),
+                new(StageNine, SnowForestIcon, false),
             };
         }
 
@@ -68,9 +107,9 @@ namespace Base.Data
                     {
                         string nextStage = _stages[i + 1].Name;
 
-                        if (UnlockedStagesInfo[nextStage] == false)
+                        if (UnlockedStagesInfo[i + 1].Unlocked == false)
                         {
-                            UnlockedStagesInfo[nextStage] = true;
+                            UnlockedStagesInfo[i + 1].Unlock();
                         }
                     }
                 }

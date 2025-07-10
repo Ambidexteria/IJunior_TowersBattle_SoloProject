@@ -1,7 +1,6 @@
 ﻿using Base.Health;
 using Base.Services.PluginYG;
 using System;
-using YG;
 
 namespace Base.UI.RewardForAds
 {
@@ -20,7 +19,7 @@ namespace Base.UI.RewardForAds
 
         public void ShowRewardAds()
         {
-            AdsService.ShowRewardedAdsForHealth(GetReward);
+            AdsService.ShowRewardedAdsForHealth(GetReward, CalculateRestoredHealth());
         }
 
         public void RejectReward()
@@ -30,8 +29,13 @@ namespace Base.UI.RewardForAds
 
         private void GetReward()
         {
-            _healthModel.Increase(_healthModel.MaxValue * RestoreHealthPart);
+            _healthModel.Increase(CalculateRestoredHealth());
             RewardGained?.Invoke(true);
+        }
+
+        private int CalculateRestoredHealth()
+        {
+            return (int)(_healthModel.MaxValue * RestoreHealthPart);
         }
     }
 }

@@ -1,4 +1,5 @@
 using Base.Services.PersistentProgress;
+using Base.Services.PluginYG;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -76,11 +77,9 @@ namespace Base.GameLogic.UpgradeSystem
     public abstract class Upgrade
     {
         [JsonRequired]
-        private int _maxLevel;
-
+        private readonly int _maxLevel;
         [JsonRequired]
-        private float _upgradeValue;
-
+        private readonly float _upgradeValue;
         [JsonRequired]
         private int _currentLevel = 0;
 
@@ -137,6 +136,8 @@ namespace Base.GameLogic.UpgradeSystem
             if (upgrade.TryIncreaseLevel())
             {
                 _dataService.GameData.CannonData.MaxHealth += upgrade.UpgradeValue;
+                SendMetrics(nameof(CannonHealthUpgrade), upgrade.CurrentLevelText);
+
                 return true;
             }
             else
@@ -152,6 +153,8 @@ namespace Base.GameLogic.UpgradeSystem
             if (upgrade.TryIncreaseLevel())
             {
                 _dataService.GameData.CannonData.Damage += (int)upgrade.UpgradeValue;
+                SendMetrics(nameof(CannonDamageUpgrade), upgrade.CurrentLevelText);
+
                 return true;
             }
             else
@@ -167,6 +170,8 @@ namespace Base.GameLogic.UpgradeSystem
             if (upgrade.TryIncreaseLevel())
             {
                 _dataService.GameData.SoldierData.SpawnDelay += upgrade.UpgradeValue;
+                SendMetrics(nameof(SpawnTimeUpgrade), upgrade.CurrentLevelText);
+
                 return true;
             }
             else
@@ -182,6 +187,8 @@ namespace Base.GameLogic.UpgradeSystem
             if (upgrade.TryIncreaseLevel())
             {
                 _dataService.GameData.SoldierData.Damage += upgrade.UpgradeValue;
+                SendMetrics(nameof(SoldierDamageUpgrade), upgrade.CurrentLevelText);
+
                 return true;
             }
             else
@@ -197,12 +204,19 @@ namespace Base.GameLogic.UpgradeSystem
             if (upgrade.TryIncreaseLevel())
             {
                 _dataService.GameData.SoldierData.MaxHealth += upgrade.UpgradeValue;
+                SendMetrics(nameof(SoldierHealthUpgrade), upgrade.CurrentLevelText);
+
                 return true;
             }
             else
             {
                 return false;
             }
+        }
+
+        private void SendMetrics(string upgradeName, string level)
+        {
+            MetricsService.CallUpgradeBoughtEvent(upgradeName, level);
         }
     }
 }
