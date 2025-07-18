@@ -19,8 +19,10 @@ namespace Base.GameLogic
             _model.ScoreChanged += OnScoreChanged;
             _model.PlayerWinned += OnPlayerWinned;
             _model.PlayerLoosed += OnPlayerLoosed;
+            _model.NextStageUnlocked += OnNextStageUnlocked;
 
             _view.HomeButtonClicked += OnHomeButtonClicked;
+            _view.NextStageButtonClicked += OnNextStageButtonClicked;
         }
 
         public void Disable()
@@ -29,13 +31,20 @@ namespace Base.GameLogic
             _model.ScoreChanged -= OnScoreChanged;
             _model.PlayerWinned -= OnPlayerWinned;
             _model.PlayerLoosed -= OnPlayerLoosed;
+            _model.NextStageUnlocked -= OnNextStageUnlocked;
 
             _view.HomeButtonClicked -= OnHomeButtonClicked;
+            _view.NextStageButtonClicked -= OnNextStageButtonClicked;
         }
 
         private void OnHomeButtonClicked()
         {
             _model.LoadMainMenu();
+        }
+
+        private void OnNextStageButtonClicked()
+        {
+            _model.LoadNextStage();
         }
 
         private void OnGoldEarned(int earnedGold)
@@ -56,6 +65,11 @@ namespace Base.GameLogic
         private void OnPlayerLoosed()
         {
             _view.ShowDefeatMessage();
+        }
+
+        private void OnNextStageUnlocked()
+        {
+            _view.ShowNextStageButton();
         }
     }
 }

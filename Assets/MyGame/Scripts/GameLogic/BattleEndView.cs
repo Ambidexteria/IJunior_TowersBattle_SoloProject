@@ -7,12 +7,14 @@ namespace Base.GameLogic
     public class BattleEndView : MonoBehaviour
     {
         [SerializeField] private ButtonClickHandler _homeButton;
+        [SerializeField] private ButtonClickHandler _nextStageButton;
         [SerializeField] private UIWindowController _winMessage;
         [SerializeField] private UIWindowController _defeatMessage;
         [SerializeField] private TextMeshProUGUI _score;
         [SerializeField] private TextMeshProUGUI _earnedGoldText;
 
         public event Action HomeButtonClicked;
+        public event Action NextStageButtonClicked;
 
         private void Awake()
         {
@@ -23,11 +25,13 @@ namespace Base.GameLogic
         public void Enable()
         {
             _homeButton.Clicked += OnHomeButtonClicked;
+            _nextStageButton.Clicked += OnNextStageButtonClicked;
         }
 
         public void Disable()
         {
             _homeButton.Clicked -= OnHomeButtonClicked;
+            _nextStageButton.Clicked -= OnNextStageButtonClicked;
         }
 
         public void ShowScore(int amount)
@@ -50,9 +54,19 @@ namespace Base.GameLogic
             _defeatMessage.Show();
         }
 
+        public void ShowNextStageButton()
+        {
+            _nextStageButton.gameObject.SetActive(true);
+        }
+
         private void OnHomeButtonClicked()
         {
             HomeButtonClicked?.Invoke();
+        }
+
+        private void OnNextStageButtonClicked()
+        {
+            NextStageButtonClicked?.Invoke();
         }
     }
 }

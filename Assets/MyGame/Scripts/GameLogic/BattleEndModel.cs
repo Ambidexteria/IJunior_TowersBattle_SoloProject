@@ -25,7 +25,7 @@ namespace Base.GameLogic
 
         private int _earnedGold;
 
-        public BattleEndModel(Game game, Wallet wallet, ISaveLoadService saveLoadService, int winReward, int defeatReward, 
+        public BattleEndModel(Game game, Wallet wallet, ISaveLoadService saveLoadService, int winReward, int defeatReward,
             PlayerScore score, StagesData stagesData, AudioPlayerService audioPlayer)
         {
             ExceptionsTest.NullRefConstructorTest(nameof(BattleEndModel), game, wallet, saveLoadService, score);
@@ -46,6 +46,7 @@ namespace Base.GameLogic
         public event Action PlayerLoosed;
         public event Action<int> ScoreChanged;
         public event Action<int> GoldAmountChanged;
+        public event Action NextStageUnlocked;
 
         public void End(bool isPlayerWin, int npcCannonDamageTaken)
         {
@@ -54,7 +55,9 @@ namespace Base.GameLogic
                 _earnedGold = _winReward;
                 PlayerWinned?.Invoke();
                 _audioPlayer.PlayWinSound();
-                _stagesData.UnlockNextStage();
+
+                if (_stagesData.UnlockNextStage())
+                    NextStageUnlocked?.Invoke();
             }
             else
             {
@@ -78,6 +81,12 @@ namespace Base.GameLogic
         public void LoadMainMenu()
         {
             _game.LoadMainMenu();
+        }
+
+        public void LoadNextStage()
+        {
+            _stagesData.ChangeStageToNextOne();
+            _game.LoadGameScene();
         }
     }
 }

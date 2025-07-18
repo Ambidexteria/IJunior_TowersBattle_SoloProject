@@ -97,7 +97,22 @@ namespace Base.Data
                 SelectedStageName = name;
         }
 
-        public void UnlockNextStage()
+        public void ChangeStageToNextOne()
+        {
+            for (int i = 0; i < _stages.Length; i++)
+            {
+                if (_stages[i].Name == SelectedStageName)
+                {
+                    if (i + 1 < _stages.Length)
+                    {
+                        SelectedStageName = _stages[i + 1].Name;
+                        break;
+                    }
+                }
+            }
+        }
+
+        public bool UnlockNextStage()
         {
             for (int i = 0; i < _stages.Length; i++)
             {
@@ -105,15 +120,13 @@ namespace Base.Data
                 {
                     if (i < _stages.Length - 1)
                     {
-                        string nextStage = _stages[i + 1].Name;
-
-                        if (UnlockedStagesInfo[i + 1].Unlocked == false)
-                        {
-                            UnlockedStagesInfo[i + 1].Unlock();
-                        }
+                        UnlockedStagesInfo[i + 1].Unlock();
+                        return true;
                     }
                 }
             }
+
+            return false;
         }
 
         private bool TryGetStageByName(string name, out StageInfo stageInfo)

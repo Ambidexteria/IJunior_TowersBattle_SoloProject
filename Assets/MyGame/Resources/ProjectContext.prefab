@@ -44,7 +44,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 4167368116912630129, guid: 3af58173019c02b479a9ba619ddf5990, type: 2}
   m_audioClip: {fileID: 8300000, guid: ac24b5e544309f643bb6d4e0e69de279, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.7
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -300,7 +300,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 4167368116912630129, guid: 3af58173019c02b479a9ba619ddf5990, type: 2}
   m_audioClip: {fileID: 8300000, guid: 5b4d14c65c35ea74993986f003de49e8, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.6
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -561,7 +561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _musicSource: {fileID: 4163488237352517900}
-  _mainMenuMusic: {fileID: 8300000, guid: c2814d38919cacd4293db995048743be, type: 3}
+  _mainMenuMusic: {fileID: 8300000, guid: ddc2acd2ed9226345aa4f4e3172f3904, type: 3}
   _gameSceneMusic: {fileID: 8300000, guid: fd15ba8fafe441a42a1b00a091e92bd2, type: 3}
   _winSoundSource: {fileID: 8511946200619194428}
   _defeatSoundSource: {fileID: 6046207761638004743}
