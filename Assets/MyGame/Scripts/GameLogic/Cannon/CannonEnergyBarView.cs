@@ -20,13 +20,13 @@ namespace Base.GameLogic.Cannon
         {
             _maxEnergy = maxEnergy;
             _sliderValueChanger.SetMinMaxValues(0, _maxEnergy);
-            _textMeshProUGUI.text = $"{0} / {_maxEnergy}";
+            _textMeshProUGUI.text = $"{0}/{_maxEnergy}";
         }
 
         public void Display(float amount)
         {
             _sliderValueChanger.SetValue(amount);
-            _textMeshProUGUI.text = $"{(int)amount} / {_maxEnergy}";
+            _textMeshProUGUI.text = $"{(int)amount}/{_maxEnergy}";
         }
     }
 }

@@ -2,6 +2,7 @@ using Base.Data;
 using Base.Services.Audio;
 using Base.Services.Localization;
 using Base.Services.SaveLoad;
+using System.Runtime.CompilerServices;
 
 namespace Base.UI.Settings
 {
@@ -21,6 +22,8 @@ namespace Base.UI.Settings
             _saveLoadService = saveLoadService;
             _volumeSettings = volumeSettings;
             _localizationService = localizationService;
+
+            SetLoadedVolumeSettings(volumeSettings);
         }
 
         public void SetRussianLanguage()
@@ -69,6 +72,14 @@ namespace Base.UI.Settings
         private void SaveSettings()
         {
             _saveLoadService.SaveProgress();
+        }
+
+        private void SetLoadedVolumeSettings(AudioVolumeSettings volumeSettings)
+        {
+            _volumeController.ToggleMute(volumeSettings.Muted);
+            _volumeController.SetMasterVolume(_volumeSettings.MasterVolume);
+            _volumeController.SetMusicVolume(_volumeSettings.MusicVolume);
+            _volumeController.SetSoundsVolume(_volumeSettings.SoundsVolume);
         }
     }
 }

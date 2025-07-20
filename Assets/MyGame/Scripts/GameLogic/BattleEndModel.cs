@@ -74,17 +74,18 @@ namespace Base.GameLogic
 
             _saveLoadService.SaveProgress();
 
-            AdsService.ShowInterstitialAds();
             MetricsService.CallStageEndedEvent(_stagesData.SelectedStageName, isPlayerWin);
         }
 
         public void LoadMainMenu()
         {
+            AdsService.ShowInterstitialAds();
             _game.LoadMainMenu();
         }
 
         public void LoadNextStage()
         {
+            AdsService.ShowInterstitialAds();
             _stagesData.ChangeStageToNextOne();
             _game.LoadGameScene();
         }

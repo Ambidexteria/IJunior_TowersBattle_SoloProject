@@ -1,4 +1,5 @@
 using Base.Infrastructure;
+using System;
 using UnityEngine;
 
 namespace Base.Soldier
@@ -22,7 +23,13 @@ namespace Base.Soldier
             ExceptionsTest.NullRefMethodTest(nameof(SoldierSpawnControllerSetup), nameof(CreateModel),
                  spawnPoint, despawnDetector, team, spawner, coroutineRunner);
 
-            _model = new( startDelay, spawnDelay, spawnRadius, spawnPoint, despawnDetector, team, spawner, coroutineRunner);
+            _view = spawnPoint.GetComponentInChildren<SoldierSpawnControllerView>();
+
+            if (_view == null)
+                throw new NullReferenceException(nameof(SoldierSpawnControllerView));
+
+            _model = new(startDelay, spawnDelay, spawnRadius, spawnPoint, despawnDetector, team, spawner, coroutineRunner);
+            _view.Init(spawnDelay);
 
             _presenter = new SoldierSpawnControllerPresenter(_model, _view);
             _presenter.Enable();

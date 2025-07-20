@@ -18,7 +18,7 @@ namespace Base.Health
 
         public void Display(float value)
         {
-            string text = $"{(int)value} / {(int)GetMaxHealth()}";
+            string text = $"{(int)value}/{(int)GetMaxHealth()}";
             _text.text = text;
             _healthBar.SetValue(value);
         }
