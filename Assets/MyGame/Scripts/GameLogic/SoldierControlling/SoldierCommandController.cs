@@ -1,6 +1,7 @@
 using Base.Infrastructure;
 using Base.Services.Audio;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,7 +17,6 @@ public class SoldierCommandController
     private InputService _input;
     private readonly AudioPlayerService _audioPlayer;
     private Coroutine _coroutine;
-
 
     private WaitForSeconds _waitForSeconds;
     private WaitUntil _waitUntilNextClick;
@@ -43,16 +43,18 @@ public class SoldierCommandController
 
     public void Enable()
     {
+        _soldierSelector.SoldiersSelected += OnSelectSoldiers;
+
         if (_input != null)
         {
-            _input.Game.Select.performed += OnSelect;
+            //_input.Game.Select.performed += OnSelect;
             _input.Game.Select.performed += ClickLeftMouseButton;
         }
     }
 
     public void Disable()
     {
-        _input.Game.Select.performed -= OnSelect;
+        //_input.Game.Select.performed -= OnSelect;
         _input.Game.Select.performed -= ClickLeftMouseButton;
     }
 
@@ -62,6 +64,15 @@ public class SoldierCommandController
 
         if (_coroutine == null)
             _coroutine = _coroutineRunner.LaunchCoroutine(TrySendSoldierToControlPoint());
+    }
+
+    private void OnSelectSoldiers(List<SoldierModel> soldiers)
+    {
+        ExceptionsTest.NullRefMethodTest(nameof(SoldierCommandController), nameof(OnSelectSoldiers), soldiers);
+        ExceptionsTest.EmptyListTest(nameof(SoldierCommandController), nameof(OnSelectSoldiers), soldiers);
+
+        if (_coroutine == null)
+            _coroutine = _coroutineRunner.LaunchCoroutine(TrySendSoldierToControlPointCoroutine(soldiers));
     }
 
     private IEnumerator TrySendSoldierToControlPoint()
@@ -82,6 +93,32 @@ public class SoldierCommandController
             soldier.MoveTo(controlPoint.transform);
 
         _floatingPointer.Hide();
+        _playerClickLeftMouseButton = false;
+        _coroutine = null;
+
+        StopCoroutine();
+    }
+
+    private IEnumerator TrySendSoldierToControlPointCoroutine(List<SoldierModel> soldiers)
+    {
+
+        //_floatingPointer.PlaceAbove(soldier.GetTransform());
+        _audioPlayer.PlaySoldierRandomAnswerSound();
+        Debug.Log($"SOLDIERS SELEECTED");
+
+        yield return _waitForSeconds;
+
+        _playerClickLeftMouseButton = false;
+
+        yield return _waitUntilNextClick;
+
+        if (_controlPointSelector.TrySelectControlPoint(out ControlPoint controlPoint))
+        {
+            foreach (var soldier in soldiers)
+                soldier.MoveTo(controlPoint.transform);
+        }
+
+        //_floatingPointer.Hide();
         _playerClickLeftMouseButton = false;
         _coroutine = null;
 

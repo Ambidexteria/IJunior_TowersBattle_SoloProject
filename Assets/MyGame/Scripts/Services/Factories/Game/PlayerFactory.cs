@@ -7,6 +7,7 @@ using Base.Services.Audio;
 using Base.Services.TimeManagment;
 using Base.Soldier;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 using Zenject.SpaceFighter;
 
@@ -25,6 +26,7 @@ namespace Base.Services.Factories.Game
         [SerializeField] private ShootMinigameSetup _shootMinigameSetup;
         [SerializeField] private float _spawnRadius = 2f;
         [SerializeField] private float _startSpawnDelay = 2f;
+        [SerializeField] private Image _selectionBox;
 
         private ICoroutineRunner _coroutineRunner;
         private AssetLoader _assetLoader;
@@ -92,7 +94,7 @@ namespace Base.Services.Factories.Game
             ExceptionsTest.NullRefMethodTest(nameof(PlayerFactory), nameof(CreatePlayer), team);
 
             FloatingPointer floatingPointer = _assetLoader.Instantiate<FloatingPointer>(FloatingPointerAssetPath);
-            SoldierSelector soldierSelector = new(_soldierSelectorSettings);
+            SoldierSelector soldierSelector = new(_soldierSelectorSettings, _coroutineRunner, _input, _selectionBox);
             ControlPointSelector controlPointSelector = new(_controlPointSelectorSettings);
 
             SoldierCommandController controller = new(0.1f, soldierSelector,
