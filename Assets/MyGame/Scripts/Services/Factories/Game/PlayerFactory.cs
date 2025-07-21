@@ -94,7 +94,7 @@ namespace Base.Services.Factories.Game
             ExceptionsTest.NullRefMethodTest(nameof(PlayerFactory), nameof(CreatePlayer), team);
 
             FloatingPointer floatingPointer = _assetLoader.Instantiate<FloatingPointer>(FloatingPointerAssetPath);
-            SoldierSelector soldierSelector = new(_soldierSelectorSettings, _coroutineRunner, _input, _selectionBox);
+            SoldierSelector soldierSelector = new(_soldierSelectorSettings, _coroutineRunner, _input, _selectionBox, team);
             ControlPointSelector controlPointSelector = new(_controlPointSelectorSettings);
 
             SoldierCommandController controller = new(0.1f, soldierSelector,

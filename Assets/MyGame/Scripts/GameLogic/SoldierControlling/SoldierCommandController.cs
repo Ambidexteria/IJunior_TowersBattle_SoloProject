@@ -104,6 +104,10 @@ public class SoldierCommandController
 
         //_floatingPointer.PlaceAbove(soldier.GetTransform());
         _audioPlayer.PlaySoldierRandomAnswerSound();
+        
+        foreach(var soldier in soldiers)
+            soldier.ShowSelectionCircle();
+
         Debug.Log($"SOLDIERS SELEECTED");
 
         yield return _waitForSeconds;
@@ -117,6 +121,9 @@ public class SoldierCommandController
             foreach (var soldier in soldiers)
                 soldier.MoveTo(controlPoint.transform);
         }
+
+        foreach (var soldier in soldiers)
+            soldier.HideSelectionCircle();
 
         //_floatingPointer.Hide();
         _playerClickLeftMouseButton = false;

@@ -10,6 +10,7 @@ namespace Base.Soldier
 {
     public class SoldierSetup : SpawnableObject
     {
+        [SerializeField] private Transform _selectionCircle;
         [SerializeField] private SoldierGroundCollisionController _groundCollisionController;
         [SerializeField] private Animator _animator;
         [SerializeField] private SoldierWeapon _weapon;
@@ -59,7 +60,7 @@ namespace Base.Soldier
             {
                 _soldier = new SoldierModel(_groundCollisionController, _animator, _weapon, _enemyTrigger,
                    _despawnerTrigger, _dieDelay, _marks, _rigidbody, _team, _stats, _coroutineRunner, _colorChanger, 
-                   transform, _audioPlayer);
+                   transform, _audioPlayer, _selectionCircle);
             }
 
             return _soldier;

@@ -16,13 +16,13 @@ public class SoldierSelector
     private readonly InputService _inputService;
     private readonly Image _selectionBox;
     private readonly Camera _camera;
-
+    private readonly Team _team;
     private Vector3 _firstPosition;
     private Coroutine _drawSelectionBoxCoroutine;
     private Vector3 _secondPosition;
 
     public SoldierSelector(RaycastSettings soldierSelectorSettings, ICoroutineRunner coroutineRunner, InputService inputService,
-        Image selectionBorder)
+        Image selectionBorder, Team team)
     {
         ExceptionsTest.NullRefConstructorTest(nameof(ControlPointSelector), soldierSelectorSettings);
 
@@ -32,6 +32,7 @@ public class SoldierSelector
         _inputService = inputService;
         _selectionBox = selectionBorder;
         _camera = Camera.main;
+        _team = team;
 
         _inputService.Game.Select.performed += OnSelectSoldier;
     }
@@ -109,8 +110,10 @@ public class SoldierSelector
             if (collider.TryGetComponent(out SoldierSetup setup))
             {
                 SoldierModel soldier = setup.GetSoldier();
+
                 Debug.Log($"Soldier = {setup.gameObject.name}");
-                if (IsSelectable(soldier))
+
+                if (soldier.GetTeam() == _team.Type && IsSelectable(soldier))
                     if (IsPointInSelectionBox(soldier.GetTransform().position, _firstPosition, _secondPosition))
                         selectedSoldiers.Add(setup.GetSoldier());
             }
@@ -143,6 +146,7 @@ public class SoldierSelector
 
             _selectionBox.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
             _selectionBox.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
+
             yield return null;
         }
     }

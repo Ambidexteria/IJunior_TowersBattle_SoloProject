@@ -7,6 +7,7 @@ using Base.Soldier;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SoldierModel : ISoldier
@@ -19,6 +20,7 @@ public class SoldierModel : ISoldier
     private readonly TeamColorChanger _colorChanger;
     private readonly Transform _soldierTransform;
     private readonly AudioPlayerService _audioPlayer;
+    private readonly Transform _selectionCircle;
     private readonly float _dieDelay;
     private readonly List<ColorChangerMark> _marks;
     private readonly HealthModel _health;
@@ -40,7 +42,8 @@ public class SoldierModel : ISoldier
         SoldierWeapon weapon, TriggerObserver enemyTrigger, TriggerObserver despawnerTrigger,
         float dieDelay, List<ColorChangerMark> marks, Rigidbody rigidbody,
         Team team, SoldierData stats, ICoroutineRunner coroutineRunner,
-        TeamColorChanger teamColorChanger, Transform soldierTransform, AudioPlayerService audioPlayer)
+        TeamColorChanger teamColorChanger, Transform soldierTransform, AudioPlayerService audioPlayer,
+        Transform selectionCircle)
     {
         ExceptionsTest.NullRefConstructorTest(nameof(SoldierModel), groundCollisionController, animator,
             weapon, enemyTrigger, despawnerTrigger, marks, rigidbody, team, stats, coroutineRunner, 
@@ -60,6 +63,8 @@ public class SoldierModel : ISoldier
         _colorChanger = teamColorChanger;
         _soldierTransform = soldierTransform;
         _audioPlayer = audioPlayer;
+        _selectionCircle = selectionCircle;
+
         _waitToDie = new WaitForSeconds(_dieDelay);
         _despawnerDetector = new DespawnerDetector(_despawnerTrigger);
         _rotatorToTarget = new RotatorToTarget(_soldierTransform);
@@ -180,6 +185,16 @@ public class SoldierModel : ISoldier
     public bool TryGetNextAttackTarget(out ISoldier target)
     {
         return _enemiesDetector.TryGetNextAttackTarget(out target);
+    }
+
+    public void ShowSelectionCircle()
+    {
+        _selectionCircle.gameObject.SetActive(true);
+    }
+
+    public void HideSelectionCircle() 
+    {
+        _selectionCircle.gameObject.SetActive(false);
     }
 
     private IEnumerator UpdateCoroutine()
