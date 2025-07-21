@@ -1,5 +1,6 @@
 using Base.Infrastructure;
 using Base.Services.Audio;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,6 +41,8 @@ public class SoldierCommandController
         _waitForSeconds = new(_secondClickDelay);
         _waitUntilNextClick = new(() => _playerClickLeftMouseButton == true);
     }
+
+    public event Action<List<SoldierModel>> SoldiersSelected;
 
     public void Enable()
     {
@@ -107,6 +110,8 @@ public class SoldierCommandController
         
         foreach(var soldier in soldiers)
             soldier.ShowSelectionCircle();
+
+        SoldiersSelected?.Invoke(soldiers);
 
         Debug.Log($"SOLDIERS SELEECTED");
 

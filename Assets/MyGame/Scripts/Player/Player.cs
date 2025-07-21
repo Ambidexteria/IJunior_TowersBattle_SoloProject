@@ -1,6 +1,7 @@
 using Base.GameLogic.Cannon;
 using Base.GameLogic.ShootMinigame;
 using System;
+using System.Collections.Generic;
 
 public class Player
 {
@@ -24,7 +25,10 @@ public class Player
         _commandController = commandController;
     }
 
+    public SoldierCommandController SoldierCommandController => _commandController;
+
     public event Action Defeated;
+    public event Action<SoldierModel> SoldiersSpawned;
 
     public void Enable()
     {
@@ -32,7 +36,7 @@ public class Player
             return;
 
         _cannon.Destroyed += OnCannonDestroyed;
-
+        _soldierSpawnerController.Spawned += OnSoldierSpawned;
         _shootMinigame.Winned += OnWinMinigame;
         _shootMinigame.Loosed += OnLooseMinigame;
         
@@ -51,6 +55,7 @@ public class Player
             return;
 
         _cannon.Destroyed -= OnCannonDestroyed;
+        _soldierSpawnerController.Spawned -= OnSoldierSpawned;
         _shootMinigame.Winned -= OnWinMinigame;
         _shootMinigame.Loosed -= OnLooseMinigame;
 
@@ -61,6 +66,16 @@ public class Player
         _shootMinigame.Disable();
 
         _enabled = false;
+    }
+
+    public void StartSpawningSoldiers()
+    {
+        _soldierSpawnerController.Enable();
+    }
+
+    public void StopSpawningSoldiers()
+    {
+        _soldierSpawnerController.Disable();
     }
 
     private void OnWinMinigame()
@@ -83,5 +98,10 @@ public class Player
     private void OnCannonDestroyed()
     {
         Defeated?.Invoke();
+    }
+
+    private void OnSoldierSpawned(SoldierModel soldierModel)
+    {
+        SoldiersSpawned?.Invoke(soldierModel);
     }
 }

@@ -13,15 +13,18 @@ using Base.PLayer;
 using Base.Data;
 using Base.Services.TimeManagment;
 using Base.Services.Audio;
-using Zenject.SpaceFighter;
 using Base.Services.PluginYG;
+using Base.GameLogic.Tutorial;
 
 namespace Base.Services.Factories.Game
 {
     public class GameSceneFactory : MonoBehaviour
     {
+        private const string TutorialStageAssetPath = "Stages/TutorialStage";
         private const string NPCCannon = "GameLogic/Cannon/NPCCannon Variant";
 
+        [SerializeField] private bool _enableTutorial = false;
+        [SerializeField] private TutorialBattleController _tutorialBattleController;
         [SerializeField] private GameSceneUIFactory _uiFactory;
         [SerializeField] private SoldierForDespawnDetector _soldierDespawnDetector;
 
@@ -42,6 +45,7 @@ namespace Base.Services.Factories.Game
         private CannonProjectileSpawner _projectileSpawner;
         private TeamColorChanger _colorChanher;
         private ControlPointDatabase _controlPointDatabase;
+        private InputService _inputService;
         private IPersisentDataService _dataSerive;
         private Wallet _wallet;
         private TimeController _timeController;
@@ -56,12 +60,12 @@ namespace Base.Services.Factories.Game
         [Inject]
         private void Init(Infrastructure.Game game, AssetLoader assetLoader, ICoroutineRunner coroutineRunner,
             CannonProjectileSpawner projectileSpawner, TeamColorChanger colorChanger,
-            ControlPointDatabase controlPointDatabase,
+            ControlPointDatabase controlPointDatabase, InputService inputService,
             SceneChanger sceneChanger, IPersisentDataService dataService, Wallet wallet,
             TimeController timeController, AudioPlayerService audioPlayer)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(GameSceneFactory), nameof(Init),  game,  assetLoader,  coroutineRunner,
-             projectileSpawner,  colorChanger, controlPointDatabase, sceneChanger,  dataService,  wallet);
+            ExceptionsTest.NullRefMethodTest(nameof(GameSceneFactory), nameof(Init), game, assetLoader, coroutineRunner,
+             projectileSpawner, colorChanger, controlPointDatabase, sceneChanger, dataService, wallet);
 
             _game = game;
             _coroutineRunner = coroutineRunner;
@@ -69,6 +73,7 @@ namespace Base.Services.Factories.Game
             _projectileSpawner = projectileSpawner;
             _colorChanher = colorChanger;
             _controlPointDatabase = controlPointDatabase;
+            _inputService = inputService;
             _sceneChanger = sceneChanger;
             _dataSerive = dataService;
             _wallet = wallet;
@@ -84,7 +89,11 @@ namespace Base.Services.Factories.Game
                 _npcFactory, _npcCannonSetup, _npcHealthSetup);
 
             _stageInfo = _dataSerive.GameData.StagesData.GetSelectedStage() ?? throw new NullReferenceException(nameof(_stageInfo));
-            _stage = _assetLoader.Instantiate<Stage>(_stageInfo.AssetPath) ?? throw new NullReferenceException(nameof(_stage));
+
+            if (_enableTutorial)
+                _stage = _assetLoader.Instantiate<Stage>(TutorialStageAssetPath) ?? throw new NullReferenceException(nameof(_stage));
+            else
+                _stage = _assetLoader.Instantiate<Stage>(_stageInfo.AssetPath) ?? throw new NullReferenceException(nameof(_stage));
 
             _controlPointDatabase.SetControlPointsOnStage(_stage.GetControlPoints());
 
@@ -94,23 +103,31 @@ namespace Base.Services.Factories.Game
             _playerCannon.SetEnemy(_NPCCannon);
             _NPCCannon.SetEnemy(_playerCannon);
 
-            _battleController = new BattleController(player, npc, _uiFactory.GetUIStateMachine(), 
+            _battleController = new BattleController(player, npc, _uiFactory.GetUIStateMachine(),
                 _uiFactory.GetBattleEndModel(_game, _wallet, _stageInfo, _dataSerive.GameData.Score, _dataSerive.GameData.StagesData),
                 _timeController, _uiFactory.GetRestoreHealthForRewardAdsModel(_playerCannonHealthSetup.GetModel()));
+
+            _tutorialBattleController.Init(player, _inputService, _stage.GetControlPoints()[0]);
 
             MetricsService.CallStageLoadedEvent(_stageInfo.Name);
         }
 
         private void OnEnable()
         {
-            _battleController.Enable();
+            if (_enableTutorial)
+                _tutorialBattleController.Enable();
+            else
+                _battleController.Enable();
 
             _sceneChanger.ChangingScene += _battleController.Disable;
         }
 
         private void OnDisable()
         {
-            _battleController.Disable();
+            if (_enableTutorial)
+                _tutorialBattleController.Disable();
+            else
+                _battleController.Disable();
 
             _sceneChanger.ChangingScene -= _battleController.Disable;
         }
@@ -119,7 +136,7 @@ namespace Base.Services.Factories.Game
         {
             Team team = new Team(TeamType.NPC);
 
-            _NPCCannon =  _npcCannonSetup.CreateCannonModel(team, _stageInfo.EnemyCannon.Damage, _colorChanher, _projectileSpawner, 
+            _NPCCannon = _npcCannonSetup.CreateCannonModel(team, _stageInfo.EnemyCannon.Damage, _colorChanher, _projectileSpawner,
                 _npcHealthSetup.CreateHealth(_stageInfo.EnemyCannon.MaxHealth, _coroutineRunner));
 
             return _npcFactory.CreateNPC(team, _NPCCannon, _stageInfo.EnemyCannon, _stageInfo.EnemySoldier, _stage.NPCSoldierSpawnPoint);
