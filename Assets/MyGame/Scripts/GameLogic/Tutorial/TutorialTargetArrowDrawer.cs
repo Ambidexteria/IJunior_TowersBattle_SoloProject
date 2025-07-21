@@ -22,6 +22,9 @@ public class TutorialTargetArrowDrawer : MonoBehaviour
     public void DrawAbove(Transform target)
     {
         _startPosition = Camera.main.WorldToScreenPoint(target.position).AddY(_verticalOffset);
+        //_startPosition = Camera.main.WorldToViewportPoint(target.position);
+        //_startPosition = new Vector3(_startPosition.x * Camera.main.pixelWidth, _startPosition.y * Camera.main.pixelHeight).AddY(_verticalOffset);
+
         _endPosition = _startPosition.AddY(_movementHeight);
 
         _currentSpeed = _speed;

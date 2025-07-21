@@ -1,3 +1,4 @@
+using Base.GameLogic.Cannon;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,6 +7,7 @@ namespace Base.GameLogic.Tutorial
 {
     public class TutorialBattleController : MonoBehaviour
     {
+        [SerializeField] private Transform _playerEnergyBarTarget;
         [SerializeField] private TutorialTargetArrowDrawer _tutorialTargetArrowDrawer;
         [SerializeField] private ControlPoint _controlPoint;
         [SerializeField] private ButtonClickHandler _launchMingameButton;
@@ -36,14 +38,13 @@ namespace Base.GameLogic.Tutorial
             _inputService = inputService;
             _controlPoint = controlPoint;
 
-            ITutorialAction selectSoldierAction = new SelectSoldierTutorialAction(_player.SoldierCommandController);
-            _actions.Add(selectSoldierAction);
-
-            ITutorialAction captureControlPointAction = new CaptureControlPointTutorialAction(_controlPoint);
-            _actions.Add(captureControlPointAction);
-
-            ITutorialAction launchMinigameAction = new LaunchMinigameTutorialAction(_launchMingameButton);
-            _actions.Add(launchMinigameAction);
+            _actions = new List<ITutorialAction>()
+            {
+                new SelectSoldierTutorialAction(_player.SoldierCommandController),
+                new CaptureControlPointTutorialAction(_controlPoint),
+                new WaitForEnergyBarFilledTutorialAction(player.CannonEnergyBar, _playerEnergyBarTarget),
+                new LaunchMinigameTutorialAction(_launchMingameButton)
+            };
 
             _currentAction = _actions[_actionIndex];
         }
@@ -143,6 +144,30 @@ namespace Base.GameLogic.Tutorial
         {
             _completed = true;
             Debug.LogWarning("ControlPoint Captured");
+        }
+    }
+
+    public class WaitForEnergyBarFilledTutorialAction : ITutorialAction
+    {
+        private readonly CannonEnergyBarModel _energyBar;
+        private readonly Transform _target;
+
+        private bool _completed = false;
+
+        public WaitForEnergyBarFilledTutorialAction(CannonEnergyBarModel energyBar, Transform target)
+        {
+            _energyBar = energyBar;
+            _energyBar.Filled += OnFilled;
+            _target = target;
+        }
+
+        public Transform GetTargetForArrow() => _target;
+
+        public bool IsCompleted() => _completed;
+
+        private void OnFilled()
+        {
+            _completed = true;
         }
     }
 

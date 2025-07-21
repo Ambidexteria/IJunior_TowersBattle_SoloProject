@@ -1305,7 +1305,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 596232186}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1313,9 +1313,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 611, y: 663}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 99, y: 100}
+  m_Pivot: {x: 0.95, y: 0}
 --- !u!114 &596232188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1323,7 +1323,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 596232186}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -1336,7 +1336,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 70866dab1e96e4e42b38a4725770f18b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 890f4cf89b013f647bce5f57ba062f36, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1639,9 +1639,9 @@ MonoBehaviour:
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1080, y: 1920}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1667,7 +1667,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 386733251
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &666212770
@@ -1845,6 +1845,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a239c4e80a7889d4a9ea00612b1df378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &786115204 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7197366687959654134, guid: fd775bd279b78a247a6a2f21718a6648, type: 3}
+  m_PrefabInstance: {fileID: 786115200}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &797359468
 GameObject:
   m_ObjectHideFlags: 0
@@ -2146,6 +2151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8a5c07939d28694496f50ab889d3618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerEnergyBarTarget: {fileID: 786115204}
   _tutorialTargetArrowDrawer: {fileID: 1294219009}
   _controlPoint: {fileID: 318411017}
   _launchMingameButton: {fileID: 1531964894}
@@ -3848,8 +3854,28 @@ PrefabInstance:
       value: 0.527
       objectReference: {fileID: 0}
     - target: {fileID: 3358439722411443956, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3358439722411443956, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3358439722411443956, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3358439722411443956, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.000237861
+      objectReference: {fileID: 0}
+    - target: {fileID: 3358439722411443956, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 114.7
+      value: 114.70016
+      objectReference: {fileID: 0}
+    - target: {fileID: 3358439722411443956, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -824.99963
       objectReference: {fileID: 0}
     - target: {fileID: 3533268280987909038, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
       propertyPath: m_AnchorMax.x

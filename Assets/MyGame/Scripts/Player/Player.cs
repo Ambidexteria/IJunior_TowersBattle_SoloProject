@@ -26,6 +26,7 @@ public class Player
     }
 
     public SoldierCommandController SoldierCommandController => _commandController;
+    public CannonEnergyBarModel CannonEnergyBar => _energyBar;
 
     public event Action Defeated;
     public event Action<SoldierModel> SoldiersSpawned;
