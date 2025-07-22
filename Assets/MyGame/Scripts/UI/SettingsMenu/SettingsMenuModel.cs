@@ -1,8 +1,8 @@
 using Base.Data;
+using Base.Data.Game;
 using Base.Services.Audio;
 using Base.Services.Localization;
 using Base.Services.SaveLoad;
-using System.Runtime.CompilerServices;
 
 namespace Base.UI.Settings
 {
@@ -11,16 +11,18 @@ namespace Base.UI.Settings
         private readonly IAudioVolumeControllerService _volumeController;
         private readonly ISaveLoadService _saveLoadService;
         private readonly AudioVolumeSettings _volumeSettings;
+        private readonly GameSettings _gameSettings;
         private readonly ILocalizationService _localizationService;
 
         public SettingsMenuModel(IAudioVolumeControllerService volumeController, ISaveLoadService saveLoadService,
-            AudioVolumeSettings volumeSettings, ILocalizationService localizationService)
+            AudioVolumeSettings volumeSettings, GameSettings gameSettings, ILocalizationService localizationService)
         {
             ExceptionsTest.NullRefConstructorTest(nameof(SettingsMenuModel), volumeController, saveLoadService, volumeSettings);
 
             _volumeController = volumeController;
             _saveLoadService = saveLoadService;
             _volumeSettings = volumeSettings;
+            _gameSettings = gameSettings;
             _localizationService = localizationService;
 
             SetLoadedVolumeSettings(volumeSettings);
@@ -45,6 +47,12 @@ namespace Base.UI.Settings
         {
             _volumeController.ToggleMute(value);
             _volumeSettings.Muted = value;
+            SaveSettings();
+        }
+
+        public void ToggleTutorial(bool value)
+        {
+            _gameSettings.TutorialEnabled = value;
             SaveSettings();
         }
 

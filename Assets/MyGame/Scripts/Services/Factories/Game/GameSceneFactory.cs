@@ -15,12 +15,12 @@ using Base.Services.TimeManagment;
 using Base.Services.Audio;
 using Base.Services.PluginYG;
 using Base.GameLogic.Tutorial;
+using Base.UI.StateMachine;
 
 namespace Base.Services.Factories.Game
 {
     public class GameSceneFactory : MonoBehaviour
     {
-        private const string TutorialStageAssetPath = "Stages/TutorialStage";
         private const string NPCCannon = "GameLogic/Cannon/NPCCannon Variant";
 
         [SerializeField] private bool _enableTutorial = false;
@@ -90,12 +90,11 @@ namespace Base.Services.Factories.Game
 
             _stageInfo = _dataSerive.GameData.StagesData.GetSelectedStage() ?? throw new NullReferenceException(nameof(_stageInfo));
 
-            if (_enableTutorial)
-                _stage = _assetLoader.Instantiate<Stage>(TutorialStageAssetPath) ?? throw new NullReferenceException(nameof(_stage));
-            else
-                _stage = _assetLoader.Instantiate<Stage>(_stageInfo.AssetPath) ?? throw new NullReferenceException(nameof(_stage));
+            _enableTutorial = _dataSerive.GameData.GameSettings.TutorialEnabled;
 
-            _controlPointDatabase.SetControlPointsOnStage(_stage.GetControlPoints());
+            _stage = _assetLoader.Instantiate<Stage>(_stageInfo.AssetPath) ?? throw new NullReferenceException(nameof(_stage));
+
+            _controlPointDatabase.Init(_stage.GetControlPoints(), _stage.PlayerSoldierSpawnPoint);
 
             Player player = CreatePlayer();
             NPC npc = CreateNPC();
@@ -103,22 +102,25 @@ namespace Base.Services.Factories.Game
             _playerCannon.SetEnemy(_NPCCannon);
             _NPCCannon.SetEnemy(_playerCannon);
 
-            _battleController = new BattleController(player, npc, _uiFactory.GetUIStateMachine(),
-                _uiFactory.GetBattleEndModel(_game, _wallet, _stageInfo, _dataSerive.GameData.Score, _dataSerive.GameData.StagesData),
+            GameUIStateMachine gameUIStateMachine = _uiFactory.GetUIStateMachine();
+            BattleEndModel battleEndModel = _uiFactory.GetBattleEndModel(_game, _wallet, _stageInfo,
+                _dataSerive.GameData.Score, _dataSerive.GameData.StagesData);
+
+            _battleController = new BattleController(player, npc, gameUIStateMachine, battleEndModel,
                 _timeController, _uiFactory.GetRestoreHealthForRewardAdsModel(_playerCannonHealthSetup.GetModel()));
 
-            _tutorialBattleController.Init(player, _inputService, _stage.GetControlPoints()[0]);
+            _tutorialBattleController.Init(player, npc, _controlPointDatabase, _dataSerive.GameData.GameSettings);
 
             MetricsService.CallStageLoadedEvent(_stageInfo.Name);
+
+            if (_enableTutorial)
+                _tutorialBattleController.Enable();
+
+            _battleController.Enable();
         }
 
         private void OnEnable()
         {
-            if (_enableTutorial)
-                _tutorialBattleController.Enable();
-            else
-                _battleController.Enable();
-
             _sceneChanger.ChangingScene += _battleController.Disable;
         }
 
@@ -132,7 +134,12 @@ namespace Base.Services.Factories.Game
             _sceneChanger.ChangingScene -= _battleController.Disable;
         }
 
-        public NPC CreateNPC()
+        private void LoadTutorial()
+        {
+            //_stage = _assetLoader.Instantiate<Stage>(TutorialStageAssetPath) ?? throw new NullReferenceException(nameof(_stage));
+        }
+
+        private NPC CreateNPC()
         {
             Team team = new Team(TeamType.NPC);
 

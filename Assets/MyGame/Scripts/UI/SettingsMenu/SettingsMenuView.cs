@@ -1,4 +1,5 @@
 using Base.Data;
+using Base.Data.Game;
 using System;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ namespace Base.UI.Settings
 {
     public class SettingsMenuView : MonoBehaviour
     {
+        [SerializeField] private ToggleValueChanger _tutorialToggle;
         [SerializeField] private ButtonClickHandler _russianLanguageButton;
         [SerializeField] private ButtonClickHandler _englishLanguageButton;
         [SerializeField] private ButtonClickHandler _turkishLanguageButton;
@@ -21,6 +23,7 @@ namespace Base.UI.Settings
         public event Action<float> SoundsVolumeChanged;
         public event Action<float> MusicVolumeChanged;
         public event Action<bool> MuteValueChanged;
+        public event Action<bool> TutorialValueChanged;
 
         private void Awake()
         {
@@ -39,6 +42,7 @@ namespace Base.UI.Settings
             _soundsVolumeSlider.ValueChanged += SoundsVolumeChanged;
             _musicVolumeSlider.ValueChanged += MusicVolumeChanged;
             _muteToggle.ValueChanged += MuteValueChanged;
+            _tutorialToggle.ValueChanged += TutorialValueChanged;
         }
 
         public void Disable()
@@ -50,9 +54,10 @@ namespace Base.UI.Settings
             _soundsVolumeSlider.ValueChanged -= SoundsVolumeChanged;
             _musicVolumeSlider.ValueChanged -= MusicVolumeChanged;
             _muteToggle.ValueChanged -= MuteValueChanged;
+            _tutorialToggle.ValueChanged -= TutorialValueChanged;
         }
 
-        public void Init(AudioVolumeSettings volumeSettings)
+        public void Init(AudioVolumeSettings volumeSettings, GameSettings gameSettings)
         {
             ExceptionsTest.NullRefMethodTest(nameof(SettingsMenuView), nameof(Init), volumeSettings);
 
@@ -61,6 +66,7 @@ namespace Base.UI.Settings
             _soundsVolumeSlider.SetValue(volumeSettings.SoundsVolume);
 
             _muteToggle.SetValue(volumeSettings.Muted);
+            _tutorialToggle.SetValue(gameSettings.TutorialEnabled);
         }
     }
 }

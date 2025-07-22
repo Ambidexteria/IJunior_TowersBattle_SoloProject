@@ -24,6 +24,7 @@ namespace Base.UI.Settings
             _view.MusicVolumeChanged += OnMusicVolumeChanged;
             _view.SoundsVolumeChanged += OnSoundsVolumeChanged;
             _view.MuteValueChanged += OnMuteValueChanged;
+            _view.TutorialValueChanged += OnTutorialValueChanged;
         }
         public void Disable()
         {
@@ -34,6 +35,7 @@ namespace Base.UI.Settings
             _view.MusicVolumeChanged -= OnMusicVolumeChanged;
             _view.SoundsVolumeChanged -= OnSoundsVolumeChanged;
             _view.MuteValueChanged -= OnMuteValueChanged;
+            _view.TutorialValueChanged -= OnTutorialValueChanged;
         }
 
         private void OnRussianLanguageButtonCLicked()
@@ -69,6 +71,11 @@ namespace Base.UI.Settings
         private void OnMuteValueChanged(bool value)
         {
             _model.ToggleMute(value);
+        }
+        
+        private void OnTutorialValueChanged(bool value)
+        {
+            _model.ToggleTutorial(value);
         }
     }
 }

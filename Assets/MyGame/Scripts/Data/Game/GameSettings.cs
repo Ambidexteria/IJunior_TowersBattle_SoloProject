@@ -6,5 +6,6 @@ namespace Base.Data.Game
     public class GameSettings
     {
         public string Language = "ru";
+        public bool TutorialEnabled = true;
     }
 }

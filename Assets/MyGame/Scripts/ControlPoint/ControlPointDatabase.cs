@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class ControlPointDatabase : MonoBehaviour
 {
+    [SerializeField] private Transform _playerSpawnSoldierPosition;
+
     private List<ControlPoint> _controlPoints = new();
 
     public event Action<ControlPoint> ControlPointCaptured;
@@ -19,14 +21,23 @@ public class ControlPointDatabase : MonoBehaviour
         UnsubscribeToControlPoints();
     }
 
-    public void SetControlPointsOnStage(List<ControlPoint> controlPoints)
+    public void Init(List<ControlPoint> controlPoints, Transform playerSpawnSoldierPosition)
     {
-        ExceptionsTest.NullRefMethodTest(nameof(ControlPointDatabase), nameof(SetControlPointsOnStage), controlPoints);
-        ExceptionsTest.EmptyListTest(nameof(ControlPointDatabase), nameof(SetControlPointsOnStage), controlPoints);
+        ExceptionsTest.NullRefMethodTest(nameof(ControlPointDatabase), nameof(Init), controlPoints);
+        ExceptionsTest.EmptyListTest(nameof(ControlPointDatabase), nameof(Init), controlPoints);
 
         _controlPoints = controlPoints;
+        _playerSpawnSoldierPosition = playerSpawnSoldierPosition;
 
         SubscribeToControlPoints();
+    }
+
+    public ControlPoint GetClosestControlPointToPlayer()
+    {
+        if (TryGetNearestVacantControlPoint(TeamType.Player, _playerSpawnSoldierPosition.position, out ControlPoint controlPoint) == false)
+            throw new NullReferenceException(nameof(controlPoint));
+
+        return controlPoint;
     }
 
     public bool TryGetNearestVacantControlPoint(TeamType team, Vector3 position, out ControlPoint controlPoint)

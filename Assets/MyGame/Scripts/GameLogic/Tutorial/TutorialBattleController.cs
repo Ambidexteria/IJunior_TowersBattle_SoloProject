@@ -1,93 +1,123 @@
+using Base.Data.Game;
 using Base.GameLogic.Cannon;
+using Base.GameLogic.ShootMinigame;
+using Base.Infrastructure;
+using Base.UI.StateMachine;
+using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityExtensions;
+using static UnityEngine.GraphicsBuffer;
 
 namespace Base.GameLogic.Tutorial
 {
     public class TutorialBattleController : MonoBehaviour
     {
+        [SerializeField] private Transform _shootMinigamePressRangeTarget;
         [SerializeField] private Transform _playerEnergyBarTarget;
         [SerializeField] private TutorialTargetArrowDrawer _tutorialTargetArrowDrawer;
-        [SerializeField] private ControlPoint _controlPoint;
         [SerializeField] private ButtonClickHandler _launchMingameButton;
 
-        private List<ITutorialAction> _actions = new();
-        private InputService _inputService;
-
-        private int _actionIndex = 0;
-        private ITutorialAction _currentAction;
+        private ControlPointDatabase _controlPointDatabase;
+        private ControlPoint _controlPoint;
         private Player _player;
+        private NPC _npc;
+        private GameSettings _gameSettings;
 
-        private void Update()
-        {
-            if (_currentAction == null)
-                return;
+        private Dictionary<Type, ITutorialAction> _actionsDicitionary;
+        private bool _enabled;
 
-            if (_actions[_actionIndex].IsCompleted())
-            {
-                Debug.LogWarning($"ACTION COMPLETED");
-                
-                ChooseNextAction();
-            }
-        }
-
-        public void Init(Player player, InputService inputService, ControlPoint controlPoint)
+        public void Init(Player player, NPC npc, ControlPointDatabase controlPointDatabase, GameSettings gameSettings)
         {
             _player = player;
-            _inputService = inputService;
-            _controlPoint = controlPoint;
+            _npc = npc;
+            _controlPoint = controlPointDatabase.GetClosestControlPointToPlayer();
+            _gameSettings = gameSettings;
 
-            _actions = new List<ITutorialAction>()
+            _actionsDicitionary = new Dictionary<Type, ITutorialAction>
             {
-                new SelectSoldierTutorialAction(_player.SoldierCommandController),
-                new CaptureControlPointTutorialAction(_controlPoint),
-                new WaitForEnergyBarFilledTutorialAction(player.CannonEnergyBar, _playerEnergyBarTarget),
-                new LaunchMinigameTutorialAction(_launchMingameButton)
+                { typeof(SelectSoldierTutorialAction), new SelectSoldierTutorialAction(player, _player.SoldierCommandController, this) },
+                { typeof(CaptureControlPointTutorialAction), new CaptureControlPointTutorialAction(_controlPoint, _player.Team, this) },
+                { typeof(WaitForEnergyBarFilledTutorialAction), new WaitForEnergyBarFilledTutorialAction(player.CannonEnergyBar, _playerEnergyBarTarget, this) },
+                { typeof(LaunchMinigameTutorialAction), new LaunchMinigameTutorialAction(_launchMingameButton,this) },
+                { typeof(PressRangeMinigameTutorialAction), new PressRangeMinigameTutorialAction(player, _shootMinigamePressRangeTarget, this) },
             };
-
-            _currentAction = _actions[_actionIndex];
         }
 
         public void Enable()
         {
-            _player.Enable();
-            _player.SoldiersSpawned += OnSoldierSpawned;
+            if (_enabled)
+                return;
 
-            //_inputService.Game.Select.performed += OnActionPerformed;
+            _player.Enable();
+            _player.SoldiersSpawned += OnPlayerSoldierSpawned;
+
+            _npc.Enable();
+            _npc.SoldierSpawned += OnNPCSoldierSpawned;
+            _npc.CannonShooted += OnNPCCannonShooted;
+            _npc.Defeated += OnNPCDefeated;
+
+            _enabled = true;
         }
 
         public void Disable()
         {
+            if (_enabled == false)
+                return;
+
             _player.Disable();
+            _npc.Disable();
+            _tutorialTargetArrowDrawer.HideArrow();
+
+            _enabled = false;
         }
 
-        private void ChooseNextAction()
+        public void SetNextAction<TutorialAction>() where TutorialAction : ITutorialAction
         {
-            if (_actionIndex < _actions.Count - 1)
-            {
-                _actionIndex++;
-                Debug.LogWarning($"NEXT ACTION");
-                _tutorialTargetArrowDrawer.DrawAbove(_actions[_actionIndex].GetTargetForArrow());
-            }
-            else
-            {
-                Debug.LogWarning($"TUTORIAL COMPLETED");
-                _tutorialTargetArrowDrawer.HideArrow();
-                _currentAction = null;
-            }
+            if(_enabled == false)
+                return;
+
+            ITutorialAction action = _actionsDicitionary[typeof(TutorialAction)];
+
+            if (action.IsCompleted())
+                return;
+
+            _tutorialTargetArrowDrawer.DrawAbove(action.GetTargetForArrow());
         }
 
-        private void OnActionPerformed(InputAction.CallbackContext context)
+        public void EndTutorial()
         {
-            if (_currentAction.IsCompleted())
-                Debug.LogWarning($"ACTION COMPLETED");
+            _enabled = false;
+            _gameSettings.TutorialEnabled = false;
+            _tutorialTargetArrowDrawer.HideArrow();
         }
 
-        private void OnSoldierSpawned(SoldierModel soldierModel)
+        private void OnPlayerSoldierSpawned(SoldierModel soldierModel)
         {
-            _tutorialTargetArrowDrawer.DrawAbove(soldierModel.GetTransform());
-            _player.StopSpawningSoldiers();
+            //_player.StopSpawningSoldiers();
+
+            SetNextAction<SelectSoldierTutorialAction>();
+        }
+
+        private void OnNPCSoldierSpawned()
+        {
+            //_npc.StopSpawningSoldiers();
+        }
+
+        private void OnNPCCannonShooted()
+        {
+            //_npc.DisableCannon();
+        }
+
+        private void OnNPCDefeated()
+        {
+            //_npc.Disable();
+            //_player.Disable();
+            //_uIStateMachine.Enter<TutorialEndWindowState>();
+            //_gameSettings.TutorialEnabled = false;
         }
     }
 
@@ -101,23 +131,30 @@ namespace Base.GameLogic.Tutorial
     public class SelectSoldierTutorialAction : ITutorialAction
     {
         private readonly SoldierCommandController _soldierSelector;
-
+        private readonly TutorialBattleController _tutorialBattleController;
         private bool _completed = false;
         private Transform _target;
 
-        public SelectSoldierTutorialAction(SoldierCommandController soldierCommandController)
+        public SelectSoldierTutorialAction(Player player, SoldierCommandController soldierCommandController, TutorialBattleController tutorialBattleController)
         {
             _soldierSelector = soldierCommandController;
+            _tutorialBattleController = tutorialBattleController;
             _soldierSelector.SoldiersSelected += OnSoldierSelected;
+            player.SoldiersSpawned += OnSoldierSpawned;
         }
 
         public Transform GetTargetForArrow() => _target;
 
         public bool IsCompleted() => _completed;
 
+        private void OnSoldierSpawned(SoldierModel soldier)
+        {
+            _target = soldier.GetTransform();
+        }
+
         private void OnSoldierSelected(List<SoldierModel> soldiers)
         {
-            _target = soldiers[0].GetTransform();
+            _tutorialBattleController.SetNextAction<CaptureControlPointTutorialAction>();
             _completed = true;
         }
     }
@@ -125,13 +162,17 @@ namespace Base.GameLogic.Tutorial
     public class CaptureControlPointTutorialAction : ITutorialAction
     {
         private readonly ControlPoint _controlPoint;
+        private readonly Team _team;
+        private readonly TutorialBattleController _tutorialBattleController;
 
         private bool _completed = false;
         private Transform _target;
 
-        public CaptureControlPointTutorialAction(ControlPoint controlPoint)
+        public CaptureControlPointTutorialAction(ControlPoint controlPoint, Team team, TutorialBattleController tutorialBattleController)
         {
             _controlPoint = controlPoint;
+            _team = team;
+            _tutorialBattleController = tutorialBattleController;
             _controlPoint.Captured += OnCaptured;
             _target = controlPoint.transform;
         }
@@ -142,8 +183,11 @@ namespace Base.GameLogic.Tutorial
 
         private void OnCaptured(ControlPoint controlPoint)
         {
-            _completed = true;
-            Debug.LogWarning("ControlPoint Captured");
+            if (controlPoint.Team == _team.Type)
+            {
+                _tutorialBattleController.SetNextAction<WaitForEnergyBarFilledTutorialAction>();
+                _completed = true;
+            }
         }
     }
 
@@ -151,14 +195,16 @@ namespace Base.GameLogic.Tutorial
     {
         private readonly CannonEnergyBarModel _energyBar;
         private readonly Transform _target;
-
+        private readonly TutorialBattleController _tutorialBattleController;
         private bool _completed = false;
 
-        public WaitForEnergyBarFilledTutorialAction(CannonEnergyBarModel energyBar, Transform target)
+        public WaitForEnergyBarFilledTutorialAction(CannonEnergyBarModel energyBar, Transform target, TutorialBattleController tutorialBattleController)
         {
             _energyBar = energyBar;
-            _energyBar.Filled += OnFilled;
             _target = target;
+            _tutorialBattleController = tutorialBattleController;
+
+            _energyBar.Filled += OnFilled;
         }
 
         public Transform GetTargetForArrow() => _target;
@@ -167,19 +213,20 @@ namespace Base.GameLogic.Tutorial
 
         private void OnFilled()
         {
-            _completed = true;
+            _tutorialBattleController.SetNextAction<LaunchMinigameTutorialAction>();
         }
     }
 
     public class LaunchMinigameTutorialAction : ITutorialAction
     {
         private readonly ButtonClickHandler _launchMinigameButton;
-
+        private readonly TutorialBattleController _tutorialBattleController;
         private bool _completed = false;
 
-        public LaunchMinigameTutorialAction(ButtonClickHandler launchMinigameButton)
+        public LaunchMinigameTutorialAction(ButtonClickHandler launchMinigameButton, TutorialBattleController tutorialBattleController)
         {
             _launchMinigameButton = launchMinigameButton;
+            _tutorialBattleController = tutorialBattleController;
 
             _launchMinigameButton.Clicked += OnButtonClicked;
         }
@@ -190,7 +237,36 @@ namespace Base.GameLogic.Tutorial
 
         private void OnButtonClicked()
         {
-            _completed = true;
+            _tutorialBattleController.SetNextAction<PressRangeMinigameTutorialAction>();
+        }
+    }
+
+    public class PressRangeMinigameTutorialAction : ITutorialAction
+    {
+        private Player _player;
+        private Transform _target;
+        private TutorialBattleController _tutorialBattleController;
+        private bool _completed = false;
+
+        public PressRangeMinigameTutorialAction(Player player, Transform target, TutorialBattleController tutorialBattleController)
+        {
+            _player = player;
+            _target = target;
+            _tutorialBattleController = tutorialBattleController;
+
+            _player.ShooMinigameWinned += OnMinigameWinned;
+        }
+
+        public Transform GetTargetForArrow() => _target;
+
+        public bool IsCompleted() => _completed;
+
+        private void OnMinigameWinned(bool isWinned)
+        {
+            if (isWinned)
+                _tutorialBattleController.EndTutorial();
+            else
+                _tutorialBattleController.SetNextAction<LaunchMinigameTutorialAction>();
         }
     }
 }

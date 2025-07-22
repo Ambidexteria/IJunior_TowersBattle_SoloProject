@@ -9,10 +9,6 @@ public class NPC
 
     private bool _enabled = false;
 
-    public int CannonDamageTaken => _cannonController.CannonDamageTaken;
-
-    public event Action Defeated;
-
     public NPC(NPCCannonController cannonController, NPCSoldierController soldierController, SoldierSpawnControllerModel soldierSpawnController)
     {
         ExceptionsTest.NullRefConstructorTest(nameof(NPC), cannonController, soldierController, soldierSpawnController);
@@ -21,6 +17,12 @@ public class NPC
         _soldierController = soldierController;
         _soldierSpawnController = soldierSpawnController;
     }
+
+    public int CannonDamageTaken => _cannonController.CannonDamageTaken;
+
+    public event Action Defeated;
+    public event Action SoldierSpawned;
+    public event Action CannonShooted;
 
     public void Enable()
     {
@@ -32,6 +34,8 @@ public class NPC
         _soldierController.Enable();
 
         _cannonController.CannonDestroyed += OnDefeated;
+        _cannonController.CannonShooted += OnCannonShooted;
+        _soldierSpawnController.Spawned += OnSoldierSpawned;
 
         _enabled = true;
     }
@@ -50,8 +54,38 @@ public class NPC
         _enabled = false;
     }
 
+    public void StartSpawningSoldiers()
+    {
+        _soldierSpawnController.Enable();
+    }
+
+    public void StopSpawningSoldiers()
+    {
+        _soldierSpawnController.Disable();
+    }
+
+    public void EnableCannon()
+    {
+        _cannonController.Enable();
+    }
+
+    public void DisableCannon()
+    {
+        _cannonController.Disable();
+    }
+
     private void OnDefeated()
     {
         Defeated?.Invoke();
+    }
+
+    private void OnCannonShooted()
+    {
+        CannonShooted?.Invoke();
+    }
+
+    private void OnSoldierSpawned(SoldierModel model)
+    {
+        SoldierSpawned?.Invoke();
     }
 }

@@ -9,7 +9,6 @@ using Base.Soldier;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
-using Zenject.SpaceFighter;
 
 namespace Base.Services.Factories.Game
 {
@@ -83,7 +82,7 @@ namespace Base.Services.Factories.Game
 
             ShootMinigameModel shootMinigame = _shootMinigameSetup.CreateShootMinigameModel(cannonEnergyBar,
                 _timeController, _coroutineRunner);
-            Player player = new(cannon, cannonEnergyBar, shootMinigame,
+            Player player = new(team, cannon, cannonEnergyBar, shootMinigame,
                 spawnController, CreateSoldierCommandController(team));
 
             return player;

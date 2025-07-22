@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class Player
 {
+    private readonly Team _team;
     private readonly CannonModel _cannon;
     private readonly CannonEnergyBarModel _energyBar;
     private readonly ShootMinigameModel _shootMinigame;
@@ -12,12 +13,13 @@ public class Player
     private readonly SoldierCommandController _commandController;
     private bool _enabled = false;
 
-    public Player(CannonModel cannon, CannonEnergyBarModel energyBar, ShootMinigameModel shootMinigame, 
+    public Player(Team team, CannonModel cannon, CannonEnergyBarModel energyBar, ShootMinigameModel shootMinigame, 
         SoldierSpawnControllerModel soldierSpawnerController, SoldierCommandController commandController)
     {
         ExceptionsTest.NullRefConstructorTest(nameof(Player), cannon, energyBar, shootMinigame, 
             soldierSpawnerController, commandController);
 
+        _team = team;
         _cannon = cannon;
         _energyBar = energyBar;
         _shootMinigame = shootMinigame;
@@ -27,9 +29,11 @@ public class Player
 
     public SoldierCommandController SoldierCommandController => _commandController;
     public CannonEnergyBarModel CannonEnergyBar => _energyBar;
+    public Team Team => _team;
 
     public event Action Defeated;
     public event Action<SoldierModel> SoldiersSpawned;
+    public event Action<bool> ShooMinigameWinned;
 
     public void Enable()
     {
@@ -83,12 +87,14 @@ public class Player
     {
         _cannon.Shoot();
         EndMinigame();
+        ShooMinigameWinned?.Invoke(true);
     }
 
     private void OnLooseMinigame()
     {
         _cannon.TakeDamage(_cannon.Damage);
         EndMinigame();
+        ShooMinigameWinned?.Invoke(false);
     }
 
     private void EndMinigame()

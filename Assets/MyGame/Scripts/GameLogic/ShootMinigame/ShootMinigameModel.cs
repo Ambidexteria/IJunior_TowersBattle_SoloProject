@@ -14,7 +14,7 @@ namespace Base.GameLogic.ShootMinigame
         public ShootMinigameModel(CannonEnergyBarModel cannonEnergyBar, ShootMinigameLauncherModel launchMinigameModel, 
             ShootMinigamePressRangeModel shootMinigamePressRangeModel)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(ShootMinigameModel), ExceptionsTest.ConstructorName, cannonEnergyBar, launchMinigameModel, 
+            ExceptionsTest.NullRefConstructorTest(nameof(ShootMinigameModel), cannonEnergyBar, launchMinigameModel, 
                 shootMinigamePressRangeModel);
 
             _minigamePressRange = shootMinigamePressRangeModel;

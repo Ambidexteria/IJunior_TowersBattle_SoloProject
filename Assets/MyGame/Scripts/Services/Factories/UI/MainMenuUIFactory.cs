@@ -141,7 +141,7 @@ namespace Base.Services.Factories.UI
         }
         private void CreateSettings()
         {
-            _settingsSetup.CreateModel(_volumeControllerService, _saveLoadService, _dataService.GameData.AudioVolumeSettings,
+            _settingsSetup.CreateModel(_volumeControllerService, _saveLoadService, _dataService.GameData.AudioVolumeSettings, _dataService.GameData.GameSettings,
                 _localizationService);
         }
 

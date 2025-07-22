@@ -18,8 +18,10 @@ public class SoldierSelector
     private readonly Camera _camera;
     private readonly Team _team;
     private Vector3 _firstPosition;
-    private Coroutine _drawSelectionBoxCoroutine;
     private Vector3 _secondPosition;
+
+    private Coroutine _selectCoroutine;
+    private Coroutine _drawSelectionBoxCoroutine;
 
     public SoldierSelector(RaycastSettings soldierSelectorSettings, ICoroutineRunner coroutineRunner, InputService inputService,
         Image selectionBorder, Team team)
@@ -33,16 +35,22 @@ public class SoldierSelector
         _selectionBox = selectionBorder;
         _camera = Camera.main;
         _team = team;
+    }
+    
+    public event Action<List<SoldierModel>> SoldiersSelected;
 
+    public void Enable()
+    {
         _inputService.Game.Select.performed += OnSelectSoldier;
     }
 
-    private void OnSelectSoldier(InputAction.CallbackContext context)
+    public void Disable()
     {
-        _coroutineRunner.LaunchCoroutine(SelectCoroutine());
-    }
+        _inputService.Game.Select.performed -= OnSelectSoldier;
 
-    public event Action<List<SoldierModel>> SoldiersSelected;
+        StopSelectionCoroutine();
+        StopDrawSelectionBoxCoroutine();
+    }
 
     public bool TrySelectSoldier(out SoldierModel soldier, TeamType team)
     {
@@ -78,6 +86,14 @@ public class SoldierSelector
         return false;
     }
 
+    private void OnSelectSoldier(InputAction.CallbackContext context)
+    {
+        if(_selectCoroutine != null)
+            StopSelectionCoroutine();
+
+        _selectCoroutine = _coroutineRunner.LaunchCoroutine(SelectCoroutine());
+    }
+
     private IEnumerator SelectCoroutine()
     {
         List<SoldierModel> selectedSoldiers = new();
@@ -88,7 +104,6 @@ public class SoldierSelector
         yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
 
         _secondPosition = Input.mousePosition;
-        
 
         if ((_secondPosition.x - _firstPosition.x) < 1f && (_secondPosition.x - _firstPosition.x) >= 0)
         {
@@ -169,8 +184,16 @@ public class SoldierSelector
         {
             _coroutineRunner.EndCoroutine(_drawSelectionBoxCoroutine);
             _drawSelectionBoxCoroutine = null;
+            _selectionBox.enabled = false;
         }
-
-        _selectionBox.enabled = false;
+    }
+    
+    private void StopSelectionCoroutine()
+    {
+        if (_selectCoroutine != null)
+        {
+            _coroutineRunner.EndCoroutine(_selectCoroutine);
+            _selectCoroutine = null;
+        }
     }
 }

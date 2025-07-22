@@ -28,7 +28,7 @@ public class SoldierCommandController
         ICoroutineRunner coroutineRunner, Team team, InputService input, AudioPlayerService audioPlayer)
     {
         ExceptionsTest.NullRefConstructorTest(nameof(SoldierCommandController), soldierSelector,
-            controlPointSelector,  floatingPointer,coroutineRunner,  team,  input);
+            controlPointSelector, floatingPointer, coroutineRunner, team, input);
 
         _secondClickDelay = secondClickDelay;
         _soldierSelector = soldierSelector;
@@ -46,18 +46,17 @@ public class SoldierCommandController
 
     public void Enable()
     {
-        _soldierSelector.SoldiersSelected += OnSelectSoldiers;
+        _soldierSelector.Enable();
 
-        if (_input != null)
-        {
-            //_input.Game.Select.performed += OnSelect;
-            _input.Game.Select.performed += ClickLeftMouseButton;
-        }
+        _soldierSelector.SoldiersSelected += OnSelectSoldiers;
+        _input.Game.Select.performed += ClickLeftMouseButton;
     }
 
     public void Disable()
     {
-        //_input.Game.Select.performed -= OnSelect;
+        _soldierSelector.Disable();
+
+        _soldierSelector.SoldiersSelected -= OnSelectSoldiers;
         _input.Game.Select.performed -= ClickLeftMouseButton;
     }
 
@@ -107,8 +106,8 @@ public class SoldierCommandController
 
         //_floatingPointer.PlaceAbove(soldier.GetTransform());
         _audioPlayer.PlaySoldierRandomAnswerSound();
-        
-        foreach(var soldier in soldiers)
+
+        foreach (var soldier in soldiers)
             soldier.ShowSelectionCircle();
 
         SoldiersSelected?.Invoke(soldiers);
@@ -139,7 +138,7 @@ public class SoldierCommandController
 
     private void StopCoroutine()
     {
-        if(_coroutine != null)
+        if (_coroutine != null)
         {
             _coroutineRunner.EndCoroutine(_coroutine);
             _coroutine = null;

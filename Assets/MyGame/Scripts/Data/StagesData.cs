@@ -30,6 +30,7 @@ namespace Base.Data
         private const string DesertIcon = "desert_icon";
         private const string SnowForestIcon = "snow_forest_icon";
 
+        private const string Tutorial = "Tutorial";
         private const string StageOne = "1";
         private const string StageTwo = "2";
         private const string StageThree = "3";
@@ -41,9 +42,12 @@ namespace Base.Data
         private const string StageNine = "9";
 
         private readonly StageInfo[] _stages;
+        private readonly StageInfo _tutorialStage = new StageInfo("Stages/TutorialStage", Tutorial, 50, 0, new SoldierData(15, 4, 1, 10f), new CannonData(10, 30, 10));
 
         [JsonRequired]
         public SerializedStageInfo[] UnlockedStagesInfo;
+
+        public StageInfo TutorialStage => _tutorialStage;
 
         public string SelectedStageName = string.Empty;
 

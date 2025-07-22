@@ -19,6 +19,7 @@ public class NPCCannonController
     public int CannonDamageTaken => _cannon.DamageTaken;
 
     public event Action CannonDestroyed;
+    public event Action CannonShooted;
 
     public void Enable()
     {
@@ -54,6 +55,7 @@ public class NPCCannonController
         {
             _cannon.Shoot();
             _energyBar.RemoveCurrentEnergy();
+            CannonShooted?.Invoke();
         }
     }
 
