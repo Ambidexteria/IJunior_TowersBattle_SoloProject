@@ -131,7 +131,7 @@ namespace Base.Services.Factories.UI
                 _pauseWindow, _settingsWindow, _battleEndWindow, _restoreHealthForRewardAds);
 
             _pauseMenuSetup.CreatePauseMenu(_sceneChanger);
-            _settingsMenuSetup.CreateModel(_volumeControllerService, _saveLoadService, _dataService.GameData.AudioVolumeSettings, _dataService.GameData.GameSettings,
+            _settingsMenuSetup.CreateModel(_volumeControllerService, _saveLoadService, _dataService.GameData.GameSettings,
                 _localizationService);
 
             _uiStateMachine.Enter<CannonsHUDState>();

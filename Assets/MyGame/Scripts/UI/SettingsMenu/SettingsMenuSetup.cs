@@ -30,17 +30,17 @@ namespace Base.UI.Settings
         }
 
         public SettingsMenuModel CreateModel(IAudioVolumeControllerService audioService, ISaveLoadService saveLoadService,
-            AudioVolumeSettings volumeSettings, GameSettings gameSettings, ILocalizationService localizationService)
+            GameSettings gameSettings, ILocalizationService localizationService)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(SettingsMenuSetup), nameof(CreateModel), audioService, saveLoadService, volumeSettings,
+            ExceptionsTest.NullRefMethodTest(nameof(SettingsMenuSetup), nameof(CreateModel), audioService, saveLoadService, gameSettings,
                 localizationService);
 
-            _model = new SettingsMenuModel(audioService, saveLoadService, volumeSettings, gameSettings, localizationService);
+            _model = new SettingsMenuModel(audioService, saveLoadService, gameSettings, localizationService);
             _presenter = new SettingsMenuPresenter(_view, _model);
 
             _presenter.Enable();
 
-            _view.Init(volumeSettings, gameSettings);
+            _view.Init(gameSettings);
             _view.Enable();
 
             return _model;

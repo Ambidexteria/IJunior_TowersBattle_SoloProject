@@ -57,15 +57,17 @@ namespace Base.UI.Settings
             _tutorialToggle.ValueChanged -= TutorialValueChanged;
         }
 
-        public void Init(AudioVolumeSettings volumeSettings, GameSettings gameSettings)
+        public void Init(GameSettings gameSettings)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(SettingsMenuView), nameof(Init), volumeSettings);
+            ExceptionsTest.NullRefMethodTest(nameof(SettingsMenuView), nameof(Init), gameSettings);
+
+            AudioVolumeSettings volumeSettings = gameSettings.AudioVolumeSettings;
 
             _masterVolumeSlider.SetValue(volumeSettings.MasterVolume);
             _musicVolumeSlider.SetValue(volumeSettings.MusicVolume);
             _soundsVolumeSlider.SetValue(volumeSettings.SoundsVolume);
-
             _muteToggle.SetValue(volumeSettings.Muted);
+
             _tutorialToggle.SetValue(gameSettings.TutorialEnabled);
         }
     }

@@ -47,7 +47,7 @@ namespace Base.Services.SaveLoad
             {
                 gameData = JsonConvert.DeserializeObject<GameData>(json, _settings);
             }
-            catch (JsonSerializationException ex)
+            catch (JsonSerializationException)
             {
                 Debug.LogError($"{nameof(JsonSerializationException)} catched. Handling...");
                 gameData = null;

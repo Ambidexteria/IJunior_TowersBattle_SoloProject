@@ -64,7 +64,7 @@ namespace Base.Services.Factories.Game
                 _shootMinigameSetup);
         }
 
-        public Player CreatePlayer(Team team, CannonModel cannon, CannonData cannonData, float soldierSpawnDelay, Transform soldierSpawnPoint, 
+        public Player CreatePlayer(Team team, CannonModel cannon, CannonData cannonData, Transform soldierSpawnPoint, 
             SoldierData soldierStats)
         {
             ExceptionsTest.NullRefMethodTest(nameof(PlayerFactory), nameof(CreatePlayer), team, cannon, 
@@ -77,7 +77,7 @@ namespace Base.Services.Factories.Game
                 _soldierSpawnerSettings, _soldierFactory, _audioPlayer);
 
             SoldierSpawnControllerModel spawnController = _playerSpawnControllerSetup.CreateModel(
-                _startSpawnDelay, soldierSpawnDelay, _spawnRadius, soldierSpawnPoint,
+                _startSpawnDelay, soldierStats.SpawnDelay, _spawnRadius, soldierSpawnPoint,
                 _soldierDespawnDetector, team, spawner, _coroutineRunner);
 
             ShootMinigameModel shootMinigame = _shootMinigameSetup.CreateShootMinigameModel(cannonEnergyBar,

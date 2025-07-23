@@ -10,22 +10,22 @@ namespace Base.UI.Settings
     {
         private readonly IAudioVolumeControllerService _volumeController;
         private readonly ISaveLoadService _saveLoadService;
-        private readonly AudioVolumeSettings _volumeSettings;
         private readonly GameSettings _gameSettings;
+        private readonly AudioVolumeSettings _volumeSettings;
         private readonly ILocalizationService _localizationService;
 
         public SettingsMenuModel(IAudioVolumeControllerService volumeController, ISaveLoadService saveLoadService,
-            AudioVolumeSettings volumeSettings, GameSettings gameSettings, ILocalizationService localizationService)
+            GameSettings gameSettings, ILocalizationService localizationService)
         {
-            ExceptionsTest.NullRefConstructorTest(nameof(SettingsMenuModel), volumeController, saveLoadService, volumeSettings);
+            ExceptionsTest.NullRefConstructorTest(nameof(SettingsMenuModel), volumeController, saveLoadService);
 
             _volumeController = volumeController;
             _saveLoadService = saveLoadService;
-            _volumeSettings = volumeSettings;
             _gameSettings = gameSettings;
+            _volumeSettings = _gameSettings.AudioVolumeSettings;
             _localizationService = localizationService;
 
-            SetLoadedVolumeSettings(volumeSettings);
+            SetLoadedVolumeSettings();
         }
 
         public void SetRussianLanguage()
@@ -82,9 +82,9 @@ namespace Base.UI.Settings
             _saveLoadService.SaveProgress();
         }
 
-        private void SetLoadedVolumeSettings(AudioVolumeSettings volumeSettings)
+        private void SetLoadedVolumeSettings()
         {
-            _volumeController.ToggleMute(volumeSettings.Muted);
+            _volumeController.ToggleMute(_volumeSettings.Muted);
             _volumeController.SetMasterVolume(_volumeSettings.MasterVolume);
             _volumeController.SetMusicVolume(_volumeSettings.MusicVolume);
             _volumeController.SetSoundsVolume(_volumeSettings.SoundsVolume);

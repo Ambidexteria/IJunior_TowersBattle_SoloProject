@@ -120,7 +120,7 @@ namespace Base.GameLogic.UpgradeSystem
 
             _dataService = dataService;
 
-            _upgrades = _dataService.GameData.Upgrades;
+            _upgrades = _dataService.GameData.PlayerData.Upgrades;
             _healthUpgrade = _upgrades.GetUpgrade<CannonHealthUpgrade>();
         }
 
@@ -135,7 +135,7 @@ namespace Base.GameLogic.UpgradeSystem
 
             if (upgrade.TryIncreaseLevel())
             {
-                _dataService.GameData.CannonData.MaxHealth += upgrade.UpgradeValue;
+                _dataService.GameData.PlayerData.CannonData.MaxHealth += upgrade.UpgradeValue;
                 SendMetrics(nameof(CannonHealthUpgrade), upgrade.CurrentLevelText);
 
                 return true;
@@ -152,7 +152,7 @@ namespace Base.GameLogic.UpgradeSystem
 
             if (upgrade.TryIncreaseLevel())
             {
-                _dataService.GameData.CannonData.Damage += (int)upgrade.UpgradeValue;
+                _dataService.GameData.PlayerData.CannonData.Damage += (int)upgrade.UpgradeValue;
                 SendMetrics(nameof(CannonDamageUpgrade), upgrade.CurrentLevelText);
 
                 return true;
@@ -169,7 +169,7 @@ namespace Base.GameLogic.UpgradeSystem
 
             if (upgrade.TryIncreaseLevel())
             {
-                _dataService.GameData.SoldierData.SpawnDelay += upgrade.UpgradeValue;
+                _dataService.GameData.PlayerData.SoldierData.SpawnDelay += upgrade.UpgradeValue;
                 SendMetrics(nameof(SpawnTimeUpgrade), upgrade.CurrentLevelText);
 
                 return true;
@@ -186,7 +186,7 @@ namespace Base.GameLogic.UpgradeSystem
 
             if (upgrade.TryIncreaseLevel())
             {
-                _dataService.GameData.SoldierData.Damage += upgrade.UpgradeValue;
+                _dataService.GameData.PlayerData.SoldierData.Damage += upgrade.UpgradeValue;
                 SendMetrics(nameof(SoldierDamageUpgrade), upgrade.CurrentLevelText);
 
                 return true;
@@ -203,7 +203,7 @@ namespace Base.GameLogic.UpgradeSystem
 
             if (upgrade.TryIncreaseLevel())
             {
-                _dataService.GameData.SoldierData.MaxHealth += upgrade.UpgradeValue;
+                _dataService.GameData.PlayerData.SoldierData.MaxHealth += upgrade.UpgradeValue;
                 SendMetrics(nameof(SoldierHealthUpgrade), upgrade.CurrentLevelText);
 
                 return true;

@@ -9,7 +9,6 @@ using Base.Services.SceneManagment;
 using Base.Soldier;
 using UnityEngine;
 using Zenject;
-using Zenject.SpaceFighter;
 
 namespace Base.Services.Factories.Game
 {

@@ -16,6 +16,7 @@ using Base.Services.Audio;
 using Base.Services.PluginYG;
 using Base.GameLogic.Tutorial;
 using Base.UI.StateMachine;
+using Base.Data.Game;
 
 namespace Base.Services.Factories.Game
 {
@@ -104,7 +105,7 @@ namespace Base.Services.Factories.Game
 
             GameUIStateMachine gameUIStateMachine = _uiFactory.GetUIStateMachine();
             BattleEndModel battleEndModel = _uiFactory.GetBattleEndModel(_game, _wallet, _stageInfo,
-                _dataSerive.GameData.Score, _dataSerive.GameData.StagesData);
+                _dataSerive.GameData.PlayerData.Score, _dataSerive.GameData.StagesData);
 
             _battleController = new BattleController(player, npc, gameUIStateMachine, battleEndModel,
                 _timeController, _uiFactory.GetRestoreHealthForRewardAdsModel(_playerCannonHealthSetup.GetModel()));
@@ -153,13 +154,14 @@ namespace Base.Services.Factories.Game
         {
             Team team = new Team(TeamType.Player);
 
-            _playerCannon = _playerCannonSetup.CreateCannonModel(team, _dataSerive.GameData.CannonData.Damage,
-                _colorChanher, _projectileSpawner,
-                _playerCannonHealthSetup.CreateHealth(_dataSerive.GameData.CannonData.MaxHealth,
-                _coroutineRunner));
+            CannonData cannonData = _dataSerive.GameData.PlayerData.CannonData;
+            SoldierData soldierData = _dataSerive.GameData.PlayerData.SoldierData;
 
-            return _playerFactory.CreatePlayer(team, _playerCannon, _dataSerive.GameData.CannonData,
-                _dataSerive.GameData.SoldierData.SpawnDelay, _stage.PlayerSoldierSpawnPoint, _dataSerive.GameData.SoldierData);
+            _playerCannon = _playerCannonSetup.CreateCannonModel(team, cannonData.Damage, _colorChanher, _projectileSpawner,
+                _playerCannonHealthSetup.CreateHealth(cannonData.MaxHealth, _coroutineRunner));
+
+            return _playerFactory.CreatePlayer(team, _playerCannon, cannonData,
+                _stage.PlayerSoldierSpawnPoint, _dataSerive.GameData.PlayerData.SoldierData);
         }
 
         private CannonModel CreateCannon(string assetPath, Team team, int damage, HealthModel health)

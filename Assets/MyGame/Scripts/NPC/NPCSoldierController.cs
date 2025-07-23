@@ -11,6 +11,7 @@ public class NPCSoldierController
     private SoldierSpawnControllerModel _spawnController;
     private float _startDelay = 1f;
     private float _nextCommandDelay = 2f;
+    private int _commandCount = 2;
 
     private Team _team;
     private readonly ICoroutineRunner _coroutineRunner;
@@ -71,10 +72,10 @@ public class NPCSoldierController
 
         while (_enabled)
         {
-            if (_soldiers.Count > 0)
-                if (TryGetIdleSoldier(out SoldierModel soldier))
-                    if (_controlPointDatabase.TryGetNearestVacantControlPoint(_team.Type, soldier.GetTransform().position, out var controlPoint))
-                        soldier.MoveTo(controlPoint.transform);
+            for (int i = 0; i < _commandCount; i++) 
+            {
+                SendSoldierToControlPoint();
+            }
 
             yield return _waitNextCommand;
         }
@@ -103,12 +104,10 @@ public class NPCSoldierController
 
     private void SendSoldierToControlPoint()
     {
-        if (_soldiers.Count == 0)
-            return;
-
-        if (TryGetIdleSoldier(out SoldierModel soldier))
-            if (_controlPointDatabase.TryGetNearestVacantControlPoint(_team.Type, soldier.GetTransform().position, out var controlPoint))
-                soldier.MoveTo(controlPoint.transform);
+        if (_soldiers.Count > 0)
+            if (TryGetIdleSoldier(out SoldierModel soldier))
+                if (_controlPointDatabase.TryGetNearestVacantControlPoint(_team.Type, soldier.GetTransform().position, out var controlPoint))
+                    soldier.MoveTo(controlPoint.transform);
     }
 
     private bool TryGetIdleSoldier(out SoldierModel soldier)

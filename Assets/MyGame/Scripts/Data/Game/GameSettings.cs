@@ -5,7 +5,15 @@ namespace Base.Data.Game
     [Serializable]
     public class GameSettings
     {
-        public string Language = "ru";
-        public bool TutorialEnabled = true;
+        public AudioVolumeSettings AudioVolumeSettings;
+        public string Language;
+        public bool TutorialEnabled;
+
+        public GameSettings()
+        {
+            AudioVolumeSettings = new();
+            Language = "ru";
+            TutorialEnabled = true;
+        }
     }
 }

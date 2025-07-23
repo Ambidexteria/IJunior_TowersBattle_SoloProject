@@ -14,7 +14,7 @@ namespace Base.PLayer
             ExceptionsTest.NullRefConstructorTest(nameof(Wallet), progressService);
 
             _progressService = progressService;
-            _currentValue = _progressService.GameData.CurrentGold;
+            _currentValue = _progressService.GameData.PlayerData.CurrentGold;
         }
 
         public int CurrentAmount => _currentValue;
@@ -52,7 +52,7 @@ namespace Base.PLayer
 
         private void UpdateGold()
         {
-            _progressService.GameData.CurrentGold = _currentValue;
+            _progressService.GameData.PlayerData.CurrentGold = _currentValue;
         }
     }
 }

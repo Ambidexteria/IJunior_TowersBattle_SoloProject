@@ -139,9 +139,10 @@ namespace Base.Services.Factories.UI
         {
             _shopSetup.Create(_wallet, _upgradeSystem, _saveLoadService, _dataService.GameData.UpgradePrices);
         }
+
         private void CreateSettings()
         {
-            _settingsSetup.CreateModel(_volumeControllerService, _saveLoadService, _dataService.GameData.AudioVolumeSettings, _dataService.GameData.GameSettings,
+            _settingsSetup.CreateModel(_volumeControllerService, _saveLoadService, _dataService.GameData.GameSettings,
                 _localizationService);
         }
 
