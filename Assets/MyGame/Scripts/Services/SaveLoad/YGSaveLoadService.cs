@@ -26,8 +26,8 @@ namespace Base.Services.SaveLoad
 
         public GameData LoadProgress()
         {
+            GameData gameData;
             string json = YG2.saves.JSONGameData ??= string.Empty;
-            //json = json.Insert(1, "n");
             Debug.Log(json);
 
             if (json != string.Empty)
@@ -43,7 +43,16 @@ namespace Base.Services.SaveLoad
             Debug.Log($"gameData string hashCode = {json.GetHashCode()}");
             Debug.Log($"string length = {json.Length}");
 
-            GameData gameData = JsonConvert.DeserializeObject<GameData>(json, _settings);
+            try
+            {
+                gameData = JsonConvert.DeserializeObject<GameData>(json, _settings);
+            }
+            catch (JsonSerializationException ex)
+            {
+                Debug.LogError($"{nameof(JsonSerializationException)} catched. Handling...");
+                gameData = null;
+            }
+
             return gameData;
         }
 

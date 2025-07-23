@@ -14,8 +14,7 @@ namespace Base.UI.StateMachine
             UIWindowController pauseWindow,  
             UIWindowController settingsWindow,
             UIWindowController winMessage,
-            UIWindowController restoreHealthForRewardAds,
-            UIWindowController tutorialEndWindow)
+            UIWindowController restoreHealthForRewardAds)
         {
             ExceptionsTest.NullRefConstructorTest(nameof(GameUIStateMachine), cannonsHUD, shootMinigame, pauseWindow,
                 settingsWindow, winMessage);
@@ -28,7 +27,6 @@ namespace Base.UI.StateMachine
                 { typeof(SettingsMenuState), new SettingsMenuState(settingsWindow) },
                 { typeof(BattleEndState), new BattleEndState(winMessage) },
                 { typeof(RestoreHealthForRewardAdsWindow), new RestoreHealthForRewardAdsWindow(restoreHealthForRewardAds) },
-                { typeof(TutorialEndWindowState), new TutorialEndWindowState(tutorialEndWindow) },
             };
         }
 

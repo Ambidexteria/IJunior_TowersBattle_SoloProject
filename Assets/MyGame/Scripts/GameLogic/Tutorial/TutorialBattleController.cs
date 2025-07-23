@@ -1,16 +1,8 @@
 using Base.Data.Game;
 using Base.GameLogic.Cannon;
-using Base.GameLogic.ShootMinigame;
-using Base.Infrastructure;
-using Base.UI.StateMachine;
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using TMPro.EditorUtilities;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityExtensions;
-using static UnityEngine.GraphicsBuffer;
 
 namespace Base.GameLogic.Tutorial
 {

@@ -19,6 +19,8 @@ namespace Base.Data.Game
         public AudioVolumeSettings AudioVolumeSettings;
         public int CurrentGold;
         public PlayerScore Score;
+        public string Test;
+        public PlayerScore TestScore;
 
         public GameData()
         {
