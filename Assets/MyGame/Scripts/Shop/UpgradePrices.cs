@@ -5,10 +5,10 @@ namespace Base.Shop
     [Serializable]
     public class UpgradePrices
     {
-        public int CannonHealth = 250;
-        public int CannonDamage = 400;
-        public int SpawnTime = 200;
-        internal int SoldierDamage = 500;
-        internal int SoldierHealth = 350;
+        public int CannonHealth = 200;
+        public int CannonDamage = 500;
+        public int SpawnTime = 500;
+        public int SoldierDamage = 400;
+        public int SoldierHealth = 300;
     }
 }

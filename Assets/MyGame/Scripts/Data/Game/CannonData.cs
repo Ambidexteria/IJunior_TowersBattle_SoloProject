@@ -6,7 +6,7 @@ namespace Base.Data.Game
     public class CannonData
     {
         public float MaxHealth = 50f;
-        public float MaxEnergy = 30f;
+        public float MaxEnergy = 50f;
         public int Damage = 10;
 
         public CannonData()

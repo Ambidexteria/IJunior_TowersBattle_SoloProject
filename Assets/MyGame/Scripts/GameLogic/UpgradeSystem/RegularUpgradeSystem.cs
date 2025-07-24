@@ -16,11 +16,11 @@ namespace Base.GameLogic.UpgradeSystem
         {
             _upgrades = new Dictionary<Type, Upgrade>
             {
-                { typeof(CannonHealthUpgrade), new CannonHealthUpgrade(0, 10, 10) },
-                { typeof(CannonDamageUpgrade), new CannonDamageUpgrade(0, 10, 5) },
-                { typeof(SpawnTimeUpgrade), new SpawnTimeUpgrade(0, 10, -0.5f) },
+                { typeof(CannonHealthUpgrade), new CannonHealthUpgrade(0, 15, 10) },
+                { typeof(CannonDamageUpgrade), new CannonDamageUpgrade(0, 6, 5) },
+                { typeof(SpawnTimeUpgrade), new SpawnTimeUpgrade(0, 5, -1f) },
                 { typeof(SoldierDamageUpgrade), new SoldierDamageUpgrade(0, 5, 0.2f) },
-                { typeof(SoldierHealthUpgrade), new SoldierHealthUpgrade(0, 5, 2f) }
+                { typeof(SoldierHealthUpgrade), new SoldierHealthUpgrade(0, 5, 3f) }
             };
         }
 
