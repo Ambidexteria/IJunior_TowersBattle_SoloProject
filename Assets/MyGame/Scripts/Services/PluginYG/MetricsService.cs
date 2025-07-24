@@ -34,7 +34,7 @@ namespace Base.Services.PluginYG
 
         public static void CallStageLoadedEvent(string stageName)
         {
-            YG2.MetricaSend(StageLoaded, stageName, string.Empty);
+            YG2.MetricaSend(StageLoaded, stageName, stageName);
         }
 
         public static void CallInterAdsEvent()
@@ -49,7 +49,7 @@ namespace Base.Services.PluginYG
 
         public static void CallUpgradeBoughtEvent(string upgradeName, string upgradeLevel)
         {
-            YG2.MetricaSend(RewardedAds, upgradeName, upgradeLevel);
+            YG2.MetricaSend(UpgradeBought, upgradeName, upgradeLevel);
         }
     }
 }
