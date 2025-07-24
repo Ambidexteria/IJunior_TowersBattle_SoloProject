@@ -36,7 +36,7 @@ public class SoldierSelector
         _camera = Camera.main;
         _team = team;
     }
-    
+
     public event Action<List<SoldierModel>> SoldiersSelected;
 
     public void Enable()
@@ -71,7 +71,9 @@ public class SoldierSelector
 
         //Debug.Log($"soldiers screenpoint position:\n{message}");
 
-        if (Physics.Raycast(ray, out RaycastHit hit, _raycastLength, _mask))
+        //if (Physics.Raycast(ray, out RaycastHit hit, _raycastLength, _mask))
+
+        if (Physics.SphereCast(ray, 1f, out RaycastHit hit, _raycastLength, _mask, QueryTriggerInteraction.Collide))
         {
             if (hit.collider.transform.root.TryGetComponent(out SoldierSetup setup))
             {
@@ -88,7 +90,7 @@ public class SoldierSelector
 
     private void OnSelectSoldier(InputAction.CallbackContext context)
     {
-        if(_selectCoroutine != null)
+        if (_selectCoroutine != null)
             StopSelectionCoroutine();
 
         _selectCoroutine = _coroutineRunner.LaunchCoroutine(SelectCoroutine());
@@ -187,7 +189,7 @@ public class SoldierSelector
             _selectionBox.enabled = false;
         }
     }
-    
+
     private void StopSelectionCoroutine()
     {
         if (_selectCoroutine != null)

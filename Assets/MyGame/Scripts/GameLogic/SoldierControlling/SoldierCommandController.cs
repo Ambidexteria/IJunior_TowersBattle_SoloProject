@@ -104,7 +104,6 @@ public class SoldierCommandController
     private IEnumerator TrySendSoldierToControlPointCoroutine(List<SoldierModel> soldiers)
     {
 
-        //_floatingPointer.PlaceAbove(soldier.GetTransform());
         _audioPlayer.PlaySoldierRandomAnswerSound();
 
         foreach (var soldier in soldiers)
@@ -123,7 +122,8 @@ public class SoldierCommandController
         if (_controlPointSelector.TrySelectControlPoint(out ControlPoint controlPoint))
         {
             foreach (var soldier in soldiers)
-                soldier.MoveTo(controlPoint.transform);
+                if (soldier.IsAttacking() == false)
+                    soldier.MoveTo(controlPoint.transform);
         }
 
         foreach (var soldier in soldiers)

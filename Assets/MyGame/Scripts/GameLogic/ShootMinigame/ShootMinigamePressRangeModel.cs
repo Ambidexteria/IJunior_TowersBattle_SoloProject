@@ -28,7 +28,7 @@ namespace Base.GameLogic.ShootMinigame
         public ShootMinigamePressRangeModel(float pressRangeWidthCoefficienr, float sliderSpeedRate, RectTransform fullPressRange,
             TimeController timeController, ICoroutineRunner coroutineRunner)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(ShootMinigamePressRangeModel), ExceptionsTest.ConstructorName, fullPressRange, 
+            ExceptionsTest.NullRefMethodTest(nameof(ShootMinigamePressRangeModel), ExceptionsTest.ConstructorName, fullPressRange,
                 timeController, coroutineRunner);
 
             _pressRangeWidthCoefficient = pressRangeWidthCoefficienr;
@@ -49,8 +49,8 @@ namespace Base.GameLogic.ShootMinigame
 
         public void Enable()
         {
-            if (_enabled) 
-                return; 
+            if (_enabled)
+                return;
 
             PlaceRange();
             _enabled = true;
@@ -94,8 +94,9 @@ namespace Base.GameLogic.ShootMinigame
             while (true)
             {
                 nextValue = _currentValue + speed * Time.deltaTime;
-                _currentValue = nextValue;
                 nextValue = Mathf.Clamp(nextValue, FullRangeMinValue, FullRangeMaxValue);
+
+                _currentValue = nextValue;
 
                 ValueChanged?.Invoke(nextValue);
 
@@ -104,6 +105,8 @@ namespace Base.GameLogic.ShootMinigame
                     speed *= -1;
                 }
 
+                //speed = ChangeSpeedDirection(speed, nextValue);
+
                 yield return null;
             }
         }
@@ -111,6 +114,18 @@ namespace Base.GameLogic.ShootMinigame
         private bool IsOutsideFullRange(float nextValue)
         {
             return nextValue >= (FullRangeMaxValue - BorderSpacing) || nextValue <= (FullRangeMinValue + BorderSpacing);
+        }
+
+        private float ChangeSpeedDirection(float currentSpeed, float nextValue)
+        {
+            float speed = currentSpeed;
+
+            if (nextValue >= (FullRangeMaxValue - BorderSpacing))
+                speed = Mathf.Abs(currentSpeed) * -1;
+            else if (nextValue <= (FullRangeMinValue + BorderSpacing))
+                speed = Mathf.Abs(currentSpeed);
+
+            return speed;
         }
 
         private void CalculateStaticValues()
