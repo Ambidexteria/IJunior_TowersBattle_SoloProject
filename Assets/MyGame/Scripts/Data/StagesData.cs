@@ -30,7 +30,6 @@ namespace Base.Data
         private const string DesertIcon = "desert_icon";
         private const string SnowForestIcon = "snow_forest_icon";
 
-        private const string Tutorial = "Tutorial";
         private const string StageOne = "1";
         private const string StageTwo = "2";
         private const string StageThree = "3";
@@ -42,12 +41,9 @@ namespace Base.Data
         private const string StageNine = "9";
 
         private readonly StageInfo[] _stages;
-        private readonly StageInfo _tutorialStage = new StageInfo("Stages/TutorialStage", Tutorial, 50, 0, new SoldierData(15, 4, 1, 10f), new CannonData(10, 30, 10));
 
         [JsonRequired]
         public SerializedStageInfo[] UnlockedStagesInfo;
-
-        public StageInfo TutorialStage => _tutorialStage;
 
         public string SelectedStageName = string.Empty;
 
@@ -56,27 +52,27 @@ namespace Base.Data
             _stages = new[]
             {
                 new StageInfo("Stages/Stage (1)", StageOne, 200, 50, new SoldierData(15, 4, 1, 10f), new CannonData(30, 50, 10)),
-                new StageInfo("Stages/Stage (1)", StageTwo, 250, 50, new SoldierData(15, 4, 1, 10f), new CannonData(40, 50, 10)),
-                new StageInfo("Stages/Stage (1)", StageThree, 300, 50, new SoldierData(15, 4, 1, 10f), new CannonData(50, 50, 15)),
-                new StageInfo("Stages/Stage (2)", StageFour, 500, 100, new SoldierData(15, 4, 2, 8f), new CannonData(70, 50, 15)),
-                new StageInfo("Stages/Stage (2)", StageFive, 600, 100, new SoldierData(15, 4, 2, 8f), new CannonData(100, 50, 15)),
-                new StageInfo("Stages/Stage (2)", StageSix, 700, 100, new SoldierData(15, 4, 2, 8f), new CannonData(120, 50, 20)),
-                new StageInfo("Stages/Stage (3)", StageSeven, 1000, 150, new SoldierData(20, 4, 2.5f, 6f), new CannonData(150, 50, 25)),
-                new StageInfo("Stages/Stage (3)", StageEight, 1200, 150, new SoldierData(20, 4, 2.5f, 6f), new CannonData(170, 50, 25)),
-                new StageInfo("Stages/Stage (3)", StageNine, 1500, 150, new SoldierData(20, 4, 2.5f, 6f), new CannonData(200, 50, 30))
+                new StageInfo("Stages/Stage (2)", StageTwo, 250, 50, new SoldierData(15, 4, 1, 10f), new CannonData(40, 50, 10)),
+                new StageInfo("Stages/Stage (3)", StageThree, 300, 50, new SoldierData(15, 4, 1, 10f), new CannonData(50, 50, 15)),
+                new StageInfo("Stages/Stage (4)", StageFour, 500, 100, new SoldierData(15, 4, 2, 8f), new CannonData(70, 50, 15)),
+                new StageInfo("Stages/Stage (5)", StageFive, 600, 100, new SoldierData(15, 4, 2, 8f), new CannonData(100, 50, 15)),
+                new StageInfo("Stages/Stage (6)", StageSix, 700, 100, new SoldierData(15, 4, 2, 8f), new CannonData(120, 50, 20)),
+                new StageInfo("Stages/Stage (7)", StageSeven, 1000, 150, new SoldierData(20, 4, 2.5f, 6f), new CannonData(150, 50, 25)),
+                new StageInfo("Stages/Stage (8)", StageEight, 1200, 150, new SoldierData(20, 4, 2.5f, 6f), new CannonData(170, 50, 25)),
+                new StageInfo("Stages/Stage (9)", StageNine, 1500, 150, new SoldierData(20, 4, 2.5f, 6f), new CannonData(200, 50, 30))
             };
 
             UnlockedStagesInfo = new SerializedStageInfo[]
             {
                 new(StageOne, ForrestIcon, true),
-                new(StageTwo, ForrestIcon, false),
-                new(StageThree, ForrestIcon, false),
+                new(StageTwo, ForrestIcon, true),
+                new(StageThree, ForrestIcon, true),
                 new(StageFour, DesertIcon, true),
-                new(StageFive, DesertIcon, false),
-                new(StageSix, DesertIcon, false),
+                new(StageFive, DesertIcon, true),
+                new(StageSix, DesertIcon, true),
                 new(StageSeven, SnowForestIcon, true),
-                new(StageEight, SnowForestIcon, false),
-                new(StageNine, SnowForestIcon, false),
+                new(StageEight, SnowForestIcon, true),
+                new(StageNine, SnowForestIcon, true),
             };
         }
 
