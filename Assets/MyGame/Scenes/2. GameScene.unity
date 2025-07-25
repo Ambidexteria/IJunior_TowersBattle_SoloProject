@@ -931,7 +931,7 @@ MonoBehaviour:
   _soldierSelectorSettings:
     LayerMask:
       serializedVersion: 2
-      m_Bits: 576
+      m_Bits: 1728
     RaycastLength: 200
   _controlPointSelectorSettings:
     LayerMask:

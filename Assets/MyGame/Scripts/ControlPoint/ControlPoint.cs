@@ -1,10 +1,11 @@
+using Base.GameLogic;
 using Base.Soldier;
 using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Renderer))]
 [RequireComponent(typeof(Collider))]
-public class ControlPoint : MonoBehaviour
+public class ControlPoint : MonoBehaviour, ISelectable
 {
     [SerializeField] private TeamType _team = TeamType.None;
     [SerializeField] private Material _playerColor;

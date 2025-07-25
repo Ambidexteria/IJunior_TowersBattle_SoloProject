@@ -1,3 +1,4 @@
+using Base.GameLogic;
 using Base.Infrastructure;
 using Base.Services.Factories.Game;
 using Base.Soldier;
@@ -23,6 +24,9 @@ public class SoldierSelector
     private Coroutine _selectCoroutine;
     private Coroutine _drawSelectionBoxCoroutine;
 
+    private List<SoldierModel> _selectedSoldiers = new();
+    private bool _enabled;
+
     public SoldierSelector(RaycastSettings soldierSelectorSettings, ICoroutineRunner coroutineRunner, InputService inputService,
         Image selectionBorder, Team team)
     {
@@ -41,37 +45,175 @@ public class SoldierSelector
 
     public void Enable()
     {
-        _inputService.Game.Select.performed += OnSelectSoldier;
+        //_inputService.Game.Select.performed += OnSelectSoldier;
+        _inputService.Game.Select.performed += OnSelectPerformed;
     }
 
     public void Disable()
     {
-        _inputService.Game.Select.performed -= OnSelectSoldier;
+        //_inputService.Game.Select.performed -= OnSelectSoldier;
+        _inputService.Game.Select.performed -= OnSelectPerformed;
 
         StopSelectionCoroutine();
         StopDrawSelectionBoxCoroutine();
     }
 
+    private void OnSelectPerformed(InputAction.CallbackContext context)
+    {
+        if (_enabled)
+            return;
+
+        if (_selectCoroutine != null)
+            _coroutineRunner.EndCoroutine(_selectCoroutine);
+
+        _selectCoroutine = _coroutineRunner.LaunchCoroutine(LaunchSelectionHandlerCoroutine());
+    }
+
+    private IEnumerator LaunchSelectionHandlerCoroutine()
+    {
+        _selectedSoldiers.Clear();
+        _firstPosition = Input.mousePosition;
+
+        _drawSelectionBoxCoroutine = _coroutineRunner.LaunchCoroutine(DrawSelectionBoxCoroutine());
+
+        yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+
+        _secondPosition = Input.mousePosition;
+
+        if ((_secondPosition.x - _firstPosition.x) < 1f && (_secondPosition.x - _firstPosition.x) >= 0)
+        {
+            Debug.LogWarning($"SELECTION BOX TOO SMALL");
+
+            if (TrySelectSoldier(out SoldierModel soldier, TeamType.Player))
+            {
+                _selectedSoldiers.Add(soldier);
+            }
+        }
+        else
+        {
+
+            //StopDrawSelectionBoxCoroutine();
+
+            Collider[] colliders = Physics.OverlapBox(Vector3.zero, new Vector3(100, 100, 100), Quaternion.identity, _mask);
+            Debug.LogWarning($"soldier colliders found = {colliders.Length}");
+
+            foreach (Collider collider in colliders)
+            {
+                if (collider.TryGetComponent(out SoldierSetup setup))
+                {
+                    SoldierModel soldier = setup.GetSoldier();
+
+                    Debug.Log($"Soldier = {setup.gameObject.name}");
+
+                    if (soldier.GetTeam() == _team.Type && IsSelectable(soldier))
+                        if (IsPointInSelectionBox(soldier.GetTransform().position, _firstPosition, _secondPosition))
+                            _selectedSoldiers.Add(setup.GetSoldier());
+                }
+            }
+        }
+        Debug.LogWarning($"soldiers selected");
+
+        StopDrawSelectionBoxCoroutine();
+
+        if( _selectedSoldiers.Count == 0 )
+            yield break;
+
+        _enabled = true;
+
+        foreach (var soldier in _selectedSoldiers)
+            soldier.ShowSelectionCircle();
+
+        yield return new WaitForSeconds(0.2f);
+
+        while (_enabled)
+        {
+            Debug.LogWarning($"enabled while");
+
+            yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+
+            CastSingleRay();
+        }
+    }
+
+    private void CastSingleRay()
+    {
+        Debug.LogWarning($"CASTING RAY");
+        Transform targetPosition;
+        SoldierModel soldier;
+
+        if (TrySelect(out ISelectable selectable))
+        {
+            if (selectable is ControlPoint)
+            {
+                targetPosition = (selectable as ControlPoint).transform;
+                Debug.LogWarning("control point selected");
+
+                foreach (var tempSoldier in _selectedSoldiers)
+                    if (tempSoldier.IsAttacking() == false)
+                        tempSoldier.MoveTo(targetPosition);
+
+                _enabled = false;
+                DeselectSoldiers();
+            }
+            else if (selectable is SoldierSetup)
+            {
+                DeselectSoldiers();
+                Debug.LogWarning("soldier selected");
+
+                soldier = (selectable as SoldierSetup).GetSoldier();
+                _selectedSoldiers.Add(soldier);
+                soldier.ShowSelectionCircle();
+            }
+        }
+        else
+        {
+            Debug.LogWarning("nothing selected");
+            DeselectSoldiers();
+            _enabled = false;
+        }
+    }
+
+    private void DeselectSoldiers()
+    {
+        foreach (var tempSoldier in _selectedSoldiers)
+            tempSoldier.HideSelectionCircle();
+
+        _selectedSoldiers.Clear();
+    }
+
+    public bool TrySelect(out ISelectable selectable)
+    {
+        selectable = null;
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        RaycastHit[] hits = Physics.RaycastAll(ray, _raycastLength, _mask);
+
+        foreach (var hit in hits)
+        {
+            if (hit.transform.TryGetComponent(out ControlPoint controlpoint))
+            {
+                selectable = controlpoint;
+                return true;
+            }
+        }
+
+        foreach (var hit in hits)
+        {
+            if (hit.transform.TryGetComponent(out SoldierSetup soldierSetup))
+            {
+                selectable = soldierSetup;
+                return true;
+            }
+        }
+
+        return false;
+    }
     public bool TrySelectSoldier(out SoldierModel soldier, TeamType team)
     {
         soldier = null;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        //_coroutineRunner.LaunchCoroutine(SelectCoroutine());
-
-        //Collider[] colliders = Physics.OverlapBox(Vector3.zero, new Vector3(100, 100, 100), Quaternion.identity, _mask);
-        //Debug.Log($"soldier colliders found = {colliders.Length}");
-        //string message = string.Empty;
-        //foreach (Collider collider in colliders)
-        //{
-        //    message += Camera.main.WorldToScreenPoint(collider.transform.position);
-        //    message += "\n";
-        //}
-
-        //Debug.Log($"soldiers screenpoint position:\n{message}");
-
-        //if (Physics.Raycast(ray, out RaycastHit hit, _raycastLength, _mask))
 
         if (Physics.SphereCast(ray, 1f, out RaycastHit hit, _raycastLength, _mask, QueryTriggerInteraction.Collide))
         {
@@ -115,9 +257,10 @@ public class SoldierSelector
                 SoldiersSelected?.Invoke(new List<SoldierModel> { soldier });
             }
 
-            StopDrawSelectionBoxCoroutine();
             yield break;
         }
+
+        StopDrawSelectionBoxCoroutine();
 
         Collider[] colliders = Physics.OverlapBox(Vector3.zero, new Vector3(100, 100, 100), Quaternion.identity, _mask);
         Debug.Log($"soldier colliders found = {colliders.Length}");
@@ -153,13 +296,13 @@ public class SoldierSelector
             _secondPosition = Input.mousePosition;
             float width = _secondPosition.x - _firstPosition.x;
 
-            if (width < 0)
-                width = 1f;
+            if (width <= 0)
+                width = 5f;
 
             float height = _firstPosition.y - _secondPosition.y;
 
-            if (height < 0)
-                height = 1f;
+            if (height <= 0)
+                height = 5f;
 
             _selectionBox.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
             _selectionBox.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
@@ -177,7 +320,7 @@ public class SoldierSelector
     {
         Vector3 screenPosition = _camera.WorldToScreenPoint(worldPosition);
 
-        return screenPosition.x > leftUpPoint.x && screenPosition.x < rightBottomPoint.x && screenPosition.y > rightBottomPoint.y && screenPosition.y < leftUpPoint.y;
+        return screenPosition.x >= leftUpPoint.x && screenPosition.x <= rightBottomPoint.x && screenPosition.y >= rightBottomPoint.y && screenPosition.y <= leftUpPoint.y;
     }
 
     private void StopDrawSelectionBoxCoroutine()

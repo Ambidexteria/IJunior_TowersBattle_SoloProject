@@ -10,6 +10,7 @@ public class SoldierWeapon : MonoBehaviour
     [SerializeField] private float _shootCooldown;
     [SerializeField] private float _startDelay;
     [SerializeField] private Transform _barrel;
+    [SerializeField] private ParticleSystemController _firingEffect;
 
     private float _damage = 1f;
     private Team _team;
@@ -63,6 +64,7 @@ public class SoldierWeapon : MonoBehaviour
 
         _isTargetAlive = true;
         _coroutine = StartCoroutine(Shoot(soldier));
+        _firingEffect.Play();
     }
 
     public void StopAttack()
@@ -73,6 +75,7 @@ public class SoldierWeapon : MonoBehaviour
         StopCoroutine(_coroutine);
         _coroutine = null;
         _isTargetAlive = false;
+        _firingEffect.Stop();
     }
 
     private IEnumerator Shoot(ISoldier target)
@@ -80,6 +83,7 @@ public class SoldierWeapon : MonoBehaviour
         ExceptionsTest.NullRefMethodTest(nameof(SoldierWeapon), nameof(Shoot), target);
 
         yield return _waitStartDelay;
+
 
         while (_isTargetAlive)
         {

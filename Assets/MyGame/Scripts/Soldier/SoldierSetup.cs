@@ -1,4 +1,5 @@
 using Base.Data.Game;
+using Base.GameLogic;
 using Base.Infrastructure;
 using Base.Logic;
 using Base.Services.Audio;
@@ -8,7 +9,7 @@ using Zenject.SpaceFighter;
 
 namespace Base.Soldier
 {
-    public class SoldierSetup : SpawnableObject
+    public class SoldierSetup : SpawnableObject, ISelectable
     {
         [SerializeField] private Transform _selectionCircle;
         [SerializeField] private SoldierGroundCollisionController _groundCollisionController;
