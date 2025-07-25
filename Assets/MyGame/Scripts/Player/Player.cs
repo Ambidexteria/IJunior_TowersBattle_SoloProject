@@ -11,12 +11,13 @@ public class Player
     private readonly ShootMinigameModel _shootMinigame;
     private readonly SoldierSpawnControllerModel _soldierSpawnerController;
     private readonly SoldierCommandController _commandController;
+    private readonly SoldierSelector _soldierSelector;
     private readonly int _selfDamage;
 
     private bool _enabled = false;
 
     public Player(Team team, CannonModel cannon, CannonEnergyBarModel energyBar, ShootMinigameModel shootMinigame, 
-        SoldierSpawnControllerModel soldierSpawnerController, SoldierCommandController commandController, int selfDamage = 5)
+        SoldierSpawnControllerModel soldierSpawnerController, SoldierCommandController commandController, SoldierSelector soldierSelector, int selfDamage = 5)
     {
         ExceptionsTest.NullRefConstructorTest(nameof(Player), cannon, energyBar, shootMinigame, 
             soldierSpawnerController, commandController);
@@ -27,10 +28,12 @@ public class Player
         _shootMinigame = shootMinigame;
         _soldierSpawnerController = soldierSpawnerController;
         _commandController = commandController;
+        _soldierSelector = soldierSelector;
         _selfDamage = selfDamage;
     }
 
     public SoldierCommandController SoldierCommandController => _commandController;
+    public SoldierSelector SoldierSelector => _soldierSelector;
     public CannonEnergyBarModel CannonEnergyBar => _energyBar;
     public Team Team => _team;
 
@@ -51,7 +54,8 @@ public class Player
         _cannon.Enable();
         _energyBar.Enable();
         _soldierSpawnerController.Enable();
-        _commandController.Enable();
+        _soldierSelector.Enable();
+        //_commandController.Enable();
         _shootMinigame.Enable();
 
         _enabled = true;
@@ -70,7 +74,8 @@ public class Player
         _cannon.Disable();
         _energyBar.Disable();
         _soldierSpawnerController.Disable();
-        _commandController.Disable();
+        _soldierSelector.Disable();
+        //_commandController.Disable();
         _shootMinigame.Disable();
 
         _enabled = false;

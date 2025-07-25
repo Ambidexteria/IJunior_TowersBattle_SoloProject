@@ -5,7 +5,6 @@ using Base.Logic;
 using Base.Services.Audio;
 using System.Collections.Generic;
 using UnityEngine;
-using Zenject.SpaceFighter;
 
 namespace Base.Soldier
 {

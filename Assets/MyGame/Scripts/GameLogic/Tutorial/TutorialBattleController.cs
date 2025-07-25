@@ -31,7 +31,7 @@ namespace Base.GameLogic.Tutorial
 
             _actionsDicitionary = new Dictionary<Type, ITutorialAction>
             {
-                { typeof(SelectSoldierTutorialAction), new SelectSoldierTutorialAction(player, _player.SoldierCommandController, this) },
+                { typeof(SelectSoldierTutorialAction), new SelectSoldierTutorialAction(player, this) },
                 { typeof(CaptureControlPointTutorialAction), new CaptureControlPointTutorialAction(_controlPoint, _player.Team, this) },
                 { typeof(WaitForEnergyBarFilledTutorialAction), new WaitForEnergyBarFilledTutorialAction(player.CannonEnergyBar, _playerEnergyBarTarget, this) },
                 { typeof(LaunchMinigameTutorialAction), new LaunchMinigameTutorialAction(_launchMingameButton,this) },
@@ -122,14 +122,14 @@ namespace Base.GameLogic.Tutorial
 
     public class SelectSoldierTutorialAction : ITutorialAction
     {
-        private readonly SoldierCommandController _soldierSelector;
+        private readonly SoldierSelector _soldierSelector;
         private readonly TutorialBattleController _tutorialBattleController;
         private bool _completed = false;
         private Transform _target;
 
-        public SelectSoldierTutorialAction(Player player, SoldierCommandController soldierCommandController, TutorialBattleController tutorialBattleController)
+        public SelectSoldierTutorialAction(Player player, TutorialBattleController tutorialBattleController)
         {
-            _soldierSelector = soldierCommandController;
+            _soldierSelector = player.SoldierSelector;
             _tutorialBattleController = tutorialBattleController;
             _soldierSelector.SoldiersSelected += OnSoldierSelected;
             player.SoldiersSpawned += OnSoldierSpawned;

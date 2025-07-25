@@ -26,7 +26,16 @@ namespace Base.Services.SaveLoad
 
         public GameData LoadProgress()
         {
-            GameData gameData;
+            GameData gameData = null;
+
+            if (YG2.saves.ResetProgress)
+            {
+                YG2.saves.ResetProgress = false;
+                YG2.SaveProgress();
+
+                return gameData;
+            }
+
             string json = YG2.saves.JSONGameData ??= string.Empty;
             Debug.Log(json);
 

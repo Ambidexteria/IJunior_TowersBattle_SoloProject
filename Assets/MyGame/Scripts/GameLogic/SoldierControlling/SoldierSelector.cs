@@ -1,5 +1,6 @@
 using Base.GameLogic;
 using Base.Infrastructure;
+using Base.Services.Audio;
 using Base.Services.Factories.Game;
 using Base.Soldier;
 using System;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Zenject.SpaceFighter;
 
 public class SoldierSelector
 {
@@ -18,6 +20,7 @@ public class SoldierSelector
     private readonly Image _selectionBox;
     private readonly Camera _camera;
     private readonly Team _team;
+    private readonly AudioPlayerService _audioPlayer;
     private Vector3 _firstPosition;
     private Vector3 _secondPosition;
 
@@ -28,7 +31,7 @@ public class SoldierSelector
     private bool _enabled;
 
     public SoldierSelector(RaycastSettings soldierSelectorSettings, ICoroutineRunner coroutineRunner, InputService inputService,
-        Image selectionBorder, Team team)
+        Image selectionBorder, Team team, AudioPlayerService audioPlayer)
     {
         ExceptionsTest.NullRefConstructorTest(nameof(ControlPointSelector), soldierSelectorSettings);
 
@@ -37,8 +40,10 @@ public class SoldierSelector
         _coroutineRunner = coroutineRunner;
         _inputService = inputService;
         _selectionBox = selectionBorder;
-        _camera = Camera.main;
         _team = team;
+        _audioPlayer = audioPlayer;
+
+        _camera = Camera.main;
     }
 
     public event Action<List<SoldierModel>> SoldiersSelected;
@@ -118,6 +123,9 @@ public class SoldierSelector
         if( _selectedSoldiers.Count == 0 )
             yield break;
 
+        SoldiersSelected?.Invoke(_selectedSoldiers);
+        _audioPlayer.PlaySoldierRandomAnswerSound();
+
         _enabled = true;
 
         foreach (var soldier in _selectedSoldiers)
@@ -149,7 +157,7 @@ public class SoldierSelector
                 Debug.LogWarning("control point selected");
 
                 foreach (var tempSoldier in _selectedSoldiers)
-                    if (tempSoldier.IsAttacking() == false)
+                    if (tempSoldier.IsAttacking() == false && tempSoldier.IsDead() == false)
                         tempSoldier.MoveTo(targetPosition);
 
                 _enabled = false;

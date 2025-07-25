@@ -64,10 +64,10 @@ namespace Base.Services.Factories.Game
                 _shootMinigameSetup);
         }
 
-        public Player CreatePlayer(Team team, CannonModel cannon, CannonData cannonData, Transform soldierSpawnPoint, 
+        public Player CreatePlayer(Team team, CannonModel cannon, CannonData cannonData, Transform soldierSpawnPoint,
             SoldierData soldierStats)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(PlayerFactory), nameof(CreatePlayer), team, cannon, 
+            ExceptionsTest.NullRefMethodTest(nameof(PlayerFactory), nameof(CreatePlayer), team, cannon,
                 cannonData, soldierSpawnPoint, soldierStats);
 
             CannonEnergyBarModel cannonEnergyBar = _playerCannonEnergyBarSetup.CreateCannonEnergyBar(team,
@@ -82,8 +82,11 @@ namespace Base.Services.Factories.Game
 
             ShootMinigameModel shootMinigame = _shootMinigameSetup.CreateShootMinigameModel(cannonEnergyBar,
                 _timeController, _coroutineRunner);
+
+            SoldierSelector soldierSelector = new(_soldierSelectorSettings, _coroutineRunner, _input, _selectionBox, team, _audioPlayer);
+
             Player player = new(team, cannon, cannonEnergyBar, shootMinigame,
-                spawnController, CreateSoldierCommandController(team));
+                spawnController, CreateSoldierCommandController(team), soldierSelector);
 
             return player;
         }
@@ -93,7 +96,7 @@ namespace Base.Services.Factories.Game
             ExceptionsTest.NullRefMethodTest(nameof(PlayerFactory), nameof(CreatePlayer), team);
 
             FloatingPointer floatingPointer = _assetLoader.Instantiate<FloatingPointer>(FloatingPointerAssetPath);
-            SoldierSelector soldierSelector = new(_soldierSelectorSettings, _coroutineRunner, _input, _selectionBox, team);
+            SoldierSelector soldierSelector = new(_soldierSelectorSettings, _coroutineRunner, _input, _selectionBox, team, _audioPlayer);
             ControlPointSelector controlPointSelector = new(_controlPointSelectorSettings);
 
             SoldierCommandController controller = new(0.1f, soldierSelector,
