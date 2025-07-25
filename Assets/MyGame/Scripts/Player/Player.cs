@@ -11,10 +11,12 @@ public class Player
     private readonly ShootMinigameModel _shootMinigame;
     private readonly SoldierSpawnControllerModel _soldierSpawnerController;
     private readonly SoldierCommandController _commandController;
+    private readonly int _selfDamage;
+
     private bool _enabled = false;
 
     public Player(Team team, CannonModel cannon, CannonEnergyBarModel energyBar, ShootMinigameModel shootMinigame, 
-        SoldierSpawnControllerModel soldierSpawnerController, SoldierCommandController commandController)
+        SoldierSpawnControllerModel soldierSpawnerController, SoldierCommandController commandController, int selfDamage = 5)
     {
         ExceptionsTest.NullRefConstructorTest(nameof(Player), cannon, energyBar, shootMinigame, 
             soldierSpawnerController, commandController);
@@ -25,6 +27,7 @@ public class Player
         _shootMinigame = shootMinigame;
         _soldierSpawnerController = soldierSpawnerController;
         _commandController = commandController;
+        _selfDamage = selfDamage;
     }
 
     public SoldierCommandController SoldierCommandController => _commandController;
@@ -92,7 +95,7 @@ public class Player
 
     private void OnLooseMinigame()
     {
-        _cannon.TakeDamage(_cannon.Damage);
+        _cannon.TakeDamage(_selfDamage);
         EndMinigame();
         ShooMinigameWinned?.Invoke(false);
     }

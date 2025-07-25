@@ -55,18 +55,18 @@ namespace Base.Data
         {
             _stages = new[]
             {
-                new StageInfo("Stages/Stage (1)", StageOne, 200, 50, new SoldierData(10, 4, 1, 12f), new CannonData(30, 50, 10)),
-                new StageInfo("Stages/Stage (2)", StageTwo, 300, 50, new SoldierData(10, 4, 1, 12f), new CannonData(40, 50, 10)),
-                new StageInfo("Stages/Stage (3)", StageThree, 400, 50, new SoldierData(10, 4, 1.2f, 11f), new CannonData(50, 50, 15)),
-                new StageInfo("Stages/Stage (4)", StageFour, 500, 100, new SoldierData(15, 4, 1.2f, 11f), new CannonData(70, 50, 15)),
-                new StageInfo("Stages/Stage (5)", StageFive, 600, 100, new SoldierData(15, 4, 1.2f, 11f), new CannonData(100, 50, 15)),
-                new StageInfo("Stages/Stage (6)", StageSix, 700, 100, new SoldierData(15, 4, 1.4f, 10f), new CannonData(120, 50, 20)),
-                new StageInfo("Stages/Stage (7)", StageSeven, 800, 150, new SoldierData(20, 4, 1.4f, 10f), new CannonData(150, 50, 25)),
-                new StageInfo("Stages/Stage (8)", StageEight, 900, 150, new SoldierData(20, 4, 1.4f, 10f), new CannonData(170, 50, 25)),
-                new StageInfo("Stages/Stage (9)", StageNine, 1000, 150, new SoldierData(20, 4, 1.6f, 9f), new CannonData(200, 50, 30)),
-                new StageInfo("Stages/Stage (10)", StageTen, 1100, 200, new SoldierData(25, 4, 1.6f, 9f), new CannonData(210, 50, 30)),
-                new StageInfo("Stages/Stage (11)", StageEleven, 1200, 200, new SoldierData(25, 4, 1.6f, 9f), new CannonData(230, 50, 30)),
-                new StageInfo("Stages/Stage (12)", StageTwelve, 1500, 200, new SoldierData(25, 4, 2f, 8f), new CannonData(250, 50, 40)),
+                new StageInfo("Stages/Stage (1)", StageOne, 300, 50, new SoldierData(10, 4, 1, 12f), new CannonData(30, 50, 10)),
+                new StageInfo("Stages/Stage (2)", StageTwo, 400, 50, new SoldierData(10, 4, 1, 12f), new CannonData(40, 50, 10)),
+                new StageInfo("Stages/Stage (3)", StageThree, 500, 50, new SoldierData(10, 4, 1.2f, 11f), new CannonData(50, 50, 15)),
+                new StageInfo("Stages/Stage (4)", StageFour, 600, 100, new SoldierData(15, 4, 1.2f, 11f), new CannonData(70, 50, 15)),
+                new StageInfo("Stages/Stage (5)", StageFive, 700, 100, new SoldierData(15, 4, 1.2f, 11f), new CannonData(100, 50, 15)),
+                new StageInfo("Stages/Stage (6)", StageSix, 800, 100, new SoldierData(15, 4, 1.4f, 10f), new CannonData(120, 50, 20)),
+                new StageInfo("Stages/Stage (7)", StageSeven, 900, 150, new SoldierData(20, 4, 1.4f, 10f), new CannonData(150, 50, 25)),
+                new StageInfo("Stages/Stage (8)", StageEight, 1000, 150, new SoldierData(20, 4, 1.4f, 10f), new CannonData(170, 50, 25)),
+                new StageInfo("Stages/Stage (9)", StageNine, 1100, 150, new SoldierData(20, 4, 1.6f, 9f), new CannonData(200, 50, 30)),
+                new StageInfo("Stages/Stage (10)", StageTen, 1200, 200, new SoldierData(25, 4, 1.6f, 9f), new CannonData(210, 50, 30)),
+                new StageInfo("Stages/Stage (11)", StageEleven, 1300, 200, new SoldierData(25, 4, 1.8f, 8f), new CannonData(230, 50, 30)),
+                new StageInfo("Stages/Stage (12)", StageTwelve, 1500, 200, new SoldierData(25, 4, 2.1f, 7f), new CannonData(250, 50, 40)),
             };
 
             UnlockedStagesInfo = new SerializedStageInfo[]

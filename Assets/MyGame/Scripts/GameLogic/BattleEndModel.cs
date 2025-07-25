@@ -56,7 +56,10 @@ namespace Base.GameLogic
                 _audioPlayer.PlayWinSound();
 
                 if (_stagesData.UnlockNextStage())
+                {
                     NextStageUnlocked?.Invoke();
+                    _stagesData.ChangeStageToNextOne();
+                }
             }
             else
             {
@@ -85,7 +88,6 @@ namespace Base.GameLogic
         public void LoadNextStage()
         {
             AdsService.ShowInterstitialAds();
-            _stagesData.ChangeStageToNextOne();
             _game.LoadGameScene();
         }
     }

@@ -1,11 +1,8 @@
 using Base.GameLogic.Cannon;
 using Base.Infrastructure;
 using Base.Services.TimeManagment;
-using Base.UI.StateMachine;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject.Asteroids;
 
 namespace Base.GameLogic.ShootMinigame
 {
