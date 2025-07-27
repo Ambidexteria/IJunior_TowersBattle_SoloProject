@@ -7,7 +7,7 @@ namespace Base.Services.Localization
 {
     public class LeanLocalizationService : ILocalizationService
     {
-        private const string DefaultCode = "en";
+        private const string DefaultCode = "ru";
 
         private Dictionary<string, string> _localizationCodes;
 

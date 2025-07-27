@@ -8,12 +8,18 @@ namespace Base.Services.PluginYG
         private const string Win = nameof(Win);
         private const string Defeat = nameof(Defeat);
 
+        private const string FirstLaunch = nameof(FirstLaunch);
         private const string GameLaunched = nameof(GameLaunched);
         private const string StageEnded = nameof(StageEnded);
         private const string InterAds = nameof(InterAds);
         private const string RewardedAds = nameof(RewardedAds);
         private const string StageLoaded = nameof(StageLoaded);
         private const string UpgradeBought = nameof(UpgradeBought);
+
+        public static void CallFirstLaunchEvent()
+        {
+            YG2.MetricaSend(FirstLaunch);
+        }
 
         public static void CallGameLaunchedEvent()
         {

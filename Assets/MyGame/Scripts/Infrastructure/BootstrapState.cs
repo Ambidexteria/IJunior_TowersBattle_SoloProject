@@ -33,7 +33,6 @@ namespace Base.Infrastructure
 
             _currentSceneData = sceneData;
             _sceneLoader.LoadScene(SceneNames.Initial, EnsureYandexSDKInitialized);
-            MetricsService.CallGameLaunchedEvent();
         }
 
         public void Exit()
@@ -58,7 +57,16 @@ namespace Base.Infrastructure
                     enabled = true;
             }
 
+            SendMetrics();
             EnterLoadProgressState();
+        }
+
+        private void SendMetrics()
+        {
+            if (YG2.isFirstGameSession)
+                MetricsService.CallFirstLaunchEvent();
+
+            MetricsService.CallGameLaunchedEvent();
         }
 
         private void EnterLoadProgressState()
