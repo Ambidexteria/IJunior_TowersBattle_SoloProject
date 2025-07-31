@@ -58,6 +58,8 @@ namespace Base.Infrastructure
                 _progressService.GameData = _saveLoadService.LoadProgress() ?? CreateProgress();
             }
 
+            Debug.Log($"LANGUAGE = {YG2.lang}");
+            //_localizationService.SetLanguage("tr");
             _localizationService.SetLanguage(YG2.lang);
             _progressService.GameData.GameSettings.Language = YG2.lang;
         }
