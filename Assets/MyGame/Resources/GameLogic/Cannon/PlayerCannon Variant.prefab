@@ -39,6 +39,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 440051733029570110, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
+      propertyPath: m_text
+      value: /SEC
+      objectReference: {fileID: 0}
+    - target: {fileID: 440051733029570110, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
+      propertyPath: m_fontSize
+      value: 1.05
+      objectReference: {fileID: 0}
     - target: {fileID: 976690466316975285, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
       propertyPath: _maxValue
       value: 50
@@ -82,6 +90,10 @@ PrefabInstance:
     - target: {fileID: 1080271645684594950, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1390006544460293134, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
+      propertyPath: translationName
+      value: sec
       objectReference: {fileID: 0}
     - target: {fileID: 1601552277966607084, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
       propertyPath: m_IsActive

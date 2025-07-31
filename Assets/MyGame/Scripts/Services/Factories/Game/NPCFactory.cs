@@ -17,7 +17,7 @@ namespace Base.Services.Factories.Game
         [SerializeField] private SpawnerSettings _spawnerSettings;
         [SerializeField] private SoldierForDespawnDetector _soldierDespawnDetector;
         [SerializeField] private HealthSetup _npcHealthSetup;
-        [SerializeField] private CannonEnergyBarSetup _npcCannonEnergyBarSetup;
+        [SerializeField] private CannonEnergyRateSetup _cannonEnergyRateSetup;
         [SerializeField] private SoldierSpawnControllerSetup _npcSpawnControllerSetup;
         [SerializeField] private float _soldierStartCommandDelay = 1f;
         [SerializeField] private float _soldierNextCommandDelay = 5f;
@@ -59,7 +59,7 @@ namespace Base.Services.Factories.Game
         private void Awake()
         {
             ExceptionsTest.NullRefMethodTest(nameof(NPCFactory), nameof(Awake),_spawnerSettings,
-                _soldierDespawnDetector, _npcHealthSetup,_npcCannonEnergyBarSetup,_npcSpawnControllerSetup);
+                _soldierDespawnDetector, _npcHealthSetup,_cannonEnergyRateSetup,_npcSpawnControllerSetup);
         }
 
         public NPC CreateNPC(Team team, CannonModel cannon, CannonData cannonData, SoldierData soldierData, 
@@ -68,8 +68,9 @@ namespace Base.Services.Factories.Game
             ExceptionsTest.NullRefMethodTest(nameof(NPCFactory), nameof(CreateNPC), team, cannon, 
                 cannonData, soldierData, soldierSpawnPoint);
 
-            CannonEnergyBarModel energyBar = _npcCannonEnergyBarSetup.CreateCannonEnergyBar(team,
-                _controlPointDatabase, cannonData.MaxEnergy, _coroutineRunner);
+            CannonEnergyBarModel energyBar = new(team, _controlPointDatabase, cannonData.MaxEnergy, _coroutineRunner);
+
+            _cannonEnergyRateSetup.Create(energyBar);
 
             SoldierSpawner spawner = new (team, soldierData, _coroutineRunner, _colorChanher, _spawnerSettings, 
                 _soldierFactory, _audioPlayer);

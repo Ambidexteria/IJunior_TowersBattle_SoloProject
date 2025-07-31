@@ -16,13 +16,16 @@ namespace Base.Services.Factories.Game
     {
         private const string FloatingPointerAssetPath = "GameLogic/Soldier/FloatingPointer";
 
+        [SerializeField] private CannonEnergyBarSetup _playerCannonEnergyBarSetup;
+        [SerializeField] private CannonEnergyRateSetup _cannonEnergyRateSetup;
+        [SerializeField] private SoldierSpawnControllerSetup _playerSpawnControllerSetup;
+        [SerializeField] private ShootMinigameSetup _shootMinigameSetup;
+
         [SerializeField] private SpawnerSettings _soldierSpawnerSettings;
         [SerializeField] private SoldierForDespawnDetector _soldierDespawnDetector;
-        [SerializeField] private CannonEnergyBarSetup _playerCannonEnergyBarSetup;
-        [SerializeField] private SoldierSpawnControllerSetup _playerSpawnControllerSetup;
+
         [SerializeField] private RaycastSettings _soldierSelectorSettings;
         [SerializeField] private RaycastSettings _controlPointSelectorSettings;
-        [SerializeField] private ShootMinigameSetup _shootMinigameSetup;
         [SerializeField] private float _spawnRadius = 2f;
         [SerializeField] private float _startSpawnDelay = 2f;
         [SerializeField] private Image _selectionBox;
@@ -72,6 +75,8 @@ namespace Base.Services.Factories.Game
 
             CannonEnergyBarModel cannonEnergyBar = _playerCannonEnergyBarSetup.CreateCannonEnergyBar(team,
                 _controlPointDatabase, cannonData.MaxEnergy, _coroutineRunner);
+
+            _cannonEnergyRateSetup.Create(cannonEnergyBar);
 
             SoldierSpawner spawner = new(team, soldierStats, _coroutineRunner, _colorChanger,
                 _soldierSpawnerSettings, _soldierFactory, _audioPlayer);

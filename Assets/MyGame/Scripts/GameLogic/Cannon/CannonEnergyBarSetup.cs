@@ -16,7 +16,7 @@ namespace Base.GameLogic.Cannon
             ExceptionsTest.NullRefMethodTest(nameof(CannonEnergyBarSetup), ExceptionsTest.ConstructorName, team, controlPointDatabase, coroutineRunner);
 
             _model = new(team, controlPointDatabase, maxEnergy, coroutineRunner);
-            
+
             _presenter = new CannonEnergyBarPresenter(_model, _view);
             _presenter.Enable();
 

@@ -32,6 +32,7 @@ namespace Base.GameLogic.Cannon
 
         public float MaxEnergy => _energyMax;
 
+        public event Action<int> EnergyIncomeChanged;
         public event Action Filled;
         public event Action<float> CurrentEnergyChanged;
 
@@ -45,6 +46,7 @@ namespace Base.GameLogic.Cannon
             _coroutine = _coroutineRunner.LaunchCoroutine(Update());
 
             _controlPointDatabase.ControlPointCaptured += OnControlPointCaptured;
+            EnergyIncomeChanged?.Invoke(_energyIncome);
         }
 
         public void Disable()
@@ -95,6 +97,7 @@ namespace Base.GameLogic.Cannon
             {
                 _controlPoints.Add(controlPoint);
                 _energyIncome += controlPoint.EnergyRate;
+                EnergyIncomeChanged?.Invoke(_energyIncome);
             }
             else
             {
@@ -102,6 +105,7 @@ namespace Base.GameLogic.Cannon
                 {
                     _controlPoints.Remove(controlPoint);
                     _energyIncome -= controlPoint.EnergyRate;
+                    EnergyIncomeChanged?.Invoke(_energyIncome);
                 }
             }
         }

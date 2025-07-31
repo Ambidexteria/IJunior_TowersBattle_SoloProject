@@ -1,10 +1,16 @@
+using Lean.Localization;
 using System;
+using TMPro;
 using UnityEngine;
 
 namespace Base.GameLogic.ShootMinigame
 {
     public class ShootMinigameView : MonoBehaviour
     {
+        private const string MinigameReadyPhrase = "play minigame button";
+        private const string ReloadingPhrase = "reloading";
+
+        [SerializeField] private LeanLocalizedTextMeshProUGUI _text;
         [SerializeField] private ButtonClickHandler _launchMinigameButton;
         [SerializeField] private ButtonClickHandler _shootButton;
 
@@ -31,6 +37,7 @@ namespace Base.GameLogic.ShootMinigame
         public void EnableLaunchButton()
         {
             _launchMinigameButton.Enable();
+            _text.TranslationName = MinigameReadyPhrase;
         }
 
         private void OnShootButtonClicked()
@@ -42,6 +49,7 @@ namespace Base.GameLogic.ShootMinigame
         {
             LaunchButtonClicked?.Invoke();
             _launchMinigameButton.Disable();
+            _text.TranslationName = ReloadingPhrase;
         }
     }
 }

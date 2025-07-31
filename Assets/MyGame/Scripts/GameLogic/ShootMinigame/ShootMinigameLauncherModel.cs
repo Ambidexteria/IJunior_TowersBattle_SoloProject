@@ -27,14 +27,14 @@ namespace Base.GameLogic.ShootMinigame
 
         public void Enable()
         {
-            StatusChanged?.Invoke(_enabledSprite);
+            //StatusChanged?.Invoke(_enabledSprite);
             _particleSystemController.Play();
             _animator.Play(Scale);
         }
 
         public void Disable()
         {
-            StatusChanged?.Invoke(_disabledSprite);
+            //StatusChanged?.Invoke(_disabledSprite);
             _particleSystemController.Stop();
         }
     }

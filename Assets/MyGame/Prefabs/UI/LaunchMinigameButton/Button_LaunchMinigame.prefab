@@ -135,6 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 594072a5de551d04a9c35513f147ad7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _button: {fileID: 8434053363806136538}
 --- !u!1 &6807262093105748965
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +230,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 38.35
   m_fontSizeBase: 54
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -287,8 +288,16 @@ PrefabInstance:
       propertyPath: InitialModule.startColor.maxColor.a
       value: 0.5568628
       objectReference: {fileID: 0}
+    - target: {fileID: 1049085460888534502, guid: cee747c61d60f2e4487bdccfeb543664, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1049085462108027016, guid: cee747c61d60f2e4487bdccfeb543664, type: 3}
       propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1049085462108027017, guid: cee747c61d60f2e4487bdccfeb543664, type: 3}
+      propertyPath: m_SortingLayer
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1049085462108027020, guid: cee747c61d60f2e4487bdccfeb543664, type: 3}
