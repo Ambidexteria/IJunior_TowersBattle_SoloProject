@@ -78,6 +78,7 @@ public class SoldierModel : ISoldier
 
     public bool IsIdle => _stateMachine.IsIdle;
 
+    public event Action<float> HealthChanged;
     public event Action<Transform> MovingToTarget;
     public event Action<ISoldier> EnemyTargetDetected;
     public event Action Dying;
@@ -93,10 +94,12 @@ public class SoldierModel : ISoldier
         _groundCollisionController.Enable();
 
         _health.Increase(_health.MaxValue);
+        HealthChanged.Invoke(_health.Current);
 
         _despawnerDetector.Detected += OnDespawnerDetected;
         _enemiesDetector.Detected += OnEnemyTargetDetected;
         _health.Dying += Die;
+        _health.Changed += OnHealthChanged;
 
         _enabled = true;
 
@@ -113,7 +116,9 @@ public class SoldierModel : ISoldier
 
         _despawnerDetector.Detected -= OnDespawnerDetected;
         _enemiesDetector.Detected -= OnEnemyTargetDetected;
-        _health.Dying -= Die;
+        _health.Dying -= Die; 
+        _health.Changed -= OnHealthChanged;
+
 
         if (_updateCoroutine != null)
             _coroutineRunner.EndCoroutine(_updateCoroutine);
@@ -229,6 +234,11 @@ public class SoldierModel : ISoldier
     private void OnDespawnerDetected()
     {
         DespawnerDetected?.Invoke(_soldierTransform.GetComponent<SoldierSetup>());
+    }
+
+    private void OnHealthChanged(float  health)
+    {
+        HealthChanged?.Invoke(health);
     }
 
     private IEnumerator DieCoroutine()
