@@ -3,17 +3,15 @@ using Base.Soldier;
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Renderer))]
 [RequireComponent(typeof(Collider))]
 public class ControlPoint : MonoBehaviour, ISelectable
 {
+    [SerializeField] private Renderer _flag;
     [SerializeField] private TeamType _team = TeamType.None;
     [SerializeField] private Material _playerColor;
     [SerializeField] private Material _npcColor;
+    [SerializeField] private Material _defaultMaterial;
     [SerializeField] private int _energyRate = 1;
-
-    private Renderer _renderer;
-    private Material _defaultMaterial;
 
     public event Action<ControlPoint> Captured;
 
@@ -22,11 +20,7 @@ public class ControlPoint : MonoBehaviour, ISelectable
 
     private void Awake()
     {
-        _renderer = GetComponent<Renderer>();
-
-        ExceptionsTest.NullRefMethodTest(nameof(ControlPoint), nameof(Awake), _renderer, _npcColor, _playerColor);
-
-        _defaultMaterial = _renderer.material;
+        _flag.material = _defaultMaterial;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -45,11 +39,11 @@ public class ControlPoint : MonoBehaviour, ISelectable
         _team = team;
         
         if(_team == TeamType.Player)
-            _renderer.material = _playerColor;
+            _flag.material = _playerColor;
         else if(_team == TeamType.NPC)
-            _renderer.material = _npcColor;
+            _flag.material = _npcColor;
         else
-            _renderer.material = _defaultMaterial;
+            _flag.material = _defaultMaterial;
 
         Captured?.Invoke(this);
     }

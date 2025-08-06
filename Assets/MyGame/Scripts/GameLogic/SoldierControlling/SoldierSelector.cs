@@ -120,7 +120,7 @@ public class SoldierSelector
 
         StopDrawSelectionBoxCoroutine();
 
-        if( _selectedSoldiers.Count == 0 )
+        if (_selectedSoldiers.Count == 0)
             yield break;
 
         SoldiersSelected?.Invoke(_selectedSoldiers);
@@ -169,8 +169,12 @@ public class SoldierSelector
                 Debug.LogWarning("soldier selected");
 
                 soldier = (selectable as SoldierSetup).GetSoldier();
-                _selectedSoldiers.Add(soldier);
-                soldier.ShowSelectionCircle();
+
+                if (soldier.GetTeam() == _team.Type)
+                {
+                    _selectedSoldiers.Add(soldier);
+                    soldier.ShowSelectionCircle();
+                }
             }
         }
         else
