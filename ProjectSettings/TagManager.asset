@@ -41,6 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: GameWorld
+    uniqueID: 2060840291
+    locked: 0
+  - name: UI
+    uniqueID: 2102965485
+    locked: 0
   - name: UI Upper Layer
     uniqueID: 386733251
     locked: 0

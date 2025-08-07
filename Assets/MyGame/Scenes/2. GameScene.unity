@@ -995,7 +995,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1706,6 +1706,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1294219008}
   - component: {fileID: 1294219007}
+  - component: {fileID: 1294219010}
   - component: {fileID: 1294219009}
   m_Layer: 0
   m_Name: Tutorial
@@ -1728,7 +1729,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shootMinigamePressRangeTarget: {fileID: 4135631466207130744}
   _playerEnergyBarTarget: {fileID: 786115204}
-  _tutorialTargetArrowDrawer: {fileID: 1294219009}
+  _tutorialArrow: {fileID: 1294219009}
+  _scalingUIFrame: {fileID: 1294219010}
   _launchMingameButton: {fileID: 1531964894}
 --- !u!4 &1294219008
 Transform:
@@ -1754,14 +1756,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 1294219006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a34ba5af36b603f428d9b3818891e7f0, type: 3}
+  m_Script: {fileID: 11500000, guid: cb7bf003a4a84ba41a14716a5d17a529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _imageResizer: {fileID: 666212771}
   _arrow: {fileID: 596232188}
-  _speed: 90
-  _verticalOffset: 20
-  _movementHeight: 100
+  _moveTime: 1
+  _verticalOffset: 30
+  _movementHeight: 30
+--- !u!114 &1294219010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294219006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b5bf9afb42db3f4b91503ec1d2792ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _frame: {fileID: 1398643686}
+  _scalingTime: 1.3
+  _maxScale: 1.1
 --- !u!1001 &1298820169
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1933,6 +1950,81 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 594072a5de551d04a9c35513f147ad7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1398643685
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1398643686}
+  - component: {fileID: 1398643688}
+  - component: {fileID: 1398643687}
+  m_Layer: 5
+  m_Name: ScalingUIFrame
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1398643686
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398643685}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.00028764768}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 4135631466207130743}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1398643687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398643685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.7058824}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 59f595255ba42434194c9d99c48851e2, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1398643688
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398643685}
+  m_CullTransparentMesh: 1
 --- !u!1001 &1428762949
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2169,7 +2261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.5254902}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3686,7 +3778,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 61930897817064184, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
       propertyPath: m_text
-      value: Ready
+      value: TitleText
+      objectReference: {fileID: 0}
+    - target: {fileID: 61930897817064184, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
+      propertyPath: m_fontSize
+      value: 52.55
       objectReference: {fileID: 0}
     - target: {fileID: 61930897817064191, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
       propertyPath: m_SizeDelta.x
@@ -4288,6 +4384,10 @@ PrefabInstance:
       propertyPath: m_PlaneDistance
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 8769699689548251079, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 2102965485
+      objectReference: {fileID: 0}
     - target: {fileID: 9145268811503846796, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -4300,6 +4400,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1007117011907444187, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
       insertIndex: 2
       addedObject: {fileID: 392023598}
+    - targetCorrespondingSourceObject: {fileID: 1007117011907444187, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1398643686}
     - targetCorrespondingSourceObject: {fileID: 3358439722411443956, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
       insertIndex: 1
       addedObject: {fileID: 1576786166}

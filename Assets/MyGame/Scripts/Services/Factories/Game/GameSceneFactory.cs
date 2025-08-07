@@ -17,6 +17,7 @@ using Base.Services.PluginYG;
 using Base.GameLogic.Tutorial;
 using Base.UI.StateMachine;
 using Base.Data.Game;
+using Base.Services.SaveLoad;
 
 namespace Base.Services.Factories.Game
 {
@@ -51,6 +52,7 @@ namespace Base.Services.Factories.Game
         private Wallet _wallet;
         private TimeController _timeController;
         private AudioPlayerService _audioPlayer;
+        private ISaveLoadService _saveLoadService;
         private StageInfo _stageInfo;
 
         private CannonModel _playerCannon;
@@ -63,7 +65,7 @@ namespace Base.Services.Factories.Game
             CannonProjectileSpawner projectileSpawner, TeamColorChanger colorChanger,
             ControlPointDatabase controlPointDatabase, InputService inputService,
             SceneChanger sceneChanger, IPersisentDataService dataService, Wallet wallet,
-            TimeController timeController, AudioPlayerService audioPlayer)
+            TimeController timeController, AudioPlayerService audioPlayer, ISaveLoadService saveLoadService)
         {
             ExceptionsTest.NullRefMethodTest(nameof(GameSceneFactory), nameof(Init), game, assetLoader, coroutineRunner,
              projectileSpawner, colorChanger, controlPointDatabase, sceneChanger, dataService, wallet);
@@ -80,11 +82,11 @@ namespace Base.Services.Factories.Game
             _wallet = wallet;
             _timeController = timeController;
             _audioPlayer = audioPlayer;
+            _saveLoadService = saveLoadService;
         }
 
         private void Awake()
         {
-
             ExceptionsTest.NullRefMethodTest(nameof(GameSceneFactory), nameof(Awake),
                 _uiFactory, _soldierDespawnDetector, _playerFactory, _playerCannonSetup, _playerCannonHealthSetup,
                 _npcFactory, _npcCannonSetup, _npcHealthSetup);
@@ -110,7 +112,7 @@ namespace Base.Services.Factories.Game
             _battleController = new BattleController(player, npc, gameUIStateMachine, battleEndModel,
                 _timeController, _uiFactory.GetRestoreHealthForRewardAdsModel(_playerCannonHealthSetup.GetModel()));
 
-            _tutorialBattleController.Init(player, npc, _controlPointDatabase, _dataSerive.GameData.GameSettings);
+            _tutorialBattleController.Init(player, _controlPointDatabase, _dataSerive.GameData.GameSettings, _saveLoadService);
 
             MetricsService.CallStageLoadedEvent(_stageInfo.Name);
 

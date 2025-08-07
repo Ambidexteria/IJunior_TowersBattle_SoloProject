@@ -1,5 +1,6 @@
 using Base.Data;
 using Base.Data.Game;
+using Base.Infrastructure;
 using Base.Services.SaveLoad;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,7 +21,7 @@ namespace Base.UI.StageSelection
                 _iconPrefab, _iconsParentObject);
         }
 
-        public void Create(StagesData stages, GameSettings gameSettings, ISaveLoadService saveLoadService)
+        public void Create(StagesData stages, GameSettings gameSettings, ISaveLoadService saveLoadService, Game game)
         {
             ExceptionsTest.NullRefMethodTest(nameof(StageSelectionMenuSetup), nameof(Create), stages, gameSettings, saveLoadService);
 
@@ -33,7 +34,7 @@ namespace Base.UI.StageSelection
                 icons.Add(setup.CreateModel(_iconsDatabase.GetStageIcon(stageInfo.IconName), stageInfo.Unlocked, stageInfo.StageName));
             }
 
-            _model = new StageSelectionMenu(icons.ToArray(), stages, gameSettings, saveLoadService);
+            _model = new StageSelectionMenu(icons.ToArray(), stages, gameSettings, saveLoadService, game);
         }
     }
 }

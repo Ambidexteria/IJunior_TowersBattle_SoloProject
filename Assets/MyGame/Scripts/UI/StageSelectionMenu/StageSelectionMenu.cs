@@ -1,5 +1,6 @@
 ﻿using Base.Data;
 using Base.Data.Game;
+using Base.Infrastructure;
 using Base.Services.SaveLoad;
 using System;
 
@@ -11,9 +12,11 @@ namespace Base.UI.StageSelection
         private readonly StagesData _stagesData;
         private readonly GameSettings _gameSettings;
         private readonly ISaveLoadService _saveLoadService;
+        private readonly Game _game;
         private StageIconModel _activeIcon;
 
-        public StageSelectionMenu(StageIconModel[] iconModels, StagesData stagesData, GameSettings gameSettings, ISaveLoadService saveLoadService)
+        public StageSelectionMenu(StageIconModel[] iconModels, StagesData stagesData, GameSettings gameSettings, 
+            ISaveLoadService saveLoadService, Game game)
         {
             ExceptionsTest.NullRefConstructorTest(nameof(StageSelectionMenu), iconModels, stagesData, gameSettings,
                 saveLoadService);
@@ -22,6 +25,7 @@ namespace Base.UI.StageSelection
             _stagesData = stagesData;
             _gameSettings = gameSettings;
             _saveLoadService = saveLoadService;
+            _game = game;
 
             SubcribeForIconModels();
             _activeIcon = GetIconByName(_stagesData.GetSelectedStage().Name);
@@ -49,6 +53,7 @@ namespace Base.UI.StageSelection
 
                 _activeIcon = GetIconByName(name);
                 _activeIcon.ShowBorder();
+                _game.LoadGameScene();
             }
         }
 
