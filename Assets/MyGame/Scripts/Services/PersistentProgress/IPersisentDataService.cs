@@ -1,6 +1,4 @@
-﻿using Base.Data;
-using Base.Data.Game;
-using Base.GameLogic.UpgradeSystem;
+﻿using Base.Data.Game;
 
 namespace Base.Services.PersistentProgress
 {

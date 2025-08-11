@@ -11,6 +11,7 @@ namespace Base.Soldier
     public class SoldierSetup : SpawnableObject, ISelectable
     {
         [SerializeField] private SoldierView _view;
+        [SerializeField] private ParticleSystemController _hitEffect;
         [SerializeField] private Transform _selectionCircle;
         [SerializeField] private SoldierGroundCollisionController _groundCollisionController;
         [SerializeField] private Animator _animator;
@@ -62,7 +63,7 @@ namespace Base.Soldier
             {
                 _soldier = new SoldierModel(_groundCollisionController, _animator, _weapon, _enemyTrigger,
                    _despawnerTrigger, _dieDelay, _marks, _rigidbody, _team, _stats, _coroutineRunner, _colorChanger, 
-                   transform, _audioPlayer, _selectionCircle);
+                   transform, _audioPlayer, _selectionCircle, _hitEffect);
 
                 _view.Init(_stats.MaxHealth);
                 _presenter = new(_soldier, _view);

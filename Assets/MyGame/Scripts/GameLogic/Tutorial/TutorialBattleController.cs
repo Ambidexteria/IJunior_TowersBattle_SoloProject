@@ -10,6 +10,7 @@ namespace Base.GameLogic.Tutorial
 {
     public class TutorialBattleController : MonoBehaviour
     {
+        [SerializeField] private int _energyIncomeMultiplyer = 5;
         [SerializeField] private Transform _shootMinigamePressRangeTarget;
         [SerializeField] private Transform _playerEnergyBarTarget;
         [SerializeField] private TutorialArrow _tutorialArrow;
@@ -99,6 +100,16 @@ namespace Base.GameLogic.Tutorial
         public void HideFrame()
         {
             _scalingUIFrame.Hide();
+        }
+
+        public void IncreaseEnergyIncome()
+        {
+            _player.CannonEnergyBar.MultiplyEnergyIncome(_energyIncomeMultiplyer);
+        }
+
+        public void DecreaseEnergyIncome()
+        {
+            _player.CannonEnergyBar.RestoreDefaultEnergyIncome();
         }
 
         private void OnPlayerSoldierSpawned(SoldierModel soldierModel)
@@ -241,12 +252,14 @@ namespace Base.GameLogic.Tutorial
 
         public void Enable()
         {
+            _tutorialBattleController.IncreaseEnergyIncome();
             _tutorialBattleController.PlaceFrame(_launchMinigameButton.transform);
             _launchMinigameButton.Clicked += OnButtonClicked;
         }
 
         public void Disable()
         {
+            _tutorialBattleController.DecreaseEnergyIncome();
             _tutorialBattleController.HideFrame();
             _launchMinigameButton.Clicked -= OnButtonClicked;
         }

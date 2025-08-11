@@ -8,6 +8,7 @@ namespace Base.Data
     {
         public string AssetPath;
         public string Name;
+        public string IconName;
         public int WinReward;
         public int DefeatReward;
         public SoldierData EnemySoldier;
@@ -17,13 +18,14 @@ namespace Base.Data
         {
         }
 
-        public StageInfo(string assetPath, string name, int winReward, int defeatReward,
+        public StageInfo(string assetPath, string name, string iconName, int winReward, int defeatReward,
             SoldierData enemySoldier, CannonData enemyCannon)
         {
             ExceptionsTest.NullRefConstructorTest(nameof(StageInfo), assetPath, name, enemySoldier, enemyCannon);
 
             AssetPath = assetPath;
             Name = name;
+            IconName = iconName;
             WinReward = winReward;
             DefeatReward = defeatReward;
             EnemySoldier = enemySoldier;
@@ -32,7 +34,7 @@ namespace Base.Data
 
         public StageInfo Clone()
         {
-            return new StageInfo(AssetPath, Name, WinReward, DefeatReward, EnemySoldier, EnemyCannon);
+            return new StageInfo(AssetPath, Name, IconName, WinReward, DefeatReward, EnemySoldier, EnemyCannon);
         }
     }
 }

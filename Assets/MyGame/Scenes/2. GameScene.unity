@@ -1727,6 +1727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8a5c07939d28694496f50ab889d3618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _energyIncomeMultiplyer: 10
   _shootMinigamePressRangeTarget: {fileID: 4135631466207130744}
   _playerEnergyBarTarget: {fileID: 786115204}
   _tutorialArrow: {fileID: 1294219009}

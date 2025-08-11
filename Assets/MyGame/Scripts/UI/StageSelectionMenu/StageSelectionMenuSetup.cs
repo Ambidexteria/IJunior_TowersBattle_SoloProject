@@ -25,7 +25,7 @@ namespace Base.UI.StageSelection
         {
             ExceptionsTest.NullRefMethodTest(nameof(StageSelectionMenuSetup), nameof(Create), stages, gameSettings, saveLoadService);
 
-            List<StageIconModel> icons = new List<StageIconModel>();
+            List<StageIconModel> icons = new();
 
             foreach (var stageInfo in stages.UnlockedStagesInfo)
             {

@@ -9,12 +9,15 @@ namespace Base.GameLogic.Cannon
 {
     public class CannonEnergyBarModel
     {
+        private const int DefaultEnergyIncomeMultiplyer = 1;
+
         private readonly ControlPointDatabase _controlPointDatabase;
         private readonly ICoroutineRunner _coroutineRunner;
         private readonly Team _team;
 
         private List<ControlPoint> _controlPoints = new();
         private int _energyIncome = 0;
+        private int _energyIncomeMultiplyer;
         private float _currentEnergy = 0;
         private float _energyMax = 100f;
         private bool _active = true;
@@ -28,6 +31,8 @@ namespace Base.GameLogic.Cannon
             _controlPointDatabase = controlPointDatabase;
             _energyMax = maxEnergy;
             _coroutineRunner = coroutineRunner;
+
+            _energyIncomeMultiplyer = DefaultEnergyIncomeMultiplyer;
         }
 
         public float MaxEnergy => _energyMax;
@@ -66,6 +71,16 @@ namespace Base.GameLogic.Cannon
             CurrentEnergyChanged?.Invoke(_currentEnergy);
         }
 
+        public void MultiplyEnergyIncome(int multiplyer)
+        {
+            _energyIncomeMultiplyer = multiplyer;
+        }
+
+        public void RestoreDefaultEnergyIncome()
+        {
+            _energyIncomeMultiplyer = DefaultEnergyIncomeMultiplyer;
+        }
+
         private IEnumerator Update()
         {
             while (_active)
@@ -79,7 +94,7 @@ namespace Base.GameLogic.Cannon
 
         private void AddEnergy()
         {
-            _currentEnergy += _energyIncome * Time.deltaTime;
+            _currentEnergy += _energyIncome * _energyIncomeMultiplyer * Time.deltaTime;
             _currentEnergy = Mathf.Clamp(_currentEnergy, 0, _energyMax);
             CurrentEnergyChanged?.Invoke(_currentEnergy);
 

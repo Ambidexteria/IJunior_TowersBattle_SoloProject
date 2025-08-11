@@ -20,6 +20,7 @@ public class SoldierModel : ISoldier
     private readonly Transform _soldierTransform;
     private readonly AudioPlayerService _audioPlayer;
     private readonly Transform _selectionCircle;
+    private readonly ParticleSystemController _hitEffect;
     private readonly float _dieDelay;
     private readonly List<ColorChangerMark> _marks;
     private readonly HealthModel _health;
@@ -42,7 +43,7 @@ public class SoldierModel : ISoldier
         float dieDelay, List<ColorChangerMark> marks, Rigidbody rigidbody,
         Team team, SoldierData stats, ICoroutineRunner coroutineRunner,
         TeamColorChanger teamColorChanger, Transform soldierTransform, AudioPlayerService audioPlayer,
-        Transform selectionCircle)
+        Transform selectionCircle, ParticleSystemController hitEffect)
     {
         ExceptionsTest.NullRefConstructorTest(nameof(SoldierModel), groundCollisionController, animator,
             weapon, enemyTrigger, despawnerTrigger, marks, rigidbody, team, stats, coroutineRunner, 
@@ -63,6 +64,7 @@ public class SoldierModel : ISoldier
         _soldierTransform = soldierTransform;
         _audioPlayer = audioPlayer;
         _selectionCircle = selectionCircle;
+        _hitEffect = hitEffect;
 
         _waitToDie = new WaitForSeconds(_dieDelay);
         _despawnerDetector = new DespawnerDetector(_despawnerTrigger);
@@ -164,6 +166,7 @@ public class SoldierModel : ISoldier
     public void TakeDamage(float amount)
     {
         _health.Decrease(amount);
+        _hitEffect.Play();
     }
 
     public bool IsDead()
