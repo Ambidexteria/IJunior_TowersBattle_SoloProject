@@ -17,11 +17,6 @@ namespace Base.GameLogic.ShootMinigame
         public event Action LaunchButtonClicked;
         public event Action ShootButtonClicked;
 
-        private void Awake()
-        {
-            ExceptionsTest.NullRefMethodTest(nameof(ShootMinigameView), nameof(Awake), _launchMinigameButton, _shootButton);
-        }
-
         private void OnEnable()
         {
             _launchMinigameButton.Clicked += OnLaunchButtonClicked;

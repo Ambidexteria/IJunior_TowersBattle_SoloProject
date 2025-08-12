@@ -5,25 +5,6 @@ using UnityEngine;
 
 namespace Base.Data
 {
-    public struct SerializedStageInfo
-    {
-        public string StageName;
-        public string IconName;
-        public bool Unlocked;
-
-        public SerializedStageInfo(string stageName, string iconName, bool unlocked)
-        {
-            StageName = stageName;
-            IconName = iconName;
-            Unlocked = unlocked;
-        }
-
-        public void Unlock()
-        {
-            Unlocked = true;
-        }
-    }
-
     [Serializable]
     public class StagesData
     {
@@ -91,8 +72,6 @@ namespace Base.Data
         {
             if (_stages.Length > UnlockedStagesInfo.Length)
             {
-                Debug.Log($"Updating stagesData");
-
                 for (int i = UnlockedStagesInfo.Length; i < _stages.Length; i++)
                 {
                     ExpandUnlockedStagesInfo(new SerializedStageInfo(_stages[i].Name, _stages[i].IconName, false));

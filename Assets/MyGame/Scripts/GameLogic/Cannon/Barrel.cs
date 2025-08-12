@@ -7,13 +7,10 @@ public class Barrel : MonoBehaviour
 
     private Vector3 _direction;
 
-    public Vector3 ShootDirection => _direction;
     public Vector3 StartPoint => _startPoint.position;
 
     private void Awake()
     {
-        ExceptionsTest.NullRefMethodTest(nameof(Barrel), nameof(Awake), _startPoint, _directionPoint);
-
         CalculateDirection();
     }
 

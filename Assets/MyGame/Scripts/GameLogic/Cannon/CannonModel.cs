@@ -1,10 +1,8 @@
 using Base.Health;
-using Base.Infrastructure;
 using Base.Logic;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
 
 namespace Base.GameLogic.Cannon
 {
@@ -12,31 +10,29 @@ namespace Base.GameLogic.Cannon
     {
         private const string BarrelDrawback = nameof(BarrelDrawback);
 
-        private Animator _animator;
+        private readonly Animator _animator;
+        private readonly HealthModel _health;
+        private readonly ParticleSystemController _shootEffect;
+        private readonly ParticleSystemController _takeDamageEffect;
+        private readonly Barrel _barrel;
+        private readonly int _damage;
+        private readonly float _fireDelay;
+        private readonly TeamColorChanger _colorChanger;
+        private readonly Transform _transfrom;
+        private readonly TriggerObserver _triggerObserver;
+        private readonly Team _team;
+        private readonly CannonProjectileSpawner _projectileSpawner;
+        private readonly List<ColorChangerMark> _colorChangerMarks;
+
         private CannonModel _enemyCannon;
-        private HealthModel _health;
-        private ParticleSystemController _shootEffect;
-        private ParticleSystemController _takeDamageEffect;
-        private Barrel _barrel;
-        private int _damage;
-        private float _fireDelay;
+        private bool _enabled = false;
 
-        private TeamColorChanger _colorChanger;
-        private Transform _transfrom;
-        private TriggerObserver _triggerObserver;
-        private Team _team;
-        private CannonProjectileSpawner _projectileSpawner;
-        private List<ColorChangerMark> _colorChangerMarks;
-
-        public CannonModel(Transform transfrom, TriggerObserver triggerObserver, Team team, Animator animator, ParticleSystemController shootEffect, ParticleSystemController takeDamageEffect,
+        public CannonModel(Transform transfrom, TriggerObserver triggerObserver, Team team, Animator animator, 
+            ParticleSystemController shootEffect, ParticleSystemController takeDamageEffect,
             Barrel barrel, int damage, HealthModel health,
             CannonProjectileSpawner projectileSpawner, TeamColorChanger colorChanger,
             List<ColorChangerMark> marksForRecoloring = null)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(CannonModel), ExceptionsTest.ConstructorName, transfrom, triggerObserver, team, 
-                animator, shootEffect, takeDamageEffect, barrel, health,projectileSpawner, colorChanger, marksForRecoloring);
-            ExceptionsTest.EmptyListTest(nameof(CannonModel), ExceptionsTest.ConstructorName, marksForRecoloring);
-
             _transfrom = transfrom;
             _triggerObserver = triggerObserver;
             _team = team;
@@ -54,7 +50,6 @@ namespace Base.GameLogic.Cannon
         }
 
         public int DamageTaken => (int)(_health.MaxValue - _health.Current);
-        public int Damage => _damage;
         public Transform Transform => _transfrom;
 
         public event Action Destroyed;
@@ -62,6 +57,14 @@ namespace Base.GameLogic.Cannon
 
         public void Enable()
         {
+            if (_enabled)
+                return;
+
+            if(_enemyCannon == null)
+                throw new NullReferenceException(nameof(_enemyCannon));
+
+            _enabled = true;
+
             _health.Dying += OnDying;
             _triggerObserver.Entered += OnTriggerCollided;
             _health.Changed += HealthChanged;
@@ -69,18 +72,20 @@ namespace Base.GameLogic.Cannon
 
         public void Disable()
         {
+            if(_enabled == false)
+                return;
+
+            _enabled = false;
+
             _health.Dying -= OnDying;
             _triggerObserver.Entered -= OnTriggerCollided;
+            _health.Changed -= HealthChanged;
         }
 
         public void SetEnemy(CannonModel enemy)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(CannonModel), nameof(SetEnemy), enemy);
-
             _enemyCannon = enemy;
         }
-
-        public TeamType GetTeamType() => _team.Type;
 
         public bool IsDead()
         {
@@ -103,8 +108,8 @@ namespace Base.GameLogic.Cannon
         {
             _health.SmoothDecrease(amount);
             _takeDamageEffect.Play();
-            //HealthChanged?.Invoke(_health.Current);
         }
+
         private void Recolor()
         {
             if (_colorChangerMarks != null)
@@ -113,8 +118,6 @@ namespace Base.GameLogic.Cannon
 
         private void OnTriggerCollided(Collider collider)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(CannonModel), nameof(OnTriggerCollided), collider);
-
             if (collider.TryGetComponent(out CannonProjectile projectile))
             {
                 if (projectile.TeamType != _team.Type)

@@ -9,8 +9,6 @@ namespace Base.GameLogic.ShootMinigame
 
         public ShootMinigamePresenter(ShootMinigameModel model, ShootMinigameView view)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(ShootMinigamePresenter), ExceptionsTest.ConstructorName, model, view);
-
             _model = model;
             _view = view;
         }
@@ -39,13 +37,11 @@ namespace Base.GameLogic.ShootMinigame
         private void OnLaunchButtonClicked()
         {
             _model.LaunchMinigame();
-            //_view.ShowPressRange();
         }
 
         private void OnShootButtonClicked()
         {
             _model.EndMinigame();
-            //_view.HidePressRange();
         }
     }
 }

@@ -41,11 +41,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 440051733029570110, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
       propertyPath: m_text
-      value: /SEC
+      value: "/\u0441\u0435\u043A"
       objectReference: {fileID: 0}
     - target: {fileID: 440051733029570110, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
       propertyPath: m_fontSize
-      value: 1.05
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 976690466316975285, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
       propertyPath: _maxValue
@@ -130,6 +130,18 @@ PrefabInstance:
     - target: {fileID: 5012495516915803412, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
       propertyPath: m_Color.r
       value: 0.99215686
+      objectReference: {fileID: 0}
+    - target: {fileID: 5623434200885779103, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5623434201411770482, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5623434202080827070, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6612649961696712929, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
       propertyPath: m_LocalPosition.x
@@ -225,6 +237,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3984716694381274033, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
+    - {fileID: 5623434201009852930, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
+    - {fileID: 1356083852296204201, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1080271645684594950, guid: b94d25c2eaa2c3e43931cc7123da2a00, type: 3}

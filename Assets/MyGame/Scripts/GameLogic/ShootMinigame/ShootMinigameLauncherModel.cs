@@ -6,36 +6,25 @@ namespace Base.GameLogic.ShootMinigame
     public class ShootMinigameLauncherModel
     {
         private const string Scale = nameof(Scale);
+
         private readonly Animator _animator;
-        private readonly Sprite _disabledSprite;
-        private readonly Sprite _enabledSprite;
         private readonly ParticleSystemController _particleSystemController;
 
-        public ShootMinigameLauncherModel(Animator animator, Sprite disabledSprite, Sprite enabledSprite,
-            ParticleSystemController particleSystemController)
+        public ShootMinigameLauncherModel(Animator animator, ParticleSystemController particleSystemController)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(ShootMinigameLauncherModel), ExceptionsTest.ConstructorName, animator, disabledSprite, 
-                enabledSprite, particleSystemController);
-
             _animator = animator;
-            _disabledSprite = disabledSprite;
-            _enabledSprite = enabledSprite;
             _particleSystemController = particleSystemController;
         }
 
-        public event Action<Sprite> StatusChanged;
-
         public void Enable()
         {
-            //StatusChanged?.Invoke(_enabledSprite);
-            _particleSystemController.Play();
+            _particleSystemController?.Play();
             _animator.Play(Scale);
         }
 
         public void Disable()
         {
-            //StatusChanged?.Invoke(_disabledSprite);
-            _particleSystemController.Stop();
+            _particleSystemController?.Stop();
         }
     }
 }

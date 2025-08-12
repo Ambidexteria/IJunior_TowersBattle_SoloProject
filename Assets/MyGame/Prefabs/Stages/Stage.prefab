@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &2511365415305567210
 Transform:
@@ -53,7 +53,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &1951106363721609474
 Transform:
@@ -100,7 +100,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &6883912022488173413
 Transform:
@@ -148,7 +148,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!224 &792352093331912867
 RectTransform:
@@ -225,7 +225,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!224 &8628552536214214749
 RectTransform:
@@ -343,7 +343,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!224 &8136206777649520596
 RectTransform:
@@ -459,7 +459,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!224 &8543630615625904921
 RectTransform:
@@ -534,7 +534,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!224 &8472424431397744663
 RectTransform:
@@ -671,7 +671,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &2184397072747602051
 Transform:
@@ -851,7 +851,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!4 &78493966412643710
 Transform:
@@ -955,7 +955,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4
   m_IsActive: 1
 --- !u!224 &5620215239181471733
 RectTransform:
@@ -1129,13 +1129,33 @@ PrefabInstance:
       propertyPath: m_ScaleInLightmap
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5936311324823690951, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7019062906348455622, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
       propertyPath: m_ScaleInLightmap
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7593721071472837877, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7988343609192902342, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
       propertyPath: m_Name
       value: ControlPoint (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7988343609192902342, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8043529704889934912, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8056350101488072957, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8416413839864584488, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
       propertyPath: m_ScaleInLightmap
@@ -1238,13 +1258,33 @@ PrefabInstance:
       propertyPath: m_ScaleInLightmap
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5936311324823690951, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7019062906348455622, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
       propertyPath: m_ScaleInLightmap
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7593721071472837877, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7988343609192902342, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
       propertyPath: m_Name
       value: ControlPoint (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7988343609192902342, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8043529704889934912, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8056350101488072957, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8416413839864584488, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
       propertyPath: m_ScaleInLightmap
@@ -1347,13 +1387,33 @@ PrefabInstance:
       propertyPath: m_ScaleInLightmap
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5936311324823690951, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7019062906348455622, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
       propertyPath: m_ScaleInLightmap
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7593721071472837877, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7988343609192902342, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
       propertyPath: m_Name
       value: ControlPoint (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7988343609192902342, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8043529704889934912, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8056350101488072957, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8416413839864584488, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
       propertyPath: m_ScaleInLightmap
@@ -1456,13 +1516,33 @@ PrefabInstance:
       propertyPath: m_ScaleInLightmap
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5936311324823690951, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7019062906348455622, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
       propertyPath: m_ScaleInLightmap
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7593721071472837877, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7988343609192902342, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
       propertyPath: m_Name
       value: ControlPoint (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7988343609192902342, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8043529704889934912, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8056350101488072957, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8416413839864584488, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
       propertyPath: m_ScaleInLightmap
@@ -1565,13 +1645,33 @@ PrefabInstance:
       propertyPath: m_ScaleInLightmap
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5936311324823690951, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7019062906348455622, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
       propertyPath: m_ScaleInLightmap
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7593721071472837877, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7988343609192902342, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
       propertyPath: m_Name
       value: ControlPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 7988343609192902342, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8043529704889934912, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8056350101488072957, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8416413839864584488, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
       propertyPath: m_ScaleInLightmap
@@ -1674,13 +1774,33 @@ PrefabInstance:
       propertyPath: m_ScaleInLightmap
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5936311324823690951, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7019062906348455622, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
       propertyPath: m_ScaleInLightmap
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7593721071472837877, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7988343609192902342, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
       propertyPath: m_Name
       value: ControlPoint (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7988343609192902342, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8043529704889934912, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8056350101488072957, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8416413839864584488, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
       propertyPath: m_ScaleInLightmap
@@ -1783,13 +1903,33 @@ PrefabInstance:
       propertyPath: m_ScaleInLightmap
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5936311324823690951, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7019062906348455622, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
       propertyPath: m_ScaleInLightmap
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7593721071472837877, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7988343609192902342, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
       propertyPath: m_Name
       value: ControlPoint (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7988343609192902342, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8043529704889934912, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8056350101488072957, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8416413839864584488, guid: 3487d90e4f45e8149b650ecccb84f045, type: 3}
       propertyPath: m_ScaleInLightmap

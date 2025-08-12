@@ -16,18 +16,9 @@ namespace Base.GameLogic.Cannon
 
         private CannonModel _model;
 
-        public CannonModel GetModel()
-        {
-            return _model;
-        }
-
         public CannonModel CreateCannonModel(Team team, int damage,TeamColorChanger colorChanger,
             CannonProjectileSpawner projectileSpawner, HealthModel healthModel)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(CannonSetup), nameof(CreateCannonModel), team, colorChanger, 
-                projectileSpawner, healthModel, _projectileCollider, _animator, _shootEffect, _takeDamageEffect, _barrel, _colorChangerMarks);
-            ExceptionsTest.EmptyListTest(nameof(CannonSetup), nameof(CreateCannonModel), _colorChangerMarks);
-
             _model = new CannonModel(transform, _projectileCollider, team, _animator, _shootEffect,
                 _takeDamageEffect, _barrel, damage, healthModel, projectileSpawner, colorChanger,_colorChangerMarks);
 

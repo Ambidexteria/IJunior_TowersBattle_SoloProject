@@ -12,9 +12,10 @@ namespace Base.GameLogic.ShootMinigame
 
         private readonly TimeController _timeController;
         private readonly ICoroutineRunner _coroutineRunner;
-        private readonly float _pressRangeWidthCoefficient = 0.1f;
+        private readonly float _pressRangeWidthCoefficient;
         private readonly float _sliderSpeedRate;
-        private RectTransform _fullRangeRectTransform;
+        private readonly float _fullRangeMinValue;
+        private readonly float _fullRangeMaxValue;
 
         private float _sliderSpeed;
         private float _minPressValue;
@@ -28,12 +29,10 @@ namespace Base.GameLogic.ShootMinigame
         public ShootMinigamePressRangeModel(float pressRangeWidthCoefficienr, float sliderSpeedRate, RectTransform fullPressRange,
             TimeController timeController, ICoroutineRunner coroutineRunner)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(ShootMinigamePressRangeModel), ExceptionsTest.ConstructorName, fullPressRange,
-                timeController, coroutineRunner);
-
             _pressRangeWidthCoefficient = pressRangeWidthCoefficienr;
             _sliderSpeedRate = sliderSpeedRate;
-            _fullRangeRectTransform = fullPressRange;
+            _fullRangeMinValue = fullPressRange.anchoredPosition.x;
+            _fullRangeMaxValue = fullPressRange.rect.width;
             _timeController = timeController;
             _coroutineRunner = coroutineRunner;
 
@@ -41,8 +40,6 @@ namespace Base.GameLogic.ShootMinigame
         }
 
         public float PressRangeWidth => _pressRangeWidth;
-        public float FullRangeMinValue => _fullRangeRectTransform.anchoredPosition.x;
-        public float FullRangeMaxValue => _fullRangeRectTransform.rect.width;
 
         public event Action<float> ValueChanged;
         public event Action<float> PlacingPressRange;
@@ -87,14 +84,14 @@ namespace Base.GameLogic.ShootMinigame
         {
             speed /= _timeController.SlowMotionTimeScale;
 
-            _currentValue = FullRangeMinValue;
+            _currentValue = _fullRangeMinValue;
             float nextValue;
-            ValueChanged?.Invoke(FullRangeMinValue);
+            ValueChanged?.Invoke(_fullRangeMinValue);
 
             while (true)
             {
                 nextValue = _currentValue + speed * Time.deltaTime;
-                nextValue = Mathf.Clamp(nextValue, FullRangeMinValue, FullRangeMaxValue);
+                nextValue = Mathf.Clamp(nextValue, _fullRangeMinValue, _fullRangeMaxValue);
 
                 _currentValue = nextValue;
 
@@ -105,24 +102,22 @@ namespace Base.GameLogic.ShootMinigame
                     speed *= -1;
                 }
 
-                //speed = ChangeSpeedDirection(speed, nextValue);
-
                 yield return null;
             }
         }
 
         private bool IsOutsideFullRange(float nextValue)
         {
-            return nextValue >= (FullRangeMaxValue - BorderSpacing) || nextValue <= (FullRangeMinValue + BorderSpacing);
+            return nextValue >= (_fullRangeMaxValue - BorderSpacing) || nextValue <= (_fullRangeMinValue + BorderSpacing);
         }
 
         private float ChangeSpeedDirection(float currentSpeed, float nextValue)
         {
             float speed = currentSpeed;
 
-            if (nextValue >= (FullRangeMaxValue - BorderSpacing))
+            if (nextValue >= (_fullRangeMaxValue - BorderSpacing))
                 speed = Mathf.Abs(currentSpeed) * -1;
-            else if (nextValue <= (FullRangeMinValue + BorderSpacing))
+            else if (nextValue <= (_fullRangeMinValue + BorderSpacing))
                 speed = Mathf.Abs(currentSpeed);
 
             return speed;
@@ -130,13 +125,13 @@ namespace Base.GameLogic.ShootMinigame
 
         private void CalculateStaticValues()
         {
-            _pressRangeWidth = FullRangeMaxValue * _pressRangeWidthCoefficient;
-            _sliderSpeed = (FullRangeMaxValue - FullRangeMinValue) / _sliderSpeedRate;
+            _pressRangeWidth = _fullRangeMaxValue * _pressRangeWidthCoefficient;
+            _sliderSpeed = (_fullRangeMaxValue - _fullRangeMinValue) / _sliderSpeedRate;
         }
 
         private void CalculatePressRangeValues()
         {
-            _minPressValue = UnityEngine.Random.Range(0, FullRangeMaxValue - _pressRangeWidth);
+            _minPressValue = UnityEngine.Random.Range(0, _fullRangeMaxValue - _pressRangeWidth);
             _maxPressValue = _minPressValue + _pressRangeWidth;
         }
     }

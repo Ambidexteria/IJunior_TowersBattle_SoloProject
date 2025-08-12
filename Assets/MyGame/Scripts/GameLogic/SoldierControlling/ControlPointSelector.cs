@@ -4,13 +4,11 @@ using UnityEngine;
 public class ControlPointSelector
 {
 
-    private LayerMask _mask;
-    private float _raycastLength;
+    private readonly LayerMask _mask;
+    private readonly float _raycastLength;
 
     public ControlPointSelector(RaycastSettings controlPointSelectorSettings)
     {
-        ExceptionsTest.NullRefConstructorTest(nameof(ControlPointSelector), controlPointSelectorSettings);
-
         _mask = controlPointSelectorSettings.LayerMask;
         _raycastLength = controlPointSelectorSettings.RaycastLength;
     }

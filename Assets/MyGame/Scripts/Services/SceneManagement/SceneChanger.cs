@@ -20,13 +20,13 @@ namespace Base.Services.SceneManagment
         public void ReturnToMainMenu()
         {
             ChangingScene?.Invoke();
-            _gameStateMachine.Enter<LoadLevelState, SceneData>(new MainMenuSceneData(SceneNames.MainMenu, ""));
+            _gameStateMachine.Enter<LoadLevelState, SceneData>(new MainMenuSceneData(SceneNames.MainMenu));
         }
 
         public void ReloadGameScene()
         {
             ChangingScene?.Invoke();
-            _gameStateMachine.Enter<LoadLevelState, SceneData>(new GameSceneData(SceneNames.Game, ""));
+            _gameStateMachine.Enter<LoadLevelState, SceneData>(new GameSceneData(SceneNames.Game));
         }
     }
 }

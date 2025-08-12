@@ -8,15 +8,13 @@ namespace Base.GameLogic.ShootMinigame
         private readonly ShootMinigameLauncherModel _shootMinigameLauncher;
         private readonly CannonEnergyBarModel _cannonEnergyBar;
         private readonly ShootMinigamePressRangeModel _minigamePressRange;
+
         private bool _enabled = false;
         private bool _minigameStarted = false;
 
         public ShootMinigameModel(CannonEnergyBarModel cannonEnergyBar, ShootMinigameLauncherModel launchMinigameModel, 
             ShootMinigamePressRangeModel shootMinigamePressRangeModel)
         {
-            ExceptionsTest.NullRefConstructorTest(nameof(ShootMinigameModel), cannonEnergyBar, launchMinigameModel, 
-                shootMinigamePressRangeModel);
-
             _minigamePressRange = shootMinigamePressRangeModel;
             _cannonEnergyBar = cannonEnergyBar;
             _shootMinigameLauncher = launchMinigameModel;

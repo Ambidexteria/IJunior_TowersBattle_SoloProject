@@ -101,9 +101,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f6783d9864878f42aafe01e9b77218b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _speed: 30
+  _collider: {fileID: 1745978903805150923}
   _markForRecoloring: {fileID: -8899736289200925569}
-  _damage: 0
-  _speed: 20
   _follower: {fileID: 5555777768464970143}
 --- !u!114 &5555777768464970143
 MonoBehaviour:

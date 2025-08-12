@@ -2,13 +2,11 @@
 {
     public class CannonEnergyBarPresenter
     {
-        private CannonEnergyBarModel _model;
-        private CannonEnergyBarView _view;
+        private readonly CannonEnergyBarModel _model;
+        private readonly CannonEnergyBarView _view;
 
         public CannonEnergyBarPresenter(CannonEnergyBarModel model, CannonEnergyBarView cannonEnergyBarView)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(CannonEnergyBarPresenter), ExceptionsTest.ConstructorName, model, cannonEnergyBarView);
-
             _model = model;
             _view = cannonEnergyBarView;
             _view.SetMaxEnergy(_model.MaxEnergy);

@@ -9,8 +9,6 @@ namespace Base.GameLogic.ShootMinigame
 
         public ShootMinigamePressRangePresenter(ShootMinigamePressRangeModel model, ShootMinigamePressRangeView view)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(ShootMinigamePressRangePresenter), ExceptionsTest.ConstructorName, model, view);
-
             _model = model;
             _view = view;
         }
@@ -19,9 +17,6 @@ namespace Base.GameLogic.ShootMinigame
         {
             _model.ValueChanged += OnValueChanged;
             _model.PlacingPressRange += OnPlacingPressRange;
-
-            _view.SetWidth(_model.PressRangeWidth);
-            _view.SetMinMaxValues(_model.FullRangeMinValue, _model.FullRangeMaxValue);
         }
 
         public void Disable()
@@ -32,6 +27,8 @@ namespace Base.GameLogic.ShootMinigame
 
         private void OnPlacingPressRange(float x)
         {
+            _view.SetWidth(_model.PressRangeWidth);
+
             Vector2 position = _view.PressRangePosition;
             position.x = x;
             _view.PlacePressRange(position);

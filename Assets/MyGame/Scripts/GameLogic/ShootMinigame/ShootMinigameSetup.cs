@@ -12,9 +12,7 @@ namespace Base.GameLogic.ShootMinigame
         [SerializeField] private ShootMinigameView _shootMinigameView;
 
         [SerializeField] private Animator _launcherModelAnimator;
-        [SerializeField] private Sprite _disabledSprite;
-        [SerializeField] private Sprite _enabledSprite;
-        [SerializeField] private ParticleSystemController _particleSystemController;
+        [SerializeField] private ParticleSystemController _launchMinigameButtonEffect;
 
         [Range(0f, 1f)]
         [SerializeField] private float _pressRangeWidthCoefficient = 0.1f;
@@ -26,30 +24,22 @@ namespace Base.GameLogic.ShootMinigame
         private ShootMinigamePresenter _shootMinigmamePresenter;
 
         private ShootMinigameLauncherModel _launcherModel;
-        private ShootMinigameLauncherPresenter _launcherPresenter;
 
         private ShootMinigamePressRangeModel _pressRangeModel;
         private ShootMinigamePressRangePresenter _pressRangePresenter;
 
-        private void Awake()
-        {
-            ExceptionsTest.NullRefMethodTest(nameof(ShootMinigameSetup), nameof(Awake), _pressRangeView, _shootMinigameView, 
-                _launcherModelAnimator, _disabledSprite, _enabledSprite, _particleSystemController, _launchButtonView, 
-                _fullRangeRectTransform);        
-        }
+        public float FullRangeMinValue => _fullRangeRectTransform.anchoredPosition.x;
+        public float FullRangeMaxValue => _fullRangeRectTransform.rect.width;
+
 
         public ShootMinigameModel CreateShootMinigameModel(CannonEnergyBarModel energyBar, TimeController timeController, 
             ICoroutineRunner coroutineRunner)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(ShootMinigameSetup), nameof(CreateShootMinigameModel), energyBar, timeController, coroutineRunner);
-
-            _launcherModel = new ShootMinigameLauncherModel(_launcherModelAnimator,
-                _disabledSprite, _enabledSprite, _particleSystemController);
-            _launcherPresenter = new ShootMinigameLauncherPresenter(_launcherModel, _launchButtonView);
-            _launcherPresenter.Enable();
-
+            _launcherModel = new ShootMinigameLauncherModel(_launcherModelAnimator, _launchMinigameButtonEffect);
             _pressRangeModel = new ShootMinigamePressRangeModel(_pressRangeWidthCoefficient, _sliderSpeedRate, 
                 _fullRangeRectTransform, timeController, coroutineRunner);
+
+            _pressRangeView.SetMinMaxValues(_fullRangeRectTransform.anchoredPosition.x, _fullRangeRectTransform.rect.width);
             _pressRangePresenter = new ShootMinigamePressRangePresenter(_pressRangeModel, _pressRangeView);
             _pressRangePresenter.Enable();
 
