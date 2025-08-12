@@ -9,22 +9,19 @@ public class Player
     private readonly CannonEnergyBarModel _energyBar;
     private readonly ShootMinigameModel _shootMinigame;
     private readonly SoldierSpawnControllerModel _soldierSpawnerController;
-    private readonly SoldierCommandController _commandController;
     private readonly SoldierSelector _soldierSelector;
     private readonly int _selfDamage;
 
     private bool _enabled = false;
 
     public Player(Team team, CannonModel cannon, CannonEnergyBarModel energyBar, ShootMinigameModel shootMinigame, 
-        SoldierSpawnControllerModel soldierSpawnerController, SoldierCommandController commandController, 
-        SoldierSelector soldierSelector, int selfDamage = 5)
+        SoldierSpawnControllerModel soldierSpawnerController, SoldierSelector soldierSelector, int selfDamage = 5)
     {
         _team = team;
         _cannon = cannon;
         _energyBar = energyBar;
         _shootMinigame = shootMinigame;
         _soldierSpawnerController = soldierSpawnerController;
-        _commandController = commandController;
         _soldierSelector = soldierSelector;
         _selfDamage = selfDamage;
     }

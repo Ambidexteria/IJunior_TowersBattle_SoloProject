@@ -14,8 +14,6 @@ namespace Base.Services.Factories.Game
 {
     public class PlayerFactory : MonoBehaviour
     {
-        private const string FloatingPointerAssetPath = "GameLogic/Soldier/FloatingPointer";
-
         [SerializeField] private CannonEnergyBarSetup _playerCannonEnergyBarSetup;
         [SerializeField] private CannonEnergyRateSetup _cannonEnergyRateSetup;
         [SerializeField] private SoldierSpawnControllerSetup _playerSpawnControllerSetup;
@@ -28,7 +26,7 @@ namespace Base.Services.Factories.Game
         [SerializeField] private RaycastSettings _controlPointSelectorSettings;
         [SerializeField] private float _spawnRadius = 2f;
         [SerializeField] private float _startSpawnDelay = 2f;
-        [SerializeField] private Image _selectionBox;
+        [SerializeField] private SelectionBoxDrawer _selectionBoxDrawer;
 
         private ICoroutineRunner _coroutineRunner;
         private AssetLoader _assetLoader;
@@ -88,26 +86,12 @@ namespace Base.Services.Factories.Game
             ShootMinigameModel shootMinigame = _shootMinigameSetup.CreateShootMinigameModel(cannonEnergyBar,
                 _timeController, _coroutineRunner);
 
-            SoldierSelector soldierSelector = new(_soldierSelectorSettings, _coroutineRunner, _input, _selectionBox, team, _audioPlayer);
+            _selectionBoxDrawer.Init(_coroutineRunner);
+            SoldierSelector soldierSelector = new(_soldierSelectorSettings, _coroutineRunner, _input, _selectionBoxDrawer, team, _audioPlayer);
 
-            Player player = new(team, cannon, cannonEnergyBar, shootMinigame,
-                spawnController, CreateSoldierCommandController(team), soldierSelector);
+            Player player = new(team, cannon, cannonEnergyBar, shootMinigame, spawnController, soldierSelector);
 
             return player;
-        }
-
-        private SoldierCommandController CreateSoldierCommandController(Team team)
-        {
-            ExceptionsTest.NullRefMethodTest(nameof(PlayerFactory), nameof(CreatePlayer), team);
-
-            FloatingPointer floatingPointer = _assetLoader.Instantiate<FloatingPointer>(FloatingPointerAssetPath);
-            SoldierSelector soldierSelector = new(_soldierSelectorSettings, _coroutineRunner, _input, _selectionBox, team, _audioPlayer);
-            ControlPointSelector controlPointSelector = new(_controlPointSelectorSettings);
-
-            SoldierCommandController controller = new(0.1f, soldierSelector,
-                controlPointSelector, floatingPointer, _coroutineRunner, team, _input, _audioPlayer);
-
-            return controller;
         }
     }
 }
