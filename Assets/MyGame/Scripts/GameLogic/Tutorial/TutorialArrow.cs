@@ -30,7 +30,9 @@ public class TutorialArrow : MonoBehaviour
 
     public void Hide()
     {
-        _arrow.enabled = false;
+        if (_arrow != null)
+            _arrow.enabled = false;
+
         _sequence.Pause();
     }
 

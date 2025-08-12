@@ -39,7 +39,8 @@ namespace Base.Utils
 
         public void Hide()
         {
-            _frame.gameObject.SetActive(false);
+            if (_frame != null)
+                _frame.gameObject.SetActive(false);
         }
 
         private void ResizeByDOTween()

@@ -69,6 +69,7 @@ public class SoldierSelector
         _enabled = false;
 
         _inputService.Game.Select.performed -= OnSelectPerformed;
+        _selectionBoxDrawer.Stop();
 
         StopSelectionCoroutine();
     }

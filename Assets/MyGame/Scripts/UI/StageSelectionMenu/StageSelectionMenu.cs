@@ -2,7 +2,6 @@
 using Base.Data.Game;
 using Base.Infrastructure;
 using Base.Services.SaveLoad;
-using System;
 
 namespace Base.UI.StageSelection
 {
@@ -42,9 +41,6 @@ namespace Base.UI.StageSelection
 
         private void OnStageChoosed(string name)
         {
-            if (_stagesData.GetSelectedStage().Name == name)
-                return;
-
             if (_stagesData.IsStageExist(name))
             {
                 _stagesData.SetSelectedStage(name);

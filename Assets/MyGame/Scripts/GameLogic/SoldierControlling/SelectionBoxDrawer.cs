@@ -48,7 +48,7 @@ public class SelectionBoxDrawer : MonoBehaviour
         _selectionBorder.enabled = true;
         _selectionBorder.rectTransform.anchoredPosition = _firstPosition;
 
-        while (true)
+        while (_selectionBorder.enabled)
         {
             _secondPosition = Input.mousePosition;
             float width = _secondPosition.x - _firstPosition.x;

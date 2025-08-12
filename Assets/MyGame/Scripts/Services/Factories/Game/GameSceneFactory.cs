@@ -129,17 +129,10 @@ namespace Base.Services.Factories.Game
 
         private void OnDisable()
         {
-            if (_enableTutorial)
-                _tutorialBattleController.Disable();
-            else
-                _battleController.Disable();
+            _tutorialBattleController.Disable();
+            _battleController.Disable();
 
             _sceneChanger.ChangingScene -= _battleController.Disable;
-        }
-
-        private void LoadTutorial()
-        {
-            //_stage = _assetLoader.Instantiate<Stage>(TutorialStageAssetPath) ?? throw new NullReferenceException(nameof(_stage));
         }
 
         private NPC CreateNPC()

@@ -78,7 +78,6 @@ namespace Base.GameLogic.Tutorial
         {
             _enabled = false;
             _gameSettings.TutorialEnabled = false;
-            //_saveLoadService.SaveProgress();
             _currentAction?.Disable();
         }
 
