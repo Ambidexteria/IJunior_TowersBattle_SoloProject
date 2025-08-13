@@ -1,9 +1,10 @@
 using Base.Data;
-using Base.Data.Game;
 using Base.Infrastructure;
+using Base.Services.PersistentProgress;
 using Base.Services.SaveLoad;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Base.UI.StageSelection
 {
@@ -13,28 +14,54 @@ namespace Base.UI.StageSelection
         [SerializeField] private StageIconSetup _iconPrefab;
         [SerializeField] private RectTransform _iconsParentObject;
 
-        private StageSelectionMenu _model;
+        private IPersisentDataService _persisentDataService;
+        private ISaveLoadService _saveLoadService;
+        private Game _game;
 
-        private void Awake()
+        private StageSelectionMenu _model;
+        private List<StageIconSetup> _stageIconSetups;
+
+        [Inject]
+        private void Init(IPersisentDataService persisentDataService, ISaveLoadService saveLoadService, Game game)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(StageSelectionMenuSetup), nameof(Awake),
-                _iconPrefab, _iconsParentObject);
+            _persisentDataService = persisentDataService;
+            _saveLoadService = saveLoadService;
+            _game = game;
+            _stageIconSetups = new();
         }
 
-        public void Create(StagesData stages, GameSettings gameSettings, ISaveLoadService saveLoadService, Game game)
+        private void OnEnable()
         {
-            ExceptionsTest.NullRefMethodTest(nameof(StageSelectionMenuSetup), nameof(Create), stages, gameSettings, saveLoadService);
+            CreateIcons();
+        }
 
+        private void OnDisable()
+        {
+            DestroyIcons();
+        }
+
+        private void CreateIcons()
+        {
             List<StageIconModel> icons = new();
 
-            foreach (var stageInfo in stages.UnlockedStagesInfo)
+            foreach (var stageInfo in _persisentDataService.GameData.StagesData.UnlockedStagesInfo)
             {
                 StageIconSetup setup = Instantiate(_iconPrefab);
+                _stageIconSetups.Add(setup);
                 setup.transform.SetParent(_iconsParentObject);
                 icons.Add(setup.CreateModel(_iconsDatabase.GetStageIcon(stageInfo.IconName), stageInfo.Unlocked, stageInfo.StageName));
             }
 
-            _model = new StageSelectionMenu(icons.ToArray(), stages, gameSettings, saveLoadService, game);
+            _model = new StageSelectionMenu(icons.ToArray(), _persisentDataService.GameData.StagesData, 
+                _persisentDataService.GameData.GameSettings, _saveLoadService, _game);
+        }
+
+        private void DestroyIcons()
+        {
+            foreach (var iconSetup in _stageIconSetups)
+                Destroy(iconSetup.gameObject);
+
+            _stageIconSetups?.Clear();
         }
     }
 }

@@ -22,9 +22,6 @@ namespace Base.Infrastructure
             ISaveLoadService saveLoadService, InputService input, ILocalizationService localizationService,
             AssetLoader assetLoader)
         {
-            ExceptionsTest.NullRefConstructorTest(nameof(LoadProgressState), gameStateMachine, persisentProgressService,
-                saveLoadService);
-
             _gameStateMachine = gameStateMachine;
             _progressService = persisentProgressService;
             _saveLoadService = saveLoadService;
@@ -35,8 +32,6 @@ namespace Base.Infrastructure
 
         public void Enter(SceneData scene)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(LoadProgressState), nameof(Enter), scene);
-
             LoadProgressOrInitNew();
 
             _gameStateMachine.Enter<LoadLevelState, SceneData>(scene);
@@ -48,18 +43,8 @@ namespace Base.Infrastructure
 
         private void LoadProgressOrInitNew()
         {
-            if (_input.Debug.ResetProgress.IsPressed())
-            {
-                Debug.LogWarning($"ProgressDeleted");
-                _progressService.GameData = CreateProgress();
-            }
-            else
-            {
-                _progressService.GameData = _saveLoadService.LoadProgress() ?? CreateProgress();
-            }
+            _progressService.GameData = _saveLoadService.LoadProgress() ?? CreateProgress();
 
-            Debug.Log($"LANGUAGE = {YG2.lang}");
-            //_localizationService.SetLanguage("tr");
             _localizationService.SetLanguage(YG2.lang);
             _progressService.GameData.GameSettings.Language = YG2.lang;
             _progressService.GameData.StagesData.CheckForUpdate();

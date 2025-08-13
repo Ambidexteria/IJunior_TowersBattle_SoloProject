@@ -1,3 +1,4 @@
+using Base.UI.StateMachine.States;
 using System;
 using System.Collections.Generic;
 
@@ -11,11 +12,8 @@ namespace Base.UI.StateMachine
 
         public MainMenuUIStateMachine(UIWindowController mainMenuWondow, UIWindowController shopWindow,
             UIWindowController stagesWindow, UIWindowController settingsWindow,
-            UIWindowController leaderboardWindow, UIWindowController authorizationWindow)
+            UIWindowController leaderboardWindow, UIWindowController authorizationWindow, UIWindowController resetProgressWindow)
         {
-            ExceptionsTest.NullRefConstructorTest(nameof(MainMenuUIStateMachine), mainMenuWondow, shopWindow, stagesWindow, 
-                settingsWindow, leaderboardWindow, authorizationWindow);
-
             _states = new Dictionary<Type, IUIState>
             {
                 { typeof(MainMenuState), new MainMenuState(mainMenuWondow) },
@@ -24,6 +22,7 @@ namespace Base.UI.StateMachine
                 { typeof(SettingsMenuState), new SettingsMenuState(settingsWindow) },
                 { typeof(LeaderboardWindowState), new LeaderboardWindowState(leaderboardWindow) },
                 { typeof(AutorizationWindowState), new AutorizationWindowState(authorizationWindow) },
+                { typeof(ResetProgressWindowState), new ResetProgressWindowState(resetProgressWindow) },
             };
         }
 

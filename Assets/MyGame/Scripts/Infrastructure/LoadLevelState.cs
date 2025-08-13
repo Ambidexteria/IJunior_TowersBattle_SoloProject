@@ -18,9 +18,6 @@ namespace Base.Infrastructure
         public LoadLevelState(LoadingCurtain loadingCurtain, GameStateMachine gameStateMachine, SceneLoader sceneLoader,
             ISaveLoadService saveLoadService, IPersisentDataService progressService)
         {
-            ExceptionsTest.NullRefConstructorTest(nameof(LoadLevelState), loadingCurtain,  gameStateMachine,  sceneLoader,
-             saveLoadService,  progressService);
-
             _progressService = progressService;
             _loadingCurtain = loadingCurtain;
             _gameStateMachine = gameStateMachine;
@@ -35,8 +32,6 @@ namespace Base.Infrastructure
 
         public void Enter(SceneData sceneData)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(LoadLevelState), nameof(Enter), sceneData);
-
             _loadingCurtain.Show();
             _currentSceneData = sceneData;
             _sceneLoader.LoadScene(_currentSceneData.SceneName, OnLoaded);

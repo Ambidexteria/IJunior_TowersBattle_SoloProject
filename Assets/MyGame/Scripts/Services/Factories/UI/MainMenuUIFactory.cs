@@ -1,5 +1,4 @@
 using Base.GameLogic.UpgradeSystem;
-using Base.Infrastructure;
 using Base.PLayer;
 using Base.Services.Audio;
 using Base.Services.Localization;
@@ -8,8 +7,8 @@ using Base.Services.SaveLoad;
 using Base.Services.TimeManagment;
 using Base.Shop;
 using Base.UI.Settings;
-using Base.UI.StageSelection;
 using Base.UI.StateMachine;
+using Base.UI.StateMachine.States;
 using UnityEngine;
 using YG;
 using Zenject;
@@ -18,17 +17,15 @@ namespace Base.Services.Factories.UI
 {
     public class MainMenuUIFactory : MonoBehaviour
     {
-        [SerializeField] private StageSelectionMenuSetup _stageSelectionMenuSetup;
-        [SerializeField] private ShopSetup _shopSetup;
         [SerializeField] private SettingsMenuSetup _settingsSetup;
         [SerializeField] private AuthorizationMenu _authorizationMenu;
 
         [SerializeField] private ButtonClickHandler _startBattleButton;
-
         [SerializeField] private ButtonClickHandler _openStagesButton;
         [SerializeField] private ButtonClickHandler _openShopButton;
         [SerializeField] private ButtonClickHandler _openSettingsButton;
         [SerializeField] private ButtonClickHandler _openLeaderboardButton;
+        [SerializeField] private ButtonClickHandler _openResetProgressMenuButton;
 
         [SerializeField] private UIWindowController _mainButtonsWindow;
         [SerializeField] private UIWindowController _stagesWindow;
@@ -36,11 +33,14 @@ namespace Base.Services.Factories.UI
         [SerializeField] private UIWindowController _settingsWindow;
         [SerializeField] private UIWindowController _leaderboardWindow;
         [SerializeField] private UIWindowController _authorizationWindow;
+        [SerializeField] private UIWindowController _resetProgressWindow;
 
         [SerializeField] private ButtonClickHandler _closeStagesButton;
         [SerializeField] private ButtonClickHandler _closeShopButton;
         [SerializeField] private ButtonClickHandler _closeSettingsButton;
         [SerializeField] private ButtonClickHandler _closeLeaderboardButton;
+        [SerializeField] private ButtonClickHandler _confirmResetProgressButton;
+        [SerializeField] private ButtonClickHandler _cancelResetProgressButton;
 
         private ISaveLoadService _saveLoadService;
         private TimeController _timeController;
@@ -76,16 +76,14 @@ namespace Base.Services.Factories.UI
         private void Awake()
         {
             ExceptionsTest.NullRefMethodTest(nameof(MainMenuUIFactory), nameof(Awake),
-                _stageSelectionMenuSetup, _shopSetup, _settingsSetup, 
+                _settingsSetup, 
                 _startBattleButton, _openStagesButton, _openShopButton, _openSettingsButton, 
                 _mainButtonsWindow, _stagesWindow, _shopWindow, _settingsWindow, _leaderboardWindow, _authorizationWindow, 
                 _closeStagesButton, _closeShopButton, _closeSettingsButton, _closeLeaderboardButton);
 
             _timeController.SetDefaultTimeScale();
             CreateUIStateMachine();
-            CreateShop();
             CreateSettings();
-            CreateStageSelectionMenu();
 
             _authorizationMenu.Init(_stateMachine);
         }
@@ -100,11 +98,14 @@ namespace Base.Services.Factories.UI
             _openShopButton.Clicked += OnOpenShopButtonClicked;
             _openSettingsButton.Clicked += OnOpenSettingsButtonClicked;
             _openLeaderboardButton.Clicked += OnOpenLeaderboardButtonClicked;
+            _openResetProgressMenuButton.Clicked += OnOpenResetProgressMenuButton;
 
             _closeStagesButton.Clicked += OnCloseWindowButtonClicked;
             _closeShopButton.Clicked += OnCloseWindowButtonClicked;
             _closeSettingsButton.Clicked += OnCloseWindowButtonClicked;
             _closeLeaderboardButton.Clicked += OnCloseWindowButtonClicked;
+            _cancelResetProgressButton.Clicked += OnCloseWindowButtonClicked;
+            _confirmResetProgressButton.Clicked += OnCloseWindowButtonClicked;
         }
 
         private void OnDisable()
@@ -115,29 +116,21 @@ namespace Base.Services.Factories.UI
             _openShopButton.Clicked -= OnOpenShopButtonClicked;
             _openSettingsButton.Clicked -= OnOpenSettingsButtonClicked;
             _openLeaderboardButton.Clicked -= OnOpenLeaderboardButtonClicked;
+            _openResetProgressMenuButton.Clicked -= OnOpenResetProgressMenuButton;
 
             _closeStagesButton.Clicked -= OnCloseWindowButtonClicked;
             _closeShopButton.Clicked -= OnCloseWindowButtonClicked;
             _closeSettingsButton.Clicked -= OnCloseWindowButtonClicked;
             _closeLeaderboardButton.Clicked -= OnCloseWindowButtonClicked;
+            _cancelResetProgressButton.Clicked -= OnCloseWindowButtonClicked;
+            _confirmResetProgressButton.Clicked -= OnCloseWindowButtonClicked;
         }
 
         private void CreateUIStateMachine()
         {
             _stateMachine = new MainMenuUIStateMachine(_mainButtonsWindow, _shopWindow, _stagesWindow, _settingsWindow,
-                _leaderboardWindow, _authorizationWindow);
+                _leaderboardWindow, _authorizationWindow, _resetProgressWindow);
             _stateMachine.Enter<MainMenuState>();
-        }
-
-        private void CreateStageSelectionMenu()
-        {
-            _stageSelectionMenuSetup.Create(_dataService.GameData.StagesData,
-                _dataService.GameData.GameSettings, _saveLoadService, _game);
-        }
-
-        private void CreateShop()
-        {
-            _shopSetup.Create(_wallet, _upgradeSystem, _saveLoadService, _dataService.GameData.UpgradePrices);
         }
 
         private void CreateSettings()
@@ -172,6 +165,11 @@ namespace Base.Services.Factories.UI
                 _stateMachine.Enter<LeaderboardWindowState>();
             else
                 _stateMachine.Enter<AutorizationWindowState>();
+        }
+
+        private void OnOpenResetProgressMenuButton()
+        {
+            _stateMachine.Enter<ResetProgressWindowState>();
         }
 
         private void OnCloseWindowButtonClicked()

@@ -1,7 +1,11 @@
 using Base.GameLogic.UpgradeSystem;
 using Base.PLayer;
+using Base.Services.PersistentProgress;
 using Base.Services.SaveLoad;
+using System.Diagnostics;
 using UnityEngine;
+using Zenject;
+using Zenject.SpaceFighter;
 
 namespace Base.Shop
 {
@@ -9,20 +13,48 @@ namespace Base.Shop
     {
         [SerializeField] private ShopView _view;
 
+        private Wallet _wallet;
+        private RegularUpgradeSystem _upgradeSystem;
+        private ISaveLoadService _saveLoadService;
+        private IPersisentDataService _dataService;
+
         private ShopModel _model;
         private ShopPresenter _presenter;
 
-        public ShopModel Create(Wallet wallet, RegularUpgradeSystem upgradeSystem, ISaveLoadService saveLoadService,
-            UpgradePrices prices)
+        [Inject]
+        private void Init(Wallet wallet, RegularUpgradeSystem upgradeSystem, ISaveLoadService saveLoadService,
+            IPersisentDataService prices)
         {
-            _model = new ShopModel(wallet, upgradeSystem, saveLoadService, prices);
+            _wallet = wallet;
+            _upgradeSystem = upgradeSystem;
+            _saveLoadService = saveLoadService;
+            _dataService = prices;
+        }
+
+        private void OnEnable()
+        {
+            CreateModel();
+        }
+
+        private void OnDisable()
+        {
+            Disable();
+        }
+
+        private void CreateModel()
+        {
+            _model = new ShopModel(_wallet, _upgradeSystem, _saveLoadService, _dataService.GameData.UpgradePrices);
 
             _presenter = new ShopPresenter(_view, _model);
             _presenter.Enable();
 
             _model.Enable();
+        }
 
-            return _model;
+        private void Disable()
+        {
+            _presenter.Disable();
+            _model = null;
         }
     }
 }

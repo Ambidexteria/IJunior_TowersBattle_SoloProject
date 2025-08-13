@@ -110,28 +110,21 @@ namespace Base.GameLogic.UpgradeSystem
     {
         private readonly IPersisentDataService _dataService;
         private readonly Upgrades _upgrades;
-        private readonly CannonHealthUpgrade _healthUpgrade;
 
-        public string HealthUpgradeLevel => _healthUpgrade.CurrentLevelText;
 
         public RegularUpgradeSystem(IPersisentDataService dataService)
         {
-            ExceptionsTest.NullRefConstructorTest(nameof(RegularUpgradeSystem), dataService);
-
             _dataService = dataService;
-
-            _upgrades = _dataService.GameData.PlayerData.Upgrades;
-            _healthUpgrade = _upgrades.GetUpgrade<CannonHealthUpgrade>();
         }
 
         public string GetUpgradeLevel<Type>() where Type : Upgrade
         {
-            return _upgrades.GetUpgrade<Type>().CurrentLevelText;
+            return _dataService.GameData.PlayerData.Upgrades.GetUpgrade<Type>().CurrentLevelText;
         }
 
         public bool TryIncreaseCannonHealth()
         {
-            CannonHealthUpgrade upgrade = _upgrades.GetUpgrade<CannonHealthUpgrade>();
+            CannonHealthUpgrade upgrade = GetUpgrades().GetUpgrade<CannonHealthUpgrade>();
 
             if (upgrade.TryIncreaseLevel())
             {
@@ -148,7 +141,7 @@ namespace Base.GameLogic.UpgradeSystem
 
         public bool TryIncreaseCannonDamage()
         {
-            CannonDamageUpgrade upgrade = _upgrades.GetUpgrade<CannonDamageUpgrade>();
+            CannonDamageUpgrade upgrade = GetUpgrades().GetUpgrade<CannonDamageUpgrade>();
 
             if (upgrade.TryIncreaseLevel())
             {
@@ -165,7 +158,7 @@ namespace Base.GameLogic.UpgradeSystem
         
         public bool TryDecreseSpawnTime()
         {
-            SpawnTimeUpgrade upgrade = _upgrades.GetUpgrade<SpawnTimeUpgrade>();
+            SpawnTimeUpgrade upgrade = GetUpgrades().GetUpgrade<SpawnTimeUpgrade>();
 
             if (upgrade.TryIncreaseLevel())
             {
@@ -182,7 +175,7 @@ namespace Base.GameLogic.UpgradeSystem
 
         public bool TryIncreaseSoldierDamage()
         {
-            SoldierDamageUpgrade upgrade = _upgrades.GetUpgrade<SoldierDamageUpgrade>();
+            SoldierDamageUpgrade upgrade = GetUpgrades().GetUpgrade<SoldierDamageUpgrade>();
 
             if (upgrade.TryIncreaseLevel())
             {
@@ -199,7 +192,7 @@ namespace Base.GameLogic.UpgradeSystem
 
         public bool TryIncreaseSoldierHealth()
         {
-            SoldierHealthUpgrade upgrade = _upgrades.GetUpgrade<SoldierHealthUpgrade>();
+            SoldierHealthUpgrade upgrade = GetUpgrades().GetUpgrade<SoldierHealthUpgrade>();
 
             if (upgrade.TryIncreaseLevel())
             {
@@ -212,6 +205,11 @@ namespace Base.GameLogic.UpgradeSystem
             {
                 return false;
             }
+        }
+
+        private Upgrades GetUpgrades()
+        {
+            return _dataService.GameData.PlayerData.Upgrades;
         }
 
         private void SendMetrics(string upgradeName, string level)

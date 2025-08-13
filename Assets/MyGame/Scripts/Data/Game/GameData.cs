@@ -10,6 +10,7 @@ namespace Base.Data.Game
         public UpgradePrices UpgradePrices;
         public StagesData StagesData;
         public GameSettings GameSettings;
+        public GameSettings New;
 
         public GameData()
         {

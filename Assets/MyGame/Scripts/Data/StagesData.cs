@@ -1,7 +1,6 @@
 using Base.Data.Game;
 using Newtonsoft.Json;
 using System;
-using UnityEngine;
 
 namespace Base.Data
 {
@@ -54,17 +53,17 @@ namespace Base.Data
             UnlockedStagesInfo = new SerializedStageInfo[]
             {
                 new(StageOne, ForrestIcon, true),
-                new(StageTwo, ForrestIcon, true),
-                new(StageThree, ForrestIcon, true),
-                new(StageFour, DesertIcon, true),
-                new(StageFive, DesertIcon, true),
-                new(StageSix, DesertIcon, true),
-                new(StageSeven, SnowForestIcon, true),
-                new(StageEight, SnowForestIcon, true),
-                new(StageNine, SnowForestIcon, true),
-                new(StageTen, BeachIcon, true),
-                new(StageEleven, BeachIcon, true),
-                new(StageTwelve, BeachIcon, true),
+                new(StageTwo, ForrestIcon, false),
+                new(StageThree, ForrestIcon, false),
+                new(StageFour, DesertIcon, false),
+                new(StageFive, DesertIcon, false),
+                new(StageSix, DesertIcon, false),
+                new(StageSeven, SnowForestIcon, false),
+                new(StageEight, SnowForestIcon, false),
+                new(StageNine, SnowForestIcon, false),
+                new(StageTen, BeachIcon, false),
+                new(StageEleven, BeachIcon, false),
+                new(StageTwelve, BeachIcon, false),
             };
         }
 
