@@ -14,20 +14,15 @@ namespace Base.Infrastructure
         private readonly GameStateMachine _gameStateMachine;
         private readonly IPersisentDataService _progressService;
         private readonly ISaveLoadService _saveLoadService;
-        private readonly InputService _input;
         private readonly ILocalizationService _localizationService;
-        private readonly AssetLoader _assetLoader;
 
         public LoadProgressState(GameStateMachine gameStateMachine, IPersisentDataService persisentProgressService,
-            ISaveLoadService saveLoadService, InputService input, ILocalizationService localizationService,
-            AssetLoader assetLoader)
+            ISaveLoadService saveLoadService, ILocalizationService localizationService)
         {
             _gameStateMachine = gameStateMachine;
             _progressService = persisentProgressService;
             _saveLoadService = saveLoadService;
-            _input = input;
             _localizationService = localizationService;
-            _assetLoader = assetLoader;
         }
 
         public void Enter(SceneData scene)
@@ -52,7 +47,6 @@ namespace Base.Infrastructure
 
         private GameData CreateProgress()
         {
-            Debug.Log("CREATING NEW PLAYER PROGRESS");
             return new GameData();
         }
     }

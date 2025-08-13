@@ -1,7 +1,7 @@
 using Base.Data.Game;
 using YG;
 
-namespace Base.Services.PluginYG.LeaderBoard
+namespace Base.Services.PluginYG
 {
     public class PluginYGLeaderboard
     {

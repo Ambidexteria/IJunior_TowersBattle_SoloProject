@@ -1,7 +1,4 @@
-﻿using Base.Services.PluginYG;
-using UnityEngine;
-
-namespace Base.Infrastructure
+﻿namespace Base.Infrastructure
 {
     internal class GameLoopState : IState
     {
@@ -9,8 +6,6 @@ namespace Base.Infrastructure
 
         public GameLoopState(GameStateMachine stateMachine) 
         {
-            ExceptionsTest.NullRefConstructorTest(nameof(GameLoopState), stateMachine);
-
             _stateMachine = stateMachine;
         }
 

@@ -181,6 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d047ab0d7879348810203b111d4b2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _collider: {fileID: 9136765709068853988}
 --- !u!114 &7809621075388296893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,6 +408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec952421762eb240a2f5f3bf5a9debe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _workOnUpdate: 1
   _lookAlongCameraView: 0
 --- !u!1 &3400361501263692292
 GameObject:
@@ -5611,6 +5613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d047ab0d7879348810203b111d4b2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _collider: {fileID: 6178296859463608138}
 --- !u!1 &9037362682051763122
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,9 +17,6 @@ namespace Base.UI.StageSelection
         public StageSelectionMenu(StageIconModel[] iconModels, StagesData stagesData, GameSettings gameSettings, 
             ISaveLoadService saveLoadService, Game game)
         {
-            ExceptionsTest.NullRefConstructorTest(nameof(StageSelectionMenu), iconModels, stagesData, gameSettings,
-                saveLoadService);
-
             _stagesIcons = iconModels;
             _stagesData = stagesData;
             _gameSettings = gameSettings;

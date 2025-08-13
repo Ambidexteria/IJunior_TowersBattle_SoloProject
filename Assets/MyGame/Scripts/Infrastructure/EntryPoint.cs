@@ -7,19 +7,17 @@ namespace Base.Infrastructure
     {
         private Game _game;
 
-        private void Awake()
-        {
-            ExceptionsTest.NullRefMethodTest(nameof(EntryPoint), nameof(Awake), _game);
-
-            _game.EnterBootstrapState();
-
-            DontDestroyOnLoad(gameObject);
-        }
-
         [Inject]
         private void Init(Game game)
         {
             _game = game;
+        }
+
+        private void Awake()
+        {
+            _game.EnterBootstrapState();
+
+            DontDestroyOnLoad(gameObject);
         }
     }
 }

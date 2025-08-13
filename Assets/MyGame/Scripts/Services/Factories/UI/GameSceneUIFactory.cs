@@ -16,7 +16,6 @@ using Base.Data.Game;
 using Base.Services.Localization;
 using Base.UI.RewardForAds;
 using Base.Health;
-using Zenject.SpaceFighter;
 
 namespace Base.Services.Factories.UI
 {
@@ -42,44 +41,35 @@ namespace Base.Services.Factories.UI
         [SerializeField] private ButtonClickHandler _closeSettingsWindowButton;
 
         private TimeController _timeController;
-        private SceneChanger _sceneChanger;
         private GameUIStateMachine _uiStateMachine;
         private IAudioVolumeControllerService _volumeControllerService;
         private ISaveLoadService _saveLoadService;
         private IPersisentDataService _dataService;
         private ILocalizationService _localizationService;
         private AudioPlayerService _audioPlayer;
+        private Infrastructure.Game _game;
         private GameStateMachine _gameStateMachine;
 
         [Inject]
-        private void Init(GameStateMachine gameStateMachine, TimeController timeController, SceneChanger sceneChanger,
+        private void Init(GameStateMachine gameStateMachine, TimeController timeController,
             IAudioVolumeControllerService volumeControllerService, ISaveLoadService saveLoadService,
             IPersisentDataService dataService, ILocalizationService localizationService,
-            AudioPlayerService audioPlayer)
+            AudioPlayerService audioPlayer, Infrastructure.Game game)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(GameSceneUIFactory), nameof(Init), gameStateMachine, timeController, sceneChanger,
-                volumeControllerService, saveLoadService, dataService, localizationService);
-
             _gameStateMachine = gameStateMachine;
             _timeController = timeController;
-            _sceneChanger = sceneChanger;
             _volumeControllerService = volumeControllerService;
             _saveLoadService = saveLoadService;
             _dataService = dataService;
             _localizationService = localizationService;
             _audioPlayer = audioPlayer;
+            _game = game;
         }
 
         private void Awake()
         {
-            ExceptionsTest.NullRefMethodTest(nameof(GameSceneUIFactory), nameof(Awake),
-                _battleEndSetup, _pauseMenuSetup, _settingsMenuSetup, _cannonsHUD, _shootMinigameUI, _restoreHealthForRewardAdsSetup,
-                _pauseWindow, _settingsWindow, _battleEndWindow, _launchShootMinigameButton, _pauseButton, _shootButton, 
-                _openSettingsButton, _resumeButton, _closeSettingsWindowButton);
-
             _timeController.Resume();
             CreateUIStateMachine();
-            Debug.Log("GameSceneUIFactory awakened");
         }
 
         private void OnEnable()
@@ -119,8 +109,6 @@ namespace Base.Services.Factories.UI
 
         public BattleEndModel GetBattleEndModel(Infrastructure.Game game, Wallet wallet, StageInfo stageInfo, PlayerScore score, StagesData stagesData)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(GameSceneUIFactory), nameof(GetBattleEndModel), game, wallet, stageInfo, score);
-
             return _battleEndSetup.Create(game, wallet, score, _saveLoadService, stageInfo.WinReward, 
                 stageInfo.DefeatReward, stagesData, _audioPlayer);
         }
@@ -130,7 +118,7 @@ namespace Base.Services.Factories.UI
             _uiStateMachine = new GameUIStateMachine(_cannonsHUD, _shootMinigameUI,
                 _pauseWindow, _settingsWindow, _battleEndWindow, _restoreHealthForRewardAds);
 
-            _pauseMenuSetup.CreatePauseMenu(_sceneChanger);
+            _pauseMenuSetup.CreatePauseMenu(_game);
             _settingsMenuSetup.CreateModel(_volumeControllerService, _saveLoadService, _dataService.GameData.GameSettings,
                 _localizationService);
 

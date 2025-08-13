@@ -4,6 +4,7 @@ namespace Base
 {
     public class LookAtCamera : MonoBehaviour
     {
+        [SerializeField] private bool _workOnUpdate = true;
         [SerializeField] private bool _lookAlongCameraView = false;
 
         private Camera _main;
@@ -16,7 +17,8 @@ namespace Base
 
         private void Update()
         {
-            Look();
+            if (_workOnUpdate)
+                Look();
         }
 
         private void Look()

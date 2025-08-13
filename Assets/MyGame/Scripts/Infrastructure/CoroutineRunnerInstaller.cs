@@ -10,8 +10,6 @@ namespace Base
 
         public override void InstallBindings()
         {
-            ExceptionsTest.NullRefMethodTest(nameof(CoroutineRunnerInstaller), nameof(InstallBindings), _coroutineRunner);
-
             Container.Bind<ICoroutineRunner>().FromInstance(_coroutineRunner).AsSingle();
         }
     }

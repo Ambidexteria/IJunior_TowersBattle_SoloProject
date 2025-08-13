@@ -1,4 +1,3 @@
-using Base.Services.Factories.Game;
 using Base.Services.Input;
 using Base.Services.Localization;
 using Base.Services.PersistentProgress;
@@ -25,7 +24,6 @@ namespace Base.Services
             PersisentDataServiceInstaller.Install(_container);
             SaveLoadServiceInstaller.Install(_container);
             TimeControllerInstaller.Install(_container);
-            SceneChangerInstaller.Install(_container);
             LocalizationServiceInstaller.Install(_container);
         }
     }

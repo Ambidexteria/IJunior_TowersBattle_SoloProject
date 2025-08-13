@@ -25,11 +25,6 @@ namespace Base.Infrastructure
             _saveLoadService = saveLoadService;
         }
 
-        public void Enter(string sceneName)
-        {
-            _sceneLoader.LoadScene(sceneName, OnLoaded);
-        }
-
         public void Enter(SceneData sceneData)
         {
             _loadingCurtain.Show();

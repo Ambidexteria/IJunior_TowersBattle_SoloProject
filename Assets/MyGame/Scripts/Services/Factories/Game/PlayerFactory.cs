@@ -44,9 +44,6 @@ namespace Base.Services.Factories.Game
             ControlPointDatabase controlPointDatabase, InputService input, TimeController timeController,
             AudioPlayerService audioPlayer)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(PlayerFactory), nameof(Init), assetLoader, soldierFactory, coroutineRunner,
-                projectileSpawner, colorChanger, controlPointDatabase, input, timeController);
-
             _coroutineRunner = coroutineRunner;
             _assetLoader = assetLoader;
             _soldierFactory = soldierFactory;
@@ -58,19 +55,9 @@ namespace Base.Services.Factories.Game
             _audioPlayer = audioPlayer;
         }
 
-        private void Awake()
-        {
-            ExceptionsTest.NullRefMethodTest(nameof(PlayerFactory), nameof(Awake), _soldierSpawnerSettings, _soldierDespawnDetector,
-                _playerCannonEnergyBarSetup, _playerSpawnControllerSetup, _soldierSelectorSettings, _controlPointSelectorSettings,
-                _shootMinigameSetup);
-        }
-
         public Player CreatePlayer(Team team, CannonModel cannon, CannonData cannonData, Transform soldierSpawnPoint,
             SoldierData soldierStats)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(PlayerFactory), nameof(CreatePlayer), team, cannon,
-                cannonData, soldierSpawnPoint, soldierStats);
-
             CannonEnergyBarModel cannonEnergyBar = _playerCannonEnergyBarSetup.CreateCannonEnergyBar(team,
                 _controlPointDatabase, cannonData.MaxEnergy, _coroutineRunner);
 

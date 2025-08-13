@@ -130,6 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startDelay: 0
   _fadeSpeed: 10
+  _curtain: {fileID: 4261181569528311147}
 --- !u!1 &7215785225450922484
 GameObject:
   m_ObjectHideFlags: 0

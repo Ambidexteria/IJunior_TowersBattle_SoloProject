@@ -4,11 +4,9 @@ namespace Base.Services.TimeManagment
 {
     public class TimeController
     {
-        private float _defaultTimeScale = 1f;
-        private float _pauseTimeScale = 0f;
-        private float _slowMotionTimeScale = 0.2f;
-
-        private bool _paused;
+        private readonly float _defaultTimeScale = 1f;
+        private readonly float _pauseTimeScale = 0f;
+        private readonly float _slowMotionTimeScale = 0.2f;
 
         public TimeController(float defaultTimeScale, float pauseTimeScale, float slowMotionTimeScale)
         {

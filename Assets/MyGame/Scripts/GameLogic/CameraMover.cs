@@ -12,18 +12,12 @@ namespace Base.GameLogic
 
         private void OnEnable()
         {
-
             _changeCameraPositionButton.Clicked += MoveToNextPosition;
         }
 
         private void OnDisable()
         {
             _changeCameraPositionButton.Clicked -= MoveToNextPosition;
-        }
-
-        private void MoveToNextFirstPosition()
-        {
-            _camera.transform.SetPositionAndRotation(_positions[0].position, _positions[0].rotation);
         }
 
         private void MoveToNextPosition()

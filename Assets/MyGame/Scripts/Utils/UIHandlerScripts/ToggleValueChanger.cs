@@ -9,13 +9,6 @@ public class ToggleValueChanger : MonoBehaviour
 
     public Action<bool> ValueChanged;
 
-    private void Awake()
-    {
-        _toggle = GetComponent<Toggle>();
-
-        ExceptionsTest.NullRefMethodTest(nameof(ToggleValueChanger), nameof(Awake), _toggle);
-    }
-
     private void OnEnable()
     {
         _toggle.onValueChanged.AddListener(ChangeValue);

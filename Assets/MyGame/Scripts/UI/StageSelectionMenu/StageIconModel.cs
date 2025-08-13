@@ -5,12 +5,10 @@ namespace Base.UI.StageSelection
     public class StageIconModel
     {
         private readonly string _name;
-        private bool _unlocked;
 
-        public StageIconModel(string name, bool unlocked)
+        public StageIconModel(string name)
         {
             _name = name;
-            _unlocked = unlocked;
         }
 
         public string Name => _name;

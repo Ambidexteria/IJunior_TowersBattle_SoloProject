@@ -40,7 +40,6 @@ namespace Base.Services.Factories.Game
         [SerializeField] private CannonSetup _npcCannonSetup;
         [SerializeField] private HealthSetup _npcHealthSetup;
 
-        private SceneChanger _sceneChanger;
         private Infrastructure.Game _game;
         private ICoroutineRunner _coroutineRunner;
         private AssetLoader _assetLoader;
@@ -63,13 +62,9 @@ namespace Base.Services.Factories.Game
         [Inject]
         private void Init(Infrastructure.Game game, AssetLoader assetLoader, ICoroutineRunner coroutineRunner,
             CannonProjectileSpawner projectileSpawner, TeamColorChanger colorChanger,
-            ControlPointDatabase controlPointDatabase, InputService inputService,
-            SceneChanger sceneChanger, IPersisentDataService dataService, Wallet wallet,
+            ControlPointDatabase controlPointDatabase, InputService inputService, IPersisentDataService dataService, Wallet wallet,
             TimeController timeController, AudioPlayerService audioPlayer, ISaveLoadService saveLoadService)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(GameSceneFactory), nameof(Init), game, assetLoader, coroutineRunner,
-             projectileSpawner, colorChanger, controlPointDatabase, sceneChanger, dataService, wallet);
-
             _game = game;
             _coroutineRunner = coroutineRunner;
             _assetLoader = assetLoader;
@@ -77,7 +72,6 @@ namespace Base.Services.Factories.Game
             _colorChanher = colorChanger;
             _controlPointDatabase = controlPointDatabase;
             _inputService = inputService;
-            _sceneChanger = sceneChanger;
             _dataSerive = dataService;
             _wallet = wallet;
             _timeController = timeController;
@@ -87,16 +81,9 @@ namespace Base.Services.Factories.Game
 
         private void Awake()
         {
-            ExceptionsTest.NullRefMethodTest(nameof(GameSceneFactory), nameof(Awake),
-                _uiFactory, _soldierDespawnDetector, _playerFactory, _playerCannonSetup, _playerCannonHealthSetup,
-                _npcFactory, _npcCannonSetup, _npcHealthSetup);
-
-            _stageInfo = _dataSerive.GameData.StagesData.GetSelectedStage() ?? throw new NullReferenceException(nameof(_stageInfo));
-
             _enableTutorial = _dataSerive.GameData.GameSettings.TutorialEnabled;
-
+            _stageInfo = _dataSerive.GameData.StagesData.GetSelectedStage() ?? throw new NullReferenceException(nameof(_stageInfo));
             _stage = _assetLoader.Instantiate<Stage>(_stageInfo.AssetPath) ?? throw new NullReferenceException(nameof(_stage));
-
             _controlPointDatabase.Init(_stage.GetControlPoints(), _stage.PlayerSoldierSpawnPoint);
 
             Player player = CreatePlayer();
@@ -112,7 +99,7 @@ namespace Base.Services.Factories.Game
             _battleController = new BattleController(player, npc, gameUIStateMachine, battleEndModel,
                 _timeController, _uiFactory.GetRestoreHealthForRewardAdsModel(_playerCannonHealthSetup.GetModel()));
 
-            _tutorialBattleController.Init(player, _controlPointDatabase, _dataSerive.GameData.GameSettings, _saveLoadService);
+            _tutorialBattleController.Init(player, _controlPointDatabase, _dataSerive.GameData.GameSettings);
 
             MetricsService.CallStageLoadedEvent(_stageInfo.Name);
 
@@ -122,22 +109,15 @@ namespace Base.Services.Factories.Game
             _battleController.Enable();
         }
 
-        private void OnEnable()
-        {
-            _sceneChanger.ChangingScene += _battleController.Disable;
-        }
-
         private void OnDisable()
         {
             _tutorialBattleController.Disable();
             _battleController.Disable();
-
-            _sceneChanger.ChangingScene -= _battleController.Disable;
         }
 
         private NPC CreateNPC()
         {
-            Team team = new Team(TeamType.NPC);
+            Team team = new(TeamType.NPC);
 
             _NPCCannon = _npcCannonSetup.CreateCannonModel(team, _stageInfo.EnemyCannon.Damage, _colorChanher, _projectileSpawner,
                 _npcHealthSetup.CreateHealth(_stageInfo.EnemyCannon.MaxHealth, _coroutineRunner));
@@ -147,10 +127,8 @@ namespace Base.Services.Factories.Game
 
         private Player CreatePlayer()
         {
-            Team team = new Team(TeamType.Player);
-
+            Team team = new(TeamType.Player);
             CannonData cannonData = _dataSerive.GameData.PlayerData.CannonData;
-            SoldierData soldierData = _dataSerive.GameData.PlayerData.SoldierData;
 
             _playerCannon = _playerCannonSetup.CreateCannonModel(team, cannonData.Damage, _colorChanher, _projectileSpawner,
                 _playerCannonHealthSetup.CreateHealth(cannonData.MaxHealth, _coroutineRunner));
@@ -161,8 +139,6 @@ namespace Base.Services.Factories.Game
 
         private CannonModel CreateCannon(string assetPath, Team team, int damage, HealthModel health)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(GameSceneFactory), nameof(CreateCannon), team, health);
-
             CannonSetup setup = _assetLoader.Instantiate<CannonSetup>(assetPath);
             CannonModel model = setup.CreateCannonModel(team, damage, _colorChanher, _projectileSpawner, health);
 

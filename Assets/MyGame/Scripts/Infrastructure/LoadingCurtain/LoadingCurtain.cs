@@ -10,16 +10,12 @@ namespace Base.Infrastructure
 
         [SerializeField] private float _startDelay = 1.0f;        
         [SerializeField] private float _fadeSpeed = 10f;
+        [SerializeField] private CanvasGroup _curtain;
 
-        private CanvasGroup _curtain;
         private WaitForSeconds _wait;
 
         private void Awake()
         {
-            _curtain = GetComponent<CanvasGroup>();
-
-            ExceptionsTest.NullRefMethodTest(nameof(LoadingCurtain), nameof(Awake), _curtain);
-
             _wait = new WaitForSeconds(_startDelay);
 
             DontDestroyOnLoad(gameObject);

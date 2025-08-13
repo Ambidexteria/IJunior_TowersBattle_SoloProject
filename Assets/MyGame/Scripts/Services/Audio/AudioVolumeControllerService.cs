@@ -21,8 +21,6 @@ namespace Base.Services.Audio
 
         public AudioVolumeControllerService(AudioMixerGroup masterAudioMixer)
         {
-            ExceptionsTest.NullRefConstructorTest(nameof(AudioVolumeControllerService), masterAudioMixer);
-
             _masterAudioMixer = masterAudioMixer;
         }
 

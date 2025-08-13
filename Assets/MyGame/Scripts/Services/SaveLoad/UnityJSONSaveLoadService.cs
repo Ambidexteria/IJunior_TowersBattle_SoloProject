@@ -13,19 +13,12 @@ namespace Base.Services.SaveLoad
 
         public UnityJSONSaveLoadService(IPersisentDataService persisentDataService)
         {
-            ExceptionsTest.NullRefConstructorTest(nameof(UnityJSONSaveLoadService), persisentDataService);
-
             _dataService = persisentDataService;
         }
 
         public GameData LoadProgress()
         {
             return PlayerPrefs.GetString(ProgressKey)?.ToDeserialized<GameData>();
-        }
-
-        public void LoadUpgrades()
-        {
-            throw new System.NotImplementedException();
         }
 
         public void SaveProgress()

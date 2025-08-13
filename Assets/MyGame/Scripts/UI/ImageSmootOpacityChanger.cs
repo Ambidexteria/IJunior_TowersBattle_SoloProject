@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,9 +16,6 @@ public class ImageSmootOpacityChanger : MonoBehaviour
     private void Awake()
     {
         _image = GetComponent<Image>();
-
-        ExceptionsTest.NullRefMethodTest(nameof(ImageSmootOpacityChanger), nameof(Awake), _image);
-
         _targetOpacity = _image.color.a;
         _waitDelay = new WaitForSeconds(_startDelay);
     }

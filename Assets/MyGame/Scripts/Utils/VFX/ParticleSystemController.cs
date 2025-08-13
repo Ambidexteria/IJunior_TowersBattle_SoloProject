@@ -5,11 +5,6 @@ public class ParticleSystemController : MonoBehaviour
     [SerializeField] private ParticleSystem _particleSystem;
     [SerializeField] private AudioSource _soundEffect;
 
-    private void Awake()
-    {
-        ExceptionsTest.NullRefConstructorTest(nameof(ParticleSystemController), nameof(Awake), _particleSystem, _soundEffect);
-    }
-
     [ContextMenu(nameof(Play))]
     public void Play()
     {

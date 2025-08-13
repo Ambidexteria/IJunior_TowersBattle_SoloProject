@@ -14,9 +14,6 @@ public class FactoriesMonoInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
-        ExceptionsTest.NullRefMethodTest(nameof(FactoriesMonoInstaller), nameof(InstallBindings), _projectilesParent, _soldierPrefab,
-            _projectilePrefab, _cannonProjectilePrefab, _projectileSpawnerSettings, _cannonProjectileSpawnerSettings);
-
         Container.Bind<SoldierForDespawnDetector>().FromComponentInHierarchy().AsSingle().NonLazy();
         Container.BindFactory<SoldierSetup, GenericSpawnableObjectFactory<SoldierSetup>>().FromComponentInNewPrefab(_soldierPrefab).NonLazy();
 

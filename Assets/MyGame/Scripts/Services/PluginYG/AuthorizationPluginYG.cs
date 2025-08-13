@@ -1,6 +1,6 @@
 using YG;
 
-namespace Base.Services.PluginYG.Authorization
+namespace Base.Services.PluginYG
 {
     public class AuthorizationPluginYG
     {

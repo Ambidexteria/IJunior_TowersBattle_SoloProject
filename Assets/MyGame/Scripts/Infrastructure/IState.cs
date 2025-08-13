@@ -1,6 +1,4 @@
-﻿using Base.Data.Scenes;
-
-namespace Base.Infrastructure
+﻿namespace Base.Infrastructure
 {
     public interface IState : IExitableState
     {

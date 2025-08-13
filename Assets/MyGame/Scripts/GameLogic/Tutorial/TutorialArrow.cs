@@ -42,6 +42,7 @@ public class TutorialArrow : MonoBehaviour
         _sequence.Append(_arrow.rectTransform.DOAnchorPosY(_endPosition.y, _moveTime))
             .SetLoops(-1, LoopType.Yoyo)
             .SetEase(Ease.InOutSine);
+
         DOTween.Play(_sequence);
     }
 }

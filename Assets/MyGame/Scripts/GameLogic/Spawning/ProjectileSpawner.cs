@@ -2,12 +2,10 @@ using UnityEngine;
 
 public class ProjectileSpawner : GenericSpawner<Projectile>
 {
-    private Transform _parentObject;
+    private readonly Transform _parentObject;
 
     public ProjectileSpawner(SpawnerSettings settings, GenericSpawnableObjectFactory<Projectile> factory, Transform parentObject) : base(settings, factory)
     {
-        ExceptionsTest.NullRefConstructorTest(nameof(ProjectileSpawner), settings, factory, parentObject);
-
         _parentObject = parentObject;
     }
 

@@ -16,8 +16,6 @@ namespace Base.Services.SaveLoad
 
         public NewtonsoftJSONSaveLoadService(IPersisentDataService progressService)
         {
-            ExceptionsTest.NullRefConstructorTest(nameof(NewtonsoftJSONSaveLoadService), progressService);
-
             _dataService = progressService;
 
             _settings = new()

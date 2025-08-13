@@ -12,8 +12,6 @@ public class ButtonClickHandler : MonoBehaviour
     private void Awake()
     {
         _button = GetComponent<Button>();
-
-        ExceptionsTest.NullRefMethodTest(nameof(ButtonClickHandler), nameof(Awake), _button);
     }
 
     private void OnEnable()

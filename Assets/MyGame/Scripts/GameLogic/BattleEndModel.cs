@@ -4,7 +4,6 @@ using Base.Infrastructure;
 using Base.PLayer;
 using Base.Services.Audio;
 using Base.Services.PluginYG;
-using Base.Services.PluginYG.LeaderBoard;
 using Base.Services.SaveLoad;
 using System;
 
@@ -27,8 +26,6 @@ namespace Base.GameLogic
         public BattleEndModel(Game game, Wallet wallet, ISaveLoadService saveLoadService, int winReward, int defeatReward,
             PlayerScore score, StagesData stagesData, AudioPlayerService audioPlayer)
         {
-            ExceptionsTest.NullRefConstructorTest(nameof(BattleEndModel), game, wallet, saveLoadService, score);
-
             _game = game;
             _wallet = wallet;
             _saveLoadService = saveLoadService;

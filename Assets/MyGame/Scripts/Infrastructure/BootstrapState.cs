@@ -32,7 +32,6 @@ namespace Base.Infrastructure
 
         public void Exit()
         {
-
         }
 
         private void EnsureYandexSDKInitialized()
@@ -42,15 +41,8 @@ namespace Base.Infrastructure
 
         private IEnumerator StartEnsureYandexSDKInitializedCoroutine()
         {
-            //bool enabled = false;
-
-            while (/*enabled == false || */YG2.isSDKEnabled == false)
-            {
+            while (YG2.isSDKEnabled == false)
                 yield return null;
-
-                //if (_input.Debug.ContinueLoading.IsPressed())
-                //    enabled = true;
-            }
 
             SendMetrics();
             EnterLoadProgressState();

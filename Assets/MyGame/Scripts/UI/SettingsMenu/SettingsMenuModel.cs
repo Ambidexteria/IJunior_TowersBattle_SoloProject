@@ -8,6 +8,10 @@ namespace Base.UI.Settings
 {
     public class SettingsMenuModel
     {
+        private const string LanguageCodeRU = "ru";
+        private const string LanguageCodeEN = "en";
+        private const string LanguageCodeTR = "tr";
+
         private readonly IAudioVolumeControllerService _volumeController;
         private readonly ISaveLoadService _saveLoadService;
         private readonly GameSettings _gameSettings;
@@ -17,8 +21,6 @@ namespace Base.UI.Settings
         public SettingsMenuModel(IAudioVolumeControllerService volumeController, ISaveLoadService saveLoadService,
             GameSettings gameSettings, ILocalizationService localizationService)
         {
-            ExceptionsTest.NullRefConstructorTest(nameof(SettingsMenuModel), volumeController, saveLoadService);
-
             _volumeController = volumeController;
             _saveLoadService = saveLoadService;
             _gameSettings = gameSettings;
@@ -30,17 +32,17 @@ namespace Base.UI.Settings
 
         public void SetRussianLanguage()
         {
-            _localizationService.SetLanguage("ru");
+            _localizationService.SetLanguage(LanguageCodeRU);
         }
 
         public void SetEnglishLanguage()
         {
-            _localizationService.SetLanguage("en");
+            _localizationService.SetLanguage(LanguageCodeEN);
         }
 
         public void SetTurkishLanguage()
         {
-            _localizationService.SetLanguage("tr");
+            _localizationService.SetLanguage(LanguageCodeTR);
         }
 
         public void ToggleMute(bool value)

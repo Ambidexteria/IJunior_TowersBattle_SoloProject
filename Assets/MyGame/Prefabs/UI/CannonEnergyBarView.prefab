@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 323635931587820979}
   - component: {fileID: 4855925325017860108}
   - component: {fileID: 2296267427348707554}
-  - component: {fileID: 2247491180229651089}
   m_Layer: 5
   m_Name: Fill
   m_TagString: Untagged
@@ -76,18 +75,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2247491180229651089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599588257276256266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32ea011df97f9c04c9fdcb961b4289de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3160033722885174162
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,7 +278,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sliderValueChanger: {fileID: 3035501693565824051}
-  _textMeshProUGUI: {fileID: 2623556571688506377}
 --- !u!1001 &547790469986555909
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -408,7 +394,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4441832734938729266, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
       propertyPath: m_fontSize
-      value: 18
+      value: 29.7
       objectReference: {fileID: 0}
     - target: {fileID: 4441832734938729266, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
       propertyPath: m_fontAsset
@@ -511,17 +497,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
---- !u!114 &2623556571688506377 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4441832734938729266, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}
-  m_PrefabInstance: {fileID: 1858915290438115131}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &2623556571688506382 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4441832734938729269, guid: 2e91dcc83e7f14c468e42d2d592917c1, type: 3}

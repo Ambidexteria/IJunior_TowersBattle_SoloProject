@@ -18,11 +18,6 @@ public class Projectile : SpawnableObject
 
     public event Action<Projectile> Despawning;
 
-    private void Awake()
-    {
-        ExceptionsTest.NullRefMethodTest(nameof(Projectile), nameof(Awake), _rigidbody);
-    }
-
     private void OnEnable()
     {
         _currentTime = 0f;
@@ -40,8 +35,6 @@ public class Projectile : SpawnableObject
 
     private void OnTriggerEnter(Collider other)
     {
-        ExceptionsTest.NullRefMethodTest(nameof(Projectile), nameof(OnTriggerEnter), other);
-
         if (other.TryGetComponent(out SoldierSetup setup))
         {
             if (setup.GetSoldier().GetTeam() != _team)

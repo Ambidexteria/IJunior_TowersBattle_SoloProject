@@ -1,5 +1,3 @@
-using System;
-
 namespace Base.UI.Settings
 {
     public class SettingsMenuPresenter
@@ -9,8 +7,6 @@ namespace Base.UI.Settings
 
         public SettingsMenuPresenter(SettingsMenuView view, SettingsMenuModel model)
         {
-            ExceptionsTest.NullRefConstructorTest(nameof(SettingsMenuPresenter), view, model);
-
             _view = view;
             _model = model;
         }

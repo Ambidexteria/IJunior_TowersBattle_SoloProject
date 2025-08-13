@@ -37,14 +37,10 @@ namespace Base.Services.Factories.Game
         [Inject]
         private void Init(Infrastructure.Game game, AssetLoader assetLoader, ICoroutineRunner coroutineRunner,
             CannonProjectileSpawner projectileSpawner, TeamColorChanger colorChanger,
-            ControlPointDatabase controlPointDatabase,
-            SceneChanger sceneChanger, IPersisentDataService dataService,
+            ControlPointDatabase controlPointDatabase, IPersisentDataService dataService,
             ISaveLoadService saveLoadService, GenericSpawnableObjectFactory<SoldierSetup> soldierFactory,
             AudioPlayerService audioPlayer)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(NPCFactory), nameof(Init), game, assetLoader, coroutineRunner,
-                projectileSpawner, colorChanger,controlPointDatabase,sceneChanger, dataService, saveLoadService, soldierFactory);
-
             _coroutineRunner = coroutineRunner;
             _assetLoader = assetLoader;
             _projectileSpawner = projectileSpawner;
@@ -56,18 +52,9 @@ namespace Base.Services.Factories.Game
             _audioPlayer = audioPlayer;
         }
 
-        private void Awake()
-        {
-            ExceptionsTest.NullRefMethodTest(nameof(NPCFactory), nameof(Awake),_spawnerSettings,
-                _soldierDespawnDetector, _npcHealthSetup,_cannonEnergyRateSetup,_npcSpawnControllerSetup);
-        }
-
         public NPC CreateNPC(Team team, CannonModel cannon, CannonData cannonData, SoldierData soldierData, 
             Transform soldierSpawnPoint)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(NPCFactory), nameof(CreateNPC), team, cannon, 
-                cannonData, soldierData, soldierSpawnPoint);
-
             CannonEnergyBarModel energyBar = new(team, _controlPointDatabase, cannonData.MaxEnergy, _coroutineRunner);
 
             _cannonEnergyRateSetup.Create(energyBar);

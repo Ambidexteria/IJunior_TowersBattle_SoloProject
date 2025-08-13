@@ -13,14 +13,7 @@ namespace Base.UI.StageSelection
         [SerializeField] private TextMeshProUGUI _stageName;
         [SerializeField] private ButtonClickHandler _button;
 
-        public string StageName => _stageName.text;
-
         public event Action<StageIconView> Clicked;
-
-        private void Awake()
-        {
-            ExceptionsTest.NullRefMethodTest(nameof(StageIconView), nameof(Awake), _icon, _lock, _border, _stageName, _button);
-        }
 
         private void OnEnable()
         {

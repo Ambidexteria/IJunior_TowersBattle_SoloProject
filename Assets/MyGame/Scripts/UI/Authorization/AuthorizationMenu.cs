@@ -11,18 +11,14 @@ public class AuthorizationMenu : MonoBehaviour
 
     public void Init(MainMenuUIStateMachine stateMachine)
     {
-        ExceptionsTest.NullRefMethodTest(nameof(AuthorizationMenu), nameof(Init), stateMachine);
-
         _stateMachine = stateMachine;
-    }
-
-    private void Awake()
-    {
-        ExceptionsTest.NullRefMethodTest(nameof(AuthorizationMenu), nameof(Awake), _confirmButton, _cancelButton);
     }
 
     private void OnEnable()
     {
+        if (_stateMachine == null)
+            throw new System.NullReferenceException(nameof(AuthorizationMenu));
+
         _confirmButton.Clicked += OnConfirmButtonClicked;
         _cancelButton.Clicked += OnCancelButtonCliked;
     }

@@ -16,8 +16,6 @@ public class SoldierSpawner : GenericSpawner<SoldierSetup>
     public SoldierSpawner(Team team,  SoldierData stats, ICoroutineRunner coroutineRunner, TeamColorChanger colorChanger, SpawnerSettings settings, 
         GenericSpawnableObjectFactory<SoldierSetup> factory, AudioPlayerService audioPlayer) : base(settings, factory) 
     {
-        ExceptionsTest.NullRefConstructorTest(nameof(SoldierSpawner), team, stats, coroutineRunner, colorChanger, settings, factory);
-
         _team = team;
         _stats = stats;
         _coroutineRunner = coroutineRunner;

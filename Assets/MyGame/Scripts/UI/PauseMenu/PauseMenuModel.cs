@@ -1,28 +1,24 @@
-using Base.Services.SceneManagment;
-using Base.Services.TimeManagment;
+using Base.Infrastructure;
 
 namespace Base.UI.PauseMenu
 {
     public class PauseMenuModel
     {
-        private readonly TimeController _timeController;
-        private readonly SceneChanger _sceneChanger;
+        private readonly Game _game;
 
-        public PauseMenuModel(SceneChanger sceneChanger)
+        public PauseMenuModel(Game game)
         {
-            ExceptionsTest.NullRefConstructorTest(nameof(PauseMenuModel), sceneChanger);
-
-            _sceneChanger = sceneChanger;
+            _game = game;
         }
 
         public void RestartLevel()
         {
-            _sceneChanger.ReloadGameScene();
+            _game.LoadGameScene();
         }
 
         public void ReturnToMainMenu()
         {
-            _sceneChanger.ReturnToMainMenu();
+            _game.LoadMainMenu();
         }
     }
 }

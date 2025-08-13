@@ -9,19 +9,6 @@ public class SliderValueChanger : MonoBehaviour
 
     public Action<float> ValueChanged;
 
-    public float Value => _slider.value;
-    public float MinValue => _slider.minValue;
-    public float MaxValue => _slider.maxValue;
-
-    public RectTransform RectTransform => _slider.image.rectTransform;
-
-    private void Awake()
-    {
-        _slider = GetComponent<Slider>();
-
-        ExceptionsTest.NullRefMethodTest(nameof(SliderValueChanger), nameof(Awake), _slider);
-    }
-
     private void OnEnable()
     {
         _slider.onValueChanged.AddListener(OnValueChanged);

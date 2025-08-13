@@ -16,8 +16,6 @@ namespace Base.GameLogic
         public BattleController(Player player, NPC npc, GameUIStateMachine uIStateMachine, BattleEndModel battleEnd, 
             TimeController timeController, RestoreHealthForRewardAdsModel restoreHealthForRewardAds)
         {
-            ExceptionsTest.NullRefConstructorTest(nameof(BattleController), player, npc, uIStateMachine, battleEnd);
-
             _player = player;
             _npc = npc;
             _uIStateMachine = uIStateMachine;

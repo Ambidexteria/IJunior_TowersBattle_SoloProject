@@ -11,11 +11,6 @@ namespace Base
         public event Action RestartLevelButtonClicked;
         public event Action ReturnToMainMenuButtonClicked;
 
-        private void Awake()
-        {
-            ExceptionsTest.NullRefMethodTest(nameof(PauseMenuView), nameof(Awake), _restartLevelButton, _returnToMainMenuButton);
-        }
-
         public void Enable()
         {
             _restartLevelButton.Clicked += RestartLevelButtonClicked;

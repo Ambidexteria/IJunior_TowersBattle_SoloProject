@@ -4,8 +4,8 @@ using Zenject;
 
 public abstract class GenericSpawner<Type> where Type : SpawnableObject
 {
-    private int _poolDefaultCapacity = 20;
-    private int _poolMaxSize = 100;
+    private readonly int _poolDefaultCapacity = 20;
+    private readonly int _poolMaxSize = 100;
 
     private ObjectPool<Type> _pool;
     private GenericSpawnableObjectFactory<Type> _factory;
@@ -15,8 +15,6 @@ public abstract class GenericSpawner<Type> where Type : SpawnableObject
     [Inject]
     public GenericSpawner(SpawnerSettings settings, GenericSpawnableObjectFactory<Type> factory)
     {
-        ExceptionsTest.NullRefConstructorTest(nameof(GenericSpawner<Type>), settings, factory);
-
         _poolDefaultCapacity = settings.poolDefaultCapacity;
         _poolMaxSize = settings.poolMaxSize;
         _factory = factory;
@@ -32,8 +30,6 @@ public abstract class GenericSpawner<Type> where Type : SpawnableObject
 
     public void Despawn(Type spawnableObject)
     {
-        ExceptionsTest.NullRefConstructorTest(nameof(GenericSpawner<Type>), spawnableObject);
-
         PrepareForDespawn(ref spawnableObject);
         _pool.Release(spawnableObject);
     }

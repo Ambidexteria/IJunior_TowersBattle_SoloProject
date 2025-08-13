@@ -9,8 +9,6 @@ public class UIEffectsSpawner : MonoBehaviour
 
     private void Awake()
     {
-        ExceptionsTest.NullRefMethodTest(nameof(UIEffectsSpawner), nameof(Awake), _effectController);
-
         Vector3 direction = Camera.main.transform.forward;
 
         _position = Camera.main.transform.position + direction * _distanceFromCamera;
