@@ -49,6 +49,8 @@ namespace Base.UI.StageSelection
                 StageIconSetup setup = Instantiate(_iconPrefab);
                 _stageIconSetups.Add(setup);
                 setup.transform.SetParent(_iconsParentObject);
+                setup.transform.localScale = Vector3.one;
+
                 icons.Add(setup.CreateModel(_iconsDatabase.GetStageIcon(stageInfo.IconName), stageInfo.Unlocked, stageInfo.StageName));
             }
 
