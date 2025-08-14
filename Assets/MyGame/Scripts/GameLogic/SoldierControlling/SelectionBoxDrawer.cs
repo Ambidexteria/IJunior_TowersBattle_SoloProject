@@ -24,7 +24,7 @@ public class SelectionBoxDrawer : MonoBehaviour
 
     public void Draw(Vector3 firstPosition, Vector3 secondPosition)
     {
-        if(_initialized == false)
+        if (_initialized == false)
             throw new InvalidOperationException(nameof(Draw));
 
         _firstPosition = firstPosition;
@@ -36,10 +36,12 @@ public class SelectionBoxDrawer : MonoBehaviour
 
     public void Stop()
     {
-        if(_drawSelectionBoxCoroutine != null)
+        if (_drawSelectionBoxCoroutine != null)
         {
             _coroutineRunner.EndCoroutine(_drawSelectionBoxCoroutine);
-            _selectionBorder.enabled = false;
+
+            if (_selectionBorder != null)
+                _selectionBorder.enabled = false;
         }
     }
 

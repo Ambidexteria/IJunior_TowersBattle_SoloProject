@@ -1,4 +1,7 @@
+using Base.Services.PersistentProgress;
+using Base.Services.SaveLoad;
 using UnityEngine;
+using Zenject;
 
 namespace Base.GameLogic
 {
@@ -9,25 +12,48 @@ namespace Base.GameLogic
         [SerializeField] private ButtonClickHandler _changeCameraPositionButton;
 
         private int _positionIndex = 0;
+        private ISaveLoadService _saveLoadService;
+        private IPersisentDataService _dataService;
+
+        [Inject]
+        private void Init(ISaveLoadService saveLoadService, IPersisentDataService dataService)
+        {
+            _saveLoadService = saveLoadService;
+            _dataService = dataService;
+        }
+
+        private void Awake()
+        {
+            _positionIndex = _dataService.GameData.GameSettings.CameraPosition;
+            MoveTo(_positionIndex);
+        }
 
         private void OnEnable()
         {
-            _changeCameraPositionButton.Clicked += MoveToNextPosition;
+            _changeCameraPositionButton.Clicked += ChangePositionIndex;
         }
 
         private void OnDisable()
         {
-            _changeCameraPositionButton.Clicked -= MoveToNextPosition;
+            _changeCameraPositionButton.Clicked -= ChangePositionIndex;
         }
 
-        private void MoveToNextPosition()
+        private void ChangePositionIndex()
         {
             if (_positionIndex + 1 == _positions.Length)
                 _positionIndex = 0;
             else
                 _positionIndex += 1;
 
-            Transform transform = _positions[_positionIndex];
+            _dataService.GameData.GameSettings.CameraPosition = _positionIndex;
+            _saveLoadService.SaveProgress();
+
+            MoveTo(_positionIndex);
+        }
+
+        private void MoveTo(int positionIndex)
+        {
+            Transform transform = _positions[positionIndex];
 
             _camera.transform.SetPositionAndRotation(transform.position, transform.rotation);
         }

@@ -7,7 +7,6 @@ using Base.Services.Audio;
 using Base.Services.TimeManagment;
 using Base.Soldier;
 using UnityEngine;
-using UnityEngine.UI;
 using Zenject;
 
 namespace Base.Services.Factories.Game

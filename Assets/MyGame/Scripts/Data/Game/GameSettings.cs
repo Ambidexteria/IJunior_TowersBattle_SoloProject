@@ -8,12 +8,14 @@ namespace Base.Data.Game
         public AudioVolumeSettings AudioVolumeSettings;
         public string Language;
         public bool TutorialEnabled;
+        public int CameraPosition;
 
         public GameSettings()
         {
             AudioVolumeSettings = new();
             Language = "ru";
             TutorialEnabled = true;
+            CameraPosition = 0;
         }
     }
 }

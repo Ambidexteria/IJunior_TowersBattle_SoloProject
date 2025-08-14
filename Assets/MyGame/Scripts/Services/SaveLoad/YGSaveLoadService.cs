@@ -30,16 +30,23 @@ namespace Base.Services.SaveLoad
 
             string json = YG2.saves.JSONGameData ??= string.Empty;
 
+            Debug.Log($"JSON string before");
+            Debug.Log(json);
+
             if (json != string.Empty)
                 if (json[1] == 'n')
                     json = ConvertJsonString(json);
+
+            Debug.Log($"JSON string after");
+            Debug.Log(json);
 
             try
             {
                 gameData = JsonConvert.DeserializeObject<GameData>(json, _settings);
             }
-            catch (JsonSerializationException)
+            catch (JsonException)
             {
+                Debug.LogWarning($"EXCIPTION CATCHED: {nameof(JsonException)}");
                 gameData = null;
             }
 

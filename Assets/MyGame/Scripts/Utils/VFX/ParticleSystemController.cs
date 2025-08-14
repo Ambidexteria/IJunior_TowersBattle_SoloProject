@@ -8,7 +8,8 @@ public class ParticleSystemController : MonoBehaviour
     [ContextMenu(nameof(Play))]
     public void Play()
     {
-        _particleSystem?.Play();
+        if (_particleSystem != null)
+            _particleSystem?.Play();
 
         if (_soundEffect != null)
             _soundEffect.Play();
@@ -16,7 +17,8 @@ public class ParticleSystemController : MonoBehaviour
 
     public void Stop()
     {
-        _particleSystem?.Stop();
+        if (_particleSystem != null)
+            _particleSystem.Stop();
 
         if (_soundEffect != null)
             _soundEffect.Stop();

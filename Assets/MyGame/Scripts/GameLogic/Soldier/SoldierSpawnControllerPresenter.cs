@@ -16,6 +16,11 @@ namespace Base.Soldier
             _model.TimeBeforeNextSpawnChanged += OnSpawnTimeChanged;
         }
 
+        public void Disable()
+        {
+            _model.TimeBeforeNextSpawnChanged -= OnSpawnTimeChanged;
+        }
+
         private void OnSpawnTimeChanged(float time)
         {
             _view.Display(time);

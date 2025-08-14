@@ -18,13 +18,13 @@ namespace Base.GameLogic.ShootMinigame
 
         public void Enable()
         {
-            _particleSystemController?.Play();
+            _particleSystemController.Play();
             _animator.Play(Scale);
         }
 
         public void Disable()
         {
-            _particleSystemController?.Stop();
+            _particleSystemController.Stop();
         }
     }
 }

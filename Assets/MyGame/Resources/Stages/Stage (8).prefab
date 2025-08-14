@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7329604951158679173
 Transform:
@@ -77,6 +77,10 @@ PrefabInstance:
     - target: {fileID: 179588, guid: 65f0fe14b112de24abab304250ff4981, type: 3}
       propertyPath: m_Name
       value: Tree Stump (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 179588, guid: 65f0fe14b112de24abab304250ff4981, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 409660, guid: 65f0fe14b112de24abab304250ff4981, type: 3}
       propertyPath: m_LocalScale.x
@@ -156,6 +160,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Snowy Tree (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 426622, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_LocalScale.x
       value: 70.5475
@@ -233,6 +241,10 @@ PrefabInstance:
     - target: {fileID: 179588, guid: 65f0fe14b112de24abab304250ff4981, type: 3}
       propertyPath: m_Name
       value: Tree Stump (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 179588, guid: 65f0fe14b112de24abab304250ff4981, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 409660, guid: 65f0fe14b112de24abab304250ff4981, type: 3}
       propertyPath: m_LocalScale.x
@@ -312,6 +324,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Snowy Tree (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 426622, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_LocalScale.x
       value: 70.5475
@@ -389,6 +405,10 @@ PrefabInstance:
     - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_Name
       value: Snowy Tree (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 426622, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_LocalScale.x
@@ -468,6 +488,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gift 2
       objectReference: {fileID: 0}
+    - target: {fileID: 153782, guid: 25ce4f8573beb9a479a78cae763615ca, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 470166, guid: 25ce4f8573beb9a479a78cae763615ca, type: 3}
       propertyPath: m_LocalScale.x
       value: 109
@@ -545,6 +569,10 @@ PrefabInstance:
     - target: {fileID: 179588, guid: 65f0fe14b112de24abab304250ff4981, type: 3}
       propertyPath: m_Name
       value: Tree Stump (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 179588, guid: 65f0fe14b112de24abab304250ff4981, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 409660, guid: 65f0fe14b112de24abab304250ff4981, type: 3}
       propertyPath: m_LocalScale.x
@@ -624,6 +652,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Snowy Tree
       objectReference: {fileID: 0}
+    - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 426622, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_LocalScale.x
       value: 70.5475
@@ -701,6 +733,10 @@ PrefabInstance:
     - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_Name
       value: Snowy Tree (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 426622, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_LocalScale.x
@@ -780,6 +816,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Snowy Tree (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 426622, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_LocalScale.x
       value: 70.5475
@@ -857,6 +897,10 @@ PrefabInstance:
     - target: {fileID: 173242, guid: c52f7dacd4ce7214c82655f262aeb584, type: 3}
       propertyPath: m_Name
       value: Snowman
+      objectReference: {fileID: 0}
+    - target: {fileID: 173242, guid: c52f7dacd4ce7214c82655f262aeb584, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 487304, guid: c52f7dacd4ce7214c82655f262aeb584, type: 3}
       propertyPath: m_LocalScale.x
@@ -936,6 +980,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Snowy Tree (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 426622, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_LocalScale.x
       value: 70.5475
@@ -1014,6 +1062,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Nutcracker Large
       objectReference: {fileID: 0}
+    - target: {fileID: 103914, guid: 2bddc876ee3f1da4dadf48a0c5540526, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 476702, guid: 2bddc876ee3f1da4dadf48a0c5540526, type: 3}
       propertyPath: m_LocalScale.x
       value: 273.625
@@ -1088,10 +1140,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 465214192126445949, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 653566477143012068, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058330635334818007, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1134442635027484396, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1140507525347250769, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1149422564610537932, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 1534914600268440736, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 56e36346ba362a54a915161c3c057ed8, type: 2}
+    - target: {fileID: 1888715225466245849, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 1951106363721609474, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.66
@@ -1099,6 +1179,18 @@ PrefabInstance:
     - target: {fileID: 1951106363721609474, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
       propertyPath: m_LocalPosition.z
       value: -4.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 1956739230484727010, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1966392896122361951, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2127965500153821418, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2184397072747602051, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1144,6 +1236,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 1ab1f8c0e94b74f428c37eb48419f834, type: 2}
+    - target: {fileID: 2776574720945119960, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 3227359859382183619, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.65
@@ -1151,6 +1247,18 @@ PrefabInstance:
     - target: {fileID: 3227359859382183619, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
       propertyPath: m_LocalPosition.z
       value: 1.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 3607873245480577238, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3616893730488255307, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3628904809755811830, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 3661629570820790132, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1160,6 +1268,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.29
       objectReference: {fileID: 0}
+    - target: {fileID: 3696855207647840717, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 3770030662661882643, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.93
@@ -1167,6 +1279,10 @@ PrefabInstance:
     - target: {fileID: 3770030662661882643, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
       propertyPath: m_LocalPosition.z
       value: -2.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 3815607842675287038, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 3839984176615056141, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1176,6 +1292,90 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.55
       objectReference: {fileID: 0}
+    - target: {fileID: 3845253850395850221, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5048468117826334982, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5308259622496890146, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5368224782434915723, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5395543293305840375, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5486185595563770434, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5498724337296154367, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5575121182430169284, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5925473478641923061, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5932998442553421640, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942752945008461607, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6000929052448471411, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6008767256894039865, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6105452708849723282, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6113444071815756591, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6115167973999578378, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6123074741709230912, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6170326528810223500, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6180904022000479508, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6182557544725322545, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6288052953038921742, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 6883912022488173413, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.1
@@ -1184,9 +1384,33 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 4.21
       objectReference: {fileID: 0}
+    - target: {fileID: 7335174013518198456, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7507770586922230565, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521925473477983499, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7600023345204419861, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 8014401307825567440, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
       propertyPath: m_LocalPosition.z
       value: -2.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 8068720653572360562, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8205700013046331589, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8646417493567827453, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
       propertyPath: m_Name
@@ -1196,6 +1420,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8646417493567827453, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8684286160113322724, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 8908469577069657310, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.19
@@ -1203,6 +1435,10 @@ PrefabInstance:
     - target: {fileID: 8908469577069657310, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
       propertyPath: m_LocalPosition.z
       value: 1.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 8909492854810347337, guid: 63fe2735bb4ac2740bfbfa4770e942fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1228,6 +1464,10 @@ PrefabInstance:
     - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_Name
       value: Snowy Tree (21)
+      objectReference: {fileID: 0}
+    - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 426622, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_LocalScale.x
@@ -1307,6 +1547,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Snowy Tree (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 426622, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_LocalScale.x
       value: 70.5475
@@ -1384,6 +1628,10 @@ PrefabInstance:
     - target: {fileID: 162420, guid: b7dc2eeb6e3159542b65a9a52f0d686c, type: 3}
       propertyPath: m_Name
       value: Sledge
+      objectReference: {fileID: 0}
+    - target: {fileID: 162420, guid: b7dc2eeb6e3159542b65a9a52f0d686c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 448436, guid: b7dc2eeb6e3159542b65a9a52f0d686c, type: 3}
       propertyPath: m_LocalScale.x
@@ -1466,6 +1714,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Snowy Tree (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 426622, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_LocalScale.x
       value: 70.5475
@@ -1543,6 +1795,10 @@ PrefabInstance:
     - target: {fileID: 179588, guid: 65f0fe14b112de24abab304250ff4981, type: 3}
       propertyPath: m_Name
       value: Tree Stump (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 179588, guid: 65f0fe14b112de24abab304250ff4981, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 409660, guid: 65f0fe14b112de24abab304250ff4981, type: 3}
       propertyPath: m_LocalScale.x
@@ -1622,6 +1878,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Snowy Tree (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 426622, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_LocalScale.x
       value: 81.549995
@@ -1699,6 +1959,10 @@ PrefabInstance:
     - target: {fileID: 179588, guid: 65f0fe14b112de24abab304250ff4981, type: 3}
       propertyPath: m_Name
       value: Tree Stump (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 179588, guid: 65f0fe14b112de24abab304250ff4981, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 409660, guid: 65f0fe14b112de24abab304250ff4981, type: 3}
       propertyPath: m_LocalScale.x
@@ -1778,6 +2042,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Snowy Tree (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 426622, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_LocalScale.x
       value: 70.5475
@@ -1855,6 +2123,10 @@ PrefabInstance:
     - target: {fileID: 179588, guid: 65f0fe14b112de24abab304250ff4981, type: 3}
       propertyPath: m_Name
       value: Tree Stump
+      objectReference: {fileID: 0}
+    - target: {fileID: 179588, guid: 65f0fe14b112de24abab304250ff4981, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 409660, guid: 65f0fe14b112de24abab304250ff4981, type: 3}
       propertyPath: m_LocalScale.x
@@ -1934,6 +2206,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Snowy Tree (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 426622, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_LocalScale.x
       value: 70.5475
@@ -2011,6 +2287,10 @@ PrefabInstance:
     - target: {fileID: 109546, guid: 3cde6b8d4b8f4c946857c4628c10d665, type: 3}
       propertyPath: m_Name
       value: Gift 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 109546, guid: 3cde6b8d4b8f4c946857c4628c10d665, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 459376, guid: 3cde6b8d4b8f4c946857c4628c10d665, type: 3}
       propertyPath: m_LocalScale.x
@@ -2090,6 +2370,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Snowy Tree (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 426622, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_LocalScale.x
       value: 70.5475
@@ -2167,6 +2451,10 @@ PrefabInstance:
     - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_Name
       value: Snowy Tree (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 426622, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_LocalScale.x
@@ -2246,6 +2534,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Snowy Tree (20)
       objectReference: {fileID: 0}
+    - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 426622, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_LocalScale.x
       value: 70.5475
@@ -2323,6 +2615,10 @@ PrefabInstance:
     - target: {fileID: 136330, guid: e9ad3f87b48c5e8499f954cd6c4f0c8c, type: 3}
       propertyPath: m_Name
       value: Dead Tree
+      objectReference: {fileID: 0}
+    - target: {fileID: 136330, guid: e9ad3f87b48c5e8499f954cd6c4f0c8c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 488526, guid: e9ad3f87b48c5e8499f954cd6c4f0c8c, type: 3}
       propertyPath: m_LocalScale.x
@@ -2402,6 +2698,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gift 3
       objectReference: {fileID: 0}
+    - target: {fileID: 192700, guid: 9675245c4464bf74ebc4eac2ed9a24e7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 430732, guid: 9675245c4464bf74ebc4eac2ed9a24e7, type: 3}
       propertyPath: m_LocalScale.x
       value: 116.07
@@ -2479,6 +2779,10 @@ PrefabInstance:
     - target: {fileID: 136330, guid: e9ad3f87b48c5e8499f954cd6c4f0c8c, type: 3}
       propertyPath: m_Name
       value: Dead Tree (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 136330, guid: e9ad3f87b48c5e8499f954cd6c4f0c8c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 488526, guid: e9ad3f87b48c5e8499f954cd6c4f0c8c, type: 3}
       propertyPath: m_LocalScale.x
@@ -2558,6 +2862,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Snowy Tree (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 426622, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_LocalScale.x
       value: 70.5475
@@ -2635,6 +2943,10 @@ PrefabInstance:
     - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_Name
       value: Snowy Tree (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 426622, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_LocalScale.x
@@ -2714,6 +3026,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree Stump (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 179588, guid: 65f0fe14b112de24abab304250ff4981, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 409660, guid: 65f0fe14b112de24abab304250ff4981, type: 3}
       propertyPath: m_LocalScale.x
       value: 54.25
@@ -2791,6 +3107,10 @@ PrefabInstance:
     - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_Name
       value: Snowy Tree (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 426622, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_LocalScale.x
@@ -2870,6 +3190,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Snowy Tree (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 154284, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 426622, guid: 2f87fc7da1871764a9567af5a82d7402, type: 3}
       propertyPath: m_LocalScale.x
       value: 70.5475
@@ -2947,6 +3271,10 @@ PrefabInstance:
     - target: {fileID: 146810, guid: a939997fcc06e504fafb1a1fadb3c0f2, type: 3}
       propertyPath: m_Name
       value: Glowing Tree
+      objectReference: {fileID: 0}
+    - target: {fileID: 146810, guid: a939997fcc06e504fafb1a1fadb3c0f2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 421308, guid: a939997fcc06e504fafb1a1fadb3c0f2, type: 3}
       propertyPath: m_LocalScale.x

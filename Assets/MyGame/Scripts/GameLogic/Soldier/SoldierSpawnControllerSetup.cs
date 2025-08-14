@@ -11,6 +11,11 @@ namespace Base.Soldier
         private SoldierSpawnControllerModel _model;
         private SoldierSpawnControllerPresenter _presenter;
 
+        private void OnDisable()
+        {
+            _presenter?.Disable();
+        }
+
         public SoldierSpawnControllerModel CreateModel(float startDelay, float spawnDelay, float spawnRadius, Transform spawnPoint,
             SoldierForDespawnDetector despawnDetector, Team team, SoldierSpawner spawner,
             ICoroutineRunner coroutineRunner)
