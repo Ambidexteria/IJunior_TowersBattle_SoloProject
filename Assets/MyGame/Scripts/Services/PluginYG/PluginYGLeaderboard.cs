@@ -5,7 +5,7 @@ namespace Base.Services.PluginYG
 {
     public class PluginYGLeaderboard
     {
-        private const string BoardName = "TEST";
+        private const string BoardName = "GENERAL";
 
         private readonly PlayerScore _playerScore;
 
