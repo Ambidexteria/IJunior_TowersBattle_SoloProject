@@ -1,11 +1,11 @@
 using Base.GameLogic.UpgradeSystem;
+using Base.Infrastructure;
 using Base.PLayer;
 using Base.Services.Audio;
 using Base.Services.Localization;
 using Base.Services.PersistentProgress;
 using Base.Services.SaveLoad;
 using Base.Services.TimeManagment;
-using Base.Shop;
 using Base.UI.Settings;
 using Base.UI.StateMachine;
 using Base.UI.StateMachine.States;
@@ -52,12 +52,13 @@ namespace Base.Services.Factories.UI
         private Infrastructure.Game _game;
         private ILocalizationService _localizationService;
         private AudioPlayerService _auidoPlayer;
+        private LoadingCurtain _loadingCurtain;
 
         [Inject]
         private void Init(TimeController timeController, Wallet wallet, RegularUpgradeSystem upgradeSystem,
             ISaveLoadService saveLoadService, IPersisentDataService dataService,
             IAudioVolumeControllerService volumeControllerService, Infrastructure.Game game,
-            ILocalizationService localizationService, AudioPlayerService audioPlayer)
+            ILocalizationService localizationService, AudioPlayerService audioPlayer, LoadingCurtain loadingCurtain)
         {
             ExceptionsTest.NullRefMethodTest(nameof(MainMenuUIFactory), nameof(Init), timeController, wallet, upgradeSystem,
                 saveLoadService, dataService, volumeControllerService, game, localizationService);
@@ -71,6 +72,7 @@ namespace Base.Services.Factories.UI
             _game = game;
             _localizationService = localizationService;
             _auidoPlayer = audioPlayer;
+            _loadingCurtain = loadingCurtain;
         }
 
         private void Awake()
@@ -106,6 +108,8 @@ namespace Base.Services.Factories.UI
             _closeLeaderboardButton.Clicked += OnCloseWindowButtonClicked;
             _cancelResetProgressButton.Clicked += OnCloseWindowButtonClicked;
             _confirmResetProgressButton.Clicked += OnCloseWindowButtonClicked;
+
+            _loadingCurtain.Faded += OnLoadingCurtainFaded;
         }
 
         private void OnDisable()
@@ -124,6 +128,8 @@ namespace Base.Services.Factories.UI
             _closeLeaderboardButton.Clicked -= OnCloseWindowButtonClicked;
             _cancelResetProgressButton.Clicked -= OnCloseWindowButtonClicked;
             _confirmResetProgressButton.Clicked -= OnCloseWindowButtonClicked;
+
+            _loadingCurtain.Faded -= OnLoadingCurtainFaded;
         }
 
         private void CreateUIStateMachine()
@@ -137,6 +143,12 @@ namespace Base.Services.Factories.UI
         {
             _settingsSetup.CreateModel(_volumeControllerService, _saveLoadService, _dataService.GameData.GameSettings,
                 _localizationService);
+        }
+
+        private void OnLoadingCurtainFaded()
+        {
+            YG2.GameReadyAPI();
+            Debug.Log("Curtain faded, API loaded");
         }
 
         private void OnStartButtonClicked()

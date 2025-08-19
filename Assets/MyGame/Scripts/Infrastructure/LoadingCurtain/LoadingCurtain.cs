@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ namespace Base.Infrastructure
         [SerializeField] private CanvasGroup _curtain;
 
         private WaitForSeconds _wait;
+
+        public event Action Faded;
 
         private void Awake()
         {
@@ -41,6 +44,8 @@ namespace Base.Infrastructure
                 _curtain.alpha -= _fadeSpeed * Time.deltaTime;
                 yield return null;
             }
+
+            Faded?.Invoke();
 
             gameObject.SetActive(false);
         }

@@ -34,6 +34,7 @@ public class ResetProgressMenu : MonoBehaviour
         gameData.PlayerData.Upgrades = new();
         gameData.PlayerData.CannonData = new();
         gameData.PlayerData.SoldierData = new();
+        gameData.PlayerData.Score = new();
         gameData.StagesData = new();
         _persisentDataService.GameData = gameData;
 

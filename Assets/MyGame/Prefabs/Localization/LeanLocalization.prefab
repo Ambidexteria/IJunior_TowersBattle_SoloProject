@@ -656,13 +656,14 @@ MonoBehaviour:
   data: 0
   entries:
   - Language: English
-    Text: towers battle
+    Text: Towers Battle - Capture Territories
     Object: {fileID: 0}
   - Language: Russian
-    Text: "\u0431\u0438\u0442\u0432\u0430 \u0431\u0430\u0448\u0435\u043D"
+    Text: "\u0411\u0438\u0442\u0432\u0430 \u0411\u0430\u0448\u0435\u043D - \u0417\u0430\u0445\u0432\u0430\u0442
+      \u0422\u0435\u0440\u0440\u0438\u0442\u043E\u0440\u0438\u0439"
     Object: {fileID: 0}
   - Language: Turkish
-    Text: "kule sava\u015F\u0131"
+    Text: "Kuleler Sava\u015F\u0131 - Topraklar\u0131 Ele Ge\xE7ir"
     Object: {fileID: 0}
 --- !u!1 &3690812859942366615
 GameObject:

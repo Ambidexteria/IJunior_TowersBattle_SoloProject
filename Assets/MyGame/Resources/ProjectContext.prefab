@@ -568,7 +568,12 @@ MonoBehaviour:
   _soldierDeathSound: {fileID: 8027692744656744643}
   _soldierAnswerSounds:
   - {fileID: 8300000, guid: b05858202de0c2f4ea9e71bfdd61a7f0, type: 3}
+  - {fileID: 8300000, guid: b05858202de0c2f4ea9e71bfdd61a7f0, type: 3}
   - {fileID: 8300000, guid: 9e7b04dbf9fd5fe4f9940ea9b051132a, type: 3}
+  - {fileID: 8300000, guid: 9e7b04dbf9fd5fe4f9940ea9b051132a, type: 3}
+  - {fileID: 8300000, guid: 9e7b04dbf9fd5fe4f9940ea9b051132a, type: 3}
+  - {fileID: 8300000, guid: 8637f8f2d75700e40878507ac59d1b5d, type: 3}
+  - {fileID: 8300000, guid: 8637f8f2d75700e40878507ac59d1b5d, type: 3}
   - {fileID: 8300000, guid: 8637f8f2d75700e40878507ac59d1b5d, type: 3}
   _soldierAnswerSource: {fileID: 4186590698754146921}
   _soldierShootSource: {fileID: 1135462317769318964}
