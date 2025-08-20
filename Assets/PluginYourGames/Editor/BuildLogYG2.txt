@@ -1,3 +1,3 @@
-Build path: D:/UnityProjects/Builds/Dev/TowersBattle
-Build number: 19
+Build path: D:/Unity/@ Compiled/TowersBattle
+Build number: 20
 PluginYG version: 2.0042

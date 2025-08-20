@@ -1317,6 +1317,18 @@ PrefabInstance:
       propertyPath: _rewardCoinsAmount
       value: 
       objectReference: {fileID: 532890414}
+    - target: {fileID: 6387894086645860000, guid: d66cedab76d07dd48a0c7840326dd1e3, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 700
+      objectReference: {fileID: 0}
+    - target: {fileID: 6387894086645860000, guid: d66cedab76d07dd48a0c7840326dd1e3, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 330
+      objectReference: {fileID: 0}
+    - target: {fileID: 6387894086645860000, guid: d66cedab76d07dd48a0c7840326dd1e3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 214
+      objectReference: {fileID: 0}
     - target: {fileID: 6417801766225567965, guid: d66cedab76d07dd48a0c7840326dd1e3, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

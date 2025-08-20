@@ -767,13 +767,16 @@ MonoBehaviour:
   data: 0
   entries:
   - Language: English
-    Text: Do you want to authorize?
+    Text: Would you like to pass authorization to see records?
     Object: {fileID: 0}
   - Language: Russian
-    Text: "\u0416\u0435\u043B\u0430\u0435\u0442\u0435 \u0430\u0432\u0442\u043E\u0440\u0438\u0437\u043E\u0432\u0430\u0442\u044C\u0441\u044F?"
+    Text: "\u0416\u0435\u043B\u0430\u0435\u0442\u0435 \u043F\u0440\u043E\u0439\u0442\u0438
+      \u0430\u0432\u0442\u043E\u0440\u0438\u0437\u0430\u0446\u0438\u044E, \u0447\u0442\u043E\u0431\u044B
+      \u0443\u0432\u0438\u0434\u0435\u0442\u044C \u0440\u0435\u043A\u043E\u0440\u0434\u044B?"
     Object: {fileID: 0}
   - Language: Turkish
-    Text: Yetkilendirmek istiyor musunuz?
+    Text: "Kay\u0131tlar\u0131 g\xF6rmek i\xE7in yetkilendirmeyi ge\xE7mek ister
+      misiniz?"
     Object: {fileID: 0}
 --- !u!1 &5505959057253131895
 GameObject:
