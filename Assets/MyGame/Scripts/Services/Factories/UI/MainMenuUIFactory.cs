@@ -8,7 +8,6 @@ using Base.Services.SaveLoad;
 using Base.Services.TimeManagment;
 using Base.UI.Settings;
 using Base.UI.StateMachine;
-using Base.UI.StateMachine.States;
 using UnityEngine;
 using YG;
 using Zenject;
@@ -44,8 +43,6 @@ namespace Base.Services.Factories.UI
 
         private ISaveLoadService _saveLoadService;
         private TimeController _timeController;
-        private Wallet _wallet;
-        private RegularUpgradeSystem _upgradeSystem;
         private MainMenuUIStateMachine _stateMachine;
         private IPersisentDataService _dataService;
         private IAudioVolumeControllerService _volumeControllerService;
@@ -57,8 +54,6 @@ namespace Base.Services.Factories.UI
         [Inject]
         private void Init(
             TimeController timeController, 
-            Wallet wallet, 
-            RegularUpgradeSystem upgradeSystem,
             ISaveLoadService saveLoadService, 
             IPersisentDataService dataService,
             IAudioVolumeControllerService volumeControllerService, 
@@ -68,8 +63,6 @@ namespace Base.Services.Factories.UI
             LoadingCurtain loadingCurtain)
         {
             _timeController = timeController;
-            _wallet = wallet;
-            _upgradeSystem = upgradeSystem;
             _saveLoadService = saveLoadService;
             _dataService = dataService;
             _volumeControllerService = volumeControllerService;

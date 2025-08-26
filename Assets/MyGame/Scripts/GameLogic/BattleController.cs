@@ -6,7 +6,7 @@ namespace Base.GameLogic
 {
     public class BattleController
     {
-        private readonly global::Player _player;
+        private readonly Player _player;
         private readonly NPC _npc;
         private readonly GameUIStateMachine _uIStateMachine;
         private readonly BattleEndModel _battleEnd;
@@ -14,7 +14,7 @@ namespace Base.GameLogic
         private readonly RestoreHealthForRewardAdsModel _restoreHealthForRewardAds;
 
         public BattleController(
-            global::Player player, 
+            Player player, 
             NPC npc, 
             GameUIStateMachine uIStateMachine, 
             BattleEndModel battleEnd, 

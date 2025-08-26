@@ -16,14 +16,14 @@ namespace Base.GameLogic.Tutorial
         [SerializeField] private ButtonClickHandler _launchMingameButton;
 
         private ControlPoint _controlPoint;
-        private global::Player _player;
+        private Player _player;
         private GameSettings _gameSettings;
 
         private Dictionary<Type, ITutorialAction> _actionsDictionary;
         private ITutorialAction _currentAction;
         private bool _enabled;
 
-        public void Init(global::Player player, ControlPointDatabase controlPointDatabase, GameSettings gameSettings)
+        public void Init(Player player, ControlPointDatabase controlPointDatabase, GameSettings gameSettings)
         {
             _player = player;
             _controlPoint = controlPointDatabase.GetClosestControlPointToPlayer();
