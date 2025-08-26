@@ -2,7 +2,8 @@
 {
     public class TutorialEndWindowState : UIState
     {
-        public TutorialEndWindowState(UIWindowController window) : base(window)
+        public TutorialEndWindowState(UIWindowController window) 
+            : base(window)
         {
         }
     }

@@ -1,4 +1,6 @@
+using Base.Data;
 using Base.Data.Game;
+using Base.GameLogic.UpgradeSystem;
 using Base.Services.PersistentProgress;
 using Base.Services.SaveLoad;
 using UnityEngine;
@@ -31,13 +33,14 @@ public class ResetProgressMenu : MonoBehaviour
     private void OnConfirmButtonClicked()
     {
         GameData gameData = _persisentDataService.GameData;
-        gameData.PlayerData.Upgrades = new();
-        gameData.PlayerData.CannonData = new();
-        gameData.PlayerData.SoldierData = new();
-        gameData.PlayerData.Score = new();
-        gameData.StagesData = new();
-        _persisentDataService.GameData = gameData;
 
+        gameData.PlayerData.Upgrades = new Upgrades();
+        gameData.PlayerData.CannonData = new CannonData();
+        gameData.PlayerData.SoldierData = new SoldierData();
+        gameData.PlayerData.Score = new PlayerScore();
+        gameData.StagesData = new StagesData();
+
+        _persisentDataService.GameData = gameData;
         _saveLoadService.SaveProgress();
     }
 }

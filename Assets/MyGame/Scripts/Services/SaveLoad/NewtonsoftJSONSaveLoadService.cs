@@ -2,14 +2,12 @@
 using Base.Services.PersistentProgress;
 using Newtonsoft.Json;
 using UnityEngine;
-using YG;
 
 namespace Base.Services.SaveLoad
 {
     public class NewtonsoftJSONSaveLoadService : ISaveLoadService
     {
         private const string ProgressKey = "Progress";
-        private const string UpgradesKey = "Upgrades";
 
         private readonly IPersisentDataService _dataService;
         private readonly JsonSerializerSettings _settings;
@@ -18,7 +16,7 @@ namespace Base.Services.SaveLoad
         {
             _dataService = progressService;
 
-            _settings = new()
+            _settings = new JsonSerializerSettings()
             {
                 TypeNameHandling = TypeNameHandling.All,
             };

@@ -2,7 +2,8 @@
 {
     public class ShopWindowState : UIState
     {
-        public ShopWindowState(UIWindowController window) : base(window)
+        public ShopWindowState(UIWindowController window) 
+            : base(window)
         {
         }
     }

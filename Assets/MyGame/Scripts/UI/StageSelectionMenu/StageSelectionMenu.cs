@@ -12,10 +12,15 @@ namespace Base.UI.StageSelection
         private readonly GameSettings _gameSettings;
         private readonly ISaveLoadService _saveLoadService;
         private readonly Game _game;
+
         private StageIconModel _activeIcon;
 
-        public StageSelectionMenu(StageIconModel[] iconModels, StagesData stagesData, GameSettings gameSettings, 
-            ISaveLoadService saveLoadService, Game game)
+        public StageSelectionMenu(
+            StageIconModel[] iconModels, 
+            StagesData stagesData, 
+            GameSettings gameSettings, 
+            ISaveLoadService saveLoadService, 
+            Game game)
         {
             _stagesIcons = iconModels;
             _stagesData = stagesData;

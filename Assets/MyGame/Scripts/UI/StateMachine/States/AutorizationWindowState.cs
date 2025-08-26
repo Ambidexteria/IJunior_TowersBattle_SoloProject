@@ -2,7 +2,8 @@
 {
     public class AutorizationWindowState : UIState
     {
-        public AutorizationWindowState(UIWindowController window) : base(window)
+        public AutorizationWindowState(UIWindowController window) 
+            : base(window)
         {
         }
     }

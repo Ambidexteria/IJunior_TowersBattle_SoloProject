@@ -1,6 +1,6 @@
-﻿using Base.Health;
+﻿using System;
+using Base.Health;
 using Base.Services.PluginYG;
-using System;
 
 namespace Base.UI.RewardForAds
 {

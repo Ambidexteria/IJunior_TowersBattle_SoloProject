@@ -18,8 +18,11 @@ namespace Base.UI.Settings
         private readonly AudioVolumeSettings _volumeSettings;
         private readonly ILocalizationService _localizationService;
 
-        public SettingsMenuModel(IAudioVolumeControllerService volumeController, ISaveLoadService saveLoadService,
-            GameSettings gameSettings, ILocalizationService localizationService)
+        public SettingsMenuModel(
+            IAudioVolumeControllerService volumeController,
+            ISaveLoadService saveLoadService,
+            GameSettings gameSettings, 
+            ILocalizationService localizationService)
         {
             _volumeController = volumeController;
             _saveLoadService = saveLoadService;

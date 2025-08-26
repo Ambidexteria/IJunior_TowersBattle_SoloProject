@@ -21,8 +21,9 @@ public class CameraBordersGizmoDrawer : MonoBehaviour
         {
             Camera c = _camera;
             var size = c.orthographicSize;
-            Gizmos.DrawWireCube(Vector3.forward * (c.nearClipPlane + (c.farClipPlane - c.nearClipPlane) / 2)
-                , new Vector3(size * SizeMultiplyer, size * SizeMultiplyer * c.aspect, c.farClipPlane - c.nearClipPlane));
+            Gizmos.DrawWireCube(
+                Vector3.forward * (c.nearClipPlane + (c.farClipPlane - c.nearClipPlane) / 2),
+                new Vector3(size * SizeMultiplyer, size * SizeMultiplyer * c.aspect, c.farClipPlane - c.nearClipPlane));
         }
         else
         {

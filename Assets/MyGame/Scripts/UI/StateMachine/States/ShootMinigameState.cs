@@ -2,7 +2,8 @@
 {
     public class ShootMinigameState : UIState
     {
-        public ShootMinigameState(UIWindowController window) : base(window)
+        public ShootMinigameState(UIWindowController window) 
+            : base(window)
         {
         }
     }

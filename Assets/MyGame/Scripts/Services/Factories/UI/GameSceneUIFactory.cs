@@ -1,21 +1,19 @@
-using Base.Infrastructure;
-using Base.Services.Audio;
-using Base.Services.SceneManagment;
-using Base.Services.TimeManagment;
-using Base.UI.StateMachine;
-using Base.UI.PauseMenu;
-using Base.UI.Settings;
-using UnityEngine;
-using Zenject;
-using Base.GameLogic;
-using Base.PLayer;
-using Base.Services.SaveLoad;
-using Base.Services.PersistentProgress;
 using Base.Data;
 using Base.Data.Game;
-using Base.Services.Localization;
-using Base.UI.RewardForAds;
+using Base.GameLogic;
 using Base.Health;
+using Base.PLayer;
+using Base.Services.Audio;
+using Base.Services.Localization;
+using Base.Services.PersistentProgress;
+using Base.Services.SaveLoad;
+using Base.Services.TimeManagment;
+using Base.UI.PauseMenu;
+using Base.UI.RewardForAds;
+using Base.UI.Settings;
+using Base.UI.StateMachine;
+using UnityEngine;
+using Zenject;
 
 namespace Base.Services.Factories.UI
 {
@@ -48,15 +46,17 @@ namespace Base.Services.Factories.UI
         private ILocalizationService _localizationService;
         private AudioPlayerService _audioPlayer;
         private Infrastructure.Game _game;
-        private GameStateMachine _gameStateMachine;
 
         [Inject]
-        private void Init(GameStateMachine gameStateMachine, TimeController timeController,
-            IAudioVolumeControllerService volumeControllerService, ISaveLoadService saveLoadService,
-            IPersisentDataService dataService, ILocalizationService localizationService,
-            AudioPlayerService audioPlayer, Infrastructure.Game game)
+        private void Init(
+            TimeController timeController,
+            IAudioVolumeControllerService volumeControllerService, 
+            ISaveLoadService saveLoadService,
+            IPersisentDataService dataService, 
+            ILocalizationService localizationService,
+            AudioPlayerService audioPlayer, 
+            Infrastructure.Game game)
         {
-            _gameStateMachine = gameStateMachine;
             _timeController = timeController;
             _volumeControllerService = volumeControllerService;
             _saveLoadService = saveLoadService;
@@ -107,19 +107,40 @@ namespace Base.Services.Factories.UI
             return _restoreHealthForRewardAdsSetup.Create(health);
         }
 
-        public BattleEndModel GetBattleEndModel(Infrastructure.Game game, Wallet wallet, StageInfo stageInfo, PlayerScore score, StagesData stagesData)
+        public BattleEndModel GetBattleEndModel(
+            Infrastructure.Game game, 
+            Wallet wallet, 
+            StageInfo stageInfo, 
+            PlayerScore score, 
+            StagesData stagesData)
         {
-            return _battleEndSetup.Create(game, wallet, score, _saveLoadService, stageInfo.WinReward, 
-                stageInfo.DefeatReward, stagesData, _audioPlayer);
+            return _battleEndSetup.Create(
+                game, 
+                wallet, 
+                score,
+                _saveLoadService, 
+                stageInfo.WinReward, 
+                stageInfo.DefeatReward,
+                stagesData, 
+                _audioPlayer);
         }
 
         private void CreateUIStateMachine()
         {
-            _uiStateMachine = new GameUIStateMachine(_cannonsHUD, _shootMinigameUI,
-                _pauseWindow, _settingsWindow, _battleEndWindow, _restoreHealthForRewardAds);
+            _uiStateMachine = new GameUIStateMachine(
+                _cannonsHUD, 
+                _shootMinigameUI,
+                _pauseWindow, 
+                _settingsWindow,
+                _battleEndWindow, 
+                _restoreHealthForRewardAds);
 
             _pauseMenuSetup.CreatePauseMenu(_game);
-            _settingsMenuSetup.CreateModel(_volumeControllerService, _saveLoadService, _dataService.GameData.GameSettings,
+
+            _settingsMenuSetup.CreateModel(
+                _volumeControllerService, 
+                _saveLoadService, 
+                _dataService.GameData.GameSettings,
                 _localizationService);
 
             _uiStateMachine.Enter<CannonsHUDState>();

@@ -1,6 +1,6 @@
+using System;
 using Base.Data;
 using Base.Data.Game;
-using System;
 using UnityEngine;
 
 namespace Base.UI.Settings

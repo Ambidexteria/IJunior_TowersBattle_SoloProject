@@ -1,5 +1,4 @@
 using Zenject;
-using UnityEngine;
 
 namespace Base.Services.Input
 {

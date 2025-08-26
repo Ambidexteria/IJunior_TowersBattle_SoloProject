@@ -2,7 +2,8 @@
 {
     public class SettingsMenuState : UIState
     {
-        public SettingsMenuState(UIWindowController window) : base(window)
+        public SettingsMenuState(UIWindowController window) 
+            : base(window)
         {
         }
     }

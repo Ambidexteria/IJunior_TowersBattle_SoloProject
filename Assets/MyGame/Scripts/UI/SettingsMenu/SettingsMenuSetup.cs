@@ -1,4 +1,3 @@
-using Base.Data;
 using Base.Data.Game;
 using Base.Services.Audio;
 using Base.Services.Localization;
@@ -24,8 +23,11 @@ namespace Base.UI.Settings
             _presenter?.Disable();
         }
 
-        public SettingsMenuModel CreateModel(IAudioVolumeControllerService audioService, ISaveLoadService saveLoadService,
-            GameSettings gameSettings, ILocalizationService localizationService)
+        public SettingsMenuModel CreateModel(
+            IAudioVolumeControllerService audioService, 
+            ISaveLoadService saveLoadService,
+            GameSettings gameSettings, 
+            ILocalizationService localizationService)
         {
             _model = new SettingsMenuModel(audioService, saveLoadService, gameSettings, localizationService);
             _presenter = new SettingsMenuPresenter(_view, _model);
@@ -38,5 +40,4 @@ namespace Base.UI.Settings
             return _model;
         }
     }
-
 }

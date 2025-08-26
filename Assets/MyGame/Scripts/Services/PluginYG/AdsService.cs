@@ -19,7 +19,6 @@ namespace Base.Services.PluginYG
         {
             YG2.RewardedAdvShow(Money, adsShowed);
             MetricsService.CallRewardedAdsEvent(Money, amount);
-
         }
 
         public static void ShowRewardedAdsForHealth(Action adsShowed, int amount)

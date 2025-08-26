@@ -1,23 +1,21 @@
 using System;
-using UnityEngine;
-using Base.Services.AssetManagment;
-using Base.GameLogic.Cannon;
-using Zenject;
-using Base.Infrastructure;
-using Base.Health;
-using Base.Services.Factories.UI;
-using Base.Services.SceneManagment;
-using Base.Services.PersistentProgress;
-using Base.GameLogic;
-using Base.PLayer;
 using Base.Data;
-using Base.Services.TimeManagment;
-using Base.Services.Audio;
-using Base.Services.PluginYG;
-using Base.GameLogic.Tutorial;
-using Base.UI.StateMachine;
 using Base.Data.Game;
+using Base.GameLogic;
+using Base.GameLogic.Cannon;
+using Base.GameLogic.Tutorial;
+using Base.Infrastructure;
+using Base.PLayer;
+using Base.Services.AssetManagment;
+using Base.Services.Audio;
+using Base.Services.Factories.UI;
+using Base.Services.PersistentProgress;
+using Base.Services.PluginYG;
 using Base.Services.SaveLoad;
+using Base.Services.TimeManagment;
+using Base.UI.StateMachine;
+using UnityEngine;
+using Zenject;
 
 namespace Base.Services.Factories.Game
 {
@@ -46,7 +44,6 @@ namespace Base.Services.Factories.Game
         private CannonProjectileSpawner _projectileSpawner;
         private TeamColorChanger _colorChanher;
         private ControlPointDatabase _controlPointDatabase;
-        private InputService _inputService;
         private IPersisentDataService _dataSerive;
         private Wallet _wallet;
         private TimeController _timeController;
@@ -60,10 +57,18 @@ namespace Base.Services.Factories.Game
         private Stage _stage;
 
         [Inject]
-        private void Init(Infrastructure.Game game, AssetLoader assetLoader, ICoroutineRunner coroutineRunner,
-            CannonProjectileSpawner projectileSpawner, TeamColorChanger colorChanger,
-            ControlPointDatabase controlPointDatabase, InputService inputService, IPersisentDataService dataService, Wallet wallet,
-            TimeController timeController, AudioPlayerService audioPlayer, ISaveLoadService saveLoadService)
+        private void Init(
+            Infrastructure.Game game,
+            AssetLoader assetLoader,
+            ICoroutineRunner coroutineRunner,
+            CannonProjectileSpawner projectileSpawner,
+            TeamColorChanger colorChanger,
+            ControlPointDatabase controlPointDatabase,
+            IPersisentDataService dataService,
+            Wallet wallet,
+            TimeController timeController,
+            AudioPlayerService audioPlayer,
+            ISaveLoadService saveLoadService)
         {
             _game = game;
             _coroutineRunner = coroutineRunner;
@@ -71,7 +76,6 @@ namespace Base.Services.Factories.Game
             _projectileSpawner = projectileSpawner;
             _colorChanher = colorChanger;
             _controlPointDatabase = controlPointDatabase;
-            _inputService = inputService;
             _dataSerive = dataService;
             _wallet = wallet;
             _timeController = timeController;
@@ -93,11 +97,20 @@ namespace Base.Services.Factories.Game
             _NPCCannon.SetEnemy(_playerCannon);
 
             GameUIStateMachine gameUIStateMachine = _uiFactory.GetUIStateMachine();
-            BattleEndModel battleEndModel = _uiFactory.GetBattleEndModel(_game, _wallet, _stageInfo,
-                _dataSerive.GameData.PlayerData.Score, _dataSerive.GameData.StagesData);
+            BattleEndModel battleEndModel = _uiFactory.GetBattleEndModel(
+                _game,
+                _wallet,
+                _stageInfo,
+                _dataSerive.GameData.PlayerData.Score,
+                _dataSerive.GameData.StagesData);
 
-            _battleController = new BattleController(player, npc, gameUIStateMachine, battleEndModel,
-                _timeController, _uiFactory.GetRestoreHealthForRewardAdsModel(_playerCannonHealthSetup.GetModel()));
+            _battleController = new BattleController(
+                player,
+                npc,
+                gameUIStateMachine,
+                battleEndModel,
+                _timeController,
+                _uiFactory.GetRestoreHealthForRewardAdsModel(_playerCannonHealthSetup.GetModel()));
 
             _tutorialBattleController.Init(player, _controlPointDatabase, _dataSerive.GameData.GameSettings);
 
@@ -117,9 +130,13 @@ namespace Base.Services.Factories.Game
 
         private NPC CreateNPC()
         {
-            Team team = new(TeamType.NPC);
+            Team team = new Team(TeamType.NPC);
 
-            _NPCCannon = _npcCannonSetup.CreateCannonModel(team, _stageInfo.EnemyCannon.Damage, _colorChanher, _projectileSpawner,
+            _NPCCannon = _npcCannonSetup.CreateCannonModel(
+                team, 
+                _stageInfo.EnemyCannon.Damage, 
+                _colorChanher,
+                _projectileSpawner,
                 _npcHealthSetup.CreateHealth(_stageInfo.EnemyCannon.MaxHealth, _coroutineRunner));
 
             return _npcFactory.CreateNPC(team, _NPCCannon, _stageInfo.EnemyCannon, _stageInfo.EnemySoldier, _stage.NPCSoldierSpawnPoint);
@@ -127,22 +144,22 @@ namespace Base.Services.Factories.Game
 
         private Player CreatePlayer()
         {
-            Team team = new(TeamType.Player);
+            Team team = new Team(TeamType.Player);
             CannonData cannonData = _dataSerive.GameData.PlayerData.CannonData;
 
-            _playerCannon = _playerCannonSetup.CreateCannonModel(team, cannonData.Damage, _colorChanher, _projectileSpawner,
+            _playerCannon = _playerCannonSetup.CreateCannonModel(
+                team, 
+                cannonData.Damage, 
+                _colorChanher, 
+                _projectileSpawner,
                 _playerCannonHealthSetup.CreateHealth(cannonData.MaxHealth, _coroutineRunner));
 
-            return _playerFactory.CreatePlayer(team, _playerCannon, cannonData,
-                _stage.PlayerSoldierSpawnPoint, _dataSerive.GameData.PlayerData.SoldierData);
-        }
-
-        private CannonModel CreateCannon(string assetPath, Team team, int damage, HealthModel health)
-        {
-            CannonSetup setup = _assetLoader.Instantiate<CannonSetup>(assetPath);
-            CannonModel model = setup.CreateCannonModel(team, damage, _colorChanher, _projectileSpawner, health);
-
-            return model;
+            return _playerFactory.CreatePlayer(
+                team, 
+                _playerCannon, 
+                cannonData,
+                _stage.PlayerSoldierSpawnPoint, 
+                _dataSerive.GameData.PlayerData.SoldierData);
         }
     }
 }

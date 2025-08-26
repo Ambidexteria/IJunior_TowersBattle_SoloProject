@@ -1,6 +1,6 @@
 using System;
-using UnityEngine;
 using Base.Soldier;
+using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]

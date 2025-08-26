@@ -27,7 +27,7 @@ public class ImageSmootOpacityChanger : MonoBehaviour
 
     private void OnDisable()
     {
-        if(_coroutine != null) 
+        if (_coroutine != null)
             StopCoroutine(_coroutine);
     }
 

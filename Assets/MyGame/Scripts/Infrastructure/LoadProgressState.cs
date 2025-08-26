@@ -14,8 +14,11 @@ namespace Base.Infrastructure
         private readonly ISaveLoadService _saveLoadService;
         private readonly ILocalizationService _localizationService;
 
-        public LoadProgressState(GameStateMachine gameStateMachine, IPersisentDataService persisentProgressService,
-            ISaveLoadService saveLoadService, ILocalizationService localizationService)
+        public LoadProgressState(
+            GameStateMachine gameStateMachine, 
+            IPersisentDataService persisentProgressService,
+            ISaveLoadService saveLoadService, 
+            ILocalizationService localizationService)
         {
             _gameStateMachine = gameStateMachine;
             _progressService = persisentProgressService;

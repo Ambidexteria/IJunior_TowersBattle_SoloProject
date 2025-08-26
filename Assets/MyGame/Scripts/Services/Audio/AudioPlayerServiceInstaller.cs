@@ -19,9 +19,16 @@ namespace Base.Services.Audio
 
         public override void InstallBindings()
         {
-            AudioPlayerService audioPlayerService = new(_musicSource, _mainMenuMusic, _gameSceneMusic, 
-                _soldierDeathSound, _soldierAnswerSounds, _soldierAnswerSource, _winSoundSource, 
-                _defeatSoundSource, _soldierShootSource);
+            AudioPlayerService audioPlayerService = new AudioPlayerService(
+                _musicSource, 
+                _mainMenuMusic, 
+                _gameSceneMusic, 
+                _soldierDeathSound, 
+                _soldierAnswerSounds, 
+                _soldierAnswerSource, 
+                _winSoundSource, 
+                _defeatSoundSource, 
+                _soldierShootSource);
 
             Container.Bind<AudioPlayerService>().FromInstance(audioPlayerService).AsSingle();
         }

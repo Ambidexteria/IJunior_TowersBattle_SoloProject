@@ -6,10 +6,10 @@ namespace Base.GameLogic.Tutorial
     public class SelectSoldierTutorialAction : ITutorialAction
     {
         private readonly TutorialBattleController _tutorialBattleController;
-        private readonly Player _player;
+        private readonly global::Player _player;
         private Transform _target;
 
-        public SelectSoldierTutorialAction(Player player, TutorialBattleController tutorialBattleController)
+        public SelectSoldierTutorialAction(global::Player player, TutorialBattleController tutorialBattleController)
         {
             _tutorialBattleController = tutorialBattleController;
             _player = player;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Base.Infrastructure
 { 
-    [RequireComponent (typeof(CanvasGroup))]
+    [RequireComponent(typeof(CanvasGroup))]
     public class LoadingCurtain : MonoBehaviour
     {
         private const float MaxAlpha = 1f;

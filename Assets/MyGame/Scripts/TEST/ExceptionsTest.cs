@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,12 +33,14 @@ public static class ExceptionsTest
             Debug.Log(log);
         }
     }
+
     public static void NullRefConstructorTest(string className, params object[] testObjects)
     {
         NullRefMethodTest(className, ConstructorName, testObjects);
     }
 
-    public static void EmptyListTest<T>(string className, string methodName, List<T> list) where T : class
+    public static void EmptyListTest<T>(string className, string methodName, List<T> list) where T 
+        : class
     {
         if (Enabled == false)
             return;

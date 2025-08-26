@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using Base.Data.Game;
 using Base.GameLogic;
 using Base.Infrastructure;
 using Base.Logic;
 using Base.Services.Audio;
+using UnityEngine;
 
 namespace Base.Soldier
 {

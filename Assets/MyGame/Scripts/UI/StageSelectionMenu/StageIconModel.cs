@@ -11,11 +11,11 @@ namespace Base.UI.StageSelection
             _name = name;
         }
 
-        public string Name => _name;
-
         public event Action<string> Choosed;
         public event Action BorderEnabled;
         public event Action BorderDisabled;
+
+        public string Name => _name;
 
         public void Choose()
         {

@@ -2,7 +2,8 @@
 {
     public class PauseState : UIState
     {
-        public PauseState(UIWindowController window) : base(window)
+        public PauseState(UIWindowController window) 
+            : base(window)
         {
         }
     }

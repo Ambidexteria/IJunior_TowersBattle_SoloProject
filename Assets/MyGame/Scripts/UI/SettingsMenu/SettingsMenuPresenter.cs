@@ -22,6 +22,7 @@ namespace Base.UI.Settings
             _view.MuteValueChanged += OnMuteValueChanged;
             _view.TutorialValueChanged += OnTutorialValueChanged;
         }
+
         public void Disable()
         {
             _view.RussianLanguageButtonCLicked -= OnRussianLanguageButtonCLicked;

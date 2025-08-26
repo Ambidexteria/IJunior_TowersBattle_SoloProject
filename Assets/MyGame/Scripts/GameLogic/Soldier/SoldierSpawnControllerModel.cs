@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
-using UnityEngine;
 using Base.Infrastructure;
 using Base.Soldier;
+using UnityEngine;
 
 public class SoldierSpawnControllerModel
 {

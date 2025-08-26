@@ -6,7 +6,8 @@ namespace Base.Services.AssetManagment
     {
         private const string ErrorMessage = "AssetLoader: cannot load resource";
 
-        public Type Instantiate<Type>(string path) where Type : MonoBehaviour
+        public Type Instantiate<Type>(string path) where Type 
+            : MonoBehaviour
         {
             Type resource = Resources.Load<Type>(path);
 

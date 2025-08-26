@@ -16,7 +16,7 @@ public class ImageResizer : MonoBehaviour
         float width = screenWidth * _scaleFactor;
         float height = screenHeight * _scaleFactor;
 
-        if(screenHeight > screenWidth)
+        if (screenHeight > screenWidth)
             scale = height;
         else
             scale = width;

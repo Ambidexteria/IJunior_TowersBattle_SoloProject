@@ -1,6 +1,6 @@
 using System;
-using UnityEngine;
 using Base.Infrastructure;
+using UnityEngine;
 
 namespace Base.Soldier
 {

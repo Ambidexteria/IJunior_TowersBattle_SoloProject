@@ -13,14 +13,12 @@ namespace Base.Services.SaveLoad
 
         public YGSaveLoadService(IPersisentDataService dataService)
         {
-            ExceptionsTest.NullRefConstructorTest(nameof(YGSaveLoadService), dataService);
-
             _dataService = dataService;
 
-            _settings = new()
+            _settings = new JsonSerializerSettings()
             {
                 TypeNameHandling = TypeNameHandling.All,
-                Formatting = Formatting.Indented
+                Formatting = Formatting.Indented,
             };
         }
 
@@ -30,15 +28,9 @@ namespace Base.Services.SaveLoad
 
             string json = YG2.saves.JSONGameData ??= string.Empty;
 
-            Debug.Log($"JSON string before");
-            Debug.Log(json);
-
             if (json != string.Empty)
                 if (json[1] == 'n')
                     json = ConvertJsonString(json);
-
-            Debug.Log($"JSON string after");
-            Debug.Log(json);
 
             try
             {

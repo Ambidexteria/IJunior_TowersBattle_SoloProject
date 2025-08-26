@@ -2,7 +2,8 @@
 {
     public class LeaderboardWindowState : UIState
     {
-        public LeaderboardWindowState(UIWindowController window) : base(window)
+        public LeaderboardWindowState(UIWindowController window) 
+            : base(window)
         {
         }
     }

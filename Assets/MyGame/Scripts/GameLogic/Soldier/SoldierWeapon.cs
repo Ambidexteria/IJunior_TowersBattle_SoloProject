@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
-using UnityEngine;
 using Base.Services.Audio;
+using UnityEngine;
 using Zenject;
 
 public class SoldierWeapon : MonoBehaviour

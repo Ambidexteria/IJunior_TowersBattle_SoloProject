@@ -2,7 +2,8 @@
 {
     public class CannonsHUDState : UIState
     {
-        public CannonsHUDState(UIWindowController window) : base(window)
+        public CannonsHUDState(UIWindowController window) 
+            : base(window)
         {
         }
     }

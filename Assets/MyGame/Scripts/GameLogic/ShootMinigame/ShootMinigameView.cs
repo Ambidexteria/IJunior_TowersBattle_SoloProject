@@ -1,6 +1,6 @@
 using System;
-using UnityEngine;
 using Lean.Localization;
+using UnityEngine;
 
 namespace Base.GameLogic.ShootMinigame
 {

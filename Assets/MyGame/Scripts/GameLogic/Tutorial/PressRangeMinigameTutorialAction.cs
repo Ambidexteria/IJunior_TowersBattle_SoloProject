@@ -4,11 +4,11 @@ namespace Base.GameLogic.Tutorial
 {
     public class PressRangeMinigameTutorialAction : ITutorialAction
     {
-        private readonly Player _player;
+        private readonly global::Player _player;
         private readonly TutorialBattleController _tutorialBattleController;
         private Transform _target;
 
-        public PressRangeMinigameTutorialAction(Player player, Transform target, TutorialBattleController tutorialBattleController)
+        public PressRangeMinigameTutorialAction(global::Player player, Transform target, TutorialBattleController tutorialBattleController)
         {
             _player = player;
             _target = target;

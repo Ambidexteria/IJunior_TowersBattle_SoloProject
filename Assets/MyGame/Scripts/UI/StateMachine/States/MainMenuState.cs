@@ -2,7 +2,8 @@
 {
     public class MainMenuState : UIState
     {
-        public MainMenuState(UIWindowController window) : base(window)
+        public MainMenuState(UIWindowController window) 
+            : base(window)
         {
         }
     }

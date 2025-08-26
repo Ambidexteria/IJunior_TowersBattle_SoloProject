@@ -1,8 +1,8 @@
+using System.Collections.Generic;
 using Base.Data;
 using Base.Infrastructure;
 using Base.Services.PersistentProgress;
 using Base.Services.SaveLoad;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -27,7 +27,7 @@ namespace Base.UI.StageSelection
             _persisentDataService = persisentDataService;
             _saveLoadService = saveLoadService;
             _game = game;
-            _stageIconSetups = new();
+            _stageIconSetups = new List<StageIconSetup>();
         }
 
         private void OnEnable()
@@ -42,7 +42,7 @@ namespace Base.UI.StageSelection
 
         private void CreateIcons()
         {
-            List<StageIconModel> icons = new();
+            List<StageIconModel> icons = new List<StageIconModel>();
 
             foreach (var stageInfo in _persisentDataService.GameData.StagesData.UnlockedStagesInfo)
             {
@@ -54,8 +54,12 @@ namespace Base.UI.StageSelection
                 icons.Add(setup.CreateModel(_iconsDatabase.GetStageIcon(stageInfo.IconName), stageInfo.Unlocked, stageInfo.StageName));
             }
 
-            _model = new StageSelectionMenu(icons.ToArray(), _persisentDataService.GameData.StagesData, 
-                _persisentDataService.GameData.GameSettings, _saveLoadService, _game);
+            _model = new StageSelectionMenu(
+                icons.ToArray(), 
+                _persisentDataService.GameData.StagesData, 
+                _persisentDataService.GameData.GameSettings, 
+                _saveLoadService, 
+                _game);
         }
 
         private void DestroyIcons()

@@ -1,13 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.InputSystem;
 using Base.GameLogic;
 using Base.Infrastructure;
 using Base.Services.Audio;
 using Base.Services.Factories.Game;
 using Base.Soldier;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SoldierSelector
 {

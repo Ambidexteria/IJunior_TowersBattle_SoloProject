@@ -1,8 +1,9 @@
-﻿namespace Base.UI.StateMachine.States
+﻿namespace Base.UI.StateMachine
 {
     public class ResetProgressWindowState : UIState
     {
-        public ResetProgressWindowState(UIWindowController window) : base(window)
+        public ResetProgressWindowState(UIWindowController window) 
+            : base(window)
         {
         }
     }

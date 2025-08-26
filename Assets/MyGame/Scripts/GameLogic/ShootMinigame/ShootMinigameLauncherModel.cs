@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Base.GameLogic.ShootMinigame

@@ -1,6 +1,6 @@
 using System;
-using UnityEngine;
 using Base.Logic;
+using UnityEngine;
 
 public class DespawnerDetector
 {

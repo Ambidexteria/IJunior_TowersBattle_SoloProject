@@ -9,16 +9,14 @@ namespace Base.UI.StateMachine
 
         private IUIState _activeState;
 
-        public GameUIStateMachine(UIWindowController cannonsHUD,
+        public GameUIStateMachine(
+            UIWindowController cannonsHUD,
             UIWindowController shootMinigame, 
             UIWindowController pauseWindow,  
             UIWindowController settingsWindow,
             UIWindowController winMessage,
             UIWindowController restoreHealthForRewardAds)
         {
-            ExceptionsTest.NullRefConstructorTest(nameof(GameUIStateMachine), cannonsHUD, shootMinigame, pauseWindow,
-                settingsWindow, winMessage);
-
             _states = new Dictionary<Type, IUIState>
             {
                 { typeof(CannonsHUDState), new CannonsHUDState(cannonsHUD) },
@@ -30,7 +28,8 @@ namespace Base.UI.StateMachine
             };
         }
 
-        public void Enter<TState>() where TState : IUIState
+        public void Enter<TState>() where TState 
+            : IUIState
         {
             _activeState?.Exit();
 

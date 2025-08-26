@@ -1,4 +1,3 @@
-using Base.UI.StateMachine.States;
 using System;
 using System.Collections.Generic;
 
@@ -10,9 +9,14 @@ namespace Base.UI.StateMachine
 
         private IUIState _activeState;
 
-        public MainMenuUIStateMachine(UIWindowController mainMenuWondow, UIWindowController shopWindow,
-            UIWindowController stagesWindow, UIWindowController settingsWindow,
-            UIWindowController leaderboardWindow, UIWindowController authorizationWindow, UIWindowController resetProgressWindow)
+        public MainMenuUIStateMachine(
+            UIWindowController mainMenuWondow, 
+            UIWindowController shopWindow,
+            UIWindowController stagesWindow, 
+            UIWindowController settingsWindow,
+            UIWindowController leaderboardWindow, 
+            UIWindowController authorizationWindow, 
+            UIWindowController resetProgressWindow)
         {
             _states = new Dictionary<Type, IUIState>
             {
@@ -26,7 +30,8 @@ namespace Base.UI.StateMachine
             };
         }
 
-        public void Enter<TState>() where TState : IUIState
+        public void Enter<TState>() where TState 
+            : IUIState
         {
             _activeState?.Exit();
 

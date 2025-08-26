@@ -55,14 +55,18 @@ namespace Base.Services.Factories.UI
         private LoadingCurtain _loadingCurtain;
 
         [Inject]
-        private void Init(TimeController timeController, Wallet wallet, RegularUpgradeSystem upgradeSystem,
-            ISaveLoadService saveLoadService, IPersisentDataService dataService,
-            IAudioVolumeControllerService volumeControllerService, Infrastructure.Game game,
-            ILocalizationService localizationService, AudioPlayerService audioPlayer, LoadingCurtain loadingCurtain)
+        private void Init(
+            TimeController timeController, 
+            Wallet wallet, 
+            RegularUpgradeSystem upgradeSystem,
+            ISaveLoadService saveLoadService, 
+            IPersisentDataService dataService,
+            IAudioVolumeControllerService volumeControllerService, 
+            Infrastructure.Game game,
+            ILocalizationService localizationService, 
+            AudioPlayerService audioPlayer, 
+            LoadingCurtain loadingCurtain)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(MainMenuUIFactory), nameof(Init), timeController, wallet, upgradeSystem,
-                saveLoadService, dataService, volumeControllerService, game, localizationService);
-
             _timeController = timeController;
             _wallet = wallet;
             _upgradeSystem = upgradeSystem;
@@ -77,12 +81,6 @@ namespace Base.Services.Factories.UI
 
         private void Awake()
         {
-            ExceptionsTest.NullRefMethodTest(nameof(MainMenuUIFactory), nameof(Awake),
-                _settingsSetup, 
-                _startBattleButton, _openStagesButton, _openShopButton, _openSettingsButton, 
-                _mainButtonsWindow, _stagesWindow, _shopWindow, _settingsWindow, _leaderboardWindow, _authorizationWindow, 
-                _closeStagesButton, _closeShopButton, _closeSettingsButton, _closeLeaderboardButton);
-
             _timeController.SetDefaultTimeScale();
             CreateUIStateMachine();
             CreateSettings();
@@ -134,21 +132,30 @@ namespace Base.Services.Factories.UI
 
         private void CreateUIStateMachine()
         {
-            _stateMachine = new MainMenuUIStateMachine(_mainButtonsWindow, _shopWindow, _stagesWindow, _settingsWindow,
-                _leaderboardWindow, _authorizationWindow, _resetProgressWindow);
+            _stateMachine = new MainMenuUIStateMachine(
+                _mainButtonsWindow, 
+                _shopWindow, 
+                _stagesWindow, 
+                _settingsWindow,
+                _leaderboardWindow, 
+                _authorizationWindow, 
+                _resetProgressWindow);
+
             _stateMachine.Enter<MainMenuState>();
         }
 
         private void CreateSettings()
         {
-            _settingsSetup.CreateModel(_volumeControllerService, _saveLoadService, _dataService.GameData.GameSettings,
+            _settingsSetup.CreateModel(
+                _volumeControllerService,
+                _saveLoadService, 
+                _dataService.GameData.GameSettings,
                 _localizationService);
         }
 
         private void OnLoadingCurtainFaded()
         {
             YG2.GameReadyAPI();
-            Debug.Log("Curtain faded, API loaded");
         }
 
         private void OnStartButtonClicked()

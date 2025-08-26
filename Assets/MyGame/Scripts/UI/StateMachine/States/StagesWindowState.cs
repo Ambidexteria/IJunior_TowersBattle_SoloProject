@@ -2,7 +2,8 @@
 {
     public class StagesWindowState : UIState
     {
-        public StagesWindowState(UIWindowController window) : base(window)
+        public StagesWindowState(UIWindowController window) 
+            : base(window)
         {
         }
     }

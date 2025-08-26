@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
-using UnityEngine;
 using Base.Infrastructure;
 using Base.Services.TimeManagment;
+using UnityEngine;
 
 namespace Base.GameLogic.ShootMinigame
 {

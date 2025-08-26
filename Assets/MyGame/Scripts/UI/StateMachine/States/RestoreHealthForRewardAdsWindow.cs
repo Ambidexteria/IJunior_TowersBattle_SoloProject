@@ -2,7 +2,8 @@
 {
     public class RestoreHealthForRewardAdsWindow : UIState
     {
-        public RestoreHealthForRewardAdsWindow(UIWindowController window) : base(window)
+        public RestoreHealthForRewardAdsWindow(UIWindowController window) 
+            : base(window)
         {
         }
     }

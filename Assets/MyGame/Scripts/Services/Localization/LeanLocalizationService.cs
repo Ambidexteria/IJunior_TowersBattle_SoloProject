@@ -1,5 +1,5 @@
-using Lean.Localization;
 using System.Collections.Generic;
+using Lean.Localization;
 using UnityEngine;
 using YG;
 
@@ -9,7 +9,7 @@ namespace Base.Services.Localization
     {
         private const string DefaultCode = "ru";
 
-        private Dictionary<string, string> _localizationCodes;
+        private readonly Dictionary<string, string> _localizationCodes;
 
         public LeanLocalizationService()
         {
@@ -17,13 +17,13 @@ namespace Base.Services.Localization
             {
                 { "ru", "Russian" },
                 { "en", "English" },
-                { "tr", "Turkish" }
+                { "tr", "Turkish" },
             };
         }
 
         public void SetLanguage(string languageCode)
         {
-            if(_localizationCodes.ContainsKey(languageCode))
+            if (_localizationCodes.ContainsKey(languageCode))
             {
                 LeanLocalization.SetCurrentLanguageAll(_localizationCodes[languageCode]);
                 YG2.SwitchLanguage(languageCode);

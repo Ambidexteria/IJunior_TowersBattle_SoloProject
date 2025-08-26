@@ -1,13 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Base.Data.Game;
 using Base.Health;
 using Base.Infrastructure;
 using Base.Logic;
 using Base.Services.Audio;
 using Base.Soldier;
+using UnityEngine;
 
 public class SoldierModel : ISoldier
 {

@@ -1,7 +1,7 @@
-using Base.Data;
-using Base.Infrastructure;
 using System;
 using System.Collections;
+using Base.Data;
+using Base.Infrastructure;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,15 +13,11 @@ namespace Base.Services.SceneManagment
 
         public SceneLoader(ICoroutineRunner coroutineRunner) 
         { 
-            ExceptionsTest.NullRefConstructorTest(nameof(SceneLoader), coroutineRunner);
-
             _coroutineRunner = coroutineRunner;
         }
 
         public void LoadScene(string name, Action onLoaded = null)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(SceneLoader), nameof(LoadScene), name, onLoaded);
-
             _coroutineRunner.LaunchCoroutine(LoadSceneCoroutine(name, onLoaded));
         }
 

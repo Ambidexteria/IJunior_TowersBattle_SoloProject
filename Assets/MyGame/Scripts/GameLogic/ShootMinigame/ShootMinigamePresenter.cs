@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Base.GameLogic.ShootMinigame
+﻿namespace Base.GameLogic.ShootMinigame
 {
     public class ShootMinigamePresenter
     {

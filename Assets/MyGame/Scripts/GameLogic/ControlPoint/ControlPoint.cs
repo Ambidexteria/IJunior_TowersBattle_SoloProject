@@ -1,7 +1,7 @@
 using System;
-using UnityEngine;
 using Base.GameLogic;
 using Base.Soldier;
+using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
 public class ControlPoint : MonoBehaviour, ISelectable
