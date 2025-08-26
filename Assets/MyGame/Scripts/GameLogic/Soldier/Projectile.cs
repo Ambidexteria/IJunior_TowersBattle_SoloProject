@@ -1,6 +1,6 @@
-using Base.Soldier;
 using System;
 using UnityEngine;
+using Base.Soldier;
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
@@ -14,9 +14,9 @@ public class Projectile : SpawnableObject
 
     private float _currentTime;
 
-    public Rigidbody Rigidbody => _rigidbody;
-
     public event Action<Projectile> Despawning;
+
+    public Rigidbody Rigidbody => _rigidbody;
 
     private void OnEnable()
     {

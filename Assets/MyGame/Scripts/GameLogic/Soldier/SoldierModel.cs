@@ -1,13 +1,13 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using Base.Data.Game;
 using Base.Health;
 using Base.Infrastructure;
 using Base.Logic;
 using Base.Services.Audio;
 using Base.Soldier;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class SoldierModel : ISoldier
 {
@@ -38,12 +38,23 @@ public class SoldierModel : ISoldier
     private bool _enabled = false;
     private Coroutine _dieCoroutine;
 
-    public SoldierModel(SoldierGroundCollisionController groundCollisionController, Animator animator,
-        SoldierWeapon weapon, TriggerObserver enemyTrigger, TriggerObserver despawnerTrigger,
-        float dieDelay, List<ColorChangerMark> marks, Rigidbody rigidbody,
-        Team team, SoldierData stats, ICoroutineRunner coroutineRunner,
-        TeamColorChanger teamColorChanger, Transform soldierTransform, AudioPlayerService audioPlayer,
-        Transform selectionCircle, ParticleSystemController hitEffect)
+    public SoldierModel(
+        SoldierGroundCollisionController groundCollisionController, 
+        Animator animator,
+        SoldierWeapon weapon, 
+        TriggerObserver enemyTrigger, 
+        TriggerObserver despawnerTrigger,
+        float dieDelay, 
+        List<ColorChangerMark> marks, 
+        Rigidbody rigidbody,
+        Team team, 
+        SoldierData stats, 
+        ICoroutineRunner coroutineRunner,
+        TeamColorChanger teamColorChanger,
+        Transform soldierTransform, 
+        AudioPlayerService audioPlayer,
+        Transform selectionCircle, 
+        ParticleSystemController hitEffect)
     {
         _groundCollisionController = groundCollisionController;
         _animator = animator;
@@ -73,13 +84,13 @@ public class SoldierModel : ISoldier
         _weapon.Init(_team, stats.Damage);
     }
 
-    public bool IsIdle => _stateMachine.IsIdle;
-
     public event Action<float> HealthChanged;
     public event Action<Transform> MovingToTarget;
     public event Action<ISoldier> EnemyTargetDetected;
     public event Action Dying;
     public event Action<SoldierSetup> DespawnerDetected;
+
+    public bool IsIdle => _stateMachine.IsIdle;
 
     public void Enable()
     {
@@ -115,9 +126,8 @@ public class SoldierModel : ISoldier
 
         _despawnerDetector.Detected -= OnDespawnerDetected;
         _enemiesDetector.Detected -= OnEnemyTargetDetected;
-        _health.Dying -= Die; 
+        _health.Dying -= Die;
         _health.Changed -= OnHealthChanged;
-
 
         if (_updateCoroutine != null)
             _coroutineRunner.EndCoroutine(_updateCoroutine);
@@ -190,7 +200,7 @@ public class SoldierModel : ISoldier
         _selectionCircle.gameObject.SetActive(true);
     }
 
-    public void HideSelectionCircle() 
+    public void HideSelectionCircle()
     {
         _selectionCircle.gameObject.SetActive(false);
     }
@@ -228,7 +238,7 @@ public class SoldierModel : ISoldier
         DespawnerDetected?.Invoke(_soldierTransform.GetComponent<SoldierSetup>());
     }
 
-    private void OnHealthChanged(float  health)
+    private void OnHealthChanged(float health)
     {
         HealthChanged?.Invoke(health);
     }

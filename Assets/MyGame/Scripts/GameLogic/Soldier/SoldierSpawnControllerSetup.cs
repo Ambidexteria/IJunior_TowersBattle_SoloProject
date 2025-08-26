@@ -1,6 +1,6 @@
-using Base.Infrastructure;
 using System;
 using UnityEngine;
+using Base.Infrastructure;
 
 namespace Base.Soldier
 {
@@ -16,8 +16,13 @@ namespace Base.Soldier
             _presenter?.Disable();
         }
 
-        public SoldierSpawnControllerModel CreateModel(float startDelay, float spawnDelay, float spawnRadius, Transform spawnPoint,
-            SoldierForDespawnDetector despawnDetector, Team team, SoldierSpawner spawner,
+        public SoldierSpawnControllerModel CreateModel(
+            float startDelay, 
+            float spawnDelay, 
+            float spawnRadius, 
+            Transform spawnPoint,
+            SoldierForDespawnDetector despawnDetector, 
+            SoldierSpawner spawner,
             ICoroutineRunner coroutineRunner)
         {
             _view = spawnPoint.GetComponentInChildren<SoldierSpawnControllerView>();
@@ -25,7 +30,15 @@ namespace Base.Soldier
             if (_view == null)
                 throw new NullReferenceException(nameof(SoldierSpawnControllerView));
 
-            _model = new(startDelay, spawnDelay, spawnRadius, spawnPoint, despawnDetector, team, spawner, coroutineRunner);
+            _model = new SoldierSpawnControllerModel(
+                startDelay, 
+                spawnDelay, 
+                spawnRadius, 
+                spawnPoint, 
+                despawnDetector, 
+                spawner, 
+                coroutineRunner);
+
             _view.Init(spawnDelay);
 
             _presenter = new SoldierSpawnControllerPresenter(_model, _view);

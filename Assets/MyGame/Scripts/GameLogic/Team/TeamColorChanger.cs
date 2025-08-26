@@ -7,10 +7,10 @@ public class TeamColorChanger
     private readonly Material _npcColor;
     private readonly Material _defaultColor;
 
-    public TeamColorChanger(Material playerColor, Material NPCColor, Material defaultColor)
+    public TeamColorChanger(Material playerColor, Material npcColor, Material defaultColor)
     {
         _playerColor = playerColor;
-        _npcColor = NPCColor;
+        _npcColor = npcColor;
         _defaultColor = defaultColor;
     }
 

@@ -1,5 +1,5 @@
-﻿using Base.GameLogic.UpgradeSystem;
-using System;
+﻿using System;
+using Base.GameLogic.UpgradeSystem;
 
 namespace Base.Data.Game
 {
@@ -14,9 +14,9 @@ namespace Base.Data.Game
 
         public PlayerData()
         {
-            Upgrades = new();
-            SoldierData = new();
-            CannonData = new();
+            Upgrades = new Upgrades();
+            SoldierData = new SoldierData();
+            CannonData = new CannonData();
             CurrentGold = 200;
             Score = new PlayerScore();
         }

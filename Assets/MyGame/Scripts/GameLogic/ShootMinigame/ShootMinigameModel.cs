@@ -1,5 +1,5 @@
-using Base.GameLogic.Cannon;
 using System;
+using Base.GameLogic.Cannon;
 
 namespace Base.GameLogic.ShootMinigame
 {
@@ -12,7 +12,9 @@ namespace Base.GameLogic.ShootMinigame
         private bool _enabled = false;
         private bool _minigameStarted = false;
 
-        public ShootMinigameModel(CannonEnergyBarModel cannonEnergyBar, ShootMinigameLauncherModel launchMinigameModel, 
+        public ShootMinigameModel(
+            CannonEnergyBarModel cannonEnergyBar,
+            ShootMinigameLauncherModel launchMinigameModel,
             ShootMinigamePressRangeModel shootMinigamePressRangeModel)
         {
             _minigamePressRange = shootMinigamePressRangeModel;
@@ -26,7 +28,7 @@ namespace Base.GameLogic.ShootMinigame
 
         public void Enable()
         {
-            if(_enabled) 
+            if (_enabled)
                 return;
 
             _cannonEnergyBar.Filled += OnEnergyFilled;
@@ -35,7 +37,7 @@ namespace Base.GameLogic.ShootMinigame
 
         public void Disable()
         {
-            if(_enabled == false)
+            if (_enabled == false)
                 return;
 
             _cannonEnergyBar.Filled -= OnEnergyFilled;
@@ -48,7 +50,7 @@ namespace Base.GameLogic.ShootMinigame
 
         public void LaunchMinigame()
         {
-            if(_minigameStarted)
+            if (_minigameStarted)
                 return;
 
             _minigamePressRange.Enable();

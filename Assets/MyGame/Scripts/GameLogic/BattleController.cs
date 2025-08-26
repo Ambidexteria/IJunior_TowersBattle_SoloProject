@@ -13,8 +13,13 @@ namespace Base.GameLogic
         private readonly TimeController _timeController;
         private readonly RestoreHealthForRewardAdsModel _restoreHealthForRewardAds;
 
-        public BattleController(Player player, NPC npc, GameUIStateMachine uIStateMachine, BattleEndModel battleEnd, 
-            TimeController timeController, RestoreHealthForRewardAdsModel restoreHealthForRewardAds)
+        public BattleController(
+            Player player, 
+            NPC npc, 
+            GameUIStateMachine uIStateMachine, 
+            BattleEndModel battleEnd, 
+            TimeController timeController, 
+            RestoreHealthForRewardAdsModel restoreHealthForRewardAds)
         {
             _player = player;
             _npc = npc;

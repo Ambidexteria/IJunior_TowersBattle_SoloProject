@@ -1,3 +1,4 @@
+using System;
 using Base.Data;
 using Base.Data.Game;
 using Base.Infrastructure;
@@ -5,7 +6,6 @@ using Base.PLayer;
 using Base.Services.Audio;
 using Base.Services.PluginYG;
 using Base.Services.SaveLoad;
-using System;
 
 namespace Base.GameLogic
 {
@@ -23,8 +23,15 @@ namespace Base.GameLogic
 
         private int _earnedGold;
 
-        public BattleEndModel(Game game, Wallet wallet, ISaveLoadService saveLoadService, int winReward, int defeatReward,
-            PlayerScore score, StagesData stagesData, AudioPlayerService audioPlayer)
+        public BattleEndModel(
+            Game game, 
+            Wallet wallet, 
+            ISaveLoadService saveLoadService, 
+            int winReward, 
+            int defeatReward,
+            PlayerScore score, 
+            StagesData stagesData, 
+            AudioPlayerService audioPlayer)
         {
             _game = game;
             _wallet = wallet;

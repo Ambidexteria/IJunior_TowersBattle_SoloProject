@@ -1,8 +1,8 @@
-using Base.Health;
-using Base.Logic;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Base.Health;
+using Base.Logic;
 
 namespace Base.GameLogic.Cannon
 {
@@ -16,7 +16,6 @@ namespace Base.GameLogic.Cannon
         private readonly ParticleSystemController _takeDamageEffect;
         private readonly Barrel _barrel;
         private readonly int _damage;
-        private readonly float _fireDelay;
         private readonly TeamColorChanger _colorChanger;
         private readonly Transform _transfrom;
         private readonly TriggerObserver _triggerObserver;
@@ -27,10 +26,18 @@ namespace Base.GameLogic.Cannon
         private CannonModel _enemyCannon;
         private bool _enabled = false;
 
-        public CannonModel(Transform transfrom, TriggerObserver triggerObserver, Team team, Animator animator, 
-            ParticleSystemController shootEffect, ParticleSystemController takeDamageEffect,
-            Barrel barrel, int damage, HealthModel health,
-            CannonProjectileSpawner projectileSpawner, TeamColorChanger colorChanger,
+        public CannonModel(
+            Transform transfrom,
+            TriggerObserver triggerObserver,
+            Team team,
+            Animator animator,
+            ParticleSystemController shootEffect,
+            ParticleSystemController takeDamageEffect,
+            Barrel barrel,
+            int damage,
+            HealthModel health,
+            CannonProjectileSpawner projectileSpawner,
+            TeamColorChanger colorChanger,
             List<ColorChangerMark> marksForRecoloring = null)
         {
             _transfrom = transfrom;
@@ -49,18 +56,18 @@ namespace Base.GameLogic.Cannon
             Recolor();
         }
 
-        public int DamageTaken => (int)(_health.MaxValue - _health.Current);
-        public Transform Transform => _transfrom;
-
         public event Action Destroyed;
         public event Action<float> HealthChanged;
+
+        public int DamageTaken => (int)(_health.MaxValue - _health.Current);
+        public Transform Transform => _transfrom;
 
         public void Enable()
         {
             if (_enabled)
                 return;
 
-            if(_enemyCannon == null)
+            if (_enemyCannon == null)
                 throw new NullReferenceException(nameof(_enemyCannon));
 
             _enabled = true;
@@ -72,7 +79,7 @@ namespace Base.GameLogic.Cannon
 
         public void Disable()
         {
-            if(_enabled == false)
+            if (_enabled == false)
                 return;
 
             _enabled = false;

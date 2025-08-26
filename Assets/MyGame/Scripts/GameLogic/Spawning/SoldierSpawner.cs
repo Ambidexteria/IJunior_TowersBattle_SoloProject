@@ -13,8 +13,15 @@ public class SoldierSpawner : GenericSpawner<SoldierSetup>
     private readonly AudioPlayerService _audioPlayer;
 
     [Inject]
-    public SoldierSpawner(Team team,  SoldierData stats, ICoroutineRunner coroutineRunner, TeamColorChanger colorChanger, SpawnerSettings settings, 
-        GenericSpawnableObjectFactory<SoldierSetup> factory, AudioPlayerService audioPlayer) : base(settings, factory) 
+    public SoldierSpawner(
+        Team team,  
+        SoldierData stats, 
+        ICoroutineRunner coroutineRunner, 
+        TeamColorChanger colorChanger, 
+        SpawnerSettings settings, 
+        GenericSpawnableObjectFactory<SoldierSetup> factory, 
+        AudioPlayerService audioPlayer) 
+        : base(settings, factory) 
     {
         _team = team;
         _stats = stats;

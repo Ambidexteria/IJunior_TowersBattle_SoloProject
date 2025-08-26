@@ -7,7 +7,7 @@ public class ControlPointDatabase : MonoBehaviour
 {
     [SerializeField] private Transform _playerSpawnSoldierPosition;
 
-    private List<ControlPoint> _controlPoints = new();
+    private List<ControlPoint> _controlPoints = new List<ControlPoint>();
 
     public event Action<ControlPoint> ControlPointCaptured;
 

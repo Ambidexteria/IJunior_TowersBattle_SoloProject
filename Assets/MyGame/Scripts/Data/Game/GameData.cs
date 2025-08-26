@@ -1,5 +1,5 @@
-using Base.Shop;
 using System;
+using Base.Shop;
 
 namespace Base.Data.Game
 {
@@ -13,10 +13,10 @@ namespace Base.Data.Game
 
         public GameData()
         {
-            PlayerData = new();
-            UpgradePrices = new();
-            StagesData = new();
-            GameSettings = new();
+            PlayerData = new PlayerData();
+            UpgradePrices = new UpgradePrices();
+            StagesData = new StagesData();
+            GameSettings = new GameSettings();
         }
     }
 }

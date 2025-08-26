@@ -14,7 +14,7 @@ namespace Base.Data
                 if (tempIcon.name == iconName)
                     icon = tempIcon;
 
-            if(icon == null)
+            if (icon == null)
                 throw new System.NullReferenceException(nameof(icon));
 
             return icon;

@@ -3,5 +3,5 @@ public enum SoldierStateType
     Idle,
     Move,
     Attack,
-    Die
+    Die,
 }

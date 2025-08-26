@@ -1,9 +1,8 @@
-﻿using Base.GameLogic.UpgradeSystem;
+﻿using System;
+using Base.GameLogic.UpgradeSystem;
 using Base.PLayer;
 using Base.Services.PluginYG;
 using Base.Services.SaveLoad;
-using System;
-using YG;
 
 namespace Base.Shop
 {
@@ -16,7 +15,10 @@ namespace Base.Shop
         private readonly ISaveLoadService _saveLoadService;
         private readonly UpgradePrices _prices;
 
-        public ShopModel(Wallet wallet, RegularUpgradeSystem upgradeSystem, ISaveLoadService saveLoadService, 
+        public ShopModel(
+            Wallet wallet,
+            RegularUpgradeSystem upgradeSystem,
+            ISaveLoadService saveLoadService,
             UpgradePrices prices)
         {
             _wallet = wallet;
@@ -25,13 +27,6 @@ namespace Base.Shop
             _prices = prices;
         }
 
-        public int RewardCoinsAmount => RewardCoins;
-        public int CannonHealthUpgradePrice => _prices.CannonHealth;
-        public int CannonDamageUpgradePrice => _prices.CannonDamage;
-        public int SpawnTimeUpgradePrice => _prices.SpawnTime;
-        public int SoldierDamageUpgradePrice => _prices.SoldierDamage;
-        public int SoldierHealthUpgradePrice => _prices.SoldierHealth;
-
         public event Action<int> CurrentGoldChanged;
 
         public event Action<string> CannonDamageUpgradeLevelChanged;
@@ -39,6 +34,13 @@ namespace Base.Shop
         public event Action<string> SpawnTimehUpgradeLevelChanged;
         public event Action<string> SoldierDamageUpgradeLevelChanged;
         public event Action<string> SoldierHealthUpgradeLevelChanged;
+
+        public int RewardCoinsAmount => RewardCoins;
+        public int CannonHealthUpgradePrice => _prices.CannonHealth;
+        public int CannonDamageUpgradePrice => _prices.CannonDamage;
+        public int SpawnTimeUpgradePrice => _prices.SpawnTime;
+        public int SoldierDamageUpgradePrice => _prices.SoldierDamage;
+        public int SoldierHealthUpgradePrice => _prices.SoldierHealth;
 
         public void Enable()
         {
@@ -84,7 +86,7 @@ namespace Base.Shop
                 }
             }
         }
-        
+
         public void BuySoldierDamageUpgrade()
         {
             if (_wallet.IsEnoughMoney(SoldierDamageUpgradePrice))

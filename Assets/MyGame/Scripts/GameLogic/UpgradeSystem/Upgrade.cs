@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace Base.GameLogic.UpgradeSystem
 {
@@ -13,16 +13,15 @@ namespace Base.GameLogic.UpgradeSystem
         [JsonRequired]
         private int _currentLevel = 0;
 
-        public float UpgradeValue => _upgradeValue;
-
-        public string CurrentLevelText => $"{_currentLevel}/{_maxLevel}";
-
         public Upgrade(int currentLevel, int maxLevel, float upgradeValue)
         {
             _currentLevel = currentLevel;
             _maxLevel = maxLevel;
             _upgradeValue = upgradeValue;
         }
+
+        public float UpgradeValue => _upgradeValue;
+        public string CurrentLevelText => $"{_currentLevel}/{_maxLevel}";
 
         public bool TryIncreaseLevel()
         {

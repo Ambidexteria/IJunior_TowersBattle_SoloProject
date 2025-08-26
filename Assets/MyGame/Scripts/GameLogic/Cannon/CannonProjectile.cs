@@ -16,10 +16,10 @@ namespace Base.GameLogic.Cannon
         private int _damage;
         private Team _team;
 
+        public event Action<CannonProjectile> Despawning;
+
         public TeamType TeamType => _team.Type;
         public int Damage => _damage;
-
-        public event Action<CannonProjectile> Despawning;
 
         [Inject]
         private void Init(TeamColorChanger colorChanger)

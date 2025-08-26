@@ -1,6 +1,6 @@
+using System;
 using Base.GameLogic.Cannon;
 using Base.GameLogic.ShootMinigame;
-using System;
 
 public class Player
 {
@@ -14,8 +14,14 @@ public class Player
 
     private bool _enabled = false;
 
-    public Player(Team team, CannonModel cannon, CannonEnergyBarModel energyBar, ShootMinigameModel shootMinigame, 
-        SoldierSpawnControllerModel soldierSpawnerController, SoldierSelector soldierSelector, int selfDamage = 5)
+    public Player(
+        Team team,
+        CannonModel cannon,
+        CannonEnergyBarModel energyBar,
+        ShootMinigameModel shootMinigame,
+        SoldierSpawnControllerModel soldierSpawnerController,
+        SoldierSelector soldierSelector,
+        int selfDamage = 5)
     {
         _team = team;
         _cannon = cannon;
@@ -26,24 +32,24 @@ public class Player
         _selfDamage = selfDamage;
     }
 
-    public SoldierSelector SoldierSelector => _soldierSelector;
-    public CannonEnergyBarModel CannonEnergyBar => _energyBar;
-    public Team Team => _team;
-
     public event Action Defeated;
     public event Action<SoldierModel> SoldiersSpawned;
     public event Action<bool> ShooMinigameWinned;
 
+    public SoldierSelector SoldierSelector => _soldierSelector;
+    public CannonEnergyBarModel CannonEnergyBar => _energyBar;
+    public Team Team => _team;
+
     public void Enable()
     {
-        if(_enabled) 
+        if (_enabled)
             return;
 
         _cannon.Destroyed += OnCannonDestroyed;
         _soldierSpawnerController.Spawned += OnSoldierSpawned;
         _shootMinigame.Winned += OnWinMinigame;
         _shootMinigame.Loosed += OnLooseMinigame;
-        
+
         _cannon.Enable();
         _energyBar.Enable();
         _soldierSpawnerController.Enable();

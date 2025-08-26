@@ -6,8 +6,7 @@ public class PathFollower : MonoBehaviour
     [SerializeField] private int _maxPoints = 10;
     [SerializeField] private float _yOffsetCoefficient = 1.5f;
 
-    private readonly List<Vector3> _points = new();
-
+    private List<Vector3> _points = new List<Vector3>();
     private float _speed;
     private int _currentPointIndex;
     private bool _enabled = false;

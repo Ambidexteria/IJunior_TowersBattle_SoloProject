@@ -1,7 +1,7 @@
-using Base.Health;
-using Base.Logic;
 using System.Collections.Generic;
 using UnityEngine;
+using Base.Health;
+using Base.Logic;
 
 namespace Base.GameLogic.Cannon
 {
@@ -16,11 +16,25 @@ namespace Base.GameLogic.Cannon
 
         private CannonModel _model;
 
-        public CannonModel CreateCannonModel(Team team, int damage,TeamColorChanger colorChanger,
-            CannonProjectileSpawner projectileSpawner, HealthModel healthModel)
+        public CannonModel CreateCannonModel(
+            Team team,
+            int damage,
+            TeamColorChanger colorChanger,
+            CannonProjectileSpawner projectileSpawner,
+            HealthModel healthModel)
         {
-            _model = new CannonModel(transform, _projectileCollider, team, _animator, _shootEffect,
-                _takeDamageEffect, _barrel, damage, healthModel, projectileSpawner, colorChanger,_colorChangerMarks);
+            _model = new CannonModel(transform,
+                _projectileCollider,
+                team,
+                _animator,
+                _shootEffect,
+                _takeDamageEffect,
+                _barrel,
+                damage,
+                healthModel,
+                projectileSpawner,
+                colorChanger,
+                _colorChangerMarks);
 
             return _model;
         }

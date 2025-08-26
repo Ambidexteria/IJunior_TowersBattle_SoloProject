@@ -1,7 +1,6 @@
-using Base.Infrastructure;
 using System;
 using System.Collections;
-using System.Collections.Generic;
+using Base.Infrastructure;
 using UnityEngine;
 using UnityEngine.UI;
 

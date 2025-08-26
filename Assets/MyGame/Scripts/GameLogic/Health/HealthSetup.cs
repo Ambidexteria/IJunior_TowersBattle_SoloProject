@@ -1,7 +1,7 @@
-using Base.Health;
-using Base.Infrastructure;
 using UnityEngine;
 using System;
+using Base.Health;
+using Base.Infrastructure;
 
 namespace Base
 {
@@ -14,7 +14,7 @@ namespace Base
 
         public HealthModel GetModel()
         {
-            if(_model == null )
+            if (_model == null)
                 throw new NullReferenceException();
 
             return _model;

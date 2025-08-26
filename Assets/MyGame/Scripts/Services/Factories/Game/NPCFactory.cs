@@ -63,7 +63,7 @@ namespace Base.Services.Factories.Game
                 _soldierFactory, _audioPlayer);
 
             SoldierSpawnControllerModel spawnController = _npcSpawnControllerSetup.CreateModel(_startSpawnDelay,
-                soldierData.SpawnDelay, _spawnRadius ,soldierSpawnPoint, _soldierDespawnDetector, team, spawner, 
+                soldierData.SpawnDelay, _spawnRadius ,soldierSpawnPoint, _soldierDespawnDetector, spawner, 
                 _coroutineRunner);
 
             NPCCannonController cannonController = new(cannon, energyBar);

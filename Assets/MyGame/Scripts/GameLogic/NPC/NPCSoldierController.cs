@@ -1,7 +1,7 @@
-using System.Collections.Generic;
 using System.Collections;
-using UnityEngine;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using Base.Infrastructure;
 
 public class NPCSoldierController
@@ -14,19 +14,21 @@ public class NPCSoldierController
     private readonly int _commandCount = 2;
     private readonly Team _team;
     private readonly ICoroutineRunner _coroutineRunner;
+    private readonly WaitForSeconds _startCommandDelay;
+    private readonly WaitForSeconds _waitNextCommand;
 
     private Coroutine _coroutine;
-    private WaitForSeconds _startCommandDelay;
-    private WaitForSeconds _waitNextCommand;
     private bool _enabled = false;
 
-    public NPCSoldierController(ControlPointDatabase controlPointDatabase, SoldierSpawnControllerModel spawnController,
-        float startCommandDelay, float nextCommandDelay, Team team, ICoroutineRunner coroutineRunner)
+    public NPCSoldierController(
+        ControlPointDatabase controlPointDatabase,
+        SoldierSpawnControllerModel spawnController,
+        float startCommandDelay,
+        float nextCommandDelay,
+        Team team,
+        ICoroutineRunner coroutineRunner)
     {
-        ExceptionsTest.NullRefConstructorTest(nameof(NPCSoldierController), controlPointDatabase, spawnController,
-            team, coroutineRunner);
-
-        _soldiers = new();
+        _soldiers = new List<SoldierModel>();
         _controlPointDatabase = controlPointDatabase;
         _spawnController = spawnController;
         _startDelay = startCommandDelay;
@@ -52,7 +54,7 @@ public class NPCSoldierController
 
     public void Disable()
     {
-        if(_enabled == false)
+        if (_enabled == false)
             return;
 
         _enabled = false;
@@ -71,7 +73,7 @@ public class NPCSoldierController
         _coroutine = _coroutineRunner.LaunchCoroutine(SendSoldierToControlPointCoroutine());
     }
 
-    private  void StopSendingSoldiers()
+    private void StopSendingSoldiers()
     {
         if (_coroutine != null)
             _coroutineRunner.EndCoroutine(_coroutine);
@@ -83,7 +85,7 @@ public class NPCSoldierController
 
         while (_enabled)
         {
-            for (int i = 0; i < _commandCount; i++) 
+            for (int i = 0; i < _commandCount; i++)
             {
                 SendSoldierToControlPoint();
             }

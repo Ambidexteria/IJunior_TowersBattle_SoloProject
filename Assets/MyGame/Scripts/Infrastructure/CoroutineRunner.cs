@@ -1,4 +1,3 @@
-using Base.Data.Scenes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +6,7 @@ namespace Base.Infrastructure
 {
     public class CoroutineRunner : MonoBehaviour, ICoroutineRunner
     {
-        private readonly List<Coroutine> _launchedCoroutines = new();
+        private readonly List<Coroutine> _launchedCoroutines = new List<Coroutine>();
 
         public Coroutine LaunchCoroutine(IEnumerator enumerator)
         {

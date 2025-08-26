@@ -39,15 +39,6 @@ namespace Base.Shop
 
         public event Action RewardAdsClicked;
 
-        private void Awake()
-        {
-            ExceptionsTest.NullRefMethodTest(nameof(ShopView), nameof(Awake),
-                _cannonDamageUpgrade, _cannonDamageUpgradeLevel, _cannonDamageUpgradePrice,
-                _cannonHealthUpgrade, _cannonHealthUpgradeLevel, _cannonHealthUpgradePrice,
-                _spawnTimeUpgrade, _spawnTimeUpgradeLevel, _spawnTimeUpgradePrice,
-                _currentGoldAmount, _rewardAdsButton);
-        }
-
         private void OnEnable()
         {
             _cannonDamageUpgrade.Clicked += OnCannonDamageUpgradeClicked;
@@ -102,7 +93,7 @@ namespace Base.Shop
 
         public void DisplaySoldierHealthUpgradeLevel(string text)
         {
-            _soldierHealthUpgradeLevel.text  = text;
+            _soldierHealthUpgradeLevel.text = text;
         }
 
         public void SetCannonHealthUpgradePrice(int price)

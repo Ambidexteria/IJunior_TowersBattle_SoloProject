@@ -67,7 +67,7 @@ namespace Base.Services.Factories.Game
 
             SoldierSpawnControllerModel spawnController = _playerSpawnControllerSetup.CreateModel(
                 _startSpawnDelay, soldierStats.SpawnDelay, _spawnRadius, soldierSpawnPoint,
-                _soldierDespawnDetector, team, spawner, _coroutineRunner);
+                _soldierDespawnDetector, spawner, _coroutineRunner);
 
             ShootMinigameModel shootMinigame = _shootMinigameSetup.CreateShootMinigameModel(cannonEnergyBar,
                 _timeController, _coroutineRunner);

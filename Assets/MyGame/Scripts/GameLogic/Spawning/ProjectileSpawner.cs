@@ -4,7 +4,8 @@ public class ProjectileSpawner : GenericSpawner<Projectile>
 {
     private readonly Transform _parentObject;
 
-    public ProjectileSpawner(SpawnerSettings settings, GenericSpawnableObjectFactory<Projectile> factory, Transform parentObject) : base(settings, factory)
+    public ProjectileSpawner(SpawnerSettings settings, GenericSpawnableObjectFactory<Projectile> factory, Transform parentObject) 
+        : base(settings, factory)
     {
         _parentObject = parentObject;
     }

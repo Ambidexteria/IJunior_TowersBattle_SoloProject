@@ -1,6 +1,6 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Base.Logic;
 using Base.Soldier;
@@ -19,7 +19,7 @@ public class TargetDetector
     {
         _triggerObserver = triggerObserver;
         _team = team;
-        _enemySoldiers = new();
+        _enemySoldiers = new List<ISoldier>();
     }
 
     public event Action<ISoldier> Detected;

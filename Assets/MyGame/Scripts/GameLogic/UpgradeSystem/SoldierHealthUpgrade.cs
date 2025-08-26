@@ -2,7 +2,8 @@
 {
     public class SoldierHealthUpgrade : Upgrade
     {
-        public SoldierHealthUpgrade(int currentLevel, int maxLevel, float upgradeValue) : base(currentLevel, maxLevel, upgradeValue)
+        public SoldierHealthUpgrade(int currentLevel, int maxLevel, float upgradeValue) 
+            : base(currentLevel, maxLevel, upgradeValue)
         {
         }
     }

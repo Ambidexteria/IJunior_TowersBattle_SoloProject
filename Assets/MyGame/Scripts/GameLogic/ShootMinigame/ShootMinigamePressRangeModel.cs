@@ -1,8 +1,8 @@
-using Base.Infrastructure;
-using Base.Services.TimeManagment;
 using System;
 using System.Collections;
 using UnityEngine;
+using Base.Infrastructure;
+using Base.Services.TimeManagment;
 
 namespace Base.GameLogic.ShootMinigame
 {
@@ -26,8 +26,12 @@ namespace Base.GameLogic.ShootMinigame
 
         private bool _enabled = false;
 
-        public ShootMinigamePressRangeModel(float pressRangeWidthCoefficienr, float sliderSpeedRate, RectTransform fullPressRange,
-            TimeController timeController, ICoroutineRunner coroutineRunner)
+        public ShootMinigamePressRangeModel(
+            float pressRangeWidthCoefficienr,
+            float sliderSpeedRate,
+            RectTransform fullPressRange,
+            TimeController timeController,
+            ICoroutineRunner coroutineRunner)
         {
             _pressRangeWidthCoefficient = pressRangeWidthCoefficienr;
             _sliderSpeedRate = sliderSpeedRate;
@@ -39,18 +43,19 @@ namespace Base.GameLogic.ShootMinigame
             CalculateStaticValues();
         }
 
-        public float PressRangeWidth => _pressRangeWidth;
-
         public event Action<float> ValueChanged;
         public event Action<float> PlacingPressRange;
+
+        public float PressRangeWidth => _pressRangeWidth;
 
         public void Enable()
         {
             if (_enabled)
                 return;
 
-            PlaceRange();
             _enabled = true;
+
+            PlaceRange();
         }
 
         public void Disable()
@@ -58,11 +63,12 @@ namespace Base.GameLogic.ShootMinigame
             if (_enabled == false)
                 return;
 
+            _enabled = false;
+
             if (_coroutine != null)
                 _coroutineRunner.EndCoroutine(_coroutine);
-
-            _enabled = false;
         }
+
         public bool IsCurrentValueInPressRange()
         {
             return _currentValue >= _minPressValue && _currentValue <= _maxPressValue;
@@ -88,7 +94,7 @@ namespace Base.GameLogic.ShootMinigame
             float nextValue;
             ValueChanged?.Invoke(_fullRangeMinValue);
 
-            while (true)
+            while (_enabled)
             {
                 nextValue = _currentValue + speed * Time.deltaTime;
                 nextValue = Mathf.Clamp(nextValue, _fullRangeMinValue, _fullRangeMaxValue);

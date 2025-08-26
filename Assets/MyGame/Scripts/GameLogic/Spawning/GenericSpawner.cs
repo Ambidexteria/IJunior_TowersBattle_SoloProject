@@ -2,7 +2,8 @@ using UnityEngine;
 using UnityEngine.Pool;
 using Zenject;
 
-public abstract class GenericSpawner<Type> where Type : SpawnableObject
+public abstract class GenericSpawner<Type> where Type
+    : SpawnableObject
 {
     private readonly int _poolDefaultCapacity = 20;
     private readonly int _poolMaxSize = 100;
@@ -15,8 +16,8 @@ public abstract class GenericSpawner<Type> where Type : SpawnableObject
     [Inject]
     public GenericSpawner(SpawnerSettings settings, GenericSpawnableObjectFactory<Type> factory)
     {
-        _poolDefaultCapacity = settings.poolDefaultCapacity;
-        _poolMaxSize = settings.poolMaxSize;
+        _poolDefaultCapacity = settings.PoolDefaultCapacity;
+        _poolMaxSize = settings.PoolMaxSize;
         _factory = factory;
 
         InitializePool();
@@ -50,8 +51,7 @@ public abstract class GenericSpawner<Type> where Type : SpawnableObject
             actionOnRelease: (spawnableObject) => spawnableObject.gameObject.SetActive(false),
             actionOnDestroy: (spawnableObject) => GameObject.Destroy(spawnableObject.gameObject),
             defaultCapacity: _poolDefaultCapacity,
-            maxSize: _poolMaxSize
-            );
+            maxSize: _poolMaxSize);
     }
 
     private Type Create()

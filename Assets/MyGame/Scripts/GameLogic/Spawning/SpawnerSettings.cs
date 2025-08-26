@@ -3,6 +3,6 @@ using System;
 [Serializable]
 public class SpawnerSettings
 {
-    public int poolDefaultCapacity = 10;
-    public int poolMaxSize = 50;
+    public int PoolDefaultCapacity = 10;
+    public int PoolMaxSize = 50;
 }

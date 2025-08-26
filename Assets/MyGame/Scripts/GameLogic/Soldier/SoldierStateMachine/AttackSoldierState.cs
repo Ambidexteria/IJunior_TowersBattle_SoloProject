@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AttackSoldierState : ISoldierState
 {
-    private readonly  Animator _animator;
+    private readonly Animator _animator;
     private readonly IAttacker _soldier;
 
     private ISoldier _attackTarget;

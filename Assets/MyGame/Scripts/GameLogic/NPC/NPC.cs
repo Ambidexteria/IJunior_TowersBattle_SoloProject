@@ -15,15 +15,15 @@ public class NPC
         _soldierSpawnController = soldierSpawnController;
     }
 
-    public int CannonDamageTaken => _cannonController.CannonDamageTaken;
-
     public event Action Defeated;
     public event Action SoldierSpawned;
     public event Action CannonShooted;
 
+    public int CannonDamageTaken => _cannonController.CannonDamageTaken;
+
     public void Enable()
     {
-        if(_enabled) 
+        if (_enabled)
             return;
 
         _cannonController.Enable();

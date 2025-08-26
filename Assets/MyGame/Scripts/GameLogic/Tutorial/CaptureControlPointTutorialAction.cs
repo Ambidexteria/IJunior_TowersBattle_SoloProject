@@ -9,13 +9,17 @@ namespace Base.GameLogic.Tutorial
         private readonly TutorialBattleController _tutorialBattleController;
         private Transform _target;
 
-        public CaptureControlPointTutorialAction(ControlPoint controlPoint, Team team, TutorialBattleController tutorialBattleController)
+        public CaptureControlPointTutorialAction(
+            ControlPoint controlPoint,
+            Team team,
+            TutorialBattleController tutorialBattleController)
         {
             _controlPoint = controlPoint;
             _team = team;
             _tutorialBattleController = tutorialBattleController;
             _target = controlPoint.transform;
         }
+
         public void Enable()
         {
             _tutorialBattleController.PlaceArrow(_target);

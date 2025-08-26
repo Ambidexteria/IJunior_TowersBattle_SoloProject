@@ -13,8 +13,6 @@ public class SoldierStateMachine
     private SoldierStateType _previousStateType;
     private bool _enabled = false;
 
-    public bool IsIdle => _currentStateType == SoldierStateType.Idle;
-
     public SoldierStateMachine(Animator animator, ISoldier solder)
     {
         _animator = animator;
@@ -22,6 +20,8 @@ public class SoldierStateMachine
 
         InitializeStatesDictionary();
     }
+
+    public bool IsIdle => _currentStateType == SoldierStateType.Idle;
 
     public void Enable()
     {
@@ -117,10 +117,10 @@ public class SoldierStateMachine
 
     private void InitializeStatesDictionary()
     {
-        MovingSoldierState moveState = new(_animator, _soldier);
-        AttackSoldierState attackState = new(_animator, _soldier, _soldier);
-        DieSoldierState dieState = new(_animator);
-        IdleSoldierState idleState = new(_animator);
+        MovingSoldierState moveState = new MovingSoldierState(_animator, _soldier);
+        AttackSoldierState attackState = new AttackSoldierState(_animator, _soldier, _soldier);
+        DieSoldierState dieState = new DieSoldierState(_animator);
+        IdleSoldierState idleState = new IdleSoldierState(_animator);
 
         moveState.TargetReached += SetIdleState;
         attackState.AllTargetsDestroyed += ReturnToPreviousState;
@@ -128,10 +128,10 @@ public class SoldierStateMachine
 
         _soldierStates = new Dictionary<SoldierStateType, ISoldierState>
         {
-            {SoldierStateType.Idle, idleState },
-            {SoldierStateType.Move, moveState },
-            {SoldierStateType.Attack, attackState },
-            {SoldierStateType.Die, dieState },
+            { SoldierStateType.Idle, idleState },
+            { SoldierStateType.Move, moveState },
+            { SoldierStateType.Attack, attackState },
+            { SoldierStateType.Die, dieState },
         };
     }
 }

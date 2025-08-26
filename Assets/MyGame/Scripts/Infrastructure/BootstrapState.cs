@@ -1,8 +1,8 @@
-﻿using Base.Data;
+﻿using System.Collections;
+using Base.Data;
 using Base.Data.Scenes;
 using Base.Services.PluginYG;
 using Base.Services.SceneManagment;
-using System.Collections;
 using YG;
 
 namespace Base.Infrastructure
@@ -11,17 +11,18 @@ namespace Base.Infrastructure
     {
         private readonly SceneLoader _sceneLoader;
         private readonly ICoroutineRunner _coroutineRunner;
-        private readonly InputService _input;
         private readonly GameStateMachine _gameStateMachine;
 
         private SceneData _currentSceneData;
 
-        public BootstrapState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, ICoroutineRunner coroutineRunner, InputService input)
+        public BootstrapState(
+            GameStateMachine gameStateMachine, 
+            SceneLoader sceneLoader, 
+            ICoroutineRunner coroutineRunner)
         {
             _gameStateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
             _coroutineRunner = coroutineRunner;
-            _input = input;
         }
 
         public void Enter(SceneData sceneData)

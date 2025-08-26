@@ -1,11 +1,9 @@
+using UnityEngine;
 using Base.GameLogic.UpgradeSystem;
 using Base.PLayer;
 using Base.Services.PersistentProgress;
 using Base.Services.SaveLoad;
-using System.Diagnostics;
-using UnityEngine;
 using Zenject;
-using Zenject.SpaceFighter;
 
 namespace Base.Shop
 {
@@ -22,7 +20,10 @@ namespace Base.Shop
         private ShopPresenter _presenter;
 
         [Inject]
-        private void Init(Wallet wallet, RegularUpgradeSystem upgradeSystem, ISaveLoadService saveLoadService,
+        private void Init(
+            Wallet wallet, 
+            RegularUpgradeSystem upgradeSystem, 
+            ISaveLoadService saveLoadService,
             IPersisentDataService prices)
         {
             _wallet = wallet;

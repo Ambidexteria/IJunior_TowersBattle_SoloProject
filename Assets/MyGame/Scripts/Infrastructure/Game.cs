@@ -15,8 +15,8 @@ namespace Base.Infrastructure
         {
             _gameStateMachine = gameStateMachine;
 
-            _mainMenuSceneData = new(SceneNames.MainMenu);
-            _gameSceneData = new(SceneNames.Game);
+            _mainMenuSceneData = new (SceneNames.MainMenu);
+            _gameSceneData = new (SceneNames.Game);
 
             _playerInputController = new InputController(input);
             _playerInputController.Enable();

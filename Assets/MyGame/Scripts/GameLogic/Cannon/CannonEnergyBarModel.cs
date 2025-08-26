@@ -1,8 +1,8 @@
-using Base.Infrastructure;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Base.Infrastructure;
 
 namespace Base.GameLogic.Cannon
 {
@@ -28,16 +28,16 @@ namespace Base.GameLogic.Cannon
             _controlPointDatabase = controlPointDatabase;
             _energyMax = maxEnergy;
             _coroutineRunner = coroutineRunner;
-            _controlPoints = new();
+            _controlPoints = new List<ControlPoint>();
 
             _energyIncomeMultiplyer = DefaultEnergyIncomeMultiplyer;
         }
 
-        public float MaxEnergy => _energyMax;
-
-        public event Action<int> EnergyIncomeChanged;
         public event Action Filled;
         public event Action<float> CurrentEnergyChanged;
+        public event Action<int> EnergyIncomeChanged;
+
+        public float MaxEnergy => _energyMax;
 
         public void Enable()
         {

@@ -1,8 +1,8 @@
-using Base.Infrastructure;
-using Base.Soldier;
 using System;
 using System.Collections;
 using UnityEngine;
+using Base.Infrastructure;
+using Base.Soldier;
 
 public class SoldierSpawnControllerModel
 {
@@ -12,11 +12,9 @@ public class SoldierSpawnControllerModel
     private readonly Transform _spawnPoint;
     private readonly SoldierForDespawnDetector _despawnDetector;
 
-    private readonly Team _team;
     private readonly WaitForSeconds _spawnCooldown;
     private readonly WaitForSeconds _startDelay;
     private readonly SoldierSpawner _spawner;
-    private readonly SoldierSetup _soldierSetup;
     private readonly ICoroutineRunner _coroutineRunner;
 
     private Coroutine _spawnCoroutine;
@@ -25,8 +23,13 @@ public class SoldierSpawnControllerModel
     private bool _enabled = false;
     private float _nextSpawnTime = 0;
 
-    public SoldierSpawnControllerModel(float startSpawnDelay, float spawnDelay, float spawnRadius, Transform spawnPoint, 
-        SoldierForDespawnDetector despawnDetector, Team team, SoldierSpawner spawner,
+    public SoldierSpawnControllerModel(
+        float startSpawnDelay, 
+        float spawnDelay, 
+        float spawnRadius, 
+        Transform spawnPoint,
+        SoldierForDespawnDetector despawnDetector, 
+        SoldierSpawner spawner,
         ICoroutineRunner coroutineRunner)
     {
         _startSpawnDelay = startSpawnDelay;
@@ -34,7 +37,6 @@ public class SoldierSpawnControllerModel
         _spawnRadius = spawnRadius;
         _spawnPoint = spawnPoint;
         _despawnDetector = despawnDetector;
-        _team = team;
         _spawner = spawner;
         _coroutineRunner = coroutineRunner;
 
@@ -42,15 +44,15 @@ public class SoldierSpawnControllerModel
         _spawnCooldown = new WaitForSeconds(_spawnDelay);
     }
 
-    public float TimeBeforeNextSpawn { get; private set; }
-
     public event Action<float> TimeBeforeNextSpawnChanged;
     public event Action<SoldierModel> Spawned;
     public event Action<SoldierModel> Despawned;
 
+    public float TimeBeforeNextSpawn { get; private set; }
+
     public void Enable()
     {
-        if(_enabled) 
+        if (_enabled)
             return;
 
         _enabled = true;
@@ -60,7 +62,7 @@ public class SoldierSpawnControllerModel
 
     public void Disable()
     {
-        if(_enabled == false)
+        if (_enabled == false)
             return;
 
         _enabled = false;
@@ -88,7 +90,7 @@ public class SoldierSpawnControllerModel
 
     private IEnumerator CountdownCoroutine()
     {
-        while(_enabled)
+        while (_enabled)
         {
             TimeBeforeNextSpawn = Mathf.Clamp(_nextSpawnTime - Time.time, 0, _spawnDelay);
 

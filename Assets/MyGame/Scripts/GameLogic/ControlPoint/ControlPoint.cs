@@ -1,7 +1,7 @@
-using Base.GameLogic;
-using Base.Soldier;
 using System;
 using UnityEngine;
+using Base.GameLogic;
+using Base.Soldier;
 
 [RequireComponent(typeof(Collider))]
 public class ControlPoint : MonoBehaviour, ISelectable
@@ -13,10 +13,10 @@ public class ControlPoint : MonoBehaviour, ISelectable
     [SerializeField] private Material _defaultMaterial;
     [SerializeField] private int _energyRate = 1;
 
+    public event Action<ControlPoint> Captured;
+
     public TeamType Team => _team;
     public int EnergyRate => _energyRate;
-
-    public event Action<ControlPoint> Captured;
 
     private void Awake()
     {
@@ -37,10 +37,10 @@ public class ControlPoint : MonoBehaviour, ISelectable
     private void ChangeTeam(TeamType team)
     {
         _team = team;
-        
-        if(_team == TeamType.Player)
+
+        if (_team == TeamType.Player)
             _flag.material = _playerColor;
-        else if(_team == TeamType.NPC)
+        else if (_team == TeamType.NPC)
             _flag.material = _npcColor;
         else
             _flag.material = _defaultMaterial;

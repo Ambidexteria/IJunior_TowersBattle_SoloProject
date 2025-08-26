@@ -8,13 +8,13 @@ namespace Base.GameLogic.UpgradeSystem
         private readonly IPersisentDataService _dataService;
         private readonly Upgrades _upgrades;
 
-
         public RegularUpgradeSystem(IPersisentDataService dataService)
         {
             _dataService = dataService;
         }
 
-        public string GetUpgradeLevel<Type>() where Type : Upgrade
+        public string GetUpgradeLevel<Type>() where Type 
+            : Upgrade
         {
             return _dataService.GameData.PlayerData.Upgrades.GetUpgrade<Type>().CurrentLevelText;
         }

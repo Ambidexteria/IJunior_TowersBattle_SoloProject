@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Base.GameLogic.UpgradeSystem
 {
@@ -18,11 +18,12 @@ namespace Base.GameLogic.UpgradeSystem
                 { typeof(CannonDamageUpgrade), new CannonDamageUpgrade(0, 10, 5) },
                 { typeof(SpawnTimeUpgrade), new SpawnTimeUpgrade(0, 5, -1f) },
                 { typeof(SoldierDamageUpgrade), new SoldierDamageUpgrade(0, 5, 0.2f) },
-                { typeof(SoldierHealthUpgrade), new SoldierHealthUpgrade(0, 5, 3f) }
+                { typeof(SoldierHealthUpgrade), new SoldierHealthUpgrade(0, 5, 3f) },
             };
         }
 
-        public Type GetUpgrade<Type>() where Type : Upgrade
+        public Type GetUpgrade<Type>() where Type 
+            : Upgrade
         {
             Type upgrade = null;
 

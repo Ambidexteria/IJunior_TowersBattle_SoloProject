@@ -1,7 +1,6 @@
-using Lean.Localization;
 using System;
-using TMPro;
 using UnityEngine;
+using Lean.Localization;
 
 namespace Base.GameLogic.ShootMinigame
 {

@@ -1,5 +1,5 @@
-﻿using Base.Data.Game;
-using System;
+﻿using System;
+using Base.Data.Game;
 
 namespace Base.Data
 {
@@ -18,8 +18,14 @@ namespace Base.Data
         {
         }
 
-        public StageInfo(string assetPath, string name, string iconName, int winReward, int defeatReward,
-            SoldierData enemySoldier, CannonData enemyCannon)
+        public StageInfo(
+            string assetPath, 
+            string name, 
+            string iconName, 
+            int winReward, 
+            int defeatReward,
+            SoldierData enemySoldier, 
+            CannonData enemyCannon)
         {
             AssetPath = assetPath;
             Name = name;

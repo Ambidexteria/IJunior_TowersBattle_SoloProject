@@ -28,7 +28,7 @@ public class MovingSoldierState : ISoldierState
 
     public void OnUpdate()
     {
-        if(_movable.TargetReached())
+        if (_movable.TargetReached())
             TargetReached?.Invoke();
     }
 }

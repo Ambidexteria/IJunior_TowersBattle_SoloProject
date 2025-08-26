@@ -1,13 +1,13 @@
-using Base.GameLogic;
-using Base.Infrastructure;
-using Base.Services.Audio;
-using Base.Services.Factories.Game;
-using Base.Soldier;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Base.GameLogic;
+using Base.Infrastructure;
+using Base.Services.Audio;
+using Base.Services.Factories.Game;
+using Base.Soldier;
 
 public class SoldierSelector
 {
@@ -32,8 +32,14 @@ public class SoldierSelector
 
     private bool _selectionActive;
 
-    public SoldierSelector(RaycastSettings soldierSelectorSettings, ICoroutineRunner coroutineRunner, InputService inputService,
-        SelectionBoxDrawer selectionBoxDrawer, Team team, AudioPlayerService audioPlayer, float secondCLickDelay = 0.2f)
+    public SoldierSelector(
+        RaycastSettings soldierSelectorSettings,
+        ICoroutineRunner coroutineRunner,
+        InputService inputService,
+        SelectionBoxDrawer selectionBoxDrawer,
+        Team team,
+        AudioPlayerService audioPlayer,
+        float secondCLickDelay = 0.2f)
     {
         _mask = soldierSelectorSettings.LayerMask;
         _raycastLength = soldierSelectorSettings.RaycastLength;
@@ -42,7 +48,7 @@ public class SoldierSelector
         _selectionBoxDrawer = selectionBoxDrawer;
         _team = team;
         _audioPlayer = audioPlayer;
-        _selectedSoldiers = new();
+        _selectedSoldiers = new List<SoldierModel>();
         _secondCLickDelay = secondCLickDelay;
         _camera = Camera.main;
 

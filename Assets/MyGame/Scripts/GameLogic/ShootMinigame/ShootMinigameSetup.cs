@@ -1,8 +1,8 @@
+using UnityEngine;
+using UnityEngine.UI;
 using Base.GameLogic.Cannon;
 using Base.Infrastructure;
 using Base.Services.TimeManagment;
-using UnityEngine;
-using UnityEngine.UI;
 
 namespace Base.GameLogic.ShootMinigame
 {
@@ -28,16 +28,18 @@ namespace Base.GameLogic.ShootMinigame
         private ShootMinigamePressRangeModel _pressRangeModel;
         private ShootMinigamePressRangePresenter _pressRangePresenter;
 
-        public float FullRangeMinValue => _fullRangeRectTransform.anchoredPosition.x;
-        public float FullRangeMaxValue => _fullRangeRectTransform.rect.width;
-
-
-        public ShootMinigameModel CreateShootMinigameModel(CannonEnergyBarModel energyBar, TimeController timeController, 
+        public ShootMinigameModel CreateShootMinigameModel(
+            CannonEnergyBarModel energyBar, 
+            TimeController timeController, 
             ICoroutineRunner coroutineRunner)
         {
             _launcherModel = new ShootMinigameLauncherModel(_launcherModelAnimator, _launchMinigameButtonEffect);
-            _pressRangeModel = new ShootMinigamePressRangeModel(_pressRangeWidthCoefficient, _sliderSpeedRate, 
-                _fullRangeRectTransform, timeController, coroutineRunner);
+            _pressRangeModel = new ShootMinigamePressRangeModel(
+                _pressRangeWidthCoefficient, 
+                _sliderSpeedRate, 
+                _fullRangeRectTransform, 
+                timeController, 
+                coroutineRunner);
 
             _pressRangeView.SetMinMaxValues(_fullRangeRectTransform.anchoredPosition.x, _fullRangeRectTransform.rect.width);
             _pressRangePresenter = new ShootMinigamePressRangePresenter(_pressRangeModel, _pressRangeView);

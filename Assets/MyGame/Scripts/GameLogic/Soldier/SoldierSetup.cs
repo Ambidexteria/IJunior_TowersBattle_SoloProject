@@ -1,11 +1,11 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
 using Base.Data.Game;
 using Base.GameLogic;
 using Base.Infrastructure;
 using Base.Logic;
 using Base.Services.Audio;
-using System;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace Base.Soldier
 {
@@ -40,7 +40,11 @@ namespace Base.Soldier
                 _soldier.Disable();
         }
 
-        public void Init(Team team, SoldierData stats, ICoroutineRunner coroutineRunner, TeamColorChanger colorChanger,
+        public void Init(
+            Team team,
+            SoldierData stats,
+            ICoroutineRunner coroutineRunner,
+            TeamColorChanger colorChanger,
             AudioPlayerService audioPlayer)
         {
             _team = team;
@@ -59,12 +63,26 @@ namespace Base.Soldier
 
             if (_soldier == null)
             {
-                _soldier = new SoldierModel(_groundCollisionController, _animator, _weapon, _enemyTrigger,
-                   _despawnerTrigger, _dieDelay, _marks, _rigidbody, _team, _stats, _coroutineRunner, _colorChanger, 
-                   transform, _audioPlayer, _selectionCircle, _hitEffect);
+                _soldier = new SoldierModel(
+                    _groundCollisionController,
+                    _animator,
+                    _weapon,
+                    _enemyTrigger,
+                   _despawnerTrigger,
+                   _dieDelay,
+                   _marks,
+                   _rigidbody,
+                   _team,
+                   _stats,
+                   _coroutineRunner,
+                   _colorChanger,
+                   transform,
+                   _audioPlayer,
+                   _selectionCircle,
+                   _hitEffect);
 
                 _view.Init(_stats.MaxHealth);
-                _presenter = new(_soldier, _view);
+                _presenter = new SoldierPresenter(_soldier, _view);
                 _presenter.Enable();
             }
 

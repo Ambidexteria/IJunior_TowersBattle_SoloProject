@@ -1,7 +1,7 @@
-using Base.Services.Audio;
 using System;
 using System.Collections;
 using UnityEngine;
+using Base.Services.Audio;
 using Zenject;
 
 public class SoldierWeapon : MonoBehaviour
@@ -21,9 +21,9 @@ public class SoldierWeapon : MonoBehaviour
     private WaitForSeconds _waitStartDelay;
     private bool _isTargetAlive = false;
 
-    public bool IsTargetAlive => _isTargetAlive;
-
     public event Action TargetDestroyed;
+
+    public bool IsTargetAlive => _isTargetAlive;
 
     private void Awake()
     {

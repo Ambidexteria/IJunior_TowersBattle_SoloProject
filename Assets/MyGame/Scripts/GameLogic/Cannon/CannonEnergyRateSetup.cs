@@ -10,10 +10,10 @@ public class CannonEnergyRateSetup : MonoBehaviour
 
     public CannonEnergyRateModel Create(CannonEnergyBarModel energyBar)
     {
-        _model = new(energyBar);
+        _model = new CannonEnergyRateModel(energyBar);
         _model.Enable();
 
-        _presenter = new(_view, _model);
+        _presenter = new CannonEnergyRatePresenter(_view, _model);
         _presenter.Enable();
 
         return _model;

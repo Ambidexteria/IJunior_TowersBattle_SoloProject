@@ -1,8 +1,8 @@
-using Base.Data.Game;
-using Base.Utils;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Base.Data.Game;
+using Base.Utils;
 
 namespace Base.GameLogic.Tutorial
 {
@@ -59,7 +59,8 @@ namespace Base.GameLogic.Tutorial
             _enabled = false;
         }
 
-        public void SetNextAction<TutorialAction>() where TutorialAction : ITutorialAction
+        public void SetNextAction<TutorialAction>() where TutorialAction 
+            : ITutorialAction
         {
             if (_enabled == false)
                 return;

@@ -12,7 +12,7 @@ namespace Base.Data.Game
 
         public GameSettings()
         {
-            AudioVolumeSettings = new();
+            AudioVolumeSettings = new AudioVolumeSettings();
             Language = "ru";
             TutorialEnabled = true;
             CameraPosition = 0;

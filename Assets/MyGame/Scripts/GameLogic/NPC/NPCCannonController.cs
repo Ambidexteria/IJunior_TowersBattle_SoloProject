@@ -1,5 +1,5 @@
-using Base.GameLogic.Cannon;
 using System;
+using Base.GameLogic.Cannon;
 
 public class NPCCannonController
 {
@@ -14,10 +14,10 @@ public class NPCCannonController
         _energyBar = energyBar;
     }
 
-    public int CannonDamageTaken => _cannon.DamageTaken;
-
     public event Action CannonDestroyed;
     public event Action CannonShooted;
+
+    public int CannonDamageTaken => _cannon.DamageTaken;
 
     public void Enable()
     {
@@ -35,7 +35,7 @@ public class NPCCannonController
 
     public void Disable()
     {
-        if(_enabled == false) 
+        if (_enabled == false)
             return;
 
         _cannon.Disable();
