@@ -59,15 +59,15 @@ namespace Base.GameLogic.Tutorial
             _enabled = false;
         }
 
-        public void SetNextAction<TutorialAction>() where TutorialAction 
-            : ITutorialAction
+        public void SetNextAction<T>() 
+            where T : ITutorialAction
         {
             if (_enabled == false)
                 return;
 
             _currentAction?.Disable();
 
-            _currentAction = _actionsDictionary[typeof(TutorialAction)];
+            _currentAction = _actionsDictionary[typeof(T)];
             _currentAction.Enable();
         }
 

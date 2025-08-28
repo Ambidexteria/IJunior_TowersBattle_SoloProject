@@ -13,10 +13,10 @@ namespace Base.GameLogic.UpgradeSystem
             _dataService = dataService;
         }
 
-        public string GetUpgradeLevel<Type>() where Type 
-            : Upgrade
+        public string GetUpgradeLevel<T>() 
+            where T : Upgrade
         {
-            return _dataService.GameData.PlayerData.Upgrades.GetUpgrade<Type>().CurrentLevelText;
+            return _dataService.GameData.PlayerData.Upgrades.GetUpgrade<T>().CurrentLevelText;
         }
 
         public bool TryIncreaseCannonHealth()

@@ -16,7 +16,8 @@ namespace Base.Services.Audio
         private readonly AudioSource _soldierAnswerSource;
         private readonly AudioSource _soldierShootSource;
 
-        public AudioPlayerService(AudioSource musicSource, 
+        public AudioPlayerService(
+            AudioSource musicSource, 
             AudioClip mainMenuMusic,
             AudioClip gameSceneMusic, 
             AudioSource soldierDeathSound, 

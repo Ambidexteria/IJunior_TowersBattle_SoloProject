@@ -1,6 +1,6 @@
 using Zenject;
 
-public class GenericSpawnableObjectFactory<Type> : PlaceholderFactory<Type> where Type 
-    : SpawnableObject
+public class GenericSpawnableObjectFactory<T> : PlaceholderFactory<T> 
+    where T : SpawnableObject
 {
 }

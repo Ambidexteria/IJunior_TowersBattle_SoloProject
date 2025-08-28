@@ -7,8 +7,6 @@
 
         public StageIconPresenter(StageIconView view, StageIconModel model)
         {
-            ExceptionsTest.NullRefConstructorTest(nameof(StageIconPresenter), view, model);
-
             _view = view;
             _model = model;
         }
@@ -41,8 +39,6 @@
 
         private void OnViewCLicked(StageIconView view)
         {
-            ExceptionsTest.NullRefMethodTest(nameof(StageIconPresenter), nameof(OnViewCLicked), view);
-
             _model.Choose();
         }
     }

@@ -41,7 +41,7 @@ namespace Base.Data
                 new StageInfo("Stages/Stage (3)", StageThree, ForrestIcon, 500, 50, new SoldierData(10, 4, 1.2f, 11f), new CannonData(50, 50, 15)),
                 new StageInfo("Stages/Stage (4)", StageFour, DesertIcon, 600, 100, new SoldierData(15, 4, 1.2f, 11f), new CannonData(70, 50, 15)),
                 new StageInfo("Stages/Stage (5)", StageFive, DesertIcon, 700, 100, new SoldierData(15, 4, 1.2f, 11f), new CannonData(100, 50, 15)),
-                new StageInfo("Stages/Stage (6)", StageSix,DesertIcon, 800, 100, new SoldierData(15, 4, 1.4f, 10f), new CannonData(120, 50, 20)),
+                new StageInfo("Stages/Stage (6)", StageSix, DesertIcon, 800, 100, new SoldierData(15, 4, 1.4f, 10f), new CannonData(120, 50, 20)),
                 new StageInfo("Stages/Stage (7)", StageSeven, SnowForestIcon, 900, 150, new SoldierData(20, 4, 1.4f, 10f), new CannonData(150, 50, 25)),
                 new StageInfo("Stages/Stage (8)", StageEight, SnowForestIcon, 1000, 150, new SoldierData(20, 4, 1.4f, 10f), new CannonData(170, 50, 25)),
                 new StageInfo("Stages/Stage (9)", StageNine, SnowForestIcon, 1100, 150, new SoldierData(20, 4, 1.6f, 9f), new CannonData(200, 50, 30)),

@@ -29,9 +29,8 @@ namespace Base.Infrastructure
             };
         }
 
-        public void Enter<TState>() where TState 
-            : class, 
-            IState
+        public void Enter<TState>() 
+            where TState : class, IState
         {
             _activeState?.Exit();
 
@@ -40,9 +39,8 @@ namespace Base.Infrastructure
             state.Enter();
         }
 
-        public void Enter<TState, TPayload>(TPayload payload) where TState 
-            : class, 
-            IPayloadedState<TPayload>
+        public void Enter<TState, TPayload>(TPayload payload) 
+            where TState : class, IPayloadedState<TPayload>
         {
             _activeState?.Exit();
 
@@ -51,9 +49,8 @@ namespace Base.Infrastructure
             state.Enter(payload);
         }
 
-        private TState ConvertState<TState>() where TState 
-            : class, 
-            IExitableState
+        private TState ConvertState<TState>() 
+            where TState : class, IExitableState
         {
             return _states[typeof(TState)] as TState;
         }

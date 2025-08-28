@@ -139,7 +139,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1391757208913530732, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
   m_PrefabInstance: {fileID: 4135631466207130742}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4135631466207130747}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48ee0bd35caaf5140bf3740ab4aa95d1, type: 3}
@@ -552,11 +552,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2ae88378e7d96546bcba2d2d8342de3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &425164775 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2746910647223035168, guid: 2940718e65ded7549ab1473432e11921, type: 3}
-  m_PrefabInstance: {fileID: 425164771}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &449409556
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -878,8 +873,8 @@ MonoBehaviour:
   _playerSpawnControllerSetup: {fileID: 466672093}
   _shootMinigameSetup: {fileID: 1462529301}
   _soldierSpawnerSettings:
-    poolDefaultCapacity: 10
-    poolMaxSize: 50
+    PoolDefaultCapacity: 10
+    PoolMaxSize: 50
   _soldierDespawnDetector: {fileID: 1737975391}
   _soldierSelectorSettings:
     LayerMask:
@@ -1534,11 +1529,6 @@ MonoBehaviour:
 --- !u!224 &786115204 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7197366687959654134, guid: fd775bd279b78a247a6a2f21718a6648, type: 3}
-  m_PrefabInstance: {fileID: 786115200}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &786115205 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3340090802361207340, guid: fd775bd279b78a247a6a2f21718a6648, type: 3}
   m_PrefabInstance: {fileID: 786115200}
   m_PrefabAsset: {fileID: 0}
 --- !u!20 &963194227 stripped
@@ -2546,8 +2536,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnerSettings:
-    poolDefaultCapacity: 10
-    poolMaxSize: 50
+    PoolDefaultCapacity: 10
+    PoolMaxSize: 50
   _soldierDespawnDetector: {fileID: 1737975391}
   _npcHealthSetup: {fileID: 1485914197}
   _cannonEnergyRateSetup: {fileID: 425164774}
@@ -2570,7 +2560,6 @@ GameObject:
   - component: {fileID: 1524025065}
   - component: {fileID: 1524025066}
   - component: {fileID: 1524025067}
-  - component: {fileID: 1524025068}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -2595,11 +2584,11 @@ MonoBehaviour:
   _projectilePrefab: {fileID: 6178834008236417665, guid: f7cc1c658b160d241931534105534072, type: 3}
   _cannonProjectilePrefab: {fileID: 8881767865532895735, guid: d655a32cfdf3432409fc7685b185bd48, type: 3}
   _projectileSpawnerSettings:
-    poolDefaultCapacity: 50
-    poolMaxSize: 100
+    PoolDefaultCapacity: 10
+    PoolMaxSize: 50
   _cannonProjectileSpawnerSettings:
-    poolDefaultCapacity: 5
-    poolMaxSize: 10
+    PoolDefaultCapacity: 10
+    PoolMaxSize: 50
 --- !u!114 &1524025062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2699,23 +2688,6 @@ MonoBehaviour:
   _npcFactory: {fileID: 1485914199}
   _npcCannonSetup: {fileID: 425164772}
   _npcHealthSetup: {fileID: 1485914197}
---- !u!114 &1524025068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1524025060}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37ec769541428ea4f915688ec1b24a05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _uiGameobjects:
-  - {fileID: 4135631466207130747}
-  - {fileID: 786115205}
-  - {fileID: 425164775}
-  _toggleKey: 112
 --- !u!95 &1531964893 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 645200304627392414, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
@@ -4608,11 +4580,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbf51be86e70d7941bd40914206e4ddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &4135631466207130747 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5617443836188350654, guid: 1e01383d9e682bc4cb466ce41b1c7a6e, type: 3}
-  m_PrefabInstance: {fileID: 4135631466207130742}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8286991970257465609
 PrefabInstance:
   m_ObjectHideFlags: 0

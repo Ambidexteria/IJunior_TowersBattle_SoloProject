@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class GenericDetector<Type> : MonoBehaviour where Type 
-    : MonoBehaviour
+public class GenericDetector<T> : MonoBehaviour 
+    where T : MonoBehaviour
 {
 }

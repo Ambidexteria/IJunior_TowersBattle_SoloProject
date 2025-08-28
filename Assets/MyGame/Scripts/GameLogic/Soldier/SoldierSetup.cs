@@ -68,18 +68,18 @@ namespace Base.Soldier
                     _animator,
                     _weapon,
                     _enemyTrigger,
-                   _despawnerTrigger,
-                   _dieDelay,
-                   _marks,
-                   _rigidbody,
-                   _team,
-                   _stats,
-                   _coroutineRunner,
-                   _colorChanger,
-                   transform,
-                   _audioPlayer,
-                   _selectionCircle,
-                   _hitEffect);
+                    _despawnerTrigger,
+                    _dieDelay,
+                    _marks,
+                    _rigidbody,
+                    _team,
+                    _stats,
+                    _coroutineRunner,
+                    _colorChanger,
+                    transform,
+                    _audioPlayer,
+                    _selectionCircle,
+                    _hitEffect);
 
                 _view.Init(_stats.MaxHealth);
                 _presenter = new SoldierPresenter(_soldier, _view);

@@ -23,7 +23,8 @@ namespace Base.GameLogic.Cannon
             CannonProjectileSpawner projectileSpawner,
             HealthModel healthModel)
         {
-            _model = new CannonModel(transform,
+            _model = new CannonModel(
+                transform,
                 _projectileCollider,
                 team,
                 _animator,

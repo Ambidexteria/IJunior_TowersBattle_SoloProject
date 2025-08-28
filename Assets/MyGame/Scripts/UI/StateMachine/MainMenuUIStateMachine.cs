@@ -30,8 +30,8 @@ namespace Base.UI.StateMachine
             };
         }
 
-        public void Enter<TState>() where TState 
-            : IUIState
+        public void Enter<TState>() 
+            where TState : IUIState
         {
             _activeState?.Exit();
 

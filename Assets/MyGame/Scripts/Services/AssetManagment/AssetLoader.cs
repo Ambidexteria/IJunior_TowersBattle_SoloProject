@@ -6,10 +6,10 @@ namespace Base.Services.AssetManagment
     {
         private const string ErrorMessage = "AssetLoader: cannot load resource";
 
-        public Type Instantiate<Type>(string path) where Type 
-            : MonoBehaviour
+        public T Instantiate<T>(string path) 
+            where T : MonoBehaviour
         {
-            Type resource = Resources.Load<Type>(path);
+            T resource = Resources.Load<T>(path);
 
             if (resource == null)
                throw new System.InvalidOperationException($"{nameof(AssetLoader)} - {ErrorMessage}");

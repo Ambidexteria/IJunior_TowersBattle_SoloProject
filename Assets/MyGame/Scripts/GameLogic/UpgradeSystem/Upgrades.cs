@@ -22,13 +22,13 @@ namespace Base.GameLogic.UpgradeSystem
             };
         }
 
-        public Type GetUpgrade<Type>() where Type 
-            : Upgrade
+        public T GetUpgrade<T>() 
+            where T : Upgrade
         {
-            Type upgrade = null;
+            T upgrade = null;
 
-            if (_upgrades.ContainsKey(typeof(Type)))
-                upgrade = (Type)_upgrades[typeof(Type)];
+            if (_upgrades.ContainsKey(typeof(T)))
+                upgrade = (T)_upgrades[typeof(T)];
 
             return upgrade;
         }

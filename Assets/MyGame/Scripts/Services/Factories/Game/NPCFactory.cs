@@ -81,7 +81,8 @@ namespace Base.Services.Factories.Game
                 spawnController,
                 _soldierStartCommandDelay,
                 _soldierNextCommandDelay,
-                team, _coroutineRunner);
+                team, 
+                _coroutineRunner);
 
             NPC npc = new NPC(cannonController, soldierController, spawnController);
 
